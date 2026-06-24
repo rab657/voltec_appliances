@@ -40,7 +40,7 @@ export default async function CellDetail({ product }: { product: Product }) {
           <div className="cellpg-grid">
             <div className="cellpg-media">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/${product.image}`} alt={product.name} />
+              <img src={product.image.startsWith("/") || product.image.startsWith("http") ? product.image : `/${product.image}`} alt={product.name} />
               <span className="cellpg-format">{lc(c.format)}</span>
             </div>
 
@@ -62,6 +62,12 @@ export default async function CellDetail({ product }: { product: Product }) {
               </div>
 
               <div className="cellpg-origin">{t("cell.origin")}</div>
+
+              {product.price ? (
+                <div style={{ fontFamily: "var(--font-display)", fontSize: 28, letterSpacing: "-0.01em", margin: "14px 0 0" }}>
+                  PKR {product.price.toLocaleString()}
+                </div>
+              ) : null}
 
               <div className="sb-mast-cta">
                 <a

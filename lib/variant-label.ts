@@ -14,6 +14,9 @@ export function variantLabel(p: Product): string {
     const m = cfg.match(/(\d+S)/i);
     if (m) return m[1].toUpperCase();
   }
+  // Model-code lines (Voltec A-25 / A-120SP, Wirell T73 / T90) chip by their code.
+  const model = p.name.match(/\b(A-\d{2,3}\w*|T\d{2,3})\b/i);
+  if (model) return model[1].toUpperCase();
   const amp = p.name.match(/(\d+)\s*A\b/);
   if (amp) return amp[1] + "A";
   const tail = p.name.split("—").pop()!.trim();

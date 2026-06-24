@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PRODUCTS, CATEGORIES } from "@/lib/products";
-import { FAMILIES } from "@/lib/showcase-data";
+import { FAMILIES, membersOf } from "@/lib/showcase-data";
 import type { CategoryId } from "@/lib/types";
 import EcomCard from "@/components/EcomCard";
 import FamilyCard from "@/components/FamilyCard";
@@ -10,6 +10,7 @@ import SortSelect from "@/components/SortSelect";
 import JsonLd from "@/components/JsonLd";
 import { SITE, absUrl } from "@/lib/site";
 import { getT } from "@/lib/i18n-server";
+import { getMediaMap, applyMedia } from "@/lib/product-media";
 
 export const metadata: Metadata = {
   title: "Shop Products — Voltage Stabilizers, Lithium Cells & Industrial",
@@ -23,17 +24,32 @@ export default async function ProductsPage({
 }: PageProps<"/products">) {
   const sp = await searchParams;
   const t = await getT();
+  const mediaMap = await getMediaMap();
   const cat = (typeof sp.cat === "string" ? sp.cat : "all") as CategoryId;
   const sort = typeof sp.sort === "string" ? sp.sort : "default";
   const catName = (id: string) => t(`cat.${id}`);
 
-  // Catalog entries: stabilizers/industrial show as FAMILY cards (→ range page,
-  // model picker); cells & parts show as individual product cards (→ own page).
+  // Visibility respects admin overrides (product_overrides.hidden) layered over
+  // the code default. A family with no visible members is dropped entirely.
+  const isHidden = (p: (typeof PRODUCTS)[number]) =>
+    mediaMap[p.id] ? mediaMap[p.id].hidden : Boolean(p.hidden);
+  const famVisible = (slug: string) => {
+    const f = FAMILIES.find((x) => x.slug === slug);
+    return f ? membersOf(f).filter((p) => !isHidden(p)) : [];
+  };
+  const catCount = (id: string) =>
+    PRODUCTS.filter((p) => (id === "all" || p.categoryId === id) && !isHidden(p)).length;
+
+  // Catalog entries: stabilizers/industrial/parts show as FAMILY cards (→ range
+  // page, model picker); cells show as individual product cards (→ own page).
   type Entry = { kind: "family"; slug: string } | { kind: "product"; id: string };
   const stabFamilies = (cid: CategoryId): Entry[] =>
-    FAMILIES.filter((f) => f.categoryId === cid).map((f) => ({ kind: "family", slug: f.slug }));
+    FAMILIES.filter((f) => f.categoryId === cid && famVisible(f.slug).length > 0).map((f) => ({
+      kind: "family",
+      slug: f.slug,
+    }));
   const productsIn = (cid: CategoryId): Entry[] =>
-    PRODUCTS.filter((p) => p.categoryId === cid && !p.hidden).map((p) => ({ kind: "product", id: p.id }));
+    PRODUCTS.filter((p) => p.categoryId === cid && !isHidden(p)).map((p) => ({ kind: "product", id: p.id }));
 
   let entries: Entry[];
   if (cat === "stabilizers") entries = stabFamilies("stabilizers");
@@ -54,10 +70,7 @@ export default async function ProductsPage({
     );
   }
 
-  const productCount =
-    cat === "all"
-      ? PRODUCTS.filter((p) => !p.hidden).length
-      : PRODUCTS.filter((p) => p.categoryId === cat && !p.hidden).length;
+  const productCount = catCount(cat);
   const catLabel = catName(cat);
 
   return (
@@ -109,7 +122,7 @@ export default async function ProductsPage({
                         className={cat === c.id ? "active" : ""}
                       >
                         <span>{catName(c.id)}</span>
-                        <span className="shop-count">{c.count}</span>
+                        <span className="shop-count">{catCount(c.id)}</span>
                       </Link>
                     </li>
                   ))}
@@ -133,9 +146,14 @@ export default async function ProductsPage({
               <div className="ec-grid">
                 {entries.map((e) =>
                   e.kind === "family" ? (
-                    <FamilyCard key={`f-${e.slug}`} family={FAMILIES.find((f) => f.slug === e.slug)!} />
+                    <FamilyCard
+                      key={`f-${e.slug}`}
+                      family={FAMILIES.find((f) => f.slug === e.slug)!}
+                      count={famVisible(e.slug).length}
+                      soon={famVisible(e.slug).length > 0 && famVisible(e.slug).every((p) => p.status === "upcoming")}
+                    />
                   ) : (
-                    <EcomCard key={e.id} p={PRODUCTS.find((p) => p.id === e.id)!} />
+                    <EcomCard key={e.id} p={applyMedia(PRODUCTS.find((p) => p.id === e.id)!, mediaMap)} />
                   ),
                 )}
               </div>

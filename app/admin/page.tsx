@@ -30,6 +30,9 @@ function AdminTopBar({
           <small>Editor · CMS</small>
         </Link>
         <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
+          <Link href="/admin/products" className="nav-link">
+            Products
+          </Link>
           <Link href="/admin/analytics" className="nav-link">
             Analytics
           </Link>

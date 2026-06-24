@@ -12,6 +12,7 @@ import CellDetail from "@/components/CellDetail";
 import "@/styles/stabilizer.css";
 import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
 import { getT, getContent } from "@/lib/i18n-server";
+import { getMediaMap, applyMedia } from "@/lib/product-media";
 
 export function generateStaticParams() {
   return PRODUCTS.map((p) => ({ id: p.id }));
@@ -56,6 +57,8 @@ export default async function ProductDetailPage({
   const t = await getT();
   const { lc } = await getContent();
   const familyName = family ? lc(family.name) : "";
+  const merged = applyMedia(product, await getMediaMap());
+  const gallery = merged.images && merged.images.length ? merged.images : [product.image];
 
   return (
     <>
@@ -110,7 +113,7 @@ export default async function ProductDetailPage({
         }}
       />
       {product.cell ? (
-        <CellDetail product={product} />
+        <CellDetail product={{ ...product, image: gallery[0], images: gallery, price: merged.price }} />
       ) : (
       <main>
         <section style={{ padding: "28px 0 0" }}>
@@ -139,7 +142,7 @@ export default async function ProductDetailPage({
         <section>
           <div className="container">
             <div className="pdp-hero">
-              <PdpGallery image={product.image} category={product.category} />
+              <PdpGallery image={gallery[0]} images={gallery} category={product.category} />
 
               <div className="pdp-info">
                 <div
@@ -252,6 +255,15 @@ export default async function ProductDetailPage({
                     </>
                   )}
                 </div>
+
+                {merged.price ? (
+                  <div style={{ margin: "0 0 24px", display: "flex", alignItems: "baseline", gap: 10 }}>
+                    <span style={{ fontFamily: "var(--font-display)", fontSize: 30, letterSpacing: "-0.01em", color: "var(--ink)" }}>
+                      PKR {merged.price.toLocaleString()}
+                    </span>
+                    <span className="mono" style={{ fontSize: 11, color: "var(--ink-3)" }}>{t("cfg.perunit")}</span>
+                  </div>
+                ) : null}
 
                 <table className="spec-table">
                   <tbody>

@@ -6,11 +6,20 @@ import Placeholder from "./Placeholder";
 
 // Catalog card for a stabilizer family — links to the range page (model picker),
 // not a per-model page.
-export default function FamilyCard({ family }: { family: FamilyMeta }) {
+export default function FamilyCard({
+  family,
+  count,
+  soon: soonProp,
+}: {
+  family: FamilyMeta;
+  /** Visible model count (server-computed, override-aware). Falls back to code. */
+  count?: number;
+  soon?: boolean;
+}) {
   const { t, lc } = useI18n();
   const members = membersOf(family);
-  const n = members.length;
-  const soon = n > 0 && members.every((p) => p.status === "upcoming");
+  const n = count ?? members.length;
+  const soon = soonProp ?? (members.length > 0 && members.every((p) => p.status === "upcoming"));
   const href = `/showcase/${family.slug}`;
   return (
     <div className="ec-card" data-cat={family.categoryId}>

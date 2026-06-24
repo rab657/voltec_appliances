@@ -13,6 +13,7 @@ import CellsHub from "@/components/showcase/CellsHub";
 import JsonLd from "@/components/JsonLd";
 import ViewItemTracker from "@/components/ViewItemTracker";
 import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
+import { getMediaMap, applyMedia } from "@/lib/product-media";
 
 export function generateStaticParams() {
   return FAMILIES.map((f) => ({ family: f.slug }));
@@ -46,7 +47,11 @@ export default async function ShowcasePage({
   const family = familyBySlug(slug);
   if (!family) notFound();
 
-  const members = membersOf(family);
+  const mediaMap = await getMediaMap();
+  const visible = membersOf(family).map((p) => applyMedia(p, mediaMap)).filter((p) => !p.hidden);
+  // Fall back to the full (merged) set if an editor hid every model, so the
+  // model picker never renders empty.
+  const members = visible.length ? visible : membersOf(family).map((p) => applyMedia(p, mediaMap));
   const lead = leadOf(members);
 
   return (

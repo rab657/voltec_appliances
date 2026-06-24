@@ -39,3 +39,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# admin local product-media state (prod uses Supabase)
+/.data
+
+# installed agent skills (local)
+.agents/
+
+# temp DB creds (deleted after schema run)
+.db-conn.json
+
+# Claude Code local + skill symlinks (skills restored via skills-lock.json)
+.claude/skills/
+.claude/settings.local.json

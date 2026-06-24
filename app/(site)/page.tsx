@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { PRODUCTS } from "@/lib/products";
 import { getPublishedPosts } from "@/lib/blog";
-import { FAMILIES, membersOf } from "@/lib/showcase-data";
+import { FAMILIES, membersOf, leadOf } from "@/lib/showcase-data";
 import EcomCard from "@/components/EcomCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { getT, getContent } from "@/lib/i18n-server";
+import { getMediaMap, applyMedia, type MediaMap } from "@/lib/product-media";
 
 const FEATURED_IDS = ["vt-eve-lf100", "vt-eve-lf280k", "vt-ind-200k", "vt-svc-5k"];
 
@@ -14,14 +15,20 @@ const SERVE_KEYS = ["med", "ind", "gov", "home"];
 // Single, non-redundant navigation: the real Voltec product lines. The three
 // stabilizer series (SVC / AVR / IGBT) plus Industrial, Cells and Accessories.
 // Each tile opens that line's showcase, which lists its models.
-function buildRange() {
+function buildRange(mediaMap: MediaMap) {
   const fam = (slug: string) => FAMILIES.find((f) => f.slug === slug)!;
   const tile = (slug: string) => {
     const f = fam(slug);
-    const n = membersOf(f).length;
+    const merged = membersOf(f).map((p) => applyMedia(p, mediaMap));
+    const visible = merged.filter((p) => !p.hidden);
+    // Tile image follows the lead model's admin-managed photo (falls back to the
+    // family asset), so uploading a product image updates the homepage tile too.
+    const lead = leadOf(visible.length ? visible : merged);
+    const raw = lead?.image || f.image;
+    const n = visible.length;
     return {
       href: `/showcase/${f.slug}`,
-      img: `/${f.image}`,
+      img: raw.startsWith("/") || raw.startsWith("http") ? raw : `/${raw}`,
       name: f.name,
       blurb: f.blurb,
       meta: `${n} model${n === 1 ? "" : "s"}`,
@@ -50,11 +57,13 @@ function buildRange() {
 export default async function HomePage() {
   const t = await getT();
   const { lc } = await getContent();
-  const featured = FEATURED_IDS.map((id) => PRODUCTS.find((p) => p.id === id)).filter(
-    (p): p is NonNullable<typeof p> => Boolean(p),
-  );
+  const mediaMap = await getMediaMap();
+  const featured = FEATURED_IDS.map((id) => PRODUCTS.find((p) => p.id === id))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p))
+    .map((p) => applyMedia(p, mediaMap))
+    .filter((p) => !p.hidden);
   const posts = (await getPublishedPosts()).slice(0, 3);
-  const range = buildRange();
+  const range = buildRange(mediaMap);
 
   return (
     <main>

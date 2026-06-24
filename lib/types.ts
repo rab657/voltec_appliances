@@ -28,6 +28,8 @@ export interface Product {
   status?: "upcoming";
   /** Hide from catalog listings/navigation (kept in data for easy re-enable). */
   hidden?: boolean;
+  /** Gallery images (admin-managed). First entry is the primary/cover image. */
+  images?: string[];
   /** Plain-language "what it runs", e.g. "Small home — 1–2 ACs + basics". */
   useFor?: string;
   /** Price in PKR. Optional — when unset the UI shows "Request price". */

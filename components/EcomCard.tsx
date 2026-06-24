@@ -37,6 +37,11 @@ export default function EcomCard({ p }: { p: Product }) {
           {lc(p.name)}
         </Link>
         <div className="ec-spec">{keySpecs}</div>
+        {p.price ? (
+          <div style={{ fontFamily: "var(--font-display)", fontSize: 19, color: "var(--ink)", margin: "2px 0 0" }}>
+            PKR {p.price.toLocaleString()}
+          </div>
+        ) : null}
         <div className="ec-foot">
           <span className={`ec-stock ${upcoming ? "soon" : "in"}`}>
             {upcoming ? t("ec.preorder") : t("ec.instock")}

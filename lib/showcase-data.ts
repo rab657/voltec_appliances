@@ -240,8 +240,8 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
 
   // ====================================================================== AVR
   "stab-avr": {
-    tagline: "Low-cost relay protection that keeps one appliance safe from spikes and sags.",
-    stats: [["&lt;1", "s", "Response time"], ["150–270", "V", "Input range"], ["±5", "%", "Output"], ["1–3", "kVA", "Capacity"]],
+    tagline: "The Voltec A-series — pure-copper relay stabilizers for fridges, deep freezers and air-conditioners, working from as low as 75V.",
+    stats: [["75", "V", "Works from"], ["2.5–12", "kW", "Capacity"], ["220", "V", "Output"], ["100", "%", "Pure copper"]],
     hero: {
       eyebrow: "At a glance", title: "Honest protection, <em>plug & play</em>.",
       intro: "A small relay AVR with a clear LED voltage meter. Hang it on the wall, plug it in, and it protects your appliance right away. No installation needed.",
@@ -613,9 +613,9 @@ export const FAMILIES: FamilyMeta[] = [
     name: "AVR Voltage Stabilizers",
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
-    blurb: "Relay-type tap-switching. Affordable protection for homes and single appliances — safe from spikes, sags and low voltage.",
+    blurb: "Relay-type automatic stabilizers — the Voltec A-series for fridges, deep freezers and air-conditioners. Pure copper, and they work from very low voltage.",
     image: "assets/prod-avr.jpg",
-    tag: "Entry-level",
+    tag: "From 75V",
   },
   {
     slug: "relay",

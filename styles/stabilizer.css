@@ -24,11 +24,8 @@ image-slot::part(empty),
 /* Empty-state caption styling is handled by the component; we frame it. */
 .slot-tech-frame {
   position: relative;
-  background:
-    linear-gradient(var(--rule) 1px, transparent 1px),
-    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
-  background-size: 26px 26px;
-  background-color: var(--paper-2);
+  /* Solid white so product photos shot on white blend seamlessly (no grid box). */
+  background: #fff;
 }
 
 /* ===== Masthead ========================================================== */
