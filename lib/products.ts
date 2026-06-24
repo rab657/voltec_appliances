@@ -263,7 +263,7 @@ export const PRODUCTS: Product[] = [
     price: 6500,
     description:
       "Voltec's A-25 is an automatic voltage stabilizer for refrigerators and deep freezers (6–18 cubic feet). 2500W, 100% pure copper, with fast, accurate relay correction and a time-delay system that protects the compressor. Works from very low voltage and holds a steady 220V. Available in 150V, 120V, 100V and 70V input versions with 3, 4, 5 or 7 relays.",
-    image: "assets/prod-avr.jpg",
+    image: "assets/avr-a25.png",
     specs: [
       ["Model", "Voltec A-25"],
       ["Capacity", "2500W"],
@@ -287,7 +287,7 @@ export const PRODUCTS: Product[] = [
     price: 25000,
     description:
       "Voltec's A-50 (Energy Saver) is a 5000W automatic voltage stabilizer for 1 to 1.5 ton split air-conditioners. 100% pure copper, with a wide 100–260V input held to a steady 220V output, relay correction and overload protection. Available in 150V input with 2 relays.",
-    image: "assets/prod-avr.jpg",
+    image: "assets/avr-a50.png",
     specs: [
       ["Model", "Voltec A-50 (Energy Saver)"],
       ["Capacity", "5000W"],
@@ -309,7 +309,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["A-100", "10000W"],
     description:
       "Voltec's A-100 (R3) is a 10000W automatic voltage stabilizer built for air-conditioners — the safety net that keeps your AC running smoothly when the input voltage swings. 99.99% pure copper with 3-relay correction. It protects the compressor from start-up trouble and voltage spikes for long, reliable service.",
-    image: "assets/prod-avr.jpg",
+    image: "assets/avr-a100.webp",
     specs: [
       ["Model", "Voltec A-100 (R3)"],
       ["Capacity", "10000W"],
@@ -330,7 +330,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["A-120SP", "from 75V"],
     description:
       "Voltec's A-120SP is specially designed for low-voltage areas — it works from as low as 75V. A 12000W heavy-duty stabilizer that runs a 1.5/2 ton split AC plus a 1 HP motor, 10 lights and 4 fans together. 99.99% pure copper, 5-relay (R5) correction and a steady 220V output.",
-    image: "assets/prod-avr.jpg",
+    image: "assets/avr-a120sp.webp",
     specs: [
       ["Model", "Voltec A-120SP"],
       ["Capacity", "12000W"],
