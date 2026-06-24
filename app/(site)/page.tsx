@@ -15,20 +15,22 @@ const SERVE_KEYS = ["med", "ind", "gov", "home"];
 // Single, non-redundant navigation: the real Voltec product lines. The three
 // stabilizer series (SVC / AVR / IGBT) plus Industrial, Cells and Accessories.
 // Each tile opens that line's showcase, which lists its models.
+const norm = (s: string) =>
+  s.startsWith("/") || s.startsWith("http") ? s : `/${s}`;
+
 function buildRange(mediaMap: MediaMap) {
   const fam = (slug: string) => FAMILIES.find((f) => f.slug === slug)!;
   const tile = (slug: string) => {
     const f = fam(slug);
     const merged = membersOf(f).map((p) => applyMedia(p, mediaMap));
     const visible = merged.filter((p) => !p.hidden);
-    // Tile image follows the lead model's admin-managed photo (falls back to the
-    // family asset), so uploading a product image updates the homepage tile too.
+    // Band image follows the lead model's admin-managed photo (falls back to the
+    // family asset), so uploading a product image updates the homepage band too.
     const lead = leadOf(visible.length ? visible : merged);
-    const raw = lead?.image || f.image;
     const n = visible.length;
     return {
       href: `/showcase/${f.slug}`,
-      img: raw.startsWith("/") || raw.startsWith("http") ? raw : `/${raw}`,
+      img: norm(lead?.image || f.image),
       name: f.name,
       blurb: f.blurb,
       meta: `${n} model${n === 1 ? "" : "s"}`,
@@ -147,19 +149,26 @@ export default async function HomePage() {
             </Link>
           </div>
           <p className="range-intro" dangerouslySetInnerHTML={{ __html: t("home.rangeIntro") }}></p>
-          <div className="range-grid">
-            {range.map((r) => (
-              <Link key={r.href} href={r.href} className="showcase-tile" data-cat={r.catId}>
-                <div className="showcase-tile-img">
+          <div className="range-bands">
+            {range.map((r, i) => (
+              <Link
+                key={r.href}
+                href={r.href}
+                className={`range-band ${i % 2 === 1 ? "is-flip" : ""}`}
+                data-cat={r.catId}
+              >
+                <div className="range-band-media">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={r.img} alt={r.name} />
-                  <span className="showcase-tile-count">{r.meta}</span>
-                  {r.tag && <span className="showcase-tile-tag">{lc(r.tag)}</span>}
                 </div>
-                <div className="showcase-tile-body">
+                <div className="range-band-body">
+                  <div className="range-band-meta">
+                    <span className="range-band-count">{r.meta}</span>
+                    {r.tag && <span className="range-band-tag">{lc(r.tag)}</span>}
+                  </div>
                   <h3>{lc(r.name)}</h3>
                   <p>{lc(r.blurb)}</p>
-                  <span className="showcase-tile-cta">
+                  <span className="range-band-cta">
                     {t("cta.explore")} <span className="arrow">→</span>
                   </span>
                 </div>
