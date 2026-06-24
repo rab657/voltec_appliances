@@ -75,10 +75,14 @@ export function Slot({
   src,
   label,
   height,
+  cover = false,
 }: {
   src?: string | null;
   label?: string;
   height?: number;
+  /** Fill the slot edge-to-edge (for photos/renders) instead of the default
+   *  contain-on-cream treatment used for product cutouts. */
+  cover?: boolean;
 }) {
   const style: React.CSSProperties = {
     position: "relative",
@@ -94,7 +98,11 @@ export function Slot({
         <img
           src={url}
           alt={label || ""}
-          style={{ width: "100%", height: "100%", objectFit: "contain", padding: "8%", background: "var(--paper)" }}
+          style={
+            cover
+              ? { width: "100%", height: "100%", objectFit: "cover" }
+              : { width: "100%", height: "100%", objectFit: "contain", padding: "8%", background: "var(--paper)" }
+          }
         />
       </div>
     );
@@ -117,6 +125,7 @@ export function AnnoStage({
   slotClass,
   height,
   center,
+  cover = false,
 }: {
   src?: string | null;
   slotPlaceholder: string;
@@ -127,6 +136,7 @@ export function AnnoStage({
   height: number;
   /** Optional node rendered in place of the product image (e.g. a live monitor). */
   center?: React.ReactNode;
+  cover?: boolean;
 }) {
   return (
     <div className={stageClass}>
@@ -137,7 +147,7 @@ export function AnnoStage({
             {center}
           </div>
         ) : (
-          <Slot src={src} label={slotPlaceholder} height={height} />
+          <Slot src={src} label={slotPlaceholder} height={height} cover={cover} />
         )}
         {!center && (
           <svg className="sb-anno-svg" viewBox="0 0 100 100" preserveAspectRatio="none">

@@ -40,8 +40,9 @@ export interface ShowcaseContent {
     title: string;
     intro: string;
     slot: string;
+    img?: string;
     callouts: Callout[];
-    inset?: { title: string; desc: string; slot: string };
+    inset?: { title: string; desc: string; slot: string; img?: string };
   };
   useCases?: {
     eyebrow: string;
@@ -51,7 +52,7 @@ export interface ShowcaseContent {
   benefits?: {
     eyebrow: string;
     title: string;
-    items: { n: string; title: string; desc: string }[];
+    items: { n: string; title: string; desc: string; img?: string }[];
     protections?: string[];
   };
   // Local market context (e.g. "Built for Pakistan's grid")
@@ -119,13 +120,14 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
       eyebrow: "From mechanical to digital", title: "A stabilizer <em>without the iron</em>.",
       intro: "Our fully electronic design drops the heavy transformer and switching contacts of an old unit. It runs more efficiently, lasts longer and has nothing to wear out.",
       slot: "Drop exploded / cutaway render",
+      img: "assets/igbt/cutaway.jpg",
       callouts: [
         { pos: "tl", icon: "shield", title: "Top cover", desc: "Powder-coated steel with EMI shielding." },
         { pos: "bl", icon: "fan", title: "DC cooling fans", desc: "Two fans that turn on by temperature." },
         { pos: "tr", icon: "chip", title: "Inverter board", desc: "High-frequency IGBT switching stage." },
         { pos: "br", icon: "bolt", title: "Control PCB", desc: "DSP that keeps the voltage steady in real time." },
       ],
-      inset: { title: "Inside the power stage", desc: "High-frequency IGBT modules sit on a finned heatsink next to the output coils. They switch tens of thousands of times a second to rebuild a clean waveform. An old stabilizer would instead drag a servo motor across a winding.", slot: "Drop internal board macro" },
+      inset: { title: "Inside the power stage", desc: "High-frequency IGBT modules sit on a finned heatsink next to the output coils. They switch tens of thousands of times a second to rebuild a clean waveform. An old stabilizer would instead drag a servo motor across a winding.", slot: "Drop internal board macro", img: "assets/igbt/power-stage.jpg" },
     },
     useCases: {
       eyebrow: "Where it fits", title: "Where <em>accuracy</em> matters most.",
@@ -139,12 +141,12 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
     benefits: {
       eyebrow: "Key advantages", title: "Why electronic <em>wins</em>.",
       items: [
-        { n: "01", title: "30% lighter, stronger", desc: "High-frequency design drops the heavy iron transformer." },
-        { n: "02", title: "Smart filtering", desc: "THD held under 3%, so you get a clean pure sine." },
-        { n: "03", title: "Long lifespan", desc: "Fully contactless IGBT design with nothing to wear out." },
-        { n: "04", title: "Silent operation", desc: "No sparks and no relay clicking, so it suits bedrooms and clinics." },
-        { n: "05", title: "0 ms instant response", desc: "Fixes the voltage the moment the mains goes wrong." },
-        { n: "06", title: "Ultra-wide input", desc: "Holds a steady 220 V from 100–300 V input." },
+        { n: "01", title: "30% lighter, stronger", desc: "High-frequency design drops the heavy iron transformer.", img: "assets/igbt/chip.jpg" },
+        { n: "02", title: "Smart filtering", desc: "THD held under 3%, so you get a clean pure sine.", img: "assets/igbt/vp-medical.jpg" },
+        { n: "03", title: "Long lifespan", desc: "Fully contactless IGBT design with nothing to wear out.", img: "assets/igbt/vp-precision.jpg" },
+        { n: "04", title: "Silent operation", desc: "No sparks and no relay clicking, so it suits bedrooms and clinics.", img: "assets/igbt/vp-silent.jpg" },
+        { n: "05", title: "0 ms instant response", desc: "Fixes the voltage the moment the mains goes wrong.", img: "assets/igbt/vp-speed.jpg" },
+        { n: "06", title: "Ultra-wide input", desc: "Holds a steady 220 V from 100–300 V input.", img: "assets/igbt/vp-grid.jpg" },
       ],
       protections: ["over-current", "over-volt", "under-volt", "over-temp", "short"],
     },
@@ -560,6 +562,9 @@ export interface FamilyMeta {
   blurb: string;
   /** Representative image. */
   image: string;
+  /** Optional curated, full-bleed art for the homepage range band (takes
+   *  precedence over the lead product photo there). */
+  bandImage?: string;
   /** Optional positioning tag, e.g. "Latest generation". */
   tag?: string;
 }
@@ -569,13 +574,14 @@ export interface FamilyMeta {
 // inverter AC); SVC servo is the home & appliance line.
 export const FAMILIES: FamilyMeta[] = [
   {
-    slug: "igbt",
+    slug: "smart-inverter-voltage-stabilizer",
     key: "stab-igbt",
     name: "Inverter Voltage Stabilizers (IGBT)",
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
     blurb: "Our premium, latest-technology stabilizer — built for laser, CNC, medical and other sensitive equipment that needs exact voltage. Only at Voltec.",
-    image: "assets/prod-igbt.jpg",
+    image: "assets/igbt/display.jpg",
+    bandImage: "assets/igbt/range.jpg",
     tag: "Coming soon",
   },
   {

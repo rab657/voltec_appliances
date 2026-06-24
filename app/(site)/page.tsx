@@ -30,7 +30,10 @@ function buildRange(mediaMap: MediaMap) {
     const n = visible.length;
     return {
       href: `/showcase/${f.slug}`,
-      img: norm(lead?.image || f.image),
+      // Curated band art wins; otherwise the admin-managed lead photo, then the
+      // family fallback. So a line graduates to bespoke art without losing the
+      // upload-to-update behaviour for families that don't have it yet.
+      img: norm(f.bandImage || lead?.image || f.image),
       name: f.name,
       blurb: f.blurb,
       meta: `${n} model${n === 1 ? "" : "s"}`,
@@ -39,7 +42,7 @@ function buildRange(mediaMap: MediaMap) {
     };
   };
   return [
-    tile("igbt"),
+    tile("smart-inverter-voltage-stabilizer"),
     tile("cells"),
     tile("industrial"),
     tile("svc"),
@@ -102,7 +105,7 @@ export default async function HomePage() {
           <div className="vhero-feature">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/prod-igbt.jpg"
+              src="/assets/igbt/display.jpg"
               alt="Voltec inverter (IGBT) voltage stabilizer"
               className="vhero-feature-img"
             />
@@ -113,7 +116,7 @@ export default async function HomePage() {
               </span>
               <div className="vhero-feature-title">{t("home.feat.title")}</div>
               <div className="vhero-feature-sub">{t("home.feat.sub")}</div>
-              <Link href="/showcase/igbt" className="vhero-feature-link">
+              <Link href="/showcase/smart-inverter-voltage-stabilizer" className="vhero-feature-link">
                 {t("home.feat.link")} →
               </Link>
             </div>

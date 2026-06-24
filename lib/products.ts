@@ -28,7 +28,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["550VA", "plug & play"],
     description:
       "A small inverter stabilizer for a TV, router and a few lights. It fixes voltage instantly (0 ms) with no moving parts. The wide 90–310V input holds a steady 220V even when the voltage drops. Pure sine output, ≥96% efficient.",
-    image: "assets/prod-igbt.jpg",
+    image: "assets/igbt/display.jpg",
     specs: [
       ["Technology", "IGBT inverter (no moving parts)"],
       ["Capacity", "550VA, single-phase"],
@@ -56,7 +56,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["2kVA", "0 ms"],
     description:
       "For a single AC or a room of electronics. It corrects voltage instantly (0 ms) with no servo motor and no brushes. The wide 90–310V input holds 220V through sags and surges. Pure sine, ≥96% efficient and silent.",
-    image: "assets/prod-igbt.jpg",
+    image: "assets/igbt/display.jpg",
     specs: [
       ["Technology", "IGBT inverter (no moving parts)"],
       ["Capacity", "2kVA, single-phase"],
@@ -84,7 +84,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["5kVA", "pure sine"],
     description:
       "For a small home — one or two ACs plus fridge, fans and electronics. Instant inverter correction, no moving parts, ≥96% efficient. Pure sine output keeps sensitive appliances safe.",
-    image: "assets/prod-igbt.jpg",
+    image: "assets/igbt/display.jpg",
     specs: [
       ["Technology", "IGBT inverter (no moving parts)"],
       ["Capacity", "5kVA, single-phase"],
@@ -113,7 +113,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["10kVA", "whole home"],
     description:
       "Covers a full home — many ACs, motors and electronics — on clean, steady 220V. Instant 0 ms inverter correction with no servo motor to service. Wide 90–310V input, pure sine output, ≥96% efficient.",
-    image: "assets/prod-igbt.jpg",
+    image: "assets/igbt/display.jpg",
     specs: [
       ["Technology", "IGBT inverter (no moving parts)"],
       ["Capacity", "10kVA, single-phase"],
@@ -141,7 +141,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["15kVA", "0 ms"],
     description:
       "Whole-home and small-shop power — geysers, ACs, motors and electronics. Instant inverter correction, no moving parts, ≥96% efficient. Holds 220V through deep voltage drops.",
-    image: "assets/prod-igbt.jpg",
+    image: "assets/igbt/display.jpg",
     specs: [
       ["Technology", "IGBT inverter (no moving parts)"],
       ["Capacity", "15kVA, single-phase"],
@@ -169,7 +169,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["20kVA", "≥96%"],
     description:
       "A large home or shop load on clean, steady power. Instant 0 ms inverter correction, sealed and silent, ≥96% efficient. The wide 90–310V input rides through the worst sags and surges.",
-    image: "assets/prod-igbt.jpg",
+    image: "assets/igbt/display.jpg",
     specs: [
       ["Technology", "IGBT inverter (no moving parts)"],
       ["Capacity", "20kVA, single-phase"],

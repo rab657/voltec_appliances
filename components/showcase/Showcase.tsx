@@ -150,16 +150,18 @@ export default async function Showcase({
               <p>{c.cutaway.intro}</p>
             </div>
             <AnnoStage
+              src={c.cutaway.img}
               slotPlaceholder={c.cutaway.slot}
               callouts={c.cutaway.callouts}
               dark
+              cover
               stageClass="sb-explode-stage"
               slotClass="sb-explode-product"
               height={520}
             />
             {c.cutaway.inset && (
               <div className="sb-explode-inset">
-                <Slot label={c.cutaway.inset.slot} height={200} />
+                <Slot src={c.cutaway.inset.img} label={c.cutaway.inset.slot} height={200} cover />
                 <div className="txt">
                   <h4>{c.cutaway.inset.title}</h4>
                   <p>{c.cutaway.inset.desc}</p>
@@ -204,7 +206,7 @@ export default async function Showcase({
             <div className="sb-adv-grid">
               {c.benefits.items.map((a) => (
                 <div className="sb-adv" key={a.n}>
-                  <Slot label={a.title} />
+                  <Slot src={a.img} label={a.title} cover />
                   <div className="sb-adv-band">
                     <div className="n">{a.n}</div>
                     <h4>{a.title}</h4>
