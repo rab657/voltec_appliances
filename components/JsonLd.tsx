@@ -1,0 +1,16 @@
+// Renders a JSON-LD structured-data block. Server component.
+export default function JsonLd({
+  id,
+  data,
+}: {
+  id?: string;
+  data: Record<string, unknown> | Record<string, unknown>[];
+}) {
+  return (
+    <script
+      id={id}
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
