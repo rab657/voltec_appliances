@@ -34,7 +34,7 @@ const HOME_FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Where is Voltec based, and do you deliver?",
-    a: "Voltec Appliances has been making power equipment in Lahore, Pakistan since 1995. We ship Pakistan-wide and supply bulk and export orders to the UAE and China. Message us on WhatsApp at +92 324 400 4778 for stock, pricing and freight.",
+    a: "Voltec Appliances has been making power equipment in Lahore, Pakistan for four decades. We ship Pakistan-wide and supply bulk and export orders to the UAE and China. Message us on WhatsApp at +92 324 400 4778 for stock, pricing and freight.",
   },
   {
     q: "Do you supply businesses, factories and bulk orders?",
@@ -119,7 +119,7 @@ export default async function HomePage() {
             </div>
             <div className="vtrust">
               <div className="vtrust-item">
-                <strong>30+</strong>
+                <strong>40+</strong>
                 <span>{t("trust.years")}</span>
               </div>
               <div className="vtrust-item">

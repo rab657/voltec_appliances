@@ -3,23 +3,23 @@ import Link from "next/link";
 import { getT } from "@/lib/i18n-server";
 
 export const metadata: Metadata = {
-  title: "About — 30 years of steady power",
+  title: "About — Four decades of steady power",
   description:
-    "Founded in Lahore in 1995, Voltec Appliances is a leading Pakistani manufacturer of voltage stabilizers (IGBT, SVC, AVR), three-phase industrial systems and genuine EVE lithium cells, serving Pakistan, the UAE and China.",
+    "From a one-room Lahore workshop in the 1980s to one of Pakistan's leading power-equipment manufacturers — voltage stabilizers (IGBT, SVC, AVR), three-phase industrial systems and genuine EVE lithium cells, serving Pakistan, the UAE and China.",
   alternates: { canonical: "/about" },
 };
 
 export default async function AboutPage() {
   const t = await getT();
   const TIMELINE: [string, string, string][] = [
-    ["1995", t("about.tl1.t"), t("about.tl1.d")],
-    ["2000s", t("about.tl2.t"), t("about.tl2.d")],
+    ["1980s", t("about.tl1.t"), t("about.tl1.d")],
+    ["1990s–2000s", t("about.tl2.t"), t("about.tl2.d")],
     ["2010s", t("about.tl3.t"), t("about.tl3.d")],
     ["2020s", t("about.tl4.t"), t("about.tl4.d")],
     [t("about.tl.today"), t("about.tl5.t"), t("about.tl5.d")],
   ];
   const STATS: [string, string][] = [
-    ["30+", t("trust.years")],
+    ["40+", t("trust.years")],
     ["10,000+", t("trust.customers")],
     ["3", t("about.stat.markets")],
     ["24/7", t("trust.warranty")],
@@ -76,23 +76,23 @@ export default async function AboutPage() {
             <h2 dangerouslySetInnerHTML={{ __html: t("about.tl.t") }}></h2>
             <div></div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(5, 1fr)", gap: 0, borderTop: "1px solid var(--rule)" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 0, borderTop: "1px solid var(--rule)" }}>
             {TIMELINE.map(([y, k, t], i) => (
               <div
                 key={y}
                 style={{
-                  padding: "30px 24px 30px 0",
-                  borderRight: i < 4 ? "1px solid var(--rule)" : "0",
+                  padding: "44px 32px 52px",
+                  borderRight: i < TIMELINE.length - 1 ? "1px solid var(--rule)" : "0",
                   borderBottom: "1px solid var(--rule)",
                 }}
               >
-                <div className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--ink-3)", marginBottom: 10, textTransform: "uppercase" }}>
+                <div className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", color: "var(--accent-deep)", marginBottom: 18, textTransform: "uppercase" }}>
                   {y}
                 </div>
-                <div style={{ fontFamily: "var(--font-display)", fontSize: 28, lineHeight: 1, marginBottom: 12, letterSpacing: "-0.01em" }}>
+                <div style={{ fontFamily: "var(--font-display)", fontSize: 26, lineHeight: 1.08, marginBottom: 14, letterSpacing: "-0.01em" }}>
                   {k}
                 </div>
-                <p style={{ margin: 0, fontSize: 13, color: "var(--ink-2)", lineHeight: 1.55 }}>{t}</p>
+                <p style={{ margin: 0, fontSize: 13.5, color: "var(--ink-2)", lineHeight: 1.6 }}>{t}</p>
               </div>
             ))}
           </div>
