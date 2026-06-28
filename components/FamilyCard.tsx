@@ -24,7 +24,7 @@ export default function FamilyCard({
   return (
     <div className="ec-card" data-cat={family.categoryId}>
       <Link href={href} className="ec-thumb">
-        <Placeholder label="" image={family.image} />
+        <Placeholder label="" image={family.image} contain={false} />
         {family.tag && <span className="ec-soon" style={{ background: "var(--accent)" }}>{lc(family.tag)}</span>}
       </Link>
       <div className="ec-body">

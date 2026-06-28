@@ -238,6 +238,14 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
       ],
       protections: ["over-volt", "under-volt", "over-temp", "short"],
     },
+    faqs: [
+      { q: "What size servo (SVC) stabilizer do I need for my home?", a: "Add up your load. One inverter AC plus a fridge and lights is about 5 kVA. Two ACs and the rest of the house is about 10 kVA. A full home with a geyser, motors and two–three ACs needs 15 kVA. If you are not sure, send us your appliance list on WhatsApp and we will size it for you." },
+      { q: "Is a servo (SVC) stabilizer better than a relay (AVR) one?", a: "For whole-home use, yes. A servo stabilizer corrects voltage smoothly and holds a tight ±1%, while a relay AVR jumps in steps of ±5–10%. The smooth correction is much easier on AC compressors, fridges and motors, and it covers a wider input range." },
+      { q: "Should I buy a servo (SVC) or an inverter (IGBT) stabilizer?", a: "For most homes and shops, the servo (SVC) is the proven, value choice and handles motor loads well. Choose the inverter (IGBT) if you run sensitive or precision equipment — laser, CNC, medical or lab gear — that needs instant 0 ms correction and a perfectly clean pure sine, or if you want silent, maintenance-free operation." },
+      { q: "Does a servo stabilizer need maintenance?", a: "A little. It uses a motor and a carbon brush that move a slider across the winding, so the brush wears slowly over years and can be replaced. We service what we sell — our network is the strongest in the market." },
+      { q: "What input voltage range does it work in?", a: "The Voltec SVC servo range holds a steady 220 V output across a wide 140–280 V input, so it keeps working through Pakistan's evening voltage drops and surges." },
+      { q: "Do you deliver across Pakistan, and do you export?", a: "Yes. We ship Pakistan-wide and supply bulk and export orders to the UAE and the region. Message us on WhatsApp for stock, lead time and freight." },
+    ],
   },
 
   // ====================================================================== AVR
@@ -287,6 +295,14 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
       ],
       protections: ["over-volt", "under-volt", "short"],
     },
+    faqs: [
+      { q: "What is an AVR (relay) stabilizer best for?", a: "A single appliance. The Voltec A-series is made to protect one fridge, deep freezer or air-conditioner. It is small, wall-mountable and plug-and-play, with a built-in over/under-voltage cutoff and a time-delay restart that keeps the compressor safe." },
+      { q: "Which Voltec A-series model do I need?", a: "Match it to the appliance. A-25 (2500 W) suits a fridge or deep freezer; A-50 (5000 W) suits a 1–1.5 ton split AC; A-100 (10000 W) suits a larger AC; the A-120SP works from as low as 75 V for very low-voltage areas. Send us the appliance and your area voltage and we will pick the right one." },
+      { q: "How low a voltage can the Voltec A-series work from?", a: "The A-120SP starts working from about 75 V, which is why it is popular in areas with very weak evening voltage. The rest of the A-series holds output across a wide range and cuts off safely if the voltage goes too low or too high." },
+      { q: "Is the Voltec A-series pure copper?", a: "Yes. The A-series uses 100% pure-copper windings, which carry the load without overheating and last far longer than the aluminium-wound stabilizers common in the market." },
+      { q: "AVR or servo (SVC) — which should I buy?", a: "AVR is the cheapest and is perfect for protecting one appliance like a fridge or a single AC. A servo (SVC) costs more but corrects more smoothly and covers a whole home or shop. For one appliance on a budget, the A-series AVR is the right choice." },
+      { q: "Do I need an electrician to install it?", a: "No. The A-series is plug-and-play — hang it on the wall, plug the appliance in, and it protects right away. No wiring or electrician needed." },
+    ],
   },
 
   // =============================================================== INDUSTRIAL
@@ -336,6 +352,13 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
       ],
       protections: ["over-current", "over-volt", "under-volt", "over-temp", "short"],
     },
+    faqs: [
+      { q: "What size three-phase stabilizer does my factory need?", a: "Size it to your total connected load in kVA, with headroom for motor start-up. Voltec builds SJW-series three-phase stabilizers from 100 kVA and 200 kVA up to 500 kVA and beyond, made to order. Send us your load list or a single-line diagram and our engineers will size it." },
+      { q: "Servo or static (IGBT) for a three-phase plant?", a: "Both correct each phase on its own. Servo (SVC) is the proven, cost-effective choice for most mills and plants and handles motor loads well. Static (IGBT) corrects instantly with no moving parts for the most sensitive lines. We advise based on your load and budget." },
+      { q: "Can it fix an unbalanced WAPDA supply?", a: "Yes. Each phase is corrected on its own, so a lopsided incoming supply becomes a clean, balanced 400 V on all three phases — which is what protects three-phase motors and drives." },
+      { q: "Do you provide installation and service contracts?", a: "Yes. We supply, install and service industrial systems, with bypass cabinets and remote monitoring, and planned engineer visits to keep the plant protected. We have done plants like K&N's in Kasur." },
+      { q: "How long does a custom industrial stabilizer take?", a: "It is built to order, so lead time depends on capacity and configuration. Message us with your load and we will confirm the price and delivery time." },
+    ],
   },
 
   // =================================================================== CELLS
@@ -384,6 +407,14 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
         { n: "06", title: "5-year warranty", desc: "Prorated cover, backed from Lahore." },
       ],
     },
+    faqs: [
+      { q: "How many lithium cells do I need for a 48 V solar battery?", a: "Sixteen. A 48 V LFP battery is built from 16 cells in series (16S), each 3.2 V nominal. For 24 V use 8 cells, and for 12 V use 4 cells. Tell us your inverter voltage and backup hours and we will work out the cell count and capacity." },
+      { q: "What cell size (Ah) should I choose?", a: "Match it to the energy you need. A common home bank uses 16× 280 Ah cells for about 14 kWh at 48 V — enough to run a home through an evening of load-shedding. For smaller backup, 100–150 Ah cells work; for bigger storage, use 304 Ah. Share your load in kW and the hours you need and we will size it." },
+      { q: "Why genuine EVE LFP cells and not cheaper ones?", a: "EVE is one of the top global cell makers, supplying the EV and storage industry. Genuine Grade-A EVE LFP cells are safe in Pakistan's heat, last 6,000+ cycles (about 15 years of daily use), and carry a scannable QR code. We match every cell for capacity and voltage in Lahore before it ships." },
+      { q: "Are LFP (LiFePO4) cells safe in Pakistan's heat?", a: "Yes. Lithium iron phosphate (LFP) is the most thermally stable common lithium chemistry and works from -20 °C to +55 °C, so it is safe in rooms with no air-conditioning — much safer than NMC." },
+      { q: "Lithium or lead-acid for load-shedding — which is worth it?", a: "Lithium. LFP lasts 6,000+ cycles versus a few hundred for lead-acid, gives you most of its capacity instead of half, charges faster and needs no maintenance. It costs more up front but is far cheaper per year of use." },
+      { q: "Do the cells come with a BMS, and which inverters do they work with?", a: "Cells are sold matched and ready to build, and we can supply a compatible BMS too. A 48 V LFP bank works with all the major inverter brands — Victron, Deye, SRNE and Growatt. Tell us your inverter and we will confirm the setup." },
+    ],
   },
 
   // ===================================================================== BMS
@@ -481,6 +512,11 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
         { n: "06", title: "Stocked deep", desc: "Thousands on the shelf for next-day dispatch." },
       ],
     },
+    faqs: [
+      { q: "What is the difference between the Wirell T73 and T90 relay?", a: "Current. The T73 (JQC-3F) switches up to 10 A and is used on control and signal lines; the T90 (JQX-15F) switches up to 40 A for motor and power loads. Both use silver-alloy contacts." },
+      { q: "Can these relays switch motor and inductive loads?", a: "Yes. The silver-alloy contacts are made for inductive loads and switch motors, coils and transformers millions of times without welding shut." },
+      { q: "Do you stock them in bulk?", a: "Yes, by the thousand, for next-day dispatch. Message us with the model, coil voltage (12 V / 24 V) and quantity." },
+    ],
   },
 
   // ===================================================================== LED
@@ -529,6 +565,11 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
         { n: "06", title: "Stocked deep", desc: "On the shelf for next-day dispatch." },
       ],
     },
+    faqs: [
+      { q: "What is the difference between the 5630 and 4630 LED display?", a: "Size. The 5630 has larger digits for stabilizer fronts and panel meters; the 4630 is compact for instruments and tight panels. Both are bright 7-segment modules with a wide viewing angle." },
+      { q: "What colour are they, and can I order others?", a: "Red is standard. Other colours are available on request. Message us with the size and quantity." },
+      { q: "Do you supply them for repair and maker use?", a: "Yes. We stock the 5630 and 4630 modules deep and supply makers and repair workshops, with next-day dispatch. Tell us the size and quantity." },
+    ],
   },
 };
 

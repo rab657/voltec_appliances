@@ -15,7 +15,7 @@ export async function GET() {
   lines.push(`# ${SITE.name}`);
   lines.push("");
   lines.push(
-    `> ${SITE.description} Sales are inquiry-based: customers contact Voltec on WhatsApp (${SITE.phoneDisplay}) or by phone for pricing and orders. Based in Lahore, Pakistan; serving Pakistan, UAE, KSA and Oman since ${SITE.established}.`,
+    `> ${SITE.description} Sales are inquiry-based: customers contact Voltec on WhatsApp (${SITE.phoneDisplay}) or by phone for pricing and orders. Based in Lahore, Pakistan; serving ${SITE.markets.join(", ")} since ${SITE.established}.`,
   );
   lines.push("");
   lines.push("## Key facts");
@@ -25,7 +25,17 @@ export async function GET() {
   lines.push(
     `- Product lines: ${CATEGORIES.filter((c) => c.id !== "all").map((c) => c.label).join(", ")}`,
   );
-  lines.push(`- Technologies: IGBT static stabilizers, SVC servo stabilizers, AVR relay stabilizers, EVE LFP lithium cells, DALY BMS, PCB relays`);
+  lines.push(`- Technologies: IGBT inverter stabilizers, SVC servo stabilizers, AVR relay stabilizers, EVE LFP lithium cells, BMS, PCB relays`);
+  lines.push("");
+
+  // Decision guide — the direct "which one do I need?" answer for answer engines.
+  lines.push("## Which Voltec product do I need?");
+  lines.push("- One appliance on a budget (fridge, deep freezer or a single AC): an AVR relay stabilizer — the Voltec A-series. A-25 for a fridge, A-50 for a 1–1.5 ton split AC, A-100 for a larger AC, A-120SP for very low-voltage areas (works from ~75 V).");
+  lines.push("- A whole home or shop (one to three ACs plus fridge and electronics): a servo (SVC) stabilizer. About 5 kVA for one AC + fridge, 10 kVA for two ACs, 15 kVA for a full home.");
+  lines.push("- Sensitive or precision equipment (laser, CNC, medical, lab, servers): an inverter (IGBT) stabilizer — instant 0 ms correction, ±1–2% accuracy, pure sine, silent and maintenance-free.");
+  lines.push("- A factory or any three-phase load: a three-phase SJW-series industrial stabilizer, 100–500 kVA and up, built to order in servo or static (IGBT).");
+  lines.push("- Solar or UPS battery storage: genuine EVE Grade-A LFP cells. A 48 V bank is 16 cells in series (16S); 16× 280 Ah ≈ 14 kWh. Use 8 cells for 24 V, 4 for 12 V. LFP lasts 6,000+ cycles and is safe in Pakistan's heat.");
+  lines.push(`- Still unsure: send your appliance list (or load in kW) and your area's voltage to WhatsApp ${SITE.phoneDisplay} and Voltec will size it for you.`);
   lines.push("");
 
   // Products grouped by category

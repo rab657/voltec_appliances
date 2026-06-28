@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Product } from "@/lib/types";
-import { siblingFamilies, type FamilyMeta } from "@/lib/showcase-data";
+import { siblingFamilies, showcaseFor, type FamilyMeta } from "@/lib/showcase-data";
 import { getT, getContent } from "@/lib/i18n-server";
 import EcomCard from "@/components/EcomCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -22,6 +22,7 @@ export default async function CellsHub({
   ]
     .map((g) => ({ ...g, items: members.filter((m) => g.match.test(m.cell?.format || "")) }))
     .filter((g) => g.items.length > 0);
+  const faqs = showcaseFor(members[0]).faqs;
   const related = siblingFamilies(family);
 
   return (
@@ -75,6 +76,25 @@ export default async function CellsHub({
           ))}
         </div>
       </section>
+
+      {faqs && faqs.length > 0 && (
+        <section className="sb-section" id="faq" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <div className="sb-head is-center">
+              <div className="sb-eyebrow">{t("sh.faq.k")}</div>
+              <h2 dangerouslySetInnerHTML={{ __html: t("sh.faq.t") }}></h2>
+            </div>
+            <div className="sb-faq">
+              {faqs.map((f, i) => (
+                <details className="sb-faq-item" key={i} open={i === 0}>
+                  <summary>{lc(f.q)}</summary>
+                  <div className="sb-faq-a">{lc(f.a)}</div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {related.length > 0 && (
         <section className="sb-section" style={{ paddingTop: 0 }}>

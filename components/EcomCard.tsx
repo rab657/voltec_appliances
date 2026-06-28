@@ -23,7 +23,7 @@ export default function EcomCard({ p }: { p: Product }) {
   return (
     <div className="ec-card" data-cat={p.categoryId}>
       <Link href={href} className="ec-thumb">
-        <Placeholder label="" image={p.image} />
+        <Placeholder label="" image={p.image} contain={false} />
         {p.tech && (
           <span className="ec-tech" data-tech={p.tech}>
             {p.tech}
