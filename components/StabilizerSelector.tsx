@@ -5,9 +5,9 @@ import { VOLTEC_WHATSAPP } from "@/lib/products";
 import { track } from "@/lib/analytics";
 import { WhatsAppIcon } from "@/components/icons";
 
-// Guided "which stabilizer do I need?" selector. Mirrors how the sales team
-// qualifies a buyer (what are you powering → capacity → grid voltage), routes to
-// the right series, and hands WhatsApp a fully-contextualised opening message.
+// Guided "which stabilizer do I need?" selector. Reveals one question at a time
+// (answer → next), mirroring how the sales team qualifies a buyer, then routes
+// to the right series and hands WhatsApp a fully-contextualised opening message.
 
 type Protect = "appliance" | "home" | "sensitive" | "factory";
 type Volt = "vlow" | "low" | "normal" | "high" | "swing";
@@ -18,7 +18,27 @@ const PROTECT: { id: Protect; label: string; sub: string }[] = [
   { id: "sensitive", label: "Sensitive / precision gear", sub: "Lab, medical, laser, CNC, servers" },
   { id: "factory", label: "A factory / 3-phase load", sub: "Mills, plants, commercial buildings" },
 ];
-const CAPACITY = ["≤1 kVA", "2–3 kVA", "5 kVA", "10 kVA", "15 kVA", "20 kVA +", "Not sure"];
+
+// Capacity asked in the buyer's own language, adapted to what they're protecting.
+const CAPACITY: Record<Protect, { label: string; opts: string[] }> = {
+  appliance: {
+    label: "What are you running?",
+    opts: ["A fridge or freezer", "One AC (1–1.5 ton)", "A larger AC (2 ton)", "TV + electronics", "Not sure"],
+  },
+  home: {
+    label: "How big is the load?",
+    opts: ["1 AC + basics", "2 ACs + home", "Whole home (2–3 ACs, geyser)", "Large home / shop", "Not sure"],
+  },
+  sensitive: {
+    label: "What's the rated load?",
+    opts: ["Up to 2 kVA", "5 kVA", "10 kVA", "15 kVA", "20 kVA +", "Not sure"],
+  },
+  factory: {
+    label: "What's the total load?",
+    opts: ["10–20 kVA", "50 kVA", "100 kVA", "200 kVA", "500 kVA +", "Not sure"],
+  },
+};
+
 const VOLTAGE: { id: Volt; label: string }[] = [
   { id: "vlow", label: "Very low — below 150V" },
   { id: "low", label: "Low — 150 to 200V" },
@@ -78,28 +98,16 @@ export default function StabilizerSelector() {
   const waMsg =
     `Hi Voltec! Help me pick the right stabilizer.\n` +
     `• Protecting: ${protectLabel}\n` +
-    `• Capacity: ${capacity}\n` +
+    `• Load: ${capacity}\n` +
     `• Grid voltage: ${voltageLabel}\n` +
     `What do you recommend?`;
   const waLink = `https://wa.me/${VOLTEC_WHATSAPP}?text=${encodeURIComponent(waMsg)}`;
 
-  const Step = ({
-    n,
-    label,
-    children,
-  }: {
-    n: number;
-    label: string;
-    children: React.ReactNode;
-  }) => (
-    <div className="sel-step">
-      <div className="sel-step-label">
-        <span className="sel-step-n">{n}</span>
-        {label}
-      </div>
-      <div className="sel-opts">{children}</div>
-    </div>
-  );
+  const reset = () => {
+    setProtect(null);
+    setCapacity(null);
+    setVoltage(null);
+  };
 
   return (
     <div className="sel">
@@ -111,60 +119,86 @@ export default function StabilizerSelector() {
         <p>The two things that decide it: how much you need to power, and what voltage you actually get.</p>
       </div>
 
-      <Step n={1} label="What are you protecting?">
-        {PROTECT.map((p) => (
-          <button
-            key={p.id}
-            type="button"
-            className={`sel-opt is-rich ${protect === p.id ? "is-on" : ""}`}
-            aria-pressed={protect === p.id}
-            onClick={() => {
-              setProtect(p.id);
-              track("selector_answer", { step: "protect", value: p.id });
-            }}
-          >
-            <span className="sel-opt-t">{p.label}</span>
-            <span className="sel-opt-s">{p.sub}</span>
-          </button>
-        ))}
-      </Step>
+      {/* Step 1 — what are you protecting */}
+      <div className="sel-step">
+        <div className="sel-step-label">
+          <span className="sel-step-n">1</span>What are you protecting?
+        </div>
+        <div className="sel-opts">
+          {PROTECT.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              className={`sel-opt is-rich ${protect === p.id ? "is-on" : ""}`}
+              aria-pressed={protect === p.id}
+              onClick={() => {
+                setProtect(p.id);
+                setCapacity(null); // capacity options depend on this answer
+                setVoltage(null);
+                track("selector_answer", { step: "protect", value: p.id });
+              }}
+            >
+              <span className="sel-opt-t">{p.label}</span>
+              <span className="sel-opt-s">{p.sub}</span>
+            </button>
+          ))}
+        </div>
+      </div>
 
-      <Step n={2} label="How much do you need to power?">
-        {CAPACITY.map((c) => (
-          <button
-            key={c}
-            type="button"
-            className={`sel-opt ${capacity === c ? "is-on" : ""}`}
-            aria-pressed={capacity === c}
-            onClick={() => {
-              setCapacity(c);
-              track("selector_answer", { step: "capacity", value: c });
-            }}
-          >
-            {c}
-          </button>
-        ))}
-      </Step>
+      {/* Step 2 — capacity (adaptive, revealed after step 1) */}
+      {protect && (
+        <div className="sel-step sel-reveal">
+          <div className="sel-step-label">
+            <span className="sel-step-n">2</span>
+            {CAPACITY[protect].label}
+          </div>
+          <div className="sel-opts">
+            {CAPACITY[protect].opts.map((c) => (
+              <button
+                key={c}
+                type="button"
+                className={`sel-opt ${capacity === c ? "is-on" : ""}`}
+                aria-pressed={capacity === c}
+                onClick={() => {
+                  setCapacity(c);
+                  track("selector_answer", { step: "capacity", value: c });
+                }}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
-      <Step n={3} label="What voltage do you get from the grid?">
-        {VOLTAGE.map((v) => (
-          <button
-            key={v.id}
-            type="button"
-            className={`sel-opt ${voltage === v.id ? "is-on" : ""}`}
-            aria-pressed={voltage === v.id}
-            onClick={() => {
-              setVoltage(v.id);
-              track("selector_answer", { step: "voltage", value: v.id });
-            }}
-          >
-            {v.label}
-          </button>
-        ))}
-      </Step>
+      {/* Step 3 — grid voltage (revealed after step 2) */}
+      {protect && capacity && (
+        <div className="sel-step sel-reveal">
+          <div className="sel-step-label">
+            <span className="sel-step-n">3</span>What voltage do you get from the grid?
+          </div>
+          <div className="sel-opts">
+            {VOLTAGE.map((v) => (
+              <button
+                key={v.id}
+                type="button"
+                className={`sel-opt ${voltage === v.id ? "is-on" : ""}`}
+                aria-pressed={voltage === v.id}
+                onClick={() => {
+                  setVoltage(v.id);
+                  track("selector_answer", { step: "voltage", value: v.id });
+                }}
+              >
+                {v.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
+      {/* Recommendation */}
       {done && rec && (
-        <div className="sel-rec">
+        <div className="sel-rec sel-reveal">
           <div className="sel-rec-tag">Our recommendation</div>
           <h3>{rec.name}</h3>
           <p className="sel-rec-why">{rec.why}</p>
@@ -173,7 +207,7 @@ export default function StabilizerSelector() {
               <strong>Capacity:</strong>{" "}
               {capacity === "Not sure"
                 ? "Send us your appliance list and we'll size it (we add headroom for start-up surge)."
-                : `Around ${capacity} — we'll confirm the exact model and add headroom for start-up.`}
+                : `Based on "${capacity}", we'll confirm the exact model and add headroom for start-up.`}
             </li>
             <li>
               <strong>Your voltage:</strong> {voltageNote(voltage!)}
@@ -193,6 +227,9 @@ export default function StabilizerSelector() {
               See the {rec.name} range →
             </Link>
           </div>
+          <button type="button" className="sel-restart" onClick={reset}>
+            ↺ Start over
+          </button>
         </div>
       )}
     </div>

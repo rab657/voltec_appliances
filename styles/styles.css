@@ -392,6 +392,11 @@ input, textarea, select { font: inherit; color: inherit; }
 .sel-rec-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
 .sel-rec-cta .btn-ghost { border-color: oklch(70% 0.04 250 / 0.4); color: #fff; }
 .sel-rec-cta .btn-ghost:hover { border-color: #fff; }
+.sel-restart { margin-top: 16px; background: none; border: 0; padding: 0; cursor: pointer; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: oklch(82% 0.01 250 / 0.7); }
+.sel-restart:hover { color: #fff; }
+@keyframes sel-reveal { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.sel-reveal { animation: sel-reveal 0.32s ease both; }
+@media (prefers-reduced-motion: reduce) { .sel-reveal { animation: none; } }
 
 /* ===== The range — full-width horizontal bands, one line per row ========= */
 .range-bands { display: flex; flex-direction: column; gap: 20px; }
