@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Placeholder from "@/components/Placeholder";
 import { getT } from "@/lib/i18n-server";
 
 export const metadata: Metadata = {
   title: "About — 30 years of steady power",
   description:
-    "Voltec was founded in Lahore in 1995 by Riaz Ahmad, one of Pakistan's top voltage stabilizer makers and servo motor specialists. Today we serve Pakistan, the UAE and China.",
+    "Founded in Lahore in 1995, Voltec Appliances is a leading Pakistani manufacturer of voltage stabilizers (IGBT, SVC, AVR), three-phase industrial systems and genuine EVE lithium cells, serving Pakistan, the UAE and China.",
   alternates: { canonical: "/about" },
 };
 
@@ -19,9 +18,17 @@ export default async function AboutPage() {
     ["2020s", t("about.tl4.t"), t("about.tl4.d")],
     [t("about.tl.today"), t("about.tl5.t"), t("about.tl5.d")],
   ];
-  const TEAM: [string, string, string][] = [
-    ["Riaz Ahmad", t("about.role.chair"), t("about.bio.riaz")],
-    ["Raheel Ahmad", t("about.role.md"), t("about.bio.raheel")],
+  const STATS: [string, string][] = [
+    ["30+", t("trust.years")],
+    ["10,000+", t("trust.customers")],
+    ["3", t("about.stat.markets")],
+    ["24/7", t("trust.warranty")],
+  ];
+  const CAPS: [string, string][] = [
+    [t("about.cap.1t"), t("about.cap.1d")],
+    [t("about.cap.2t"), t("about.cap.2d")],
+    [t("about.cap.3t"), t("about.cap.3d")],
+    [t("about.cap.4t"), t("about.cap.4d")],
   ];
   return (
     <main>
@@ -92,6 +99,37 @@ export default async function AboutPage() {
         </div>
       </section>
 
+      <section className="section hairline-bot" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+              border: "1px solid var(--rule)",
+              borderRadius: 14,
+              overflow: "hidden",
+            }}
+          >
+            {STATS.map(([v, l], i) => (
+              <div
+                key={l}
+                style={{
+                  padding: "32px 28px",
+                  borderRight: i < STATS.length - 1 ? "1px solid var(--rule)" : "0",
+                }}
+              >
+                <div style={{ fontFamily: "var(--font-display)", fontSize: "clamp(36px,5vw,52px)", lineHeight: 1, color: "var(--accent)", letterSpacing: "-0.02em" }}>
+                  {v}
+                </div>
+                <div className="mono" style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--ink-3)", marginTop: 10 }}>
+                  {l}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section">
         <div className="container">
           <div className="section-head">
@@ -99,30 +137,20 @@ export default async function AboutPage() {
             <h2 dangerouslySetInnerHTML={{ __html: t("about.team.t") }}></h2>
             <div></div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 40, maxWidth: 760 }}>
-            {TEAM.map(([n, r, b]) => (
-              <div key={n} style={{ borderTop: "1px solid var(--ink)", paddingTop: 16, display: "flex", flexDirection: "column", gap: 14 }}>
-                <div
-                  style={{
-                    aspectRatio: "1",
-                    background: "var(--paper-2)",
-                    border: "1px solid var(--rule)",
-                    position: "relative",
-                    overflow: "hidden",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Placeholder label={`PORTRAIT · ${n.split(" ")[0].toUpperCase()}`} />
-                </div>
-                <div>
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: 28, lineHeight: 1.05, letterSpacing: "-0.01em" }}>{n}</div>
-                  <div className="mono" style={{ fontSize: 11, color: "var(--ink-3)", letterSpacing: "0.08em", textTransform: "uppercase", marginTop: 4 }}>
-                    {r}
-                  </div>
-                </div>
-                <p style={{ margin: 0, fontSize: 14, color: "var(--ink-2)", lineHeight: 1.6 }}>{b}</p>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 0, borderTop: "1px solid var(--rule)" }}>
+            {CAPS.map(([k, d], i) => (
+              <div
+                key={k}
+                style={{
+                  padding: "30px 32px 30px 0",
+                  borderBottom: "1px solid var(--rule)",
+                  borderRight: i % 2 === 0 ? "1px solid var(--rule)" : "0",
+                }}
+              >
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: 26, lineHeight: 1.05, letterSpacing: "-0.01em", margin: "0 0 10px" }}>
+                  {k}
+                </h3>
+                <p style={{ margin: 0, fontSize: 15, color: "var(--ink-2)", lineHeight: 1.6, maxWidth: "46ch" }}>{d}</p>
               </div>
             ))}
           </div>
