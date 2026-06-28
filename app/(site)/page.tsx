@@ -4,6 +4,7 @@ import { getPublishedPosts } from "@/lib/blog";
 import { FAMILIES, membersOf, leadOf } from "@/lib/showcase-data";
 import EcomCard from "@/components/EcomCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import JsonLd from "@/components/JsonLd";
 import { getT, getContent } from "@/lib/i18n-server";
 import { getMediaMap, applyMedia, type MediaMap } from "@/lib/product-media";
 
@@ -11,6 +12,35 @@ const FEATURED_IDS = ["vt-eve-lf100", "vt-eve-lf280k", "vt-ind-200k", "vt-svc-5k
 
 // Each card's copy lives in the i18n dictionary (serve.<key>.{t,d,tag}).
 const SERVE_KEYS = ["med", "ind", "gov", "home"];
+
+// Brand-level buyer questions — the head queries Voltec should own on AI/search
+// answer engines. Rendered on-page AND emitted as FAQPage structured data.
+const HOME_FAQS: { q: string; a: string }[] = [
+  {
+    q: "Which Voltec voltage stabilizer should I buy?",
+    a: "It depends on what you're protecting. For one appliance — a fridge, deep freezer or a single AC — choose an AVR relay stabilizer (the Voltec A-series). For a whole home or shop with one to three ACs, choose a servo (SVC) stabilizer: about 5 kVA for one AC, 10 kVA for two, 15 kVA for a full home. For sensitive or precision equipment like laser, CNC, medical or lab machines, choose the inverter (IGBT) stabilizer. For a factory or three-phase load, choose a three-phase SJW-series system, built to order.",
+  },
+  {
+    q: "What lithium cells do I need for my solar system?",
+    a: "For a 48 V solar battery you need 16 LFP cells in series (16S), each 3.2 V nominal — use 8 cells for 24 V and 4 for 12 V. For capacity, a common home bank is 16× 280 Ah cells for about 14 kWh, enough to run a home through an evening of load-shedding. Tell us your inverter voltage and backup hours and we'll size it for you.",
+  },
+  {
+    q: "Are Voltec's EVE lithium cells genuine?",
+    a: "Yes. We supply genuine Grade-A prismatic LFP cells from EVE, one of the world's top cell makers. Every cell is laser-welded, carries a scannable factory QR code, and is matched for capacity and voltage at our Lahore facility before it ships. Genuine LFP lasts 6,000+ cycles — about 15 years of daily use.",
+  },
+  {
+    q: "Inverter, servo or relay stabilizer — what's the difference?",
+    a: "A relay (AVR) stabilizer is cheapest and fixes voltage in steps — best for one appliance. A servo (SVC) stabilizer uses a motor to correct voltage smoothly to ±1% — best for a whole home or shop. An inverter (IGBT) stabilizer is fully electronic, corrects instantly (0 ms) with a clean pure sine output and no moving parts — best for sensitive and precision equipment.",
+  },
+  {
+    q: "Where is Voltec based, and do you deliver?",
+    a: "Voltec Appliances has been making power equipment in Lahore, Pakistan since 1995. We ship Pakistan-wide and supply bulk and export orders to the UAE and China. Message us on WhatsApp at +92 324 400 4778 for stock, pricing and freight.",
+  },
+  {
+    q: "Do you supply businesses, factories and bulk orders?",
+    a: "Yes. Alongside home stabilizers and cells, we build three-phase industrial voltage stabilizers (100–500 kVA and up) to order, and supply EVE cells, BMS, PCB relays and LED modules in bulk for installers, manufacturers and exporters. Send us your load list or requirement and our engineers will quote it.",
+  },
+];
 
 // Single, non-redundant navigation: the real Voltec product lines. The three
 // stabilizer series (SVC / AVR / IGBT) plus Industrial, Cells and Accessories.
@@ -275,6 +305,69 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Brand-level FAQ — head buyer questions, also emitted as FAQPage schema */}
+      <section className="section" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <div className="faq-wrap">
+            <div className="faq-aside">
+              <div
+                className="num"
+                style={{
+                  fontFamily: "var(--font-mono)",
+                  fontSize: 12,
+                  letterSpacing: "0.14em",
+                  color: "var(--ink-3)",
+                  textTransform: "uppercase",
+                  marginBottom: 14,
+                }}
+              >
+                FAQ
+              </div>
+              <h2
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 400,
+                  fontSize: "clamp(30px,3.6vw,46px)",
+                  lineHeight: 1.02,
+                  letterSpacing: "-0.02em",
+                  margin: 0,
+                }}
+              >
+                Which Voltec product <em>do I need?</em>
+              </h2>
+              <p style={{ marginTop: 16, fontSize: 14, color: "var(--ink-2)", lineHeight: 1.6 }}>
+                The quick answers buyers ask most. Still unsure?{" "}
+                <WhatsAppButton variant="light">Ask our team</WhatsAppButton>
+              </p>
+            </div>
+            <div className="faq-list">
+              {HOME_FAQS.map((f, i) => (
+                <details key={i} className="faq-item" open={i === 0}>
+                  <summary>
+                    {f.q}
+                    <span className="faq-plus"></span>
+                  </summary>
+                  <div className="faq-a">{f.a}</div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <JsonLd
+        id="ld-home-faq"
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: HOME_FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }}
+      />
     </main>
   );
 }

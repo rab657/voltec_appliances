@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getPublishedPosts, getPostBySlug } from "@/lib/blog";
 import { getPostSeo } from "@/lib/blog-data";
+import { coverFor } from "@/lib/blog-covers";
 import { renderBody } from "@/lib/blog-render";
 import { whatsappLink } from "@/lib/products";
 import Placeholder from "@/components/Placeholder";
@@ -24,6 +25,8 @@ export async function generateMetadata({
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Article not found" };
   const seo = getPostSeo(post);
+  const cover = coverFor(post.slug);
+  const ogImages = cover ? [{ url: absUrl(`/${cover}`), width: 1200, height: 630, alt: post.title }] : undefined;
   return {
     title: post.metaTitle || post.title,
     description: seo.metaDescription,
@@ -37,8 +40,9 @@ export async function generateMetadata({
       url: absUrl(`/blog/${post.slug}`),
       publishedTime: post.date,
       section: post.category,
+      images: ogImages,
     },
-    twitter: { card: "summary_large_image", title: post.title, description: seo.metaDescription },
+    twitter: { card: "summary_large_image", title: post.title, description: seo.metaDescription, images: ogImages?.map((i) => i.url) },
   };
 }
 
@@ -163,7 +167,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
         <section style={{ padding: "56px 0 0" }}>
           <div className="container">
             <div className="article-cover">
-              <Placeholder label={lc(post.category).toUpperCase() + " · COVER"} />
+              <Placeholder image={coverFor(post.slug)} contain={false} label={lc(post.category).toUpperCase() + " · COVER"} />
             </div>
           </div>
         </section>
@@ -286,7 +290,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
               {related.map((p) => (
                 <Link key={p.id} href={`/blog/${p.slug}`} className="article-card">
                   <div className="article-thumb">
-                    <Placeholder label={lc(p.category).toUpperCase()} />
+                    <Placeholder image={coverFor(p.slug)} contain={false} label={lc(p.category).toUpperCase()} />
                   </div>
                   <div className="meta-row">
                     <span>{lc(p.category)}</span>
