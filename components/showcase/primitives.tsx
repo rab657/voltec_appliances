@@ -47,14 +47,14 @@ export function SbWave({ kind }: { kind: "messy" | "flat" | "sine" }) {
   if (kind === "flat")
     return (
       <svg className="sb-wave" viewBox="0 0 120 56" preserveAspectRatio="none" fill="none">
-        <path d="M0 38 H120" stroke="var(--steel-bright)" strokeWidth="2.4" />
-        <path d="M0 18 H120" stroke="oklch(70% 0.04 240)" strokeWidth="1.4" strokeDasharray="3 4" />
+        <path d="M0 38 H120" stroke="var(--steel-bright)" strokeWidth="3" vectorEffect="non-scaling-stroke" />
+        <path d="M0 18 H120" stroke="oklch(70% 0.04 240)" strokeWidth="1.6" strokeDasharray="3 4" vectorEffect="non-scaling-stroke" />
       </svg>
     );
   if (kind === "sine")
     return (
       <svg className="sb-wave" viewBox="0 0 120 56" preserveAspectRatio="none" fill="none">
-        <path d="M0 28 Q15 -2 30 28 T60 28 T90 28 T120 28" stroke="oklch(58% 0.13 150)" strokeWidth="2.4" />
+        <path d="M0 28 Q15 -2 30 28 T60 28 T90 28 T120 28" stroke="oklch(58% 0.13 150)" strokeWidth="3" vectorEffect="non-scaling-stroke" />
       </svg>
     );
   return (
@@ -62,8 +62,9 @@ export function SbWave({ kind }: { kind: "messy" | "flat" | "sine" }) {
       <path
         d="M0 28 L10 12 L18 40 L26 18 L34 44 L44 10 L52 36 L60 16 L70 42 L78 22 L88 38 L96 14 L106 34 L114 20 L120 30"
         stroke="var(--accent)"
-        strokeWidth="2"
+        strokeWidth="2.6"
         strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
       />
     </svg>
   );

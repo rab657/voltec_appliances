@@ -65,10 +65,10 @@ export default async function Showcase({
               callouts={c.hero.callouts}
               stageClass="sb-anno-stage"
               slotClass="sb-anno-product"
-              height={560}
+              height={420}
               center={
                 c.monitor ? (
-                  <div className="led-readout" style={{ width: "100%", maxWidth: 460 }}>
+                  <div className="led-readout" style={{ width: "100%", maxWidth: 420 }}>
                     {c.monitor.rows.map((r, i) => (
                       <div className="led-row" key={i}>
                         <span className="led-label">{r[0]}</span>
