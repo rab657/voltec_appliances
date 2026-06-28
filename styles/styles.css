@@ -359,6 +359,40 @@ input, textarea, select { font: inherit; color: inherit; }
 .showcase-tile:hover .showcase-tile-cta .arrow { transform: translateX(3px); }
 .showcase-tile-cta .arrow { transition: transform 0.2s ease; }
 
+/* ===== Stabilizer selector (guided "which one do I need?") ============== */
+.sel { max-width: 920px; margin: 0 auto; border: 1px solid var(--rule); border-radius: 18px; background: #fff; padding: clamp(24px, 4vw, 44px); box-shadow: 0 24px 60px -38px oklch(20% 0.04 40 / 0.5); }
+.sel-head { text-align: center; max-width: 600px; margin: 0 auto 28px; }
+.sel-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 12px; }
+.sel-head h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 3.4vw, 40px); line-height: 1.04; letter-spacing: -0.02em; margin: 0; }
+.sel-head h2 em { font-style: italic; color: var(--accent); }
+.sel-head p { font-size: 14.5px; line-height: 1.6; color: var(--ink-2); margin: 14px 0 0; }
+.sel-step { margin-top: 22px; }
+.sel-step-label { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; color: var(--ink); margin-bottom: 12px; }
+.sel-step-n { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #fff; font-family: var(--font-mono); font-size: 11px; }
+.sel-opts { display: flex; flex-wrap: wrap; gap: 10px; }
+.sel-opt {
+  font-family: var(--font-ui); font-weight: 500; font-size: 14px; padding: 11px 16px;
+  border: 1.5px solid var(--rule-strong); border-radius: 11px; background: #fff; color: var(--ink);
+  cursor: pointer; transition: border-color 0.15s, background 0.15s, color 0.15s; text-align: left;
+}
+.sel-opt:hover { border-color: var(--accent); }
+.sel-opt.is-on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.sel-opt.is-rich { display: flex; flex-direction: column; gap: 3px; flex: 1 1 200px; min-width: 200px; }
+.sel-opt-t { font-weight: 600; font-size: 15px; }
+.sel-opt-s { font-size: 12px; color: var(--ink-3); }
+.sel-opt.is-rich.is-on .sel-opt-s { color: oklch(92% 0.02 30 / 0.9); }
+.sel-rec { margin-top: 28px; padding: 26px 28px; border-radius: 14px; background: var(--ink); color: #fff; }
+.sel-rec-tag { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--steel-bright, oklch(70% 0.13 245)); margin-bottom: 10px; }
+.sel-rec h3 { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 3vw, 34px); line-height: 1.05; letter-spacing: -0.01em; margin: 0; }
+.sel-rec-why { font-size: 15px; line-height: 1.55; color: oklch(90% 0.01 250 / 0.9); margin: 10px 0 0; }
+.sel-rec-points { list-style: none; padding: 0; margin: 18px 0 0; display: flex; flex-direction: column; gap: 10px; }
+.sel-rec-points li { font-size: 13.5px; line-height: 1.55; color: oklch(86% 0.01 250 / 0.85); padding-left: 16px; position: relative; }
+.sel-rec-points li::before { content: "—"; position: absolute; left: 0; color: var(--steel-bright, oklch(70% 0.13 245)); }
+.sel-rec-points strong { color: #fff; font-weight: 600; }
+.sel-rec-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.sel-rec-cta .btn-ghost { border-color: oklch(70% 0.04 250 / 0.4); color: #fff; }
+.sel-rec-cta .btn-ghost:hover { border-color: #fff; }
+
 /* ===== The range — full-width horizontal bands, one line per row ========= */
 .range-bands { display: flex; flex-direction: column; gap: 20px; }
 .range-band {

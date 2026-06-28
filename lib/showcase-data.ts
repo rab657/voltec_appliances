@@ -105,17 +105,6 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
       ],
     },
     monitor: { rows: [["Output Voltage", "220", "V", true], ["Input Voltage", "090", "V", false], ["Load", "072", "%", false]] },
-    tech: {
-      eyebrow: "How it works", title: "AC <em>→</em> DC <em>→</em> AC",
-      intro: "The inverter stabilizer turns unstable mains into DC, then builds clean AC again. This AC–DC–AC step gives you steady voltage.",
-      mode: "flow",
-      flow: [
-        { tag: "Input", wave: "messy", title: "Unstable AC", desc: "Raw mains that sags, surges and gets distorted by the grid." },
-        { tag: "Rectify", wave: "flat", title: "Clean DC bus", desc: "Changed to a steady DC supply and filtered clean." },
-        { tag: "Output", wave: "sine", title: "Pure sine AC", desc: "Rebuilt to 220 V ±1%, THD under 3%." },
-      ],
-      integrate: [["Laser machines", "int-laser"], ["Medical & imaging", "int-medical"], ["Inverter AC", "int-ac"], ["Fridge & electronics", "int-fridge"]],
-    },
     cutaway: {
       eyebrow: "From mechanical to digital", title: "A stabilizer <em>without the iron</em>.",
       intro: "Our fully electronic design drops the heavy transformer and switching contacts of an old unit. It runs more efficiently, lasts longer and has nothing to wear out.",
@@ -130,12 +119,14 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
       inset: { title: "Inside the power stage", desc: "High-frequency IGBT modules sit on a finned heatsink next to the output coils. They switch tens of thousands of times a second to rebuild a clean waveform. An old stabilizer would instead drag a servo motor across a winding.", slot: "Drop internal board macro", img: "assets/igbt/power-stage.jpg" },
     },
     useCases: {
-      eyebrow: "Where it fits", title: "Where <em>accuracy</em> matters most.",
+      eyebrow: "Where it belongs", title: "Built for equipment you <em>cannot afford to lose</em>.",
       items: [
-        { icon: "bolt", title: "Laser & CNC machines", desc: "Laser cutters, engravers and CNC need exact voltage. ±2% output keeps cuts clean and protects the tube and drivers." },
-        { icon: "pulse", title: "Medical & diagnostic", desc: "Imaging and lab machines can't take a sag. Silent, spark-free, pure sine power keeps them safe." },
-        { icon: "chip", title: "Labs & instruments", desc: "Precision instruments and test gear get clean, steady voltage with no spikes." },
-        { icon: "server", title: "Broadcast, IT & servers", desc: "Pure sine output keeps servers, UPS and studio gear running without errors." },
+        { icon: "bolt", title: "Laser & CNC machines", desc: "Laser cutters, engravers and CNC need exact voltage. ±2% output keeps cuts clean and protects the tube, motors and drivers." },
+        { icon: "pulse", title: "Medical & imaging", desc: "MRI, CT, X-ray and lab analysers cannot take a sag. Silent, spark-free, pure sine power keeps diagnostic machines safe." },
+        { icon: "shield", title: "Defense & critical systems", desc: "Radar, comms and control rooms demand uninterrupted, perfectly clean power. The inverter holds it within ±1% with zero spark." },
+        { icon: "server", title: "Data centers & broadcast", desc: "Pure sine output keeps servers, UPS, transmitters and studio gear running error-free through every grid swing." },
+        { icon: "chip", title: "Labs & precision instruments", desc: "Test benches, semiconductor tools and metrology gear get clean, steady voltage with no spikes or distortion." },
+        { icon: "home", title: "High-end automation", desc: "Robotics, PLC lines and imaging stations stay calibrated on rock-steady, instantly-corrected 220 V." },
       ],
     },
     benefits: {
