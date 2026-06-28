@@ -5,7 +5,6 @@ import { FAMILIES, membersOf } from "@/lib/showcase-data";
 import type { CategoryId } from "@/lib/types";
 import EcomCard from "@/components/EcomCard";
 import FamilyCard from "@/components/FamilyCard";
-import StabilizerSelector from "@/components/StabilizerSelector";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SortSelect from "@/components/SortSelect";
 import JsonLd from "@/components/JsonLd";
@@ -107,12 +106,6 @@ export default async function ProductsPage({
             </div>
             <h1>{t("shop.h1")}</h1>
             <p>{t("shop.intro")}</p>
-          </div>
-        </section>
-
-        <section className="section" style={{ paddingTop: 8 }}>
-          <div className="container">
-            <StabilizerSelector />
           </div>
         </section>
 
