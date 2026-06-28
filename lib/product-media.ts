@@ -22,6 +22,13 @@ export type MediaMap = Record<string, ProductMedia>;
 const TABLE = "product_overrides";
 const LOCAL_FILE = path.join(process.cwd(), ".data", "product-media.json");
 
+// The local-JSON fallback is for localhost only. On a serverless host (Vercel)
+// the filesystem is ephemeral, so writing there silently loses data on the next
+// deploy/cold start. In production we require Supabase and never touch local FS.
+const IS_DEV = process.env.NODE_ENV !== "production";
+const NO_STORAGE_MSG =
+  "Persistent storage is not configured. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in the environment (e.g. Vercel → Settings → Environment Variables) so admin changes are saved to Supabase, not the temporary filesystem.";
+
 function normalize(raw: Partial<ProductMedia> | undefined): ProductMedia {
   return {
     images: Array.isArray(raw?.images) ? raw!.images.filter((s) => typeof s === "string" && s.trim()) : [],
@@ -52,7 +59,7 @@ async function writeLocal(map: MediaMap): Promise<void> {
 // ---- read ------------------------------------------------------------------
 export async function getMediaMap(): Promise<MediaMap> {
   const supabase = getSupabaseAdmin();
-  if (!supabase) return readLocal();
+  if (!supabase) return IS_DEV ? readLocal() : {};
   try {
     const { data, error } = await supabase.from(TABLE).select("*");
     if (error || !data) return {};
@@ -79,6 +86,7 @@ export async function upsertMedia(id: string, media: Partial<ProductMedia>): Pro
   const clean = normalize(media);
   const supabase = getSupabaseAdmin();
   if (!supabase) {
+    if (!IS_DEV) throw new Error(NO_STORAGE_MSG);
     const map = await readLocal();
     if (isEmpty(clean)) delete map[id];
     else map[id] = clean;

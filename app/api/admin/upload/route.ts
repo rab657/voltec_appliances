@@ -54,7 +54,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ url: data.publicUrl });
   }
 
-  // Local dev fallback: write into public/uploads/products
+  // Local-dev fallback only. On a serverless host the filesystem is ephemeral,
+  // so a local save would vanish on the next deploy — refuse and surface why.
+  if (process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      {
+        error:
+          'Image storage is not configured. Create a public Supabase bucket named "product-images" and set NEXT_PUBLIC_SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY in the environment — otherwise uploads are lost on the next deploy.',
+      },
+      { status: 503 },
+    );
+  }
   try {
     const dir = path.join(process.cwd(), "public", "uploads", "products");
     await fs.mkdir(dir, { recursive: true });
