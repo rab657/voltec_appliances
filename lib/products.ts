@@ -195,7 +195,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["140–260V", "input range"],
     description:
       "The right size for one inverter AC, a fridge, lights, and a TV. This servo motor stabilizer has a real autotransformer, a wide 140V–260V input range, and a powder-coated steel cabinet. The dual LED display shows live voltage and load. It is quiet enough for a bedroom utility cupboard, and it is backed by our own service team.",
-    image: "assets/prod-residential.png",
+    image: "assets/svc-stabilizer.png",
     specs: [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "5kVA, single-phase"],
@@ -217,7 +217,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["±1%", "output accuracy"],
     description:
       "Step up to whole-home coverage. This 10kVA servo stabilizer moves a carbon-brush slider across a variable autotransformer for smooth correction, not the stepped jumps of cheap relay units. It handles two inverter ACs plus the fridge, fans, and electronics. It has copper windings, large contacts, and an LCD that shows live input, output, and load.",
-    image: "assets/prod-residential.png",
+    image: "assets/svc-stabilizer.png",
     specs: [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "10kVA, single-phase"],
@@ -239,7 +239,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["15kVA", "whole-home"],
     description:
       "Smooth, steady voltage the moment your mains acts up. This servo motor (SVC type) stabilizer moves a carbon-brush slider across an autotransformer, not a stepped relay. So your AC, motors, and electronics get steady 220V even when WAPDA gives you 140V or 260V. It has copper windings, large contacts, and a thermal-cutoff controller. This design has run in Pakistani homes and shops for over 15 years.",
-    image: "assets/prod-residential.png",
+    image: "assets/svc-stabilizer.png",
     specs: [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "15kVA, single-phase"],
@@ -354,7 +354,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["100kVA", "3-phase"],
     description:
       "Built for plants that cannot lose a single shift. This 100kVA three-phase servo stabilizer fixes each phase on its own. So unbalanced WAPDA supply becomes clean, balanced 400V at the output. It has heavy copper windings, large contactors, forced-air cooling, and a thermal-protected controller rated for 50°C non-stop. It runs in textile and food plants across Punjab.",
-    image: "assets/prod-3phase.png",
+    image: "assets/industrial-sjw.png",
     specs: [
       ["Technology", "SVC — 3-phase servo"],
       ["Capacity", "100kVA, 3-phase"],
@@ -377,7 +377,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["200kVA", "50°C rated"],
     description:
       "Built for factories that cannot lose a single shift. Three separate servo motors move variable autotransformers, one per phase, to fix voltage at 35V per second. It has heavy copper windings, large contactors, and a thermal-protected control board that runs 24/7 in 50°C heat. It runs at K&N's, Fauji Fertilizer, and dozens of textile mills across Punjab.",
-    image: "assets/prod-3phase.png",
+    image: "assets/industrial-sjw.png",
     specs: [
       ["Technology", "SVC — 3-phase servo"],
       ["Capacity", "200kVA, 3-phase"],
@@ -400,7 +400,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["< 20ms", "no moving parts"],
     description:
       "When uptime matters most, take out the moving parts. This 100kVA three-phase IGBT static stabilizer fixes all three phases in milliseconds. There are no servo motors, no carbon brushes, and no maintenance shutdowns. Best for precision factories, data rooms, and medical sites where servo lag or downtime is not acceptable.",
-    image: "assets/prod-industrial.jpg",
+    image: "assets/industrial-sjw.png",
     specs: [
       ["Technology", "IGBT static, 3-phase"],
       ["Capacity", "100kVA, 3-phase"],
@@ -422,7 +422,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["500kVA", "oil-cooled"],
     description:
       "When your factory pulls half a megawatt and the input voltage swings 200V on a hot afternoon, this keeps you running. It is a forced-oil-cooled three-phase servo stabilizer that fixes very low voltage down to 260V L-L. It has heavy copper, thermostatic monitoring, and a control system that has run non-stop in textile mills, cold stores, and dairy plants across Pakistan for over 15 years. Custom builds on request.",
-    image: "assets/prod-industrial.jpg",
+    image: "assets/industrial-sjw.png",
     specs: [
       ["Technology", "SVC — 3-phase servo"],
       ["Capacity", "500kVA, 3-phase"],
@@ -459,7 +459,7 @@ export const PRODUCTS: Product[] = [
     },
     description:
       "Genuine EVE Grade-A prismatic LFP — direct from the factory, never grade-B. The cell behind most home solar banks in Pakistan.",
-    image: "assets/prod-lithium.png",
+    image: "assets/eve-cell.png",
     specs: [
       ["Chemistry", "LiFePO4 (LFP)"],
       ["Nominal voltage", "3.2V"],
@@ -495,7 +495,7 @@ export const PRODUCTS: Product[] = [
     },
     description:
       "280Ah of genuine EVE Grade-A LFP. Sixteen cells make a 14kWh / 48V bank — enough to run a whole home through load-shedding.",
-    image: "assets/prod-lithium.png",
+    image: "assets/eve-cell.png",
     specs: [
       ["Chemistry", "LiFePO4 (LFP)"],
       ["Nominal voltage", "3.2V"],
@@ -531,7 +531,7 @@ export const PRODUCTS: Product[] = [
     },
     description:
       "Our highest-capacity prismatic cell. 304Ah of genuine EVE Grade-A LFP — more storage per cabinet, lower cost per kWh. Best for commercial ESS.",
-    image: "assets/prod-lithium.png",
+    image: "assets/eve-cell.png",
     specs: [
       ["Chemistry", "LiFePO4 (LFP)"],
       ["Nominal voltage", "3.2V"],
@@ -630,7 +630,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["16S", "CAN-ready"],
     description:
       "The control board that turns 16 cells into a real battery. This DALY active-balancing BMS keeps every cell within 5mV of the others, even after years of use. CAN protocols let it talk to Victron, Deye, SRNE, and Growatt inverters right out of the box. It ships with our tested firmware and a 72-hour bench test report — not generic AliExpress firmware.",
-    image: "assets/prod-bms.png",
+    image: "assets/bms-daly.png",
     specs: [
       ["Configuration", "16S (48V nominal LFP)"],
       ["Continuous current", "100A"],
@@ -651,7 +651,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["T73", "up to 10A"],
     description:
       "The small power relay every control board needs — Wirell's JQC-3F (T73). Silver-alloy contacts switch up to 10A, with a 99% pure-copper coil for a long, reliable life. Built for stabilizer controllers, inverters, solar charge controllers and automation panels. Standard PCB through-hole footprint. Stocked by the thousand for next-day dispatch.",
-    image: "assets/prod-relay.jpg",
+    image: "assets/relay-t73.webp",
     specs: [
       ["Model", "Wirell JQC-3F (T73)"],
       ["Contact rating", "7A @ 250VAC · 10A @ 125VAC · 5A @ 30VDC"],
@@ -676,7 +676,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["T90", "up to 40A"],
     description:
       "Wirell's JQX-15F (T90) is the heavy-duty PCB relay for high-current switching — up to 40A. Available in 1A, 1B and 1C contact forms with silver-alloy contacts that take real motor and inrush loads. The switching heart of AVR stabilizers, inverters and power panels. Standard PCB through-hole footprint. Stocked by the thousand for next-day dispatch.",
-    image: "assets/prod-relay.jpg",
+    image: "assets/relay-t90.png",
     specs: [
       ["Model", "Wirell JQX-15F (T90)"],
       ["Contact rating", "20A / 30A / 40A"],

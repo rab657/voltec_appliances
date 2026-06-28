@@ -623,7 +623,7 @@ export const FAMILIES: FamilyMeta[] = [
     category: "Lithium Cells",
     categoryId: "cells",
     blurb: "Genuine Grade-A prismatic LFP. Laser-welded, QR-traceable and matched in Lahore. The heart of every solar storage build.",
-    image: "assets/prod-lithium.png",
+    image: "assets/eve-cell.png",
   },
   {
     slug: "industrial",
@@ -632,7 +632,7 @@ export const FAMILIES: FamilyMeta[] = [
     category: "Industrial",
     categoryId: "industrial",
     blurb: "Three-phase SJW-series systems, built to order — 100kVA, 200kVA and up, in servo (SVC) or static IGBT. Made to fit your plant.",
-    image: "assets/prod-3phase.png",
+    image: "assets/industrial-sjw.png",
     tag: "Custom-built",
   },
   {
@@ -642,7 +642,7 @@ export const FAMILIES: FamilyMeta[] = [
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
     blurb: "SVC servo motor control. Smooth, stepless correction sized to keep home appliances, ACs and electronics safe.",
-    image: "assets/prod-residential.png",
+    image: "assets/svc-stabilizer.png",
     tag: "Best seller",
   },
   {
@@ -652,7 +652,7 @@ export const FAMILIES: FamilyMeta[] = [
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
     blurb: "Relay-type automatic stabilizers — the Voltec A-series for fridges, deep freezers and air-conditioners. Pure copper, and they work from very low voltage.",
-    image: "assets/prod-avr.jpg",
+    image: "assets/avr-a25.png",
     tag: "From 75V",
   },
   {
@@ -662,7 +662,7 @@ export const FAMILIES: FamilyMeta[] = [
     category: "Electric Parts",
     categoryId: "parts",
     blurb: "Wirell power relays — T73 (up to 10A) and T90 (up to 40A). Silver-alloy contacts, stocked by the thousand for next-day dispatch.",
-    image: "assets/prod-relay.jpg",
+    image: "assets/relay-t73.webp",
   },
   {
     slug: "led",
