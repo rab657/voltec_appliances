@@ -13,8 +13,8 @@ export default async function AboutPage() {
   const t = await getT();
   const TIMELINE: [string, string, string][] = [
     ["1980s", t("about.tl1.t"), t("about.tl1.d")],
-    ["1990s–2000s", t("about.tl2.t"), t("about.tl2.d")],
-    ["2010s", t("about.tl3.t"), t("about.tl3.d")],
+    ["1995", t("about.tl2.t"), t("about.tl2.d")],
+    ["2000s–10s", t("about.tl3.t"), t("about.tl3.d")],
     ["2020s", t("about.tl4.t"), t("about.tl4.d")],
     [t("about.tl.today"), t("about.tl5.t"), t("about.tl5.d")],
   ];

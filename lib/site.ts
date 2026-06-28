@@ -5,7 +5,7 @@ export const SITE = {
   shortName: "Voltec",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://voltecappliances.com",
   description:
-    "Maker of voltage stabilizers (IGBT, SVC, AVR), EVE lithium cells, industrial systems and electric parts. Building power equipment in Lahore since the 1980s. Serving Pakistan, the UAE and China.",
+    "Maker of voltage stabilizers (IGBT, SVC, AVR), EVE lithium cells, industrial systems and electric parts. Established as Voltec in 1995, with roots in a 1980s Lahore workshop. Serving Pakistan, the UAE and China.",
   locale: "en-PK",
   phone: "+92-324-400-4778",
   phoneDisplay: "+92 324 400 4778",
@@ -13,7 +13,7 @@ export const SITE = {
   email: "voltecappliances@hotmail.com",
   wechat: "rab657",
   whatsapp: "923244004778",
-  established: 1985,
+  established: 1995,
   founder: "Riaz Ahmad",
   chairman: "Riaz Ahmad",
   md: "Raheel Ahmad",
@@ -42,7 +42,7 @@ export const VOLTEC_ORG = {
   },
   telephone: SITE.phone,
   email: SITE.email,
-  foundingDate: "1985",
+  foundingDate: "1995",
   founder: { "@type": "Person", name: SITE.founder },
   areaServed: SITE.markets.map((m) => ({ "@type": "Country", name: m })),
   contactPoint: [
