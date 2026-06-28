@@ -1,18 +1,18 @@
-// Real cover images for blog posts, keyed by slug, drawn from internal
-// brochure/product assets (no stock 3D people). Used for the article hero,
-// related-post thumbnails, and the post's social-share (OG) image. Falls back
-// to the branded placeholder when a slug isn't mapped.
+// Real cover images for blog posts, keyed by slug. Generated with Higgsfield
+// (serious, photoreal, on-topic — no stock 3D people). Used for the article
+// hero, related-post thumbnails, and the post's social-share (OG) image. Falls
+// back to the branded placeholder when a slug isn't mapped.
 export const POST_COVER: Record<string, string> = {
-  "choose-right-solar-battery": "assets/igbt/home-solar.jpg",
-  "kns-kasur-case-study": "assets/igbt/power-stage.jpg",
-  "home-stabilizer-guide": "assets/igbt/display.jpg",
-  "rack-mount-shops-offices": "assets/prod-lithium.png",
-  "signs-battery-dying": "assets/igbt/vp-medical.jpg",
-  "gwadar-installation": "assets/igbt/home-solar.jpg",
-  "inverter-vs-servo-vs-relay-stabilizer": "assets/igbt/range.jpg",
-  "inverter-stabilizer-electricity-bill": "assets/igbt/vp-grid.jpg",
-  "what-size-stabilizer-pakistan-home": "assets/igbt/powers-home.jpg",
-  "lithium-vs-lead-acid-pakistan": "assets/prod-cylindrical.jpg",
+  "choose-right-solar-battery": "assets/blog/choose-right-solar-battery.jpg",
+  "kns-kasur-case-study": "assets/blog/kns-kasur-case-study.jpg",
+  "home-stabilizer-guide": "assets/blog/home-stabilizer-guide.jpg",
+  "rack-mount-shops-offices": "assets/blog/rack-mount-shops-offices.jpg",
+  "signs-battery-dying": "assets/blog/signs-battery-dying.jpg",
+  "gwadar-installation": "assets/blog/gwadar-installation.jpg",
+  "inverter-vs-servo-vs-relay-stabilizer": "assets/blog/inverter-vs-servo-vs-relay-stabilizer.jpg",
+  "inverter-stabilizer-electricity-bill": "assets/blog/inverter-stabilizer-electricity-bill.jpg",
+  "what-size-stabilizer-pakistan-home": "assets/blog/what-size-stabilizer-pakistan-home.jpg",
+  "lithium-vs-lead-acid-pakistan": "assets/blog/lithium-vs-lead-acid-pakistan.jpg",
 };
 
 export function coverFor(slug: string): string | null {
