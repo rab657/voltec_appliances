@@ -175,6 +175,10 @@ image-slot::part(empty),
 /* Fallback annotation list (mobile) */
 .sb-anno-list { display: none; }
 
+/* Hero (image-free): centered live monitor above the feature grid. */
+.sb-hero-monitor { max-width: 460px; margin: 0 auto 44px; }
+.sb-hero-feats { margin-top: 8px; }
+
 /* ===== LED readout (CSS 7-segment) ===================================== */
 .led-readout {
   background: linear-gradient(160deg, oklch(26% 0.02 255) 0%, oklch(15% 0.02 258) 100%);

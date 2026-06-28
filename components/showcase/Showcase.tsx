@@ -59,30 +59,31 @@ export default async function Showcase({
               <h2 dangerouslySetInnerHTML={{ __html: c.hero.title }}></h2>
               <p>{c.hero.intro}</p>
             </div>
-            <AnnoStage
-              src={lead.image}
-              slotPlaceholder={c.hero.slot}
-              callouts={c.hero.callouts}
-              stageClass="sb-anno-stage"
-              slotClass="sb-anno-product"
-              height={420}
-              center={
-                c.monitor ? (
-                  <div className="led-readout" style={{ width: "100%", maxWidth: 420 }}>
-                    {c.monitor.rows.map((r, i) => (
-                      <div className="led-row" key={i}>
-                        <span className="led-label">{r[0]}</span>
-                        <span className={`led-digits lg ${r[3] ? "is-out" : ""}`}>
-                          <span className="led-ghost">{"8".repeat(String(r[1]).length)}</span>
-                          <span className="led-on">{r[1]}</span>
-                          <span className="led-unit">{r[2]}</span>
-                        </span>
-                      </div>
-                    ))}
+            {c.monitor && (
+              <div className="led-readout sb-hero-monitor">
+                {c.monitor.rows.map((r, i) => (
+                  <div className="led-row" key={i}>
+                    <span className="led-label">{r[0]}</span>
+                    <span className={`led-digits lg ${r[3] ? "is-out" : ""}`}>
+                      <span className="led-ghost">{"8".repeat(String(r[1]).length)}</span>
+                      <span className="led-on">{r[1]}</span>
+                      <span className="led-unit">{r[2]}</span>
+                    </span>
                   </div>
-                ) : undefined
-              }
-            />
+                ))}
+              </div>
+            )}
+            <div className="sb-uses sb-hero-feats">
+              {c.hero.callouts.map((co, i) => (
+                <div className="sb-use" key={i}>
+                  <div className="sb-use-ic">
+                    <SbIcon name={co.icon} />
+                  </div>
+                  <h4>{co.title}</h4>
+                  <p>{co.desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}
