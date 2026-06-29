@@ -18,7 +18,10 @@ const RIGHT = [
   { href: "/contact", key: "contact" },
 ];
 // Solutions is a dropdown of industry verticals (more to come).
-const SOLUTIONS = [{ href: "/medical", key: "medical" }];
+const SOLUTIONS = [
+  { href: "/solar", key: "solar" },
+  { href: "/medical", key: "medical" },
+];
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
