@@ -140,39 +140,8 @@ export default async function SolarPage() {
         </div>
       </section>
 
-      {/* ===== Why + the fix ===== */}
+      {/* ===== Protected vs surge (the difference) — lead with the visual ===== */}
       <section className="section hairline-top">
-        <div className="container">
-          <div className="med-narrow" style={{ marginBottom: 28 }}>
-            <h2 className="med-h2">Why this happens — and how we fix it</h2>
-            <p className="med-body">
-              In many areas the voltage often goes too high — above 250 volts. When it does, one of two
-              things happens — and both are bad. Your inverter shuts off to protect itself, and your
-              whole house goes dark. Or it switches over to the grid (the bypass), sending that same high
-              voltage straight to your sockets — and your TV, fridge, ACs and anything plugged in can get
-              blown in seconds.
-            </p>
-            <p className="med-body" style={{ marginTop: 14 }}>
-              A Voltec stabilizer sits between the grid and your inverter. It brings the high voltage
-              down to a safe, steady level before it can reach your inverter or your appliances. So your
-              inverter keeps running — and nothing gets blown.
-            </p>
-          </div>
-          <div className="med-grid">
-            {BENEFITS.map((item) => (
-              <div className="med-grid-item" key={item}>
-                <span className="med-check" aria-hidden="true">
-                  ✓
-                </span>
-                <span>{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== Protected vs surge (the difference) ===== */}
-      <section className="section" style={{ background: "var(--paper-2)" }}>
         <div className="container">
           <div className="med-narrow is-center" style={{ marginBottom: 30, textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
             <h2 className="med-h2">See the difference one stabilizer makes</h2>
@@ -216,6 +185,37 @@ export default async function SolarPage() {
         </div>
       </section>
 
+      {/* ===== Why + the fix ===== */}
+      <section className="section" style={{ background: "var(--paper-2)" }}>
+        <div className="container">
+          <div className="med-narrow" style={{ marginBottom: 28 }}>
+            <h2 className="med-h2">Why this happens — and how we fix it</h2>
+            <p className="med-body">
+              In many areas the voltage often goes too high — above 250 volts. When it does, one of two
+              things happens — and both are bad. Your inverter shuts off to protect itself, and your
+              whole house goes dark. Or it switches over to the grid (the bypass), sending that same high
+              voltage straight to your sockets — and your TV, fridge, ACs and anything plugged in can get
+              blown in seconds.
+            </p>
+            <p className="med-body" style={{ marginTop: 14 }}>
+              A Voltec stabilizer sits between the grid and your inverter. It brings the high voltage
+              down to a safe, steady level before it can reach your inverter or your appliances. So your
+              inverter keeps running — and nothing gets blown.
+            </p>
+          </div>
+          <div className="med-grid">
+            {BENEFITS.map((item) => (
+              <div className="med-grid-item" key={item}>
+                <span className="med-check" aria-hidden="true">
+                  ✓
+                </span>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ===== Which size ===== */}
       <section className="section hairline-top">
         <div className="container">
@@ -245,7 +245,7 @@ export default async function SolarPage() {
       </section>
 
       {/* ===== Why Voltec ===== */}
-      <section className="section">
+      <section className="section" style={{ background: "var(--paper-2)" }}>
         <div className="container">
           <div className="med-narrow" style={{ marginBottom: 24 }}>
             <h2 className="med-h2">Why buy from Voltec</h2>
