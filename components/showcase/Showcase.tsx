@@ -27,6 +27,47 @@ export default async function Showcase({
   const related = siblingFamilies(family);
   const packed = members.filter((p) => p.packing);
 
+  const benefitsBlock = c.benefits ? (
+    <section className="sb-section" style={{ background: "var(--paper-2)" }}>
+      <div className="container">
+        <div className="sb-head is-center">
+          <div className="sb-eyebrow">{c.benefits.eyebrow}</div>
+          <h2 dangerouslySetInnerHTML={{ __html: c.benefits.title }}></h2>
+        </div>
+        <div className="sb-adv-grid">
+          {c.benefits.items.map((a) => (
+            <div className="sb-adv" key={a.n}>
+              <Slot src={a.img} label={a.title} cover />
+              <div className="sb-adv-band">
+                <div className="n">{a.n}</div>
+                <h4>{a.title}</h4>
+                <p>{a.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+        {c.benefits.protections && (
+          <div className="sb-protect">
+            {c.benefits.protections.map((k) => {
+              const pi = PROT_ICONS[k];
+              if (!pi) return null;
+              return (
+                <div className="sb-protect-item" key={k}>
+                  <div className="sb-protect-ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={pi.d} />
+                    </svg>
+                  </div>
+                  <span>{lc(pi.label)}</span>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+    </section>
+  ) : null;
+
   return (
     <main>
       {/* ===== Masthead ===== */}
@@ -87,6 +128,8 @@ export default async function Showcase({
           </div>
         </section>
       )}
+
+      {c.benefitsEarly && benefitsBlock}
 
       {/* ===== Tech — how it works (flow or pillars) ===== */}
       {c.tech && (
@@ -197,46 +240,7 @@ export default async function Showcase({
       )}
 
       {/* ===== Benefits + protections ===== */}
-      {c.benefits && (
-        <section className="sb-section" style={{ background: "var(--paper-2)" }}>
-          <div className="container">
-            <div className="sb-head is-center">
-              <div className="sb-eyebrow">{c.benefits.eyebrow}</div>
-              <h2 dangerouslySetInnerHTML={{ __html: c.benefits.title }}></h2>
-            </div>
-            <div className="sb-adv-grid">
-              {c.benefits.items.map((a) => (
-                <div className="sb-adv" key={a.n}>
-                  <Slot src={a.img} label={a.title} cover />
-                  <div className="sb-adv-band">
-                    <div className="n">{a.n}</div>
-                    <h4>{a.title}</h4>
-                    <p>{a.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            {c.benefits.protections && (
-              <div className="sb-protect">
-                {c.benefits.protections.map((k) => {
-                  const pi = PROT_ICONS[k];
-                  if (!pi) return null;
-                  return (
-                    <div className="sb-protect-item" key={k}>
-                      <div className="sb-protect-ic">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-                          <path d={pi.d} />
-                        </svg>
-                      </div>
-                      <span>{lc(pi.label)}</span>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-        </section>
-      )}
+      {!c.benefitsEarly && benefitsBlock}
 
       {/* ===== Comparison — this tech vs servo / relay ===== */}
       {c.comparison && (

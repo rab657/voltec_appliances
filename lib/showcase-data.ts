@@ -55,6 +55,9 @@ export interface ShowcaseContent {
     items: { n: string; title: string; desc: string; img?: string }[];
     protections?: string[];
   };
+  /** Render the benefits ("Key advantages") block high up, right after the hero,
+   *  instead of in its default lower position. */
+  benefitsEarly?: boolean;
   // Local market context (e.g. "Built for Pakistan's grid")
   local?: {
     eyebrow: string;
@@ -241,6 +244,7 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
 
   // ====================================================================== SCR
   "stab-scr": {
+    benefitsEarly: true,
     tagline: "Solid-state thyristor switching — faster than a servo, with no motor and no brushes to wear out. The cost-effective way to protect tier-1 sensitive equipment like laser machines.",
     stats: [["95–250", "V", "Input range"], ["±5", "%", "Output accuracy"], ["&ge;95", "%", "Efficiency"], ["20", "ms", "Response"]],
     hero: {
@@ -278,12 +282,12 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
     benefits: {
       eyebrow: "Key advantages", title: "Solid-state, <em>without the premium</em>.",
       items: [
-        { n: "01", title: "No moving parts", desc: "No servo motor and no carbon brush — nothing mechanical to wear out." },
-        { n: "02", title: "Faster than servo", desc: "Switches electronically in about 20 ms, not a slow motor sweep." },
-        { n: "03", title: "Silent & spark-free", desc: "100% spark-free operation, fine for quiet rooms." },
-        { n: "04", title: "Wide input range", desc: "Holds 220V ±5% from a wide 95–250V supply." },
-        { n: "05", title: "Long lifespan", desc: "Solid-state design lasts far longer than a motor-driven servo." },
-        { n: "06", title: "Six-layer protection", desc: "Over-voltage, under-voltage, overload, over-temp and short-circuit." },
+        { n: "01", title: "No moving parts", desc: "No servo motor and no carbon brush — nothing mechanical to wear out.", img: "assets/scr/scr-solidstate.jpg" },
+        { n: "02", title: "Faster than servo", desc: "Switches electronically in about 20 ms, not a slow motor sweep.", img: "assets/scr/scr-fast.jpg" },
+        { n: "03", title: "Silent & spark-free", desc: "100% spark-free and silent — fine for a bedroom or a clinic.", img: "assets/scr/scr-silent.jpg" },
+        { n: "04", title: "Wide input range", desc: "Holds 220V ±5% from a wide 95–250V supply.", img: "assets/scr/scr-wideinput.jpg" },
+        { n: "05", title: "Long lifespan", desc: "Solid-state design with no mechanical wear lasts far longer than a servo.", img: "assets/scr/scr-lifespan.jpg" },
+        { n: "06", title: "Six-layer protection", desc: "Over-voltage, under-voltage, overload, over-temp and short-circuit.", img: "assets/scr/scr-safe.jpg" },
       ],
       protections: ["over-volt", "under-volt", "over-temp", "short"],
     },
