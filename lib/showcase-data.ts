@@ -679,6 +679,7 @@ export const FAMILIES: FamilyMeta[] = [
     image: "assets/igbt/display.jpg",
     bandImage: "assets/igbt/range.jpg",
     tag: "Coming soon",
+    originTagKey: "cfg.imported",
   },
   {
     slug: "cells",
@@ -708,6 +709,7 @@ export const FAMILIES: FamilyMeta[] = [
     blurb: "SVC servo motor control. Smooth, stepless correction sized to keep home appliances, ACs and electronics safe.",
     image: "assets/svc-stabilizer.png",
     tag: "Best seller",
+    originTagKey: "cfg.imported",
   },
   {
     slug: "scr",
