@@ -186,20 +186,21 @@ export const PRODUCTS: Product[] = [
   },
 
   // ===== SCR (THYRISTOR) STABILIZERS — ITK series, solid-state, stepped =====
-  // Positioning: solid-state SPEED for everyday loads (no motor/brush), stepped
-  // ±5% correction. NEVER "stepless / pure sine / ±1% / precision" — those are
-  // reserved for the inverter (IGBT) range. Specs from the ITK catalogue.
+  // Positioning: solid-state SPEED to protect tier-1 sensitive equipment like
+  // laser machines (no motor/brush), stepped ±5% correction. NEVER "stepless /
+  // pure sine / ±1% / precision" — those stay reserved for the inverter (IGBT)
+  // range. Specs from the ITK catalogue.
   {
     id: "vt-scr-1k",
     name: "SCR Thyristor Stabilizer — 1kVA",
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
     tech: "SCR",
-    tagline: "Solid-state speed for a single appliance — no motor, no brushes.",
-    useFor: "Compressors, motors and everyday loads",
+    tagline: "Solid-state protection for sensitive electronics — no motor, no brushes.",
+    useFor: "Sensitive electronics & instruments",
     highlight: ["1kVA", "solid-state"],
     description:
-      "Solid-state thyristor (SCR) switching corrects voltage faster than a servo, with no motor and no carbon brush to wear out. Correction is stepped and holds 220V ±5% across a wide 95–250V input — built for rugged, tolerant loads that need speed and longevity, not laboratory-grade precision.",
+      "Solid-state thyristor (SCR) switching corrects voltage faster than a servo, with no motor and no carbon brush to wear out. Correction is stepped and holds 220V ±5% across a wide 95–250V input — built to protect sensitive electronics with solid-state speed — no motor or brush to wear out.",
     image: "assets/scr/itk-unit.jpg",
     specs: [
       ["Technology", "SCR thyristor (solid-state, no moving parts)"],
@@ -219,11 +220,11 @@ export const PRODUCTS: Product[] = [
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
     tech: "SCR",
-    tagline: "Fast, silent, spark-free protection for everyday electronics.",
-    useFor: "TV, fridge, electronics and small motors",
+    tagline: "Fast, silent, spark-free — built to protect sensitive electronics.",
+    useFor: "Sensitive electronics & small clinical devices",
     highlight: ["2kVA", "spark-free"],
     description:
-      "A solid-state thyristor stabilizer that switches silently and spark-free — nothing mechanical to wear out. It corrects in steps, fast, holding 220V ±5% across a wide 95–250V input. The right pick for everyday electronics and small motor loads that need reliable, low-maintenance protection.",
+      "A solid-state thyristor stabilizer that switches silently and spark-free — nothing mechanical to wear out. It corrects in steps, fast, holding 220V ±5% across a wide 95–250V input. The right pick for sensitive electronics and small clinical devices that need reliable, low-maintenance protection.",
     image: "assets/scr/itk-unit.jpg",
     specs: [
       ["Technology", "SCR thyristor (solid-state, no moving parts)"],
@@ -243,11 +244,11 @@ export const PRODUCTS: Product[] = [
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
     tech: "SCR",
-    tagline: "Handles an AC with solid-state speed and no servicing.",
-    useFor: "A single AC, HVAC and everyday loads",
+    tagline: "Solid-state speed for a laser or clinical machine.",
+    useFor: "Lasers, ultrasound & clinical equipment",
     highlight: ["3kVA", "no moving parts"],
     description:
-      "Solid-state SCR switching gives this 3kVA stabilizer faster response than a servo with nothing mechanical to service — no motor, no brush. Stepped correction holds 220V ±5% across a wide input, with six layers of protection. Ideal for a single AC, HVAC and rugged everyday loads.",
+      "Solid-state SCR switching gives this 3kVA stabilizer faster response than a servo with nothing mechanical to service — no motor, no brush. Stepped correction holds 220V ±5% across a wide input, with six layers of protection. Ideal for laser machines, ultrasound and clinical equipment that need fast, solid-state protection.",
     image: "assets/scr/itk-unit.jpg",
     specs: [
       ["Technology", "SCR thyristor (solid-state, no moving parts)"],
@@ -267,11 +268,11 @@ export const PRODUCTS: Product[] = [
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
     tech: "SCR",
-    tagline: "Solid-state correction for a home or shop, built to last.",
-    useFor: "One AC plus the rest of a home or shop",
+    tagline: "Solid-state protection for tier-1 sensitive equipment.",
+    useFor: "Laser machines & sensitive clinical equipment",
     highlight: ["5kVA", "long lifespan"],
     description:
-      "A 5kVA solid-state thyristor stabilizer for a home or shop — faster than a servo, with no motor or brush to wear out, so the protection itself lasts. Stepped correction holds 220V ±5% over a wide 95–250V input. Built for rugged, tolerant loads where speed and longevity matter most.",
+      "A 5kVA solid-state thyristor stabilizer for a home or shop — faster than a servo, with no motor or brush to wear out, so the protection itself lasts. Stepped correction holds 220V ±5% over a wide 95–250V input. Built to protect tier-1 sensitive equipment like laser machines, where solid-state speed and longevity matter most.",
     image: "assets/scr/itk-unit.jpg",
     specs: [
       ["Technology", "SCR thyristor (solid-state, no moving parts)"],
@@ -291,11 +292,11 @@ export const PRODUCTS: Product[] = [
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
     tech: "SCR",
-    tagline: "Whole-home solid-state protection with no servicing.",
-    useFor: "A full home or shop with heavier loads",
+    tagline: "Solid-state protection for larger laser & clinical equipment.",
+    useFor: "Larger laser & clinical equipment",
     highlight: ["10kVA", "solid-state"],
     description:
-      "The largest single-phase SCR thyristor unit — 10kVA of solid-state, spark-free correction for a full home or shop. It switches faster than a servo and has no motor or carbon brush to wear out. Stepped correction holds 220V ±5% across a wide input, with six layers of protection.",
+      "The largest single-phase SCR thyristor unit — 10kVA of solid-state, spark-free correction for larger laser machines and clinical equipment. It switches faster than a servo and has no motor or carbon brush to wear out. Stepped correction holds 220V ±5% across a wide input, with six layers of protection.",
     image: "assets/scr/itk-unit.jpg",
     specs: [
       ["Technology", "SCR thyristor (solid-state, no moving parts)"],

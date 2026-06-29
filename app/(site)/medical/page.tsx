@@ -48,22 +48,22 @@ const SOLID_POINTS = [
 const SOLUTIONS: { name: string; tag: string; slug: string; points: string[] }[] = [
   {
     name: "Voltec Inverter (IGBT)",
-    tag: "Precision",
+    tag: "Most sensitive",
     slug: "smart-inverter-voltage-stabilizer",
     points: [
       "Stepless, pure-sine output held to ±1%",
       "Instant, sub-cycle correction",
-      "For your most sensitive machines — lasers, ultrasound, diagnostics, lab analysers",
+      "For your most sensitive, highest-value machines — diagnostics, imaging electronics, lab analysers",
     ],
   },
   {
     name: "Voltec SCR — Thyristor",
-    tag: "Solid-state",
+    tag: "Tier-1 sensitive",
     slug: "scr",
     points: [
       "Solid-state thyristor switching, fast (~20 ms)",
-      "Stepped correction, no motor or brush to service",
-      "For rugged clinical loads — compressors, HVAC, autoclaves, sterilizers, plug-load",
+      "No motor or brush to wear out — far longer life than a servo",
+      "For tier-1 sensitive equipment — aesthetic, dental & surgical laser machines, ultrasound",
     ],
   },
 ];
@@ -75,7 +75,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Isn't my existing servo stabilizer enough?",
-    a: "For appliances, yes. For a laser or sensitive diagnostic machine, a servo reacts too slowly and its motor and brush wear out over time. Voltec's solid-state units — the inverter (IGBT) and the SCR thyristor — react faster and have no moving parts to wear out. The IGBT is the choice for the most sensitive equipment; the SCR suits rugged clinical loads.",
+    a: "For appliances, yes. For a laser or sensitive diagnostic machine, a servo reacts too slowly and its motor and brush wear out over time. Voltec's solid-state units — the inverter (IGBT) and the SCR thyristor — react faster and have no moving parts to wear out. The IGBT is the choice for the most sensitive equipment; the SCR is the cost-effective option for tier-1 sensitive machines like lasers.",
   },
   {
     q: "What size do I need?",
@@ -208,9 +208,10 @@ export default async function MedicalPage() {
           <div className="med-narrow" style={{ marginBottom: 32 }}>
             <h2 className="med-h2">Two ways to protect — both better than a servo</h2>
             <p className="med-body">
-              Voltec offers two solid-state stabilizers, neither with a motor or brush to wear out. We
-              match the right one to each machine: the inverter (IGBT) for your most sensitive equipment,
-              and the SCR thyristor for rugged, everyday clinical loads.
+              Voltec offers two solid-state stabilizers, neither with a motor or brush to wear out. Both
+              protect sensitive equipment far better than a servo — we match the tier to your machine:
+              the inverter (IGBT) for the most sensitive, highest-precision equipment, and the SCR
+              thyristor for tier-1 sensitive machines like lasers.
             </p>
           </div>
           <div className="med-vs">
@@ -273,7 +274,8 @@ export default async function MedicalPage() {
             sensitive electronics expect. If anything inside ever faults, it safely bypasses so your
             equipment is never left without power. It&apos;s the same technology principle as an inverter
             air conditioner: smooth, electronic, efficient. The SCR thyristor option protects the same
-            solid-state way — correcting in fast steps, a lower-cost choice for rugged clinical loads.
+            solid-state way — correcting in fast steps, a lower-cost choice for tier-1 sensitive
+            equipment like laser machines.
           </p>
         </div>
       </section>

@@ -30,7 +30,7 @@ const HOME_FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Inverter, SCR, servo or relay stabilizer — what's the difference?",
-    a: "A relay (AVR) stabilizer is the cheapest and fixes voltage in steps — best for one appliance. An SCR (thyristor) stabilizer is solid-state and switches faster than a servo with no moving parts, but still corrects in steps — best for rugged everyday loads. A servo (SVC) stabilizer uses a motor to correct voltage smoothly to ±1% — best for a whole home or shop. An inverter (IGBT) stabilizer is fully electronic and corrects instantly with a clean pure-sine output and no moving parts — best for sensitive and precision equipment.",
+    a: "A relay (AVR) stabilizer is the cheapest and fixes voltage in steps — best for one appliance. A servo (SVC) stabilizer uses a motor to correct voltage smoothly to ±1% — best for a whole home or shop. An SCR (thyristor) stabilizer is solid-state with no moving parts and switches faster than a servo, correcting in steps to ±5% — the cost-effective way to protect tier-1 sensitive equipment like laser machines. An inverter (IGBT) stabilizer is fully electronic and corrects steplessly with a clean pure-sine output — best for your most sensitive, highest-precision equipment.",
   },
   {
     q: "Where is Voltec based, and do you deliver?",

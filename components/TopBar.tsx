@@ -8,14 +8,17 @@ import { WhatsAppIcon } from "./icons";
 import { useI18n } from "./I18nProvider";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-const LINKS = [
-  { href: "/", label: "Home", key: "home" },
-  { href: "/products", label: "Products", key: "products" },
-  { href: "/medical", label: "Solutions", key: "solutions" },
-  { href: "/about", label: "About", key: "about" },
-  { href: "/blog", label: "Blog", key: "blog" },
-  { href: "/contact", label: "Contact", key: "contact" },
+const LEFT = [
+  { href: "/", key: "home" },
+  { href: "/products", key: "products" },
 ];
+const RIGHT = [
+  { href: "/about", key: "about" },
+  { href: "/blog", key: "blog" },
+  { href: "/contact", key: "contact" },
+];
+// Solutions is a dropdown of industry verticals (more to come).
+const SOLUTIONS = [{ href: "/medical", key: "medical" }];
 
 function isActive(pathname: string, href: string) {
   if (href === "/") return pathname === "/";
@@ -25,7 +28,9 @@ function isActive(pathname: string, href: string) {
 export default function TopBar() {
   const pathname = usePathname() || "/";
   const [open, setOpen] = useState(false);
+  const [ddOpen, setDdOpen] = useState(false);
   const { t } = useI18n();
+  const solutionsActive = SOLUTIONS.some((s) => isActive(pathname, s.href));
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -34,16 +39,17 @@ export default function TopBar() {
     };
   }, [open]);
 
-  // Close the drawer on navigation.
+  // Close drawer + dropdown on navigation.
   useEffect(() => {
     setOpen(false);
+    setDdOpen(false);
   }, [pathname]);
 
   return (
     <header className="topbar">
       <div className="container topbar-inner">
         <div className="topbar-left">
-          {LINKS.slice(0, 3).map((l) => (
+          {LEFT.map((l) => (
             <Link
               key={l.key}
               href={l.href}
@@ -52,13 +58,32 @@ export default function TopBar() {
               {t(`nav.${l.key}`)}
             </Link>
           ))}
+          <div className="nav-dd" onMouseLeave={() => setDdOpen(false)}>
+            <button
+              type="button"
+              className={`nav-link nav-dd-trigger ${solutionsActive ? "active" : ""}`}
+              aria-haspopup="true"
+              aria-expanded={ddOpen}
+              onClick={() => setDdOpen((v) => !v)}
+              onMouseEnter={() => setDdOpen(true)}
+            >
+              {t("nav.solutions")} <span className="nav-dd-caret" aria-hidden="true">▾</span>
+            </button>
+            <div className={`nav-dd-menu ${ddOpen ? "is-open" : ""}`}>
+              {SOLUTIONS.map((s) => (
+                <Link key={s.key} href={s.href} className="nav-dd-item">
+                  {t(`nav.${s.key}`)}
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
         <Link href="/" className="brand" aria-label="Voltec Appliances — home">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/assets/logo.png" alt="Voltec Appliances" className="brand-logo" />
         </Link>
         <div className="topbar-right">
-          {LINKS.slice(3).map((l) => (
+          {RIGHT.map((l) => (
             <Link
               key={l.key}
               href={l.href}
@@ -95,7 +120,26 @@ export default function TopBar() {
             </button>
           </div>
           <div className="nav-drawer-links">
-            {LINKS.map((l) => (
+            {LEFT.map((l) => (
+              <Link
+                key={l.key}
+                href={l.href}
+                className={`nav-drawer-link ${isActive(pathname, l.href) ? "active" : ""}`}
+              >
+                {t(`nav.${l.key}`)}
+              </Link>
+            ))}
+            <div className="nav-drawer-group">{t("nav.solutions")}</div>
+            {SOLUTIONS.map((s) => (
+              <Link
+                key={s.key}
+                href={s.href}
+                className={`nav-drawer-link is-sub ${isActive(pathname, s.href) ? "active" : ""}`}
+              >
+                {t(`nav.${s.key}`)}
+              </Link>
+            ))}
+            {RIGHT.map((l) => (
               <Link
                 key={l.key}
                 href={l.href}

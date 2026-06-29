@@ -241,11 +241,11 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
 
   // ====================================================================== SCR
   "stab-scr": {
-    tagline: "Solid-state thyristor switching — faster than a servo, with no motor and no brushes to wear out. Stepped correction built for rugged, everyday loads.",
+    tagline: "Solid-state thyristor switching — faster than a servo, with no motor and no brushes to wear out. The cost-effective way to protect tier-1 sensitive equipment like laser machines.",
     stats: [["95–250", "V", "Input range"], ["±5", "%", "Output accuracy"], ["&ge;95", "%", "Efficiency"], ["20", "ms", "Response"]],
     hero: {
       eyebrow: "Solid-state · no moving parts", title: "Solid-state speed, <em>nothing to wear out</em>.",
-      intro: "SCR (thyristor) stabilizers switch correction electronically instead of with a motor — faster than a servo, and with no carbon brush or servo motor to service. Correction is stepped, which makes them ideal for rugged, tolerant loads where what matters is speed and longevity, not laboratory-grade precision.",
+      intro: "SCR (thyristor) stabilizers switch correction electronically with silicon — faster than a servo, and with no carbon brush or servo motor to wear out. They protect tier-1 sensitive equipment — laser machines, aesthetic and dental devices, ultrasound — with solid-state speed, at a lower cost than the inverter (IGBT).",
       slot: "Drop product photo",
       callouts: [
         { pos: "tl", icon: "display", title: "LED voltage meter", desc: "Live input, output and load at a glance." },
@@ -262,17 +262,17 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
         { icon: "chip", title: "Solid-state switching", desc: "Thyristors switch the correction electronically — silent and spark-free." },
         { icon: "bolt", title: "Faster than a servo", desc: "No motor to physically move, so it reacts in about 20 ms." },
         { icon: "shield", title: "Nothing to wear out", desc: "No carbon brush, no servo motor — far less to service or fail." },
-        { icon: "terminal", title: "Stepped correction", desc: "Holds 220V ±5% across a wide 95–250V input for everyday loads." },
+        { icon: "terminal", title: "Stepped correction", desc: "Holds 220V ±5% across a wide 95–250V input — enough to protect tier-1 sensitive equipment." },
       ],
     },
     useCases: {
-      eyebrow: "Where it fits", title: "Built for <em>everyday, rugged loads</em>.",
+      eyebrow: "Where it fits", title: "Protects <em>tier-1 sensitive equipment</em>.",
       items: [
-        { icon: "fan", title: "Compressors & motors", desc: "Fast, solid-state correction for AC compressors, pumps and motor loads." },
-        { icon: "home", title: "HVAC & chillers", desc: "Keeps heating, cooling and chiller systems on steady voltage all day." },
-        { icon: "server", title: "Clinic & office plug-load", desc: "Reliable protection for the general plug-load of a clinic or office." },
-        { icon: "shield", title: "Autoclaves & sterilizers", desc: "Steady power for sterilizers and autoclaves with electronic controls." },
-        { icon: "bolt", title: "Workshop & light industrial", desc: "Rugged protection for workshop tools and light industrial equipment." },
+        { icon: "bolt", title: "Laser machines", desc: "Aesthetic, dental and hair-removal lasers — solid-state speed protects the laser, with no motor lag." },
+        { icon: "pulse", title: "Ultrasound & diagnostics", desc: "Clean, fast correction for ultrasound and clinical diagnostic units." },
+        { icon: "chip", title: "Aesthetic & RF devices", desc: "RF, HIFU and body-contouring platforms that need steady, spark-free power." },
+        { icon: "server", title: "Sensitive electronics", desc: "Servers, AV and electronics that want fast correction without a motor to wear out." },
+        { icon: "home", title: "Home & shop, too", desc: "And everyday home and shop loads where solid-state speed and longevity matter." },
       ],
     },
     benefits: {
@@ -288,9 +288,9 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
       protections: ["over-volt", "under-volt", "over-temp", "short"],
     },
     faqs: [
-      { q: "What is an SCR (thyristor) stabilizer?", a: "It corrects voltage with solid-state silicon switches (thyristors) instead of a motor. That makes it faster than a servo stabilizer and gives it no carbon brush or motor to wear out — but it corrects in steps, so it is built for rugged everyday loads rather than laboratory-grade precision." },
-      { q: "SCR or servo (SVC) — which is better?", a: "An SCR switches electronically, so it reacts faster than a servo and has nothing mechanical to service. A servo corrects more smoothly (±1%) but uses a motor and brush that wear out. For everyday loads where speed and longevity matter, SCR is the modern, low-maintenance choice." },
-      { q: "SCR or inverter (IGBT) — what's the difference?", a: "Both are solid-state with no moving parts. The SCR corrects in steps and holds ±5% — great value for rugged loads. The inverter (IGBT) corrects steplessly with a pure-sine output and ±1% accuracy — the right choice for sensitive or precision equipment like lasers, medical and CNC." },
+      { q: "What is an SCR (thyristor) stabilizer?", a: "It corrects voltage with solid-state silicon switches (thyristors) instead of a motor. That makes it faster than a servo stabilizer with no carbon brush or motor to wear out. It corrects in steps to ±5% — the cost-effective way to protect tier-1 sensitive equipment like laser machines, where that is enough." },
+      { q: "SCR or servo (SVC) — which is better for a laser?", a: "An SCR. It switches electronically, so it reacts faster than a servo and has no motor or brush to wear out — important when you're protecting a sensitive machine like a laser. A servo's motor is slower and the protection itself wears over time." },
+      { q: "SCR or inverter (IGBT) — what's the difference?", a: "Both are solid-state with no moving parts and both protect sensitive equipment. The SCR corrects in steps to ±5% — great value for tier-1 sensitive machines like lasers. The inverter (IGBT) corrects steplessly with a pure-sine output and ±1% accuracy — the choice for your most sensitive, highest-precision equipment." },
       { q: "Is it silent?", a: "Yes — solid-state switching is 100% spark-free and silent, with no relay clicking or motor hum." },
       { q: "What size do I need?", a: "Match it to your load: about 1–3 kVA for a single appliance or AC, 5–10 kVA for a home or shop. Send us your appliance list on WhatsApp and we will size it." },
     ],
@@ -708,7 +708,7 @@ export const FAMILIES: FamilyMeta[] = [
     name: "Voltec SCR — Thyristor",
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
-    blurb: "Solid-state thyristor switching — faster than a servo, with no motor or brushes to wear out. Stepped correction for rugged, everyday loads that need speed and longevity.",
+    blurb: "Solid-state thyristor switching — faster than a servo, with no motor or brushes to wear out. The cost-effective way to protect tier-1 sensitive equipment like laser machines.",
     image: "assets/scr/itk-unit.jpg",
     bandImage: "assets/scr/itk-wall.jpg",
     tag: "Solid-state",
