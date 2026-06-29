@@ -660,6 +660,9 @@ export interface FamilyMeta {
   bandImage?: string;
   /** Optional positioning tag, e.g. "Latest generation". */
   tag?: string;
+  /** Optional override for the origin chip's i18n key. Defaults to
+   *  "cfg.built" ("Built in Lahore"); imported lines use "cfg.imported". */
+  originTagKey?: string;
 }
 
 // Apple-style: a short, curated set of lines in business-priority order, led by
@@ -716,6 +719,7 @@ export const FAMILIES: FamilyMeta[] = [
     image: "assets/scr/itk-unit.jpg",
     bandImage: "assets/scr/itk-wall.jpg",
     tag: "Solid-state",
+    originTagKey: "cfg.imported",
   },
   {
     slug: "avr",

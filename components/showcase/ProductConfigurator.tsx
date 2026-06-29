@@ -49,7 +49,7 @@ export default function ProductConfigurator({
       <div className="cfg-panel">
         <div className="sb-mast-badges">
           {family.tag && <span className="sb-badge is-accent">{family.tag}</span>}
-          <span className="sb-badge is-line">{t("cfg.built")}</span>
+          <span className="sb-badge is-line">{t(family.originTagKey || "cfg.built")}</span>
           <span className="sb-badge">{members.length} {t("cfg.models")}</span>
         </div>
         <h1>{lc(family.name)}</h1>
