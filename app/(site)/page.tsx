@@ -64,6 +64,9 @@ function buildRange(mediaMap: MediaMap) {
       // family fallback. So a line graduates to bespoke art without losing the
       // upload-to-update behaviour for families that don't have it yet.
       img: norm(f.bandImage || lead?.image || f.image),
+      // Bespoke band art is full-bleed (cover); a product-photo fallback is shown
+      // whole, padded (contain), so it never crops or looks zoomed.
+      art: Boolean(f.bandImage),
       name: f.name,
       blurb: f.blurb,
       meta: `${n} model${n === 1 ? "" : "s"}`,
@@ -85,6 +88,7 @@ function buildRange(mediaMap: MediaMap) {
     {
       href: "/products?cat=parts",
       img: "/assets/prod-relay.jpg",
+      art: false,
       name: "Electric Parts",
       blurb: "Wirell PCB relays (T73 / T90) and 7-segment LED displays (5630 / 4630) — the electronics our engineers keep in stock.",
       meta: "Relays · LED",
@@ -195,7 +199,7 @@ export default async function HomePage() {
                 className={`range-band ${i % 2 === 1 ? "is-flip" : ""}`}
                 data-cat={r.catId}
               >
-                <div className="range-band-media">
+                <div className={`range-band-media ${r.art ? "" : "is-contain"}`}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={r.img} alt={r.name} />
                 </div>
