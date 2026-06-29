@@ -27,10 +27,12 @@ const BENEFITS: string[] = [
   "100% pure copper inside — built to last",
 ];
 
-const SIZES: { kva: string; forText: string }[] = [
-  { kva: "10 kVA", forText: "For most solar homes" },
-  { kva: "15 kVA", forText: "For bigger homes with more ACs" },
-  { kva: "20 kVA", forText: "For large homes or shops" },
+// Inverter size → the stabilizer that handles it (about 1.5× for headroom on a
+// high-voltage line). Confirmed by the owner.
+const SIZES: { svc: string; inv: string }[] = [
+  { svc: "10 kVA", inv: "6–8 kVA inverter" },
+  { svc: "15 kVA", inv: "10 kVA inverter" },
+  { svc: "20 kVA", inv: "15 kVA inverter" },
 ];
 
 const WHY: string[] = [
@@ -48,7 +50,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What size do I need for my inverter?",
-    a: "For most homes a 10 or 15 kVA stabilizer is enough. Just tell us your inverter size on WhatsApp and we'll tell you exactly which one. It's free.",
+    a: "It depends on your inverter. A 6–8 kVA inverter needs a 10 kVA stabilizer, a 10 kVA inverter needs a 15 kVA, and a 15 kVA inverter needs a 20 kVA. We make both single-phase and 3-phase. Tell us your inverter size on WhatsApp and we'll confirm it — free.",
   },
   {
     q: "Is it pure copper?",
@@ -149,21 +151,25 @@ export default async function SolarPage() {
           <div className="med-narrow" style={{ marginBottom: 28 }}>
             <h2 className="med-h2">Which size do you need?</h2>
             <p className="med-body">
-              We make three sizes for homes. Not sure which one? Just send us your inverter size on
-              WhatsApp and we&apos;ll pick the right one for you — it&apos;s free.
+              Find your inverter size below — that&apos;s the stabilizer you need. Not sure? Just send us
+              your inverter size on WhatsApp and we&apos;ll confirm it for you, free.
             </p>
           </div>
           <div className="med-sizes">
             {SIZES.map((s) => (
-              <div className="med-vs-card is-win" key={s.kva}>
-                <div className="med-vs-tag">Pure copper</div>
-                <div className="med-size-kva">{s.kva}</div>
-                <p style={{ margin: "10px 0 0", fontSize: 15.5, lineHeight: 1.5, color: "var(--ink)" }}>
-                  {s.forText}
+              <div className="med-vs-card is-win" key={s.svc}>
+                <div className="med-vs-tag">For a {s.inv}</div>
+                <div className="med-size-kva">{s.svc}</div>
+                <p style={{ margin: "8px 0 0", fontSize: 15.5, lineHeight: 1.5, color: "var(--ink-2)" }}>
+                  stabilizer · pure copper
                 </p>
               </div>
             ))}
           </div>
+          <p className="med-scope">
+            Single-phase or 3-phase — we make both, and we&apos;ll match whatever your inverter is. Got a
+            different size? Just ask.
+          </p>
         </div>
       </section>
 
