@@ -12,8 +12,6 @@ import { getT } from "@/lib/i18n-server";
 // Content is English (matches the site's content layer); chrome stays localized.
 // NOTE: UR/AR translation of this page's body copy is a follow-up (TODO_UR / TODO_AR).
 
-const IGBT_SLUG = "smart-inverter-voltage-stabilizer";
-
 const wa = (text: string) =>
   `https://wa.me/${VOLTEC_WHATSAPP}?text=${encodeURIComponent(text)}`;
 const WA_ASSESS = wa(
@@ -140,13 +138,14 @@ export default async function MedicalPage() {
             servo.
           </p>
           <div className="med-cta">
-            {/* OWNER: switch CTA to purchase/inquiry-to-buy once IGBT medical unit is shippable. */}
+            {/* OWNER: IGBT/SCR lines are hidden pre-launch — both CTAs route to us.
+                Restore the "/showcase/smart-inverter-voltage-stabilizer" spec link once live. */}
             <a href={WA_ASSESS} target="_blank" rel="noopener" className="btn btn-wa">
               <WhatsAppIcon /> <span>Book a clinic assessment</span>
             </a>
-            <Link href={`/showcase/${IGBT_SLUG}`} className="btn btn-ghost">
-              See the technical specs →
-            </Link>
+            <a href={WA_ASSESS} target="_blank" rel="noopener" className="btn btn-ghost">
+              Talk to our team →
+            </a>
           </div>
         </div>
       </section>
@@ -226,9 +225,10 @@ export default async function MedicalPage() {
                     <li key={p}>{p}</li>
                   ))}
                 </ul>
-                <Link href={`/showcase/${s.slug}`} className="serve-cta" style={{ marginTop: 18 }}>
-                  See the {s.name} range <span className="arrow">→</span>
-                </Link>
+                {/* OWNER: link back to `/showcase/${s.slug}` once this line launches. */}
+                <a href={WA_ASSESS} target="_blank" rel="noopener" className="serve-cta" style={{ marginTop: 18 }}>
+                  Talk to us about the {s.name} <span className="arrow">→</span>
+                </a>
               </div>
             ))}
           </div>

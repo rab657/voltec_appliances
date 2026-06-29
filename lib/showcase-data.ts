@@ -663,6 +663,10 @@ export interface FamilyMeta {
   /** Optional override for the origin chip's i18n key. Defaults to
    *  "cfg.built" ("Built in Lahore"); imported lines use "cfg.imported". */
   originTagKey?: string;
+  /** Hide this whole line from the public site (range bands, catalog, nav,
+   *  showcase route, sitemap). Members are kept in the data for easy re-enable
+   *  once the line is ready to launch. */
+  hidden?: boolean;
 }
 
 // Apple-style: a short, curated set of lines in business-priority order, led by
@@ -680,6 +684,7 @@ export const FAMILIES: FamilyMeta[] = [
     bandImage: "assets/igbt/range.jpg",
     tag: "Coming soon",
     originTagKey: "cfg.imported",
+    hidden: true,
   },
   {
     slug: "cells",
@@ -722,6 +727,7 @@ export const FAMILIES: FamilyMeta[] = [
     bandImage: "assets/scr/itk-wall.jpg",
     tag: "Solid-state",
     originTagKey: "cfg.imported",
+    hidden: true,
   },
   {
     slug: "avr",
@@ -785,6 +791,15 @@ export function leadOf(members: Product[]): Product {
 /** Other families in the same category — for cross-sell. */
 export function siblingFamilies(family: FamilyMeta): FamilyMeta[] {
   return FAMILIES.filter(
-    (f) => f.categoryId === family.categoryId && f.slug !== family.slug,
+    (f) => f.categoryId === family.categoryId && f.slug !== family.slug && !f.hidden,
   );
+}
+
+/** Family keys that are hidden from the public site. */
+const HIDDEN_FAMILY_KEYS = new Set(FAMILIES.filter((f) => f.hidden).map((f) => f.key));
+
+/** True when a product belongs to a line that is hidden from the public site,
+ *  so catalog/featured/SEO surfaces can drop it without per-product flags. */
+export function isProductInHiddenFamily(p: Product): boolean {
+  return HIDDEN_FAMILY_KEYS.has(familyOf(p));
 }

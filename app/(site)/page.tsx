@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { PRODUCTS } from "@/lib/products";
 import { getPublishedPosts } from "@/lib/blog";
-import { FAMILIES, membersOf, leadOf } from "@/lib/showcase-data";
+import { FAMILIES, membersOf, leadOf, isProductInHiddenFamily } from "@/lib/showcase-data";
 import EcomCard from "@/components/EcomCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import JsonLd from "@/components/JsonLd";
@@ -71,13 +71,17 @@ function buildRange(mediaMap: MediaMap) {
       catId: f.categoryId,
     };
   };
+  // Lines that are hidden (e.g. not-yet-launched IGBT/SCR) drop out entirely.
+  const famSlugs = [
+    "smart-inverter-voltage-stabilizer",
+    "cells",
+    "industrial",
+    "svc",
+    "scr",
+    "avr",
+  ].filter((slug) => !fam(slug).hidden);
   return [
-    tile("smart-inverter-voltage-stabilizer"),
-    tile("cells"),
-    tile("industrial"),
-    tile("svc"),
-    tile("scr"),
-    tile("avr"),
+    ...famSlugs.map(tile),
     {
       href: "/products?cat=parts",
       img: "/assets/prod-relay.jpg",
@@ -97,7 +101,7 @@ export default async function HomePage() {
   const featured = FEATURED_IDS.map((id) => PRODUCTS.find((p) => p.id === id))
     .filter((p): p is NonNullable<typeof p> => Boolean(p))
     .map((p) => applyMedia(p, mediaMap))
-    .filter((p) => !p.hidden);
+    .filter((p) => !p.hidden && !isProductInHiddenFamily(p));
   const posts = (await getPublishedPosts()).slice(0, 3);
   const range = buildRange(mediaMap);
 
@@ -136,18 +140,18 @@ export default async function HomePage() {
           <div className="vhero-feature">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/igbt/display.jpg"
-              alt="Voltec inverter (IGBT) voltage stabilizer"
+              src="/assets/svc-stabilizer.png"
+              alt="Voltec servo motor (SVC) voltage stabilizer"
               className="vhero-feature-img"
             />
             <div className="vhero-feature-overlay"></div>
             <div className="vhero-feature-badge">
-              <span className="ec-tech" data-tech="IGBT">
+              <span className="ec-tech" data-tech="SVC">
                 {t("home.feat.badge")}
               </span>
               <div className="vhero-feature-title">{t("home.feat.title")}</div>
               <div className="vhero-feature-sub">{t("home.feat.sub")}</div>
-              <Link href="/showcase/smart-inverter-voltage-stabilizer" className="vhero-feature-link">
+              <Link href="/showcase/svc" className="vhero-feature-link">
                 {t("home.feat.link")} →
               </Link>
             </div>

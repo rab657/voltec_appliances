@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PRODUCTS, CATEGORIES } from "@/lib/products";
-import { FAMILIES, membersOf } from "@/lib/showcase-data";
+import { FAMILIES, membersOf, isProductInHiddenFamily } from "@/lib/showcase-data";
 import type { CategoryId } from "@/lib/types";
 import EcomCard from "@/components/EcomCard";
 import FamilyCard from "@/components/FamilyCard";
@@ -32,7 +32,8 @@ export default async function ProductsPage({
   // Visibility respects admin overrides (product_overrides.hidden) layered over
   // the code default. A family with no visible members is dropped entirely.
   const isHidden = (p: (typeof PRODUCTS)[number]) =>
-    mediaMap[p.id] ? mediaMap[p.id].hidden : Boolean(p.hidden);
+    isProductInHiddenFamily(p) ||
+    (mediaMap[p.id] ? mediaMap[p.id].hidden : Boolean(p.hidden));
   const famVisible = (slug: string) => {
     const f = FAMILIES.find((x) => x.slug === slug);
     return f ? membersOf(f).filter((p) => !isHidden(p)) : [];

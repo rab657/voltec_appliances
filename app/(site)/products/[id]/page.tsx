@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 import { PRODUCTS, getProduct, relatedProducts } from "@/lib/products";
-import { familySlugOf, familyBySlug } from "@/lib/showcase-data";
+import { familySlugOf, familyBySlug, isProductInHiddenFamily } from "@/lib/showcase-data";
 import EcomCard from "@/components/EcomCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import PdpGallery from "@/components/PdpGallery";
@@ -15,7 +15,7 @@ import { getT, getContent } from "@/lib/i18n-server";
 import { getMediaMap, applyMedia } from "@/lib/product-media";
 
 export function generateStaticParams() {
-  return PRODUCTS.map((p) => ({ id: p.id }));
+  return PRODUCTS.filter((p) => !isProductInHiddenFamily(p)).map((p) => ({ id: p.id }));
 }
 
 export async function generateMetadata({
@@ -23,7 +23,7 @@ export async function generateMetadata({
 }: PageProps<"/products/[id]">): Promise<Metadata> {
   const { id } = await params;
   const product = getProduct(id);
-  if (!product) return { title: "Product not found" };
+  if (!product || isProductInHiddenFamily(product)) return { title: "Product not found" };
   return {
     title: `${product.name} — ${product.category}`,
     description: product.tagline + " " + product.description.slice(0, 120),
@@ -43,7 +43,7 @@ export default async function ProductDetailPage({
 }: PageProps<"/products/[id]">) {
   const { id } = await params;
   const product = getProduct(id);
-  if (!product) notFound();
+  if (!product || isProductInHiddenFamily(product)) notFound();
   // Stabilizers & industrial have no standalone per-model page — the family
   // showcase + model picker is the product page. Redirect there.
   if (product.categoryId === "stabilizers" || product.categoryId === "industrial") {

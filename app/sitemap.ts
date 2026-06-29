@@ -27,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  const showcasePages: MetadataRoute.Sitemap = FAMILIES.map((f) => ({
+  const showcasePages: MetadataRoute.Sitemap = FAMILIES.filter((f) => !f.hidden).map((f) => ({
     url: absUrl(`/showcase/${f.slug}`),
     lastModified: now,
     changeFrequency: "monthly",

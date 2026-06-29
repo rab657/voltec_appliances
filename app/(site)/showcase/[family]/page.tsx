@@ -16,7 +16,7 @@ import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
 import { getMediaMap, applyMedia } from "@/lib/product-media";
 
 export function generateStaticParams() {
-  return FAMILIES.map((f) => ({ family: f.slug }));
+  return FAMILIES.filter((f) => !f.hidden).map((f) => ({ family: f.slug }));
 }
 
 export async function generateMetadata({
@@ -24,7 +24,7 @@ export async function generateMetadata({
 }: PageProps<"/showcase/[family]">): Promise<Metadata> {
   const { family: slug } = await params;
   const family = familyBySlug(slug);
-  if (!family) return { title: "Range not found" };
+  if (!family || family.hidden) return { title: "Range not found" };
   const c = showcaseFor(leadOf(membersOf(family)));
   return {
     title: `${family.name} — Showcase & all models`,
@@ -45,7 +45,7 @@ export default async function ShowcasePage({
 }: PageProps<"/showcase/[family]">) {
   const { family: slug } = await params;
   const family = familyBySlug(slug);
-  if (!family) notFound();
+  if (!family || family.hidden) notFound();
 
   const mediaMap = await getMediaMap();
   const visible = membersOf(family).map((p) => applyMedia(p, mediaMap)).filter((p) => !p.hidden);
