@@ -6,72 +6,70 @@ import JsonLd from "@/components/JsonLd";
 import { absUrl } from "@/lib/site";
 import { getT } from "@/lib/i18n-server";
 
-// Solutions → Solar & hybrid inverters. A plain-language landing page for the
-// most common solar complaint we get on WhatsApp: a hybrid solar inverter that
-// trips and shuts the whole house down when WAPDA voltage climbs too high. The
-// fix is a Voltec SVC servo stabilizer (10/15/20 kVA) sitting between the grid
-// and the inverter. Content is English (matches the site's content layer);
-// chrome stays localized. NOTE: UR/AR body translation is a follow-up.
+// Solutions → Solar. A plain-language landing page for non-technical Pakistani
+// solar owners whose hybrid inverter shuts down when grid voltage goes high.
+// Goal: super easy to read, answer the question fast, ONE CTA (WhatsApp).
+// Keep the language simple — no "over-voltage", "servo", "±1%", "kVA matching".
+// Content is English (the site's content layer); chrome stays localized.
 
 const wa = (text: string) =>
   `https://wa.me/${VOLTEC_WHATSAPP}?text=${encodeURIComponent(text)}`;
-const WA_SIZE = wa(
-  "Hi Voltec! My solar inverter keeps shutting down on high grid voltage. Can you recommend the right SVC stabilizer?",
+// Single, repeated call to action across the whole page.
+const WA_HELP = wa(
+  "Hi Voltec, my solar inverter keeps shutting down when the voltage is high. Which stabilizer do I need?",
 );
+const CTA_LABEL = "Message us on WhatsApp";
 
-// Match the stabilizer to the inverter — same kVA or one size up for headroom.
-const SIZES: { kva: string; forText: string }[] = [
-  { kva: "10 kVA", forText: "For a ~6–8 kVA hybrid inverter — a typical solar home." },
-  { kva: "15 kVA", forText: "For a 10 kVA inverter, or a home with heavy AC + motor load." },
-  { kva: "20 kVA", forText: "For a 12 kVA+ inverter, large home or small commercial setup." },
+const BENEFITS: string[] = [
+  "No more sudden shutdowns — your inverter stays on",
+  "Your inverter and appliances stay safe",
+  "Works even when the voltage is very high",
+  "100% pure copper inside — built to last",
 ];
 
-const WHY_VOLTEC: string[] = [
-  "Holds a steady 220V output even when the grid climbs toward 300V",
-  "100% pure-copper windings — not aluminium",
-  "Smooth servo correction (±1%), not the rough jumps of cheap relay units",
-  "Single-phase or 3-phase — sized to match your inverter",
-  "Large contacts and a thermal-cutoff controller, built to run all day",
-  "6-month warranty · pickup or delivery in Lahore",
+const SIZES: { kva: string; forText: string }[] = [
+  { kva: "10 kVA", forText: "For most solar homes" },
+  { kva: "15 kVA", forText: "For bigger homes with more ACs" },
+  { kva: "20 kVA", forText: "For large homes or shops" },
+];
+
+const WHY: string[] = [
+  "100% pure copper inside — lasts much longer",
+  "Works on very high voltage (up to 300V)",
+  "6-month warranty",
+  "Delivery in Lahore, or pickup",
+  "Free advice — we help you choose the right size",
 ];
 
 const FAQS: { q: string; a: string }[] = [
   {
-    q: "My solar inverter shuts down when the grid voltage goes high — will a stabilizer fix it?",
-    a: "Yes. Hybrid solar inverters have a built-in high-voltage cutoff: when the incoming voltage climbs past their limit (often around 250–270V) they disconnect to protect themselves, and if your home runs on solar the whole house drops. A Voltec SVC servo stabilizer sits between the grid and your inverter and holds the output at a steady 220V even when the input is as high as ~300V — so the inverter never sees the over-voltage that trips it and stays online.",
+    q: "Will a stabilizer really stop my inverter from shutting down?",
+    a: "Yes. The stabilizer keeps the voltage at a safe, steady level. So your inverter never sees the high voltage that makes it switch off — and it stays on.",
   },
   {
-    q: "What size stabilizer do I need for a 10 kVA solar inverter?",
-    a: "Match the stabilizer to the inverter, or go one size up for headroom. For a 10 kVA inverter we usually recommend a 15–20 kVA SVC stabilizer. Tell us your inverter rating on WhatsApp and we'll size it exactly — there's no benefit to guessing.",
-  },
-  {
-    q: "Why does the grid voltage get so high in the first place?",
-    a: "It's common in Pakistan — voltage often rises well above 250V when load-shedding ends and the grid switches back, or on a lightly loaded line, especially in areas with a lot of solar feeding back. Your inverter is doing the right thing by cutting out to protect itself; the stabilizer simply gives it clean, in-range voltage so it doesn't have to.",
-  },
-  {
-    q: "Single-phase or 3-phase?",
-    a: "Whatever your inverter is. We build both. If you have a 3-phase hybrid inverter, you'll want a 3-phase SVC stabilizer.",
+    q: "What size do I need for my inverter?",
+    a: "For most homes a 10 or 15 kVA stabilizer is enough. Just tell us your inverter size on WhatsApp and we'll tell you exactly which one. It's free.",
   },
   {
     q: "Is it pure copper?",
-    a: "Yes — pure-copper windings, not aluminium. Copper runs cooler, lasts longer and handles the continuous load of a whole-home solar setup.",
+    a: "Yes — 100% pure copper inside. Copper stays cooler and lasts much longer than cheaper aluminium units.",
   },
   {
-    q: "Warranty and delivery?",
-    a: "6-month warranty. Pickup from our Lahore facility, or delivery if you're in Lahore. Message us on WhatsApp and we'll confirm stock and timing.",
+    q: "Do you deliver? What about warranty?",
+    a: "We deliver in Lahore, or you can pick up. Every stabilizer comes with a 6-month warranty. Message us and we'll arrange it.",
   },
 ];
 
 export const metadata: Metadata = {
-  title: "Solar Inverter Shutting Down on High Voltage? | Voltec SVC Stabilizers",
+  title: "Solar Inverter Keeps Shutting Down? The Easy Fix | Voltec",
   description:
-    "Hybrid solar inverter tripping when grid voltage goes high (250–270V+)? A Voltec SVC servo stabilizer (10/15/20 kVA) holds a steady 220V from inputs up to ~300V, so your inverter stays online. Pure copper, single or 3-phase, Lahore-made.",
+    "Is your solar inverter switching off when the voltage goes high? A Voltec stabilizer keeps the voltage steady so your inverter stays on. Pure copper, 6-month warranty, delivery in Lahore. Message us on WhatsApp.",
   alternates: { canonical: "/solar" },
   openGraph: {
     type: "website",
-    title: "Stop Solar Inverter High-Voltage Shutdowns | Voltec",
+    title: "Solar Inverter Keeps Shutting Down? The Easy Fix | Voltec",
     description:
-      "A Voltec SVC servo stabilizer keeps a steady 220V even when the grid climbs toward 300V — so your hybrid solar inverter stops cutting out.",
+      "A Voltec stabilizer keeps your voltage steady, so your solar inverter stops shutting down. Message us on WhatsApp.",
     url: absUrl("/solar"),
     // OWNER: add a solar OG image when available — falls back to the site default card.
   },
@@ -95,105 +93,88 @@ export default async function SolarPage() {
         }}
       />
 
-      {/* ===== Hero ===== */}
+      {/* ===== Hero — ask their question, give the answer, one CTA ===== */}
       <section className="page-head">
         <div className="container">
           <div className="crumbs">
             <Link href="/">{t("nav.home")}</Link> <span>/</span> <span>{t("nav.solutions")}</span>{" "}
             <span>/</span> <span>{t("nav.solar")}</span>
           </div>
-          <div className="med-eyebrow">For solar &amp; hybrid inverter homes</div>
-          <h1>Solar inverter shutting down on high voltage? Fix it with one stabilizer.</h1>
-          <p className="page-lede" style={{ maxWidth: "62ch" }}>
-            When the grid climbs to 250–270V — or spikes higher — a hybrid solar inverter trips on
-            over-voltage to protect itself, and your whole house goes dark. A Voltec SVC servo
-            stabilizer sits between the grid and your inverter and holds a steady 220V even from a 300V
-            input, so the inverter never cuts out.
+          <div className="med-eyebrow">For solar homes</div>
+          <h1>Solar inverter keeps shutting down?</h1>
+          <p className="page-lede" style={{ maxWidth: "56ch" }}>
+            When your area&apos;s voltage goes too high, your solar inverter switches itself off to stay
+            safe — and your whole house goes dark. A Voltec stabilizer fixes this. It keeps the voltage
+            steady, so your inverter stays on all day.
           </p>
           <div className="med-cta">
-            <a href={WA_SIZE} target="_blank" rel="noopener" className="btn btn-wa">
-              <WhatsAppIcon /> <span>Get sized for my inverter</span>
+            <a href={WA_HELP} target="_blank" rel="noopener" className="btn btn-wa">
+              <WhatsAppIcon /> <span>{CTA_LABEL}</span>
             </a>
-            <Link href="/showcase/svc" className="btn btn-ghost">
-              See the SVC range →
-            </Link>
           </div>
         </div>
       </section>
 
-      {/* ===== The problem ===== */}
-      <section className="section hairline-top">
-        <div className="container med-narrow">
-          <h2 className="med-h2">Why your inverter keeps cutting out</h2>
-          <p className="med-body">
-            Every hybrid solar inverter has a high-voltage cutoff. When the incoming grid voltage rises
-            past its limit — often around 250–270V, and in many areas it goes higher when load-shedding
-            ends or the line is lightly loaded — the inverter disconnects to protect itself. That&apos;s
-            the inverter doing its job. But if your home runs on solar, the whole house drops with it.
-            You don&apos;t need a new inverter. You need to stop feeding it dangerous voltage.
-          </p>
-        </div>
-      </section>
-
-      {/* ===== The solution ===== */}
-      <section className="section" style={{ background: "var(--paper-2)" }}>
-        <div className="container med-narrow">
-          <h2 className="med-h2">One stabilizer between the grid and your inverter</h2>
-          <p className="med-body">
-            A Voltec SVC servo stabilizer continuously reads the incoming voltage and corrects it to a
-            steady 220V (±1%), even when the grid is as high as ~300V. Your inverter only ever sees
-            clean, in-range voltage — so it stays online through the spikes that used to shut it down.
-            It&apos;s the same servo technology that has kept ACs, motors and whole homes steady across
-            Punjab for years, now sized for your solar setup.
-          </p>
-          <p className="med-note">
-            Holds 220V from a high grid · pure-copper windings · smooth servo correction · single or
-            3-phase.
-          </p>
-        </div>
-      </section>
-
-      {/* ===== Pick your size (10/15/20 kVA) ===== */}
+      {/* ===== Why + the fix ===== */}
       <section className="section hairline-top">
         <div className="container">
-          <div className="med-narrow" style={{ marginBottom: 32 }}>
-            <h2 className="med-h2">Pick the size that matches your inverter</h2>
+          <div className="med-narrow" style={{ marginBottom: 28 }}>
+            <h2 className="med-h2">Why this happens — and how we fix it</h2>
             <p className="med-body">
-              Match the stabilizer to your inverter&apos;s kVA, or step up one size for headroom. Not
-              sure which? Send us your inverter rating and we&apos;ll size it for you — it takes a
-              minute on WhatsApp.
+              In many areas the voltage often goes too high — above 250 volts. Your solar inverter has a
+              safety limit. When the voltage crosses it, the inverter shuts off to protect itself. If
+              your home runs on solar, everything turns off with it.
+            </p>
+            <p className="med-body" style={{ marginTop: 14 }}>
+              A Voltec stabilizer sits between the grid and your inverter. It brings the high voltage
+              down to a safe, steady level. Your inverter never sees high voltage — so it keeps running.
+            </p>
+          </div>
+          <div className="med-grid">
+            {BENEFITS.map((item) => (
+              <div className="med-grid-item" key={item}>
+                <span className="med-check" aria-hidden="true">
+                  ✓
+                </span>
+                <span>{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Which size ===== */}
+      <section className="section" style={{ background: "var(--paper-2)" }}>
+        <div className="container">
+          <div className="med-narrow" style={{ marginBottom: 28 }}>
+            <h2 className="med-h2">Which size do you need?</h2>
+            <p className="med-body">
+              We make three sizes for homes. Not sure which one? Just send us your inverter size on
+              WhatsApp and we&apos;ll pick the right one for you — it&apos;s free.
             </p>
           </div>
           <div className="med-sizes">
             {SIZES.map((s) => (
               <div className="med-vs-card is-win" key={s.kva}>
-                <div className="med-vs-tag">SVC · pure copper</div>
+                <div className="med-vs-tag">Pure copper</div>
                 <div className="med-size-kva">{s.kva}</div>
-                <p style={{ margin: "10px 0 0", fontSize: 15, lineHeight: 1.5, color: "var(--ink)" }}>
+                <p style={{ margin: "10px 0 0", fontSize: 15.5, lineHeight: 1.5, color: "var(--ink)" }}>
                   {s.forText}
                 </p>
               </div>
             ))}
           </div>
-          <p className="med-scope">
-            Also available in 5 kVA for smaller setups, and in larger three-phase ratings (100 kVA and
-            up) for commercial solar. Tell us your load and we&apos;ll match it.
-          </p>
         </div>
       </section>
 
       {/* ===== Why Voltec ===== */}
       <section className="section">
         <div className="container">
-          <div className="med-narrow" style={{ marginBottom: 28 }}>
-            <h2 className="med-h2">Why a Voltec SVC stabilizer</h2>
-            <p className="med-body">
-              Built for the continuous, whole-home load a solar house puts on it — not a cheap relay box
-              that jumps in rough steps and burns out.
-            </p>
+          <div className="med-narrow" style={{ marginBottom: 24 }}>
+            <h2 className="med-h2">Why buy from Voltec</h2>
           </div>
           <div className="med-grid">
-            {WHY_VOLTEC.map((item) => (
+            {WHY.map((item) => (
               <div className="med-grid-item" key={item}>
                 <span className="med-check" aria-hidden="true">
                   ✓
@@ -209,7 +190,7 @@ export default async function SolarPage() {
       <section className="section hairline-top hairline-bot">
         <div className="container">
           <h2 className="med-h2" style={{ textAlign: "center", marginBottom: 28 }}>
-            Four decades of power engineering in Lahore.
+            Trusted across Pakistan for 40 years.
           </h2>
           <div className="med-stats">
             <div className="med-stat">
@@ -256,7 +237,7 @@ export default async function SolarPage() {
                   margin: 0,
                 }}
               >
-                Solar owners <em>ask us</em>.
+                Common <em>questions</em>.
               </h2>
             </div>
             <div className="faq-list">
@@ -278,14 +259,14 @@ export default async function SolarPage() {
       <section className="why-band">
         <div className="container" style={{ textAlign: "center" }}>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: "clamp(30px,4vw,52px)", lineHeight: 1.05, margin: "0 0 14px" }}>
-            Keep your house on, even when the grid spikes.
+            Stop the shutdowns. Keep your house running.
           </h2>
-          <p style={{ maxWidth: "52ch", margin: "0 auto 26px", fontSize: 16, lineHeight: 1.6, color: "oklch(85% 0.02 250 / 0.9)" }}>
-            Tell us your inverter rating and we&apos;ll recommend the exact SVC stabilizer — with a price
-            and delivery, same day on WhatsApp.
+          <p style={{ maxWidth: "48ch", margin: "0 auto 26px", fontSize: 16, lineHeight: 1.6, color: "oklch(85% 0.02 250 / 0.9)" }}>
+            Send us your inverter size on WhatsApp. We&apos;ll tell you the right stabilizer and the
+            price — same day.
           </p>
-          <a href={WA_SIZE} target="_blank" rel="noopener" className="btn btn-wa" style={{ display: "inline-flex" }}>
-            <WhatsAppIcon /> <span>Get sized for my inverter</span>
+          <a href={WA_HELP} target="_blank" rel="noopener" className="btn btn-wa" style={{ display: "inline-flex" }}>
+            <WhatsAppIcon /> <span>{CTA_LABEL}</span>
           </a>
         </div>
       </section>
