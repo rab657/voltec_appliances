@@ -359,7 +359,7 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
 
   // =============================================================== INDUSTRIAL
   industrial: {
-    tagline: "Three-phase servo and IGBT stabilizers built for factories that cannot lose a single shift.",
+    tagline: "Heavy three-phase servo stabilizers, line conditioners and buck-boost systems — built for factories that cannot lose a single shift.",
     stats: [["±1", "%", "Output accuracy"], ["50", "°C", "Continuous rating"], ["&gt;97", "%", "Efficiency"], ["500", "kVA", "Up to capacity"]],
     hero: {
       eyebrow: "Plant-grade build", title: "Made for <em>three shifts a day</em>.",
@@ -406,7 +406,7 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
     },
     faqs: [
       { q: "What size three-phase stabilizer does my factory need?", a: "Size it to your total connected load in kVA, with headroom for motor start-up. Voltec builds SJW-series three-phase stabilizers from 100 kVA and 200 kVA up to 500 kVA and beyond, made to order. Send us your load list or a single-line diagram and our engineers will size it." },
-      { q: "Servo or static (IGBT) for a three-phase plant?", a: "Both correct each phase on its own. Servo (SVC) is the proven, cost-effective choice for most mills and plants and handles motor loads well. Static (IGBT) corrects instantly with no moving parts for the most sensitive lines. We advise based on your load and budget." },
+      { q: "Servo, line conditioner or buck-boost — which does my plant need?", a: "Most mills and plants run a heavy three-phase servo stabilizer — proven, cost-effective, and great with motor loads. Where the supply is steady but consistently high or low, a buck-boost transformer or line conditioner is the leaner fix. Send us your load and a few voltage readings and our engineers will advise." },
       { q: "Can it fix an unbalanced WAPDA supply?", a: "Yes. Each phase is corrected on its own, so a lopsided incoming supply becomes a clean, balanced 400 V on all three phases — which is what protects three-phase motors and drives." },
       { q: "Do you provide installation and service contracts?", a: "Yes. We supply, install and service industrial systems, with bypass cabinets and remote monitoring, and planned engineer visits to keep the plant protected. We have done plants like K&N's in Kasur." },
       { q: "How long does a custom industrial stabilizer take?", a: "It is built to order, so lead time depends on capacity and configuration. Message us with your load and we will confirm the price and delivery time." },
@@ -701,7 +701,7 @@ export const FAMILIES: FamilyMeta[] = [
     name: "Industrial Systems",
     category: "Industrial",
     categoryId: "industrial",
-    blurb: "Three-phase SJW-series systems, built to order — 100kVA, 200kVA and up, in servo (SVC) or static IGBT. Made to fit your plant.",
+    blurb: "Three-phase SJW-series systems, built to order — heavy servo stabilizers, line conditioners and buck-boost from 100kVA to 500kVA and up. Made to fit your plant.",
     image: "assets/industrial-sjw.png",
     tag: "Custom-built",
   },
