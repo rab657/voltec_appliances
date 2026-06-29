@@ -245,6 +245,11 @@ export default async function HomePage() {
                 <span className="serve-tag">{t(`serve.${k}.tag`)}</span>
                 <h3>{t(`serve.${k}.t`)}</h3>
                 <p>{t(`serve.${k}.d`)}</p>
+                {k === "med" && (
+                  <Link href="/medical" className="serve-cta">
+                    {t("serve.med.cta")} <span className="arrow">→</span>
+                  </Link>
+                )}
               </div>
             ))}
           </div>

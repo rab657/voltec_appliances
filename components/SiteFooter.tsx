@@ -38,6 +38,9 @@ export default async function SiteFooter() {
             <h4>{t("foot.company")}</h4>
             <ul>
               <li>
+                <Link href="/medical">{t("foot.medical")}</Link>
+              </li>
+              <li>
                 <Link href="/about">{t("foot.about")}</Link>
               </li>
               <li>

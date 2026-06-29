@@ -359,6 +359,42 @@ input, textarea, select { font: inherit; color: inherit; }
 .showcase-tile:hover .showcase-tile-cta .arrow { transform: translateX(3px); }
 .showcase-tile-cta .arrow { transition: transform 0.2s ease; }
 
+.serve-cta { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent-deep); }
+.serve-cta .arrow { transition: transform 0.2s ease; }
+.serve-card:hover .serve-cta .arrow { transform: translateX(3px); }
+
+/* ===== Industries → Medical landing ==================================== */
+.med-eyebrow { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent-deep); margin-bottom: 16px; }
+.med-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.med-narrow { max-width: 68ch; }
+.med-h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 3.4vw, 40px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 16px; color: var(--ink); }
+.med-body { font-size: 16.5px; line-height: 1.7; color: var(--ink-2); margin: 0; }
+.med-vs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.med-vs-card { border: 1px solid var(--rule); border-radius: 16px; padding: 26px 26px 22px; background: #fff; }
+.med-vs-card.is-win { border-color: var(--accent); box-shadow: 0 18px 44px -28px oklch(46% 0.09 30 / 0.5); }
+.med-vs-tag { font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--accent); display: inline-block; padding: 6px 12px; border-radius: 999px; margin-bottom: 16px; }
+.med-vs-tag.is-muted { background: var(--ink-3); }
+.med-vs-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.med-vs-card li { font-size: 15px; line-height: 1.5; color: var(--ink); padding-left: 22px; position: relative; }
+.med-vs-card li::before { content: ""; position: absolute; left: 0; top: 8px; width: 8px; height: 8px; border-radius: 50%; background: var(--rule-strong); }
+.med-vs-card.is-win li::before { background: var(--accent); }
+.med-note { text-align: center; max-width: 60ch; margin: 28px auto 0; font-family: var(--font-display); font-style: italic; font-size: clamp(18px, 2vw, 23px); line-height: 1.35; color: var(--ink); }
+.med-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px 28px; }
+.med-grid-item { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.45; color: var(--ink); padding: 12px 0; border-bottom: 1px solid var(--rule); }
+.med-check { flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-deep); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; margin-top: 1px; }
+.med-scope { max-width: 72ch; margin: 28px 0 0; padding: 18px 22px; border-radius: 12px; background: var(--accent-soft); border: 1px solid var(--accent); font-size: 14.5px; line-height: 1.6; color: var(--ink); }
+.med-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; max-width: 700px; margin: 0 auto; border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; }
+.med-stat { padding: 26px 20px; text-align: center; border-right: 1px solid var(--rule); }
+.med-stat:last-child { border-right: 0; }
+.med-stat strong { display: block; font-family: var(--font-display); font-size: clamp(30px, 4vw, 44px); line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
+.med-stat span { display: block; margin-top: 8px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); }
+@media (max-width: 720px) {
+  .med-vs { grid-template-columns: 1fr; }
+  .med-stats { grid-template-columns: 1fr; }
+  .med-stat { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .med-stat:last-child { border-bottom: 0; }
+}
+
 /* ===== Stabilizer selector (guided "which one do I need?") ============== */
 .sel { max-width: 920px; margin: 0 auto; border: 1px solid var(--rule); border-radius: 18px; background: #fff; padding: clamp(24px, 4vw, 44px); box-shadow: 0 24px 60px -38px oklch(20% 0.04 40 / 0.5); }
 .sel-head { text-align: center; max-width: 600px; margin: 0 auto 28px; }
