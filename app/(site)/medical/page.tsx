@@ -33,15 +33,39 @@ const PROTECTS: string[] = [
 
 const SERVO_POINTS = [
   "Motor-driven correction",
-  "Reacts in a fraction of a second",
-  "Has a motor and brush that wear out",
-  "Built for appliances, not precision equipment",
+  "Reacts in a fraction of a second — too slow for a laser",
+  "Has a motor and carbon brush that wear out",
+  "Built for appliances, not clinical equipment",
 ];
-const IGBT_POINTS = [
-  "Fully electronic correction",
-  "Reacts instantly, before the next pulse",
+// Both Voltec options are solid-state and beat a servo on the points that matter.
+const SOLID_POINTS = [
+  "Fully electronic, solid-state correction",
+  "Faster than a servo — no motor to physically move",
   "No moving parts — nothing to wear out",
-  "Built for sensitive and precision equipment",
+  "Built for clinical and precision equipment",
+];
+// Two solid-state ways to protect — both better than a servo for a clinic.
+const SOLUTIONS: { name: string; tag: string; slug: string; points: string[] }[] = [
+  {
+    name: "Voltec Inverter (IGBT)",
+    tag: "Precision",
+    slug: "smart-inverter-voltage-stabilizer",
+    points: [
+      "Stepless, pure-sine output held to ±1%",
+      "Instant, sub-cycle correction",
+      "For your most sensitive machines — lasers, ultrasound, diagnostics, lab analysers",
+    ],
+  },
+  {
+    name: "Voltec SCR — Thyristor",
+    tag: "Solid-state",
+    slug: "scr",
+    points: [
+      "Solid-state thyristor switching, fast (~20 ms)",
+      "Stepped correction, no motor or brush to service",
+      "For rugged clinical loads — compressors, HVAC, autoclaves, sterilizers, plug-load",
+    ],
+  },
 ];
 
 const FAQS: { q: string; a: string }[] = [
@@ -51,7 +75,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Isn't my existing servo stabilizer enough?",
-    a: "For appliances, yes. For a laser or sensitive diagnostic machine, a servo reacts too slowly and wears out over time. The inverter (IGBT) unit reacts instantly and has no moving parts.",
+    a: "For appliances, yes. For a laser or sensitive diagnostic machine, a servo reacts too slowly and its motor and brush wear out over time. Voltec's solid-state units — the inverter (IGBT) and the SCR thyristor — react faster and have no moving parts to wear out. The IGBT is the choice for the most sensitive equipment; the SCR suits rugged clinical loads.",
   },
   {
     q: "What size do I need?",
@@ -111,8 +135,9 @@ export default async function MedicalPage() {
           <h1>You spent millions on the machine. Protect it for a fraction of that.</h1>
           <p className="page-lede" style={{ maxWidth: "60ch" }}>
             One voltage spike or sag can damage a laser, ultrasound or diagnostic system you can&apos;t
-            easily replace. Voltec&apos;s inverter (IGBT) protection stands between your equipment and the
-            grid — correcting voltage instantly, before the next pulse reaches your machine.
+            easily replace. Voltec&apos;s solid-state protection — inverter (IGBT) and SCR thyristor —
+            stands between your equipment and the grid, correcting voltage faster than any motor-driven
+            servo.
           </p>
           <div className="med-cta">
             {/* OWNER: switch CTA to purchase/inquiry-to-buy once IGBT medical unit is shippable. */}
@@ -162,9 +187,9 @@ export default async function MedicalPage() {
               </ul>
             </div>
             <div className="med-vs-card is-win">
-              <div className="med-vs-tag">Voltec Inverter (IGBT)</div>
+              <div className="med-vs-tag">Voltec solid-state (IGBT &amp; SCR)</div>
               <ul>
-                {IGBT_POINTS.map((p) => (
+                {SOLID_POINTS.map((p) => (
                   <li key={p}>{p}</li>
                 ))}
               </ul>
@@ -177,14 +202,46 @@ export default async function MedicalPage() {
         </div>
       </section>
 
+      {/* ===== Two ways to protect (IGBT & SCR) ===== */}
+      <section className="section hairline-top">
+        <div className="container">
+          <div className="med-narrow" style={{ marginBottom: 32 }}>
+            <h2 className="med-h2">Two ways to protect — both better than a servo</h2>
+            <p className="med-body">
+              Voltec offers two solid-state stabilizers, neither with a motor or brush to wear out. We
+              match the right one to each machine: the inverter (IGBT) for your most sensitive equipment,
+              and the SCR thyristor for rugged, everyday clinical loads.
+            </p>
+          </div>
+          <div className="med-vs">
+            {SOLUTIONS.map((s) => (
+              <div className="med-vs-card is-win" key={s.slug}>
+                <div className="med-vs-tag">{s.tag}</div>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: 24, margin: "0 0 14px", letterSpacing: "-0.01em" }}>
+                  {s.name}
+                </h3>
+                <ul>
+                  {s.points.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+                <Link href={`/showcase/${s.slug}`} className="serve-cta" style={{ marginTop: 18 }}>
+                  See the {s.name} range <span className="arrow">→</span>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ===== What it protects ===== */}
       <section className="section">
         <div className="container">
           <div className="med-narrow" style={{ marginBottom: 28 }}>
             <h2 className="med-h2">Built for the equipment a clinic actually runs</h2>
             <p className="med-body">
-              Voltec inverter protection is sized for single-phase clinical and aesthetic equipment,
-              typically 3–15 kVA.
+              Voltec&apos;s solid-state protection — inverter (IGBT) and SCR thyristor — is sized for
+              single-phase clinical and aesthetic equipment, typically 1–15 kVA.
             </p>
           </div>
           {/* OWNER: confirm this equipment list; do NOT add MRI/CT here. */}
@@ -215,7 +272,8 @@ export default async function MedicalPage() {
             electronically rebuilds a clean, steady output — stepless, with a pure sine-wave that
             sensitive electronics expect. If anything inside ever faults, it safely bypasses so your
             equipment is never left without power. It&apos;s the same technology principle as an inverter
-            air conditioner: smooth, electronic, efficient.
+            air conditioner: smooth, electronic, efficient. The SCR thyristor option protects the same
+            solid-state way — correcting in fast steps, a lower-cost choice for rugged clinical loads.
           </p>
         </div>
       </section>

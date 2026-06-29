@@ -239,6 +239,63 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
     ],
   },
 
+  // ====================================================================== SCR
+  "stab-scr": {
+    tagline: "Solid-state thyristor switching — faster than a servo, with no motor and no brushes to wear out. Stepped correction built for rugged, everyday loads.",
+    stats: [["95–250", "V", "Input range"], ["±5", "%", "Output accuracy"], ["&ge;95", "%", "Efficiency"], ["20", "ms", "Response"]],
+    hero: {
+      eyebrow: "Solid-state · no moving parts", title: "Solid-state speed, <em>nothing to wear out</em>.",
+      intro: "SCR (thyristor) stabilizers switch correction electronically instead of with a motor — faster than a servo, and with no carbon brush or servo motor to service. Correction is stepped, which makes them ideal for rugged, tolerant loads where what matters is speed and longevity, not laboratory-grade precision.",
+      slot: "Drop product photo",
+      callouts: [
+        { pos: "tl", icon: "display", title: "LED voltage meter", desc: "Live input, output and load at a glance." },
+        { pos: "tr", icon: "chip", title: "Thyristor board", desc: "Solid-state switching — no motor, no brushes." },
+        { pos: "bl", icon: "bolt", title: "Fast correction", desc: "Switches electronically in about 20 ms." },
+        { pos: "br", icon: "shield", title: "Six-layer protection", desc: "Over/under-volt, overload, over-temp, short circuit." },
+      ],
+    },
+    tech: {
+      eyebrow: "How it works", title: "Switched by <em>silicon, not a motor</em>.",
+      intro: "An SCR (thyristor) stabilizer reads the incoming voltage and switches transformer taps electronically with silicon-controlled rectifiers. There is no motor to move and no brush to wear — so it reacts faster than a servo and lasts longer.",
+      mode: "pillars",
+      pillars: [
+        { icon: "chip", title: "Solid-state switching", desc: "Thyristors switch the correction electronically — silent and spark-free." },
+        { icon: "bolt", title: "Faster than a servo", desc: "No motor to physically move, so it reacts in about 20 ms." },
+        { icon: "shield", title: "Nothing to wear out", desc: "No carbon brush, no servo motor — far less to service or fail." },
+        { icon: "terminal", title: "Stepped correction", desc: "Holds 220V ±5% across a wide 95–250V input for everyday loads." },
+      ],
+    },
+    useCases: {
+      eyebrow: "Where it fits", title: "Built for <em>everyday, rugged loads</em>.",
+      items: [
+        { icon: "fan", title: "Compressors & motors", desc: "Fast, solid-state correction for AC compressors, pumps and motor loads." },
+        { icon: "home", title: "HVAC & chillers", desc: "Keeps heating, cooling and chiller systems on steady voltage all day." },
+        { icon: "server", title: "Clinic & office plug-load", desc: "Reliable protection for the general plug-load of a clinic or office." },
+        { icon: "shield", title: "Autoclaves & sterilizers", desc: "Steady power for sterilizers and autoclaves with electronic controls." },
+        { icon: "bolt", title: "Workshop & light industrial", desc: "Rugged protection for workshop tools and light industrial equipment." },
+      ],
+    },
+    benefits: {
+      eyebrow: "Key advantages", title: "Solid-state, <em>without the premium</em>.",
+      items: [
+        { n: "01", title: "No moving parts", desc: "No servo motor and no carbon brush — nothing mechanical to wear out." },
+        { n: "02", title: "Faster than servo", desc: "Switches electronically in about 20 ms, not a slow motor sweep." },
+        { n: "03", title: "Silent & spark-free", desc: "100% spark-free operation, fine for quiet rooms." },
+        { n: "04", title: "Wide input range", desc: "Holds 220V ±5% from a wide 95–250V supply." },
+        { n: "05", title: "Long lifespan", desc: "Solid-state design lasts far longer than a motor-driven servo." },
+        { n: "06", title: "Six-layer protection", desc: "Over-voltage, under-voltage, overload, over-temp and short-circuit." },
+      ],
+      protections: ["over-volt", "under-volt", "over-temp", "short"],
+    },
+    faqs: [
+      { q: "What is an SCR (thyristor) stabilizer?", a: "It corrects voltage with solid-state silicon switches (thyristors) instead of a motor. That makes it faster than a servo stabilizer and gives it no carbon brush or motor to wear out — but it corrects in steps, so it is built for rugged everyday loads rather than laboratory-grade precision." },
+      { q: "SCR or servo (SVC) — which is better?", a: "An SCR switches electronically, so it reacts faster than a servo and has nothing mechanical to service. A servo corrects more smoothly (±1%) but uses a motor and brush that wear out. For everyday loads where speed and longevity matter, SCR is the modern, low-maintenance choice." },
+      { q: "SCR or inverter (IGBT) — what's the difference?", a: "Both are solid-state with no moving parts. The SCR corrects in steps and holds ±5% — great value for rugged loads. The inverter (IGBT) corrects steplessly with a pure-sine output and ±1% accuracy — the right choice for sensitive or precision equipment like lasers, medical and CNC." },
+      { q: "Is it silent?", a: "Yes — solid-state switching is 100% spark-free and silent, with no relay clicking or motor hum." },
+      { q: "What size do I need?", a: "Match it to your load: about 1–3 kVA for a single appliance or AC, 5–10 kVA for a home or shop. Send us your appliance list on WhatsApp and we will size it." },
+    ],
+  },
+
   // ====================================================================== AVR
   "stab-avr": {
     tagline: "The Voltec A-series — pure-copper relay stabilizers for fridges, deep freezers and air-conditioners, working from as low as 75V.",
@@ -608,7 +665,7 @@ export const FAMILIES: FamilyMeta[] = [
   {
     slug: "smart-inverter-voltage-stabilizer",
     key: "stab-igbt",
-    name: "Inverter Voltage Stabilizers (IGBT)",
+    name: "Voltec Inverter (IGBT)",
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
     blurb: "Our premium, latest-technology stabilizer — built for laser, CNC, medical and other sensitive equipment that needs exact voltage. Only at Voltec.",
@@ -644,6 +701,17 @@ export const FAMILIES: FamilyMeta[] = [
     blurb: "SVC servo motor control. Smooth, stepless correction sized to keep home appliances, ACs and electronics safe.",
     image: "assets/svc-stabilizer.png",
     tag: "Best seller",
+  },
+  {
+    slug: "scr",
+    key: "stab-scr",
+    name: "Voltec SCR — Thyristor",
+    category: "Voltage Stabilizers",
+    categoryId: "stabilizers",
+    blurb: "Solid-state thyristor switching — faster than a servo, with no motor or brushes to wear out. Stepped correction for rugged, everyday loads that need speed and longevity.",
+    image: "assets/scr/itk-unit.jpg",
+    bandImage: "assets/scr/itk-wall.jpg",
+    tag: "Solid-state",
   },
   {
     slug: "avr",

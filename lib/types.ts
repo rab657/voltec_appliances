@@ -7,7 +7,7 @@ export type CategoryId =
   | "cells"
   | "parts";
 
-export type Tech = "IGBT" | "SVC" | "AVR" | "LFP" | "BMS" | "Relay" | "LED";
+export type Tech = "IGBT" | "SCR" | "SVC" | "AVR" | "LFP" | "BMS" | "Relay" | "LED";
 
 export type Spec = [string, string];
 

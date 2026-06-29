@@ -29,8 +29,8 @@ const HOME_FAQS: { q: string; a: string }[] = [
     a: "Yes. We supply genuine Grade-A prismatic LFP cells from EVE, one of the world's top cell makers. Every cell is laser-welded, carries a scannable factory QR code, and is matched for capacity and voltage at our Lahore facility before it ships. Genuine LFP lasts 6,000+ cycles — about 15 years of daily use.",
   },
   {
-    q: "Inverter, servo or relay stabilizer — what's the difference?",
-    a: "A relay (AVR) stabilizer is cheapest and fixes voltage in steps — best for one appliance. A servo (SVC) stabilizer uses a motor to correct voltage smoothly to ±1% — best for a whole home or shop. An inverter (IGBT) stabilizer is fully electronic, corrects instantly (0 ms) with a clean pure sine output and no moving parts — best for sensitive and precision equipment.",
+    q: "Inverter, SCR, servo or relay stabilizer — what's the difference?",
+    a: "A relay (AVR) stabilizer is the cheapest and fixes voltage in steps — best for one appliance. An SCR (thyristor) stabilizer is solid-state and switches faster than a servo with no moving parts, but still corrects in steps — best for rugged everyday loads. A servo (SVC) stabilizer uses a motor to correct voltage smoothly to ±1% — best for a whole home or shop. An inverter (IGBT) stabilizer is fully electronic and corrects instantly with a clean pure-sine output and no moving parts — best for sensitive and precision equipment.",
   },
   {
     q: "Where is Voltec based, and do you deliver?",
@@ -76,6 +76,7 @@ function buildRange(mediaMap: MediaMap) {
     tile("cells"),
     tile("industrial"),
     tile("svc"),
+    tile("scr"),
     tile("avr"),
     {
       href: "/products?cat=parts",
