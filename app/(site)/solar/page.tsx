@@ -79,9 +79,23 @@ export const metadata: Metadata = {
     type: "website",
     title: "Solar Inverter Keeps Shutting Down? The Easy Fix | Voltec",
     description:
-      "A Voltec stabilizer keeps your voltage steady, so your solar inverter stops shutting down. Message us on WhatsApp.",
+      "A Voltec SVC stabilizer keeps your voltage steady, so your solar inverter stops shutting down — and protects every appliance. Not just any stabilizer.",
     url: absUrl("/solar"),
-    // OWNER: add a solar OG image when available — falls back to the site default card.
+    images: [
+      {
+        url: absUrl("/assets/solar/solar-og.jpg"),
+        width: 1200,
+        height: 630,
+        alt: "With a Voltec SVC stabilizer your home stays powered and safe; without one a surge can blow your appliances.",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Solar Inverter Keeps Shutting Down? The Easy Fix | Voltec",
+    description:
+      "A Voltec SVC stabilizer keeps your voltage steady, so your solar inverter stops shutting down — and protects every appliance.",
+    images: [absUrl("/assets/solar/solar-og.jpg")],
   },
 };
 
