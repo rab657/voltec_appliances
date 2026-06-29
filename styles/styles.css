@@ -364,7 +364,10 @@ input, textarea, select { font: inherit; color: inherit; }
 .nav-dd-trigger { background: none; border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font: inherit; }
 .nav-dd-caret { font-size: 9px; transition: transform 0.18s ease; }
 .nav-dd:hover .nav-dd-caret, .nav-dd-trigger[aria-expanded="true"] .nav-dd-caret { transform: rotate(180deg); }
-.nav-dd-menu { position: absolute; top: calc(100% + 10px); left: 0; min-width: 200px; background: var(--paper, #fff); border: 1px solid var(--rule); border-radius: 12px; box-shadow: 0 18px 44px -22px oklch(20% 0.04 40 / 0.4); padding: 8px; display: none; z-index: 60; }
+/* Invisible hover bridge so moving the cursor from the trigger down to the menu
+   doesn't pass through a dead gap (which would close the dropdown). */
+.nav-dd::after { content: ""; position: absolute; left: 0; top: 100%; width: 240px; height: 14px; }
+.nav-dd-menu { position: absolute; top: calc(100% + 12px); left: 0; min-width: 200px; background: var(--paper, #fff); border: 1px solid var(--rule); border-radius: 12px; box-shadow: 0 18px 44px -22px oklch(20% 0.04 40 / 0.4); padding: 8px; display: none; z-index: 60; }
 .nav-dd:hover .nav-dd-menu, .nav-dd-menu.is-open, .nav-dd:focus-within .nav-dd-menu { display: block; }
 .nav-dd-item { display: block; padding: 9px 12px; border-radius: 8px; font-size: 14px; color: var(--ink); text-decoration: none; white-space: nowrap; }
 .nav-dd-item:hover { background: var(--paper-2); color: var(--accent-deep); }
