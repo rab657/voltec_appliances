@@ -4,8 +4,6 @@ import type { Product } from "./types";
 // Pure + client-safe so both client (configurator) and server (spec table) can
 // use it without pulling server-only modules into the client bundle.
 export function variantLabel(p: Product): string {
-  // Distinct industrial type, not a capacity variant — avoids a duplicate kVA chip.
-  if (/buck-?boost|line conditioner/i.test(p.name)) return "Buck-boost";
   const kva = p.name.match(/(\d+)\s*kVA/i);
   if (kva) return kva[1] + "kVA";
   const cap = (p.specs.find((s) => /capacity/i.test(s[0])) || [])[1];

@@ -516,28 +516,6 @@ export const PRODUCTS: Product[] = [
     ],
   },
   {
-    id: "vt-ind-bb-100k",
-    name: "Industrial Buck-Boost Line Conditioner — 100kVA",
-    category: "Industrial Stabilizers",
-    categoryId: "industrial",
-    tech: "SVC",
-    badge: "Steady supply",
-    tagline: "Three-phase buck-boost line conditioner — locks a steady 400V when your supply sits high or low.",
-    highlight: ["400V", "±1% output"],
-    description:
-      "For plants whose incoming supply runs consistently high or consistently low rather than swinging wildly, a buck-boost line conditioner is the leaner, cost-effective fix. A servo-driven autotransformer bucks or boosts each phase to a clean, balanced 400V, with heavy copper windings and big contactors built for continuous three-phase load. Built to order to match your supply.",
-    image: "assets/industrial-sjw.png",
-    specs: [
-      ["Technology", "Buck-boost / line conditioner, 3-phase"],
-      ["Capacity", "100kVA, 3-phase"],
-      ["Input range", "320V – 440V (L-L)"],
-      ["Output", "400V ±1%"],
-      ["Correction", "Servo-driven autotransformer"],
-      ["Efficiency", "> 98%"],
-      ["Cooling", "Forced air, thermal-protected"],
-    ],
-  },
-  {
     id: "vt-ind-500k",
     name: "Industrial Stabilizer — 500kVA",
     category: "Industrial Stabilizers",

@@ -359,7 +359,7 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
 
   // =============================================================== INDUSTRIAL
   industrial: {
-    tagline: "Heavy three-phase servo stabilizers, line conditioners and buck-boost systems — built for factories that cannot lose a single shift.",
+    tagline: "Heavy three-phase servo stabilizers — built for factories that cannot lose a single shift.",
     stats: [["±1", "%", "Output accuracy"], ["50", "°C", "Continuous rating"], ["&gt;97", "%", "Efficiency"], ["500", "kVA", "Up to capacity"]],
     hero: {
       eyebrow: "Plant-grade build", title: "Made for <em>three shifts a day</em>.",
@@ -406,7 +406,7 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
     },
     faqs: [
       { q: "What size three-phase stabilizer does my factory need?", a: "Size it to your total connected load in kVA, with headroom for motor start-up. Voltec builds SJW-series three-phase stabilizers from 100 kVA and 200 kVA up to 500 kVA and beyond, made to order. Send us your load list or a single-line diagram and our engineers will size it." },
-      { q: "Servo, line conditioner or buck-boost — which does my plant need?", a: "Most mills and plants run a heavy three-phase servo stabilizer — proven, cost-effective, and great with motor loads. Where the supply is steady but consistently high or low, a buck-boost transformer or line conditioner is the leaner fix. Send us your load and a few voltage readings and our engineers will advise." },
+      { q: "What type of three-phase stabilizer does Voltec build?", a: "Heavy servo (SVC) stabilizers that correct each phase on its own — proven, cost-effective, and great with motor loads. Built to order from 100 kVA to 500 kVA and beyond. Send us your load and our engineers will size it." },
       { q: "Can it fix an unbalanced WAPDA supply?", a: "Yes. Each phase is corrected on its own, so a lopsided incoming supply becomes a clean, balanced 400 V on all three phases — which is what protects three-phase motors and drives." },
       { q: "Do you provide installation and service contracts?", a: "Yes. We supply, install and service industrial systems, with bypass cabinets and remote monitoring, and planned engineer visits to keep the plant protected. We have done plants like K&N's in Kasur." },
       { q: "How long does a custom industrial stabilizer take?", a: "It is built to order, so lead time depends on capacity and configuration. Message us with your load and we will confirm the price and delivery time." },
