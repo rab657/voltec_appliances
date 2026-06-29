@@ -289,7 +289,7 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
         { n: "05", title: "Long lifespan", desc: "Solid-state design with no mechanical wear lasts far longer than a servo.", img: "assets/scr/scr-lifespan.jpg" },
         { n: "06", title: "Six-layer protection", desc: "Over-voltage, under-voltage, overload, over-temp and short-circuit.", img: "assets/scr/scr-safe.jpg" },
       ],
-      protections: ["over-volt", "under-volt", "over-temp", "short"],
+      protections: ["over-volt", "under-volt", "over-current", "over-temp", "short", "delay"],
     },
     faqs: [
       { q: "What is an SCR (thyristor) stabilizer?", a: "It corrects voltage with solid-state silicon switches (thyristors) instead of a motor. That makes it faster than a servo stabilizer with no carbon brush or motor to wear out. It corrects in steps to ±5% — the cost-effective way to protect tier-1 sensitive equipment like laser machines, where that is enough." },

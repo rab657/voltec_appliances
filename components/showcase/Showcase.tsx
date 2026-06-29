@@ -46,24 +46,35 @@ export default async function Showcase({
             </div>
           ))}
         </div>
-        {c.benefits.protections && (
-          <div className="sb-protect">
-            {c.benefits.protections.map((k) => {
-              const pi = PROT_ICONS[k];
-              if (!pi) return null;
-              return (
-                <div className="sb-protect-item" key={k}>
-                  <div className="sb-protect-ic">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-                      <path d={pi.d} />
-                    </svg>
-                  </div>
-                  <span>{lc(pi.label)}</span>
-                </div>
-              );
-            })}
-          </div>
-        )}
+      </div>
+    </section>
+  ) : null;
+
+  const prot = (c.benefits?.protections || []).map((k) => PROT_ICONS[k]).filter(Boolean);
+  const PROT_WORD: Record<number, string> = { 3: "Three", 4: "Four", 5: "Five", 6: "Six" };
+  const protectionsBlock = prot.length ? (
+    <section className="sb-section sb-protect-section">
+      <div className="container">
+        <div className="sb-head is-center">
+          <div className="sb-eyebrow">{lc("Built-in safety")}</div>
+          <h2 dangerouslySetInnerHTML={{ __html: `${PROT_WORD[prot.length] || prot.length} layers of <em>protection</em>.` }}></h2>
+          <p className="sb-section-sub">{lc("Every unit watches the grid and shuts the load out of harm automatically — no manual reset, no babysitting.")}</p>
+        </div>
+        <div className="sb-protect-grid">
+          {prot.map((pi) => (
+            <div className="sb-protect-card" key={pi.label}>
+              <div className="sb-protect-ic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                  <path d={pi.d} />
+                </svg>
+              </div>
+              <div className="sb-protect-body">
+                <h4>{lc(pi.label)}</h4>
+                <p>{lc(pi.desc)}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   ) : null;
@@ -130,6 +141,7 @@ export default async function Showcase({
       )}
 
       {c.benefitsEarly && benefitsBlock}
+      {c.benefitsEarly && protectionsBlock}
 
       {/* ===== Tech — how it works (flow or pillars) ===== */}
       {c.tech && (
@@ -241,6 +253,7 @@ export default async function Showcase({
 
       {/* ===== Benefits + protections ===== */}
       {!c.benefitsEarly && benefitsBlock}
+      {!c.benefitsEarly && protectionsBlock}
 
       {/* ===== Comparison — this tech vs servo / relay ===== */}
       {c.comparison && (

@@ -28,12 +28,13 @@ export function SbIcon({ name }: { name: string }) {
   );
 }
 
-export const PROT_ICONS: Record<string, { d: string; label: string }> = {
-  "over-current": { d: "M13 2 5 13h6l-1 9 9-12h-6z", label: "Over-current protection" },
-  "over-volt": { d: "M12 4v10M8 10l4 4 4-4M6 20h12", label: "Over-voltage protection" },
-  "under-volt": { d: "M12 20V10M8 14l4-4 4 4M6 4h12", label: "Under-voltage protection" },
-  "over-temp": { d: "M10 13V5a2 2 0 1 1 4 0v8a4 4 0 1 1-4 0ZM12 9v5", label: "Over-temperature cut-off" },
-  short: { d: "M4 12h5l2-4 2 8 2-4h5", label: "Short-circuit protection" },
+export const PROT_ICONS: Record<string, { d: string; label: string; desc: string }> = {
+  "over-current": { d: "M13 2 5 13h6l-1 9 9-12h-6z", label: "Overload protection", desc: "Trips the moment the connected load draws more than its rated current." },
+  "over-volt": { d: "M12 4v10M8 10l4 4 4-4M6 20h12", label: "Over-voltage protection", desc: "Cuts the output the instant mains voltage spikes dangerously high." },
+  "under-volt": { d: "M12 20V10M8 14l4-4 4 4M6 4h12", label: "Under-voltage protection", desc: "Disconnects the load when the supply sags below a safe level." },
+  "over-temp": { d: "M10 13V5a2 2 0 1 1 4 0v8a4 4 0 1 1-4 0ZM12 9v5", label: "Over-temperature cut-off", desc: "Shuts down on excess internal heat, then resumes once it cools." },
+  short: { d: "M4 12h5l2-4 2 8 2-4h5", label: "Short-circuit protection", desc: "Isolates the output instantly if a short circuit is detected." },
+  delay: { d: "M12 7v5l3 2M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z", label: "Restart delay", desc: "Soft-start delay shields equipment from rapid power cycling after an outage." },
 };
 
 const SB_GEO: Record<Callout["pos"], { dot: { x: number; y: number }; line: { x1: number; y1: number; x2: number; y2: number } }> = {
