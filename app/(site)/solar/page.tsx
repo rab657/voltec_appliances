@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { VOLTEC_WHATSAPP } from "@/lib/products";
 import { WhatsAppIcon } from "@/components/icons";
+import { PROT_ICONS } from "@/components/showcase/primitives";
 import JsonLd from "@/components/JsonLd";
 import { absUrl } from "@/lib/site";
 import { getT } from "@/lib/i18n-server";
@@ -34,6 +35,9 @@ const SIZES: { svc: string; inv: string }[] = [
   { svc: "15 kVA", inv: "10 kVA inverter" },
   { svc: "20 kVA", inv: "15 kVA inverter" },
 ];
+
+// Six built-in protections (same icon set as the stabilizer showcase).
+const PROTECTIONS = ["over-current", "over-volt", "under-volt", "over-temp", "short", "delay"];
 
 const WHY: string[] = [
   "100% pure copper inside — lasts much longer",
@@ -153,8 +157,53 @@ export default async function SolarPage() {
         </div>
       </section>
 
-      {/* ===== Which size ===== */}
+      {/* ===== Protected vs surge (the difference) ===== */}
       <section className="section" style={{ background: "var(--paper-2)" }}>
+        <div className="container">
+          <div className="med-narrow is-center" style={{ marginBottom: 30, textAlign: "center", marginLeft: "auto", marginRight: "auto" }}>
+            <h2 className="med-h2">See the difference one stabilizer makes</h2>
+          </div>
+          <div className="solar-vs">
+            <div className="solar-vs-card is-safe">
+              <span className="solar-vs-tag is-safe">With a Voltec stabilizer</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/solar/solar-safe.jpg" alt="A home running safely on steady, protected power" className="solar-vs-img" />
+              <p className="solar-vs-cap">Steady, safe power. Your inverter stays on and every appliance is protected.</p>
+            </div>
+            <div className="solar-vs-card is-danger">
+              <span className="solar-vs-tag is-danger">Without protection</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/solar/solar-surge.jpg" alt="A TV blown and on fire from a high-voltage surge" className="solar-vs-img" />
+              <p className="solar-vs-cap">One high-voltage surge can blow — or even burn — your TV, fridge and ACs.</p>
+            </div>
+            <div className="solar-vs-badge" aria-hidden="true">VS</div>
+          </div>
+
+          <div className="med-narrow is-center" style={{ margin: "44px auto 24px", textAlign: "center" }}>
+            <h2 className="med-h2" style={{ fontSize: "clamp(24px,3vw,34px)" }}>Six built-in protections</h2>
+            <p className="med-body">Every Voltec stabilizer guards your home against the full range of power faults — automatically.</p>
+          </div>
+          <div className="solar-prot">
+            {PROTECTIONS.map((k) => {
+              const pi = PROT_ICONS[k];
+              if (!pi) return null;
+              return (
+                <div className="solar-prot-item" key={k}>
+                  <div className="solar-prot-ic">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      <path d={pi.d} />
+                    </svg>
+                  </div>
+                  <span>{pi.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Which size ===== */}
+      <section className="section hairline-top">
         <div className="container">
           <div className="med-narrow" style={{ marginBottom: 28 }}>
             <h2 className="med-h2">Which size do you need?</h2>

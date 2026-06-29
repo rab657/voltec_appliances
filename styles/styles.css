@@ -413,6 +413,27 @@ input, textarea, select { font: inherit; color: inherit; }
   .med-stat:last-child { border-bottom: 0; }
 }
 
+/* Solar — protected-vs-surge comparison + protection shields */
+.solar-vs { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.solar-vs-card { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--rule); background: #fff; }
+.solar-vs-card.is-danger { border-color: oklch(62% 0.2 28 / 0.4); }
+.solar-vs-img { display: block; width: 100%; height: 300px; object-fit: cover; }
+.solar-vs-tag { position: absolute; top: 12px; left: 12px; z-index: 2; font-family: var(--font-mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 12px; border-radius: 999px; color: #fff; }
+.solar-vs-tag.is-safe { background: oklch(52% 0.14 150); }
+.solar-vs-tag.is-danger { background: oklch(55% 0.21 28); }
+.solar-vs-cap { padding: 16px 18px; font-size: 15px; line-height: 1.45; color: var(--ink); }
+.solar-vs-badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 60px; height: 60px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 600; font-size: 19px; letter-spacing: 0.02em; box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.45); border: 3px solid #fff; z-index: 3; }
+.solar-prot { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 22px 14px; max-width: 900px; margin: 0 auto; }
+.solar-prot-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+.solar-prot-ic { width: 56px; height: 56px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-deep); display: flex; align-items: center; justify-content: center; border: 1px solid var(--rule-strong); }
+.solar-prot-ic svg { width: 26px; height: 26px; }
+.solar-prot-item span { font-family: var(--font-ui); font-weight: 500; font-size: 12.5px; line-height: 1.25; color: var(--ink-2); max-width: 15ch; }
+@media (max-width: 720px) {
+  .solar-vs { grid-template-columns: 1fr; }
+  .solar-vs-img { height: 220px; }
+  .solar-vs-badge { width: 50px; height: 50px; font-size: 16px; }
+}
+
 /* ===== Stabilizer selector (guided "which one do I need?") ============== */
 .sel { max-width: 920px; margin: 0 auto; border: 1px solid var(--rule); border-radius: 18px; background: #fff; padding: clamp(24px, 4vw, 44px); box-shadow: 0 24px 60px -38px oklch(20% 0.04 40 / 0.5); }
 .sel-head { text-align: center; max-width: 600px; margin: 0 auto 28px; }
