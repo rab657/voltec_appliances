@@ -4,7 +4,7 @@ import Link from "next/link";
 import { PRODUCTS, CATEGORIES } from "@/lib/products";
 import { logout } from "@/lib/admin-store";
 
-type Media = { images: string[]; hidden: boolean; price: number | null };
+type Media = { images: string[]; videos: string[]; hidden: boolean; price: number | null };
 type MediaMap = Record<string, Media>;
 
 const CAT_ORDER = ["stabilizers", "industrial", "cells", "parts"] as const;
@@ -22,7 +22,9 @@ export default function ProductAdmin() {
   const [busy, setBusy] = useState(false);
   const [toast, setToast] = useState("");
   const [dirty, setDirty] = useState(false);
+  const [videoUrl, setVideoUrl] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetch("/api/admin/product-media", { cache: "no-store" })
@@ -44,9 +46,15 @@ export default function ProductAdmin() {
 
   // Effective state for the active product: override row if present, else the
   // code defaults (so the toggle/price reflect what the site currently shows).
+  const stored = map[activeId];
   const eff: Media = active
-    ? map[activeId] || { images: [], hidden: Boolean(active.hidden), price: active.price ?? null }
-    : { images: [], hidden: false, price: null };
+    ? {
+        images: stored?.images ?? [],
+        videos: stored?.videos ?? [],
+        hidden: stored ? stored.hidden : Boolean(active.hidden),
+        price: stored ? stored.price : active.price ?? null,
+      }
+    : { images: [], videos: [], hidden: false, price: null };
   const gallery = eff.images.length ? eff.images : active ? [active.image] : [];
   const usingDefaultImg = eff.images.length === 0;
 
@@ -126,6 +134,36 @@ export default function ProductAdmin() {
     }
   };
 
+  const addVideoUrl = () => {
+    const u = videoUrl.trim();
+    if (!u) return;
+    patch({ videos: [...eff.videos, u] });
+    setVideoUrl("");
+  };
+  const removeVideo = (i: number) => patch({ videos: eff.videos.filter((_, idx) => idx !== i) });
+  const uploadVideo = async (files: FileList | null) => {
+    if (!files || !files.length || !active) return;
+    setBusy(true);
+    try {
+      const added: string[] = [];
+      for (const file of Array.from(files)) {
+        const fd = new FormData();
+        fd.append("file", file);
+        fd.append("productId", activeId);
+        const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
+        const d = await res.json();
+        if (!res.ok) throw new Error(d.error || "Upload failed");
+        added.push(d.url);
+      }
+      patch({ videos: [...eff.videos, ...added] });
+      flash("Video added — remember to Save");
+    } catch (e) {
+      flash(String(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const removeImage = (i: number) => patch({ images: eff.images.filter((_, idx) => idx !== i) });
   const moveImage = (i: number, dir: -1 | 1) => {
     const j = i + dir;
@@ -198,7 +236,7 @@ export default function ProductAdmin() {
                 Products
               </div>
               <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--ink-3)" }}>
-                Images · price · visibility
+                Images · video · price · visibility
               </div>
             </div>
             <input
@@ -346,6 +384,56 @@ export default function ProductAdmin() {
                     hidden
                     onChange={(e) => {
                       upload(e.target.files);
+                      e.target.value = "";
+                    }}
+                  />
+                </div>
+
+                {/* ---- Videos ---- */}
+                <div className="eyebrow" style={{ margin: "36px 0 12px" }}>Product video</div>
+                <p style={{ fontSize: 13, color: "var(--ink-2)", margin: "0 0 16px", lineHeight: 1.5 }}>
+                  Paste a <strong>YouTube</strong> or video link, or upload a short clip (max 50&nbsp;MB).
+                  Videos appear in the product&apos;s showcase. For long or large videos, a YouTube link is best.
+                </p>
+
+                {eff.videos.length > 0 && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 16 }}>
+                    {eff.videos.map((v, i) => {
+                      const isFile = /\.(mp4|webm|ogg|mov|m4v)(\?|$)/i.test(v);
+                      return (
+                        <div key={v + i} style={{ display: "flex", gap: 12, alignItems: "center", border: "1px solid var(--rule)", borderRadius: 8, padding: 10, background: "#fff" }}>
+                          {isFile ? (
+                            // eslint-disable-next-line jsx-a11y/media-has-caption
+                            <video src={imgSrc(v)} style={{ width: 120, height: 68, objectFit: "cover", borderRadius: 4, background: "#000" }} muted />
+                          ) : (
+                            <div style={{ width: 120, height: 68, borderRadius: 4, background: "var(--ink)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24 }}>▶</div>
+                          )}
+                          <div style={{ flex: 1, minWidth: 0, fontSize: 12, color: "var(--ink-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{v}</div>
+                          <button className="filter-chip" title="Remove" onClick={() => removeVideo(i)} style={{ color: "var(--warn)" }}>✕ Remove</button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+                  <input
+                    type="url"
+                    value={videoUrl}
+                    placeholder="https://youtu.be/…  or  https://…/video.mp4"
+                    onChange={(e) => setVideoUrl(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); addVideoUrl(); } }}
+                    style={{ flex: 1, minWidth: 260, padding: "10px 12px", border: "1px solid var(--rule-strong)", background: "var(--paper)", borderRadius: 6, fontSize: 14 }}
+                  />
+                  <button className="btn btn-ghost" onClick={addVideoUrl} disabled={!videoUrl.trim() || busy}>Add link</button>
+                  <button className="btn btn-ghost" onClick={() => videoRef.current?.click()} disabled={busy}>Upload file</button>
+                  <input
+                    ref={videoRef}
+                    type="file"
+                    accept="video/*"
+                    hidden
+                    onChange={(e) => {
+                      uploadVideo(e.target.files);
                       e.target.value = "";
                     }}
                   />

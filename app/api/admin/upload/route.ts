@@ -9,7 +9,8 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 const BUCKET = "product-images";
-const MAX_BYTES = 8 * 1024 * 1024; // 8 MB
+const MAX_IMAGE_BYTES = 8 * 1024 * 1024; // 8 MB
+const MAX_VIDEO_BYTES = 50 * 1024 * 1024; // 50 MB (host body limits may cap this lower — prefer a video URL for big files)
 
 function safeName(name: string): string {
   return name.toLowerCase().replace(/[^a-z0-9.]+/g, "-").replace(/^-+|-+$/g, "").slice(-60) || "image";
@@ -32,8 +33,18 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid form data" }, { status: 400 });
   }
   if (!file) return NextResponse.json({ error: "No file" }, { status: 400 });
-  if (file.size > MAX_BYTES) return NextResponse.json({ error: "File too large (max 8 MB)" }, { status: 413 });
-  if (!file.type.startsWith("image/")) return NextResponse.json({ error: "Images only" }, { status: 415 });
+  const isImage = file.type.startsWith("image/");
+  const isVideo = file.type.startsWith("video/");
+  if (!isImage && !isVideo) {
+    return NextResponse.json({ error: "Images or videos only" }, { status: 415 });
+  }
+  const max = isVideo ? MAX_VIDEO_BYTES : MAX_IMAGE_BYTES;
+  if (file.size > max) {
+    return NextResponse.json(
+      { error: `File too large (max ${Math.round(max / 1024 / 1024)} MB). For big videos, paste a YouTube or video URL instead.` },
+      { status: 413 },
+    );
+  }
 
   const buf = Buffer.from(await file.arrayBuffer());
   const filename = `${Date.now().toString(36)}-${safeName(file.name)}`;

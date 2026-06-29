@@ -12,6 +12,20 @@ import ProductConfigurator from "./ProductConfigurator";
 
 const tel = `tel:${SITE.phone.replace(/[^+\d]/g, "")}`;
 
+// Turn an admin-entered video URL (YouTube / Vimeo / direct file) into an
+// embeddable source. Returns null for anything we can't safely embed.
+function videoSource(url: string): { kind: "iframe" | "file"; src: string } | null {
+  if (!url) return null;
+  const yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([\w-]{6,})/);
+  if (yt) return { kind: "iframe", src: `https://www.youtube-nocookie.com/embed/${yt[1]}` };
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vimeo) return { kind: "iframe", src: `https://player.vimeo.com/video/${vimeo[1]}` };
+  if (/\.(mp4|webm|ogg|mov|m4v)(\?|$)/i.test(url)) {
+    return { kind: "file", src: url.startsWith("/") || url.startsWith("http") ? url : `/${url}` };
+  }
+  return null;
+}
+
 export default async function Showcase({
   family,
   lead,
@@ -139,6 +153,35 @@ export default async function Showcase({
           </div>
         </section>
       )}
+
+      {(() => {
+        const v = lead.videos && lead.videos.length ? videoSource(lead.videos[0]) : null;
+        if (!v) return null;
+        return (
+          <section className="sb-section" style={{ paddingTop: 0 }}>
+            <div className="container">
+              <div className="sb-head is-center">
+                <div className="sb-eyebrow">See it in action</div>
+                <h2>Watch the <em>{lc(family.name)}</em>.</h2>
+              </div>
+              <div className="sb-video">
+                {v.kind === "iframe" ? (
+                  <iframe
+                    src={v.src}
+                    title={`${lc(family.name)} video`}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  />
+                ) : (
+                  // eslint-disable-next-line jsx-a11y/media-has-caption
+                  <video src={v.src} controls playsInline preload="metadata" />
+                )}
+              </div>
+            </div>
+          </section>
+        );
+      })()}
 
       {c.benefitsEarly && benefitsBlock}
       {c.benefitsEarly && protectionsBlock}

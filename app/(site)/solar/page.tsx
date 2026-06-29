@@ -19,7 +19,7 @@ const wa = (text: string) =>
 const WA_HELP = wa(
   "Hi Voltec, my solar inverter keeps shutting down when the voltage is high. Which stabilizer do I need?",
 );
-const CTA_LABEL = "Message us on WhatsApp";
+const CTA_LABEL = "Get my stabilizer price now";
 
 const BENEFITS: string[] = [
   "No more sudden shutdowns — your inverter stays on",
