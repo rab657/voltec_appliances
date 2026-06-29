@@ -4,6 +4,7 @@ import { siblingFamilies, showcaseFor, type FamilyMeta } from "@/lib/showcase-da
 import { getT, getContent } from "@/lib/i18n-server";
 import EcomCard from "@/components/EcomCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { Slot } from "./primitives";
 
 // Cells are distinct products (not variants of one), so their category page is a
 // HUB: pick your cell, grouped by format, each card → its own detail page.
@@ -22,7 +23,9 @@ export default async function CellsHub({
   ]
     .map((g) => ({ ...g, items: members.filter((m) => g.match.test(m.cell?.format || "")) }))
     .filter((g) => g.items.length > 0);
-  const faqs = showcaseFor(members[0]).faqs;
+  const sc = showcaseFor(members[0]);
+  const faqs = sc.faqs;
+  const benefits = sc.benefits;
   const related = siblingFamilies(family);
 
   return (
@@ -76,6 +79,29 @@ export default async function CellsHub({
           ))}
         </div>
       </section>
+
+      {benefits && (
+        <section className="sb-section" style={{ paddingTop: 0 }}>
+          <div className="container">
+            <div className="sb-head is-center">
+              <div className="sb-eyebrow">{benefits.eyebrow}</div>
+              <h2 dangerouslySetInnerHTML={{ __html: benefits.title }}></h2>
+            </div>
+            <div className="sb-adv-grid">
+              {benefits.items.map((a) => (
+                <div className="sb-adv" key={a.n}>
+                  <Slot src={a.img} label={a.title} cover />
+                  <div className="sb-adv-band">
+                    <div className="n">{a.n}</div>
+                    <h4>{a.title}</h4>
+                    <p>{a.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {faqs && faqs.length > 0 && (
         <section className="sb-section" id="faq" style={{ paddingTop: 0 }}>

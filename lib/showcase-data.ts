@@ -338,12 +338,12 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
     benefits: {
       eyebrow: "Key advantages", title: "Protection that <em>everyone can afford</em>.",
       items: [
-        { n: "01", title: "Affordable entry", desc: "Proper voltage protection at a household price." },
-        { n: "02", title: "Fast relay correction", desc: "Sub-second tap switching across a wide range." },
-        { n: "03", title: "OV / UV cutoff", desc: "Cuts off on dangerous over- or under-voltage." },
-        { n: "04", title: "Time-delay restart", desc: "Stops AC compressors from switching on and off too fast." },
-        { n: "05", title: "LED voltage meter", desc: "See your mains voltage at a glance." },
-        { n: "06", title: "Wall or desktop", desc: "Small housing fits anywhere, with no installation." },
+        { n: "01", title: "Affordable entry", desc: "Proper voltage protection at a household price.", img: "assets/avr/vp-affordable.jpg" },
+        { n: "02", title: "Fast relay correction", desc: "Sub-second tap switching across a wide range.", img: "assets/avr/vp-relay.jpg" },
+        { n: "03", title: "OV / UV cutoff", desc: "Cuts off on dangerous over- or under-voltage.", img: "assets/avr/vp-ovuv.jpg" },
+        { n: "04", title: "Time-delay restart", desc: "Stops AC compressors from switching on and off too fast.", img: "assets/avr/vp-delay.jpg" },
+        { n: "05", title: "LED voltage meter", desc: "See your mains voltage at a glance.", img: "assets/svc/vp-display.jpg" },
+        { n: "06", title: "Wall or desktop", desc: "Small housing fits anywhere, with no installation.", img: "assets/avr/vp-walldesktop.jpg" },
       ],
       protections: ["over-volt", "under-volt", "short"],
     },
@@ -451,12 +451,12 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
     benefits: {
       eyebrow: "Key advantages", title: "Built to last <em>15 years</em>.",
       items: [
-        { n: "01", title: "6,000+ cycles", desc: "About 15 years of daily use at 80% depth of discharge." },
-        { n: "02", title: "Thermal stability", desc: "LFP stays safe in Pakistan's hot rooms with no AC." },
-        { n: "03", title: "Genuine & traceable", desc: "A scannable QR code checks every Grade-A cell." },
-        { n: "04", title: "Factory matched", desc: "Capacity and voltage matched so your pack balances evenly." },
-        { n: "05", title: "Wide temperature", desc: "Works from -20 °C to +55 °C." },
-        { n: "06", title: "5-year warranty", desc: "Prorated cover, backed from Lahore." },
+        { n: "01", title: "6,000+ cycles", desc: "About 15 years of daily use at 80% depth of discharge.", img: "assets/cells/vp-cycles.jpg" },
+        { n: "02", title: "Thermal stability", desc: "LFP stays safe in Pakistan's hot rooms with no AC.", img: "assets/cells/vp-thermal.jpg" },
+        { n: "03", title: "Genuine & traceable", desc: "A scannable QR code checks every Grade-A cell.", img: "assets/cells/vp-traceable.jpg" },
+        { n: "04", title: "Factory matched", desc: "Capacity and voltage matched so your pack balances evenly.", img: "assets/cells/vp-matched.jpg" },
+        { n: "05", title: "Wide temperature", desc: "Works from -20 °C to +55 °C.", img: "assets/cells/vp-temperature.jpg" },
+        { n: "06", title: "5-year warranty", desc: "Prorated cover, backed from Lahore.", img: "assets/cells/vp-warranty.jpg" },
       ],
     },
     faqs: [
