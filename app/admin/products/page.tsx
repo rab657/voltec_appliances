@@ -60,6 +60,30 @@ export default function ProductAdmin() {
     setDirty(true);
   };
 
+  // Visibility is a single click that's easy to lose if it waits for the global
+  // Save (which only persists the open product). So persist it immediately.
+  const toggleHidden = async () => {
+    if (!active || busy) return;
+    const prevEff = eff;
+    const next: Media = { ...eff, hidden: !eff.hidden };
+    setMap((prev) => ({ ...prev, [activeId]: next })); // optimistic
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/product-media", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId: activeId, media: next }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error || "Save failed");
+      flash(next.hidden ? "Hidden · live on site" : "Shown · live on site");
+    } catch (e) {
+      setMap((prev) => ({ ...prev, [activeId]: prevEff })); // revert on failure
+      flash(String(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const save = async () => {
     if (!active) return;
     setBusy(true);
@@ -249,7 +273,8 @@ export default function ProductAdmin() {
                   </div>
                   <button
                     className={eff.hidden ? "btn btn-primary" : "btn btn-ghost"}
-                    onClick={() => patch({ hidden: !eff.hidden })}
+                    onClick={toggleHidden}
+                    disabled={busy}
                     style={{ whiteSpace: "nowrap" }}
                   >
                     {eff.hidden ? "Show product" : "Hide product"}
