@@ -22,7 +22,7 @@ const CTA_LABEL = "Message us on WhatsApp";
 
 const BENEFITS: string[] = [
   "No more sudden shutdowns — your inverter stays on",
-  "Your inverter and appliances stay safe",
+  "Your appliances are safe — no surge reaches them, nothing gets blown",
   "Works even when the voltage is very high",
   "100% pure copper inside — built to last",
 ];
@@ -47,6 +47,10 @@ const FAQS: { q: string; a: string }[] = [
   {
     q: "Will a stabilizer really stop my inverter from shutting down?",
     a: "Yes. The stabilizer keeps the voltage at a safe, steady level. So your inverter never sees the high voltage that makes it switch off — and it stays on.",
+  },
+  {
+    q: "Can high voltage damage my appliances, not just the inverter?",
+    a: "Yes — and this is the real danger. When the voltage spikes, many inverters switch to the grid (bypass) and send that high voltage straight to your sockets. Your TV, fridge, ACs and other appliances can get blown in seconds. A stabilizer keeps the voltage steady, so the surge never reaches them.",
   },
   {
     q: "What size do I need for my inverter?",
@@ -104,10 +108,11 @@ export default async function SolarPage() {
           </div>
           <div className="med-eyebrow">For solar homes</div>
           <h1>Solar inverter keeps shutting down?</h1>
-          <p className="page-lede" style={{ maxWidth: "56ch" }}>
-            When your area&apos;s voltage goes too high, your solar inverter switches itself off to stay
-            safe — and your whole house goes dark. A Voltec stabilizer fixes this. It keeps the voltage
-            steady, so your inverter stays on all day.
+          <p className="page-lede" style={{ maxWidth: "58ch" }}>
+            When your area&apos;s voltage goes too high, your solar inverter can shut down — and your
+            whole house goes dark. Worse, that high voltage can pass straight through to your appliances
+            and blow them. A Voltec stabilizer stops both. It keeps the voltage steady and safe, so your
+            inverter stays on and nothing gets damaged.
           </p>
           <div className="med-cta">
             <a href={WA_HELP} target="_blank" rel="noopener" className="btn btn-wa">
@@ -123,13 +128,16 @@ export default async function SolarPage() {
           <div className="med-narrow" style={{ marginBottom: 28 }}>
             <h2 className="med-h2">Why this happens — and how we fix it</h2>
             <p className="med-body">
-              In many areas the voltage often goes too high — above 250 volts. Your solar inverter has a
-              safety limit. When the voltage crosses it, the inverter shuts off to protect itself. If
-              your home runs on solar, everything turns off with it.
+              In many areas the voltage often goes too high — above 250 volts. When it does, one of two
+              things happens — and both are bad. Your inverter shuts off to protect itself, and your
+              whole house goes dark. Or it switches over to the grid (the bypass), sending that same high
+              voltage straight to your sockets — and your TV, fridge, ACs and anything plugged in can get
+              blown in seconds.
             </p>
             <p className="med-body" style={{ marginTop: 14 }}>
               A Voltec stabilizer sits between the grid and your inverter. It brings the high voltage
-              down to a safe, steady level. Your inverter never sees high voltage — so it keeps running.
+              down to a safe, steady level before it can reach your inverter or your appliances. So your
+              inverter keeps running — and nothing gets blown.
             </p>
           </div>
           <div className="med-grid">
