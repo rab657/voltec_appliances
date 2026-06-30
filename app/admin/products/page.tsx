@@ -47,6 +47,8 @@ export default function ProductAdmin() {
   const [videoUrl, setVideoUrl] = useState("");
   const [addingFamily, setAddingFamily] = useState<string | null>(null);
   const [newCap, setNewCap] = useState("");
+  // Which sidebar groups are expanded (family key or "cat-cells"/"cat-parts").
+  const [open, setOpen] = useState<Set<string>>(() => new Set());
   const fileRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLInputElement>(null);
 
@@ -69,6 +71,29 @@ export default function ProductAdmin() {
   useEffect(() => {
     if (!activeId && PRODUCTS[0]) setActiveId(PRODUCTS[0].id);
   }, [activeId]);
+
+  // Group key for a product: family key for stabilizer/industrial, else "cat-<cat>".
+  const groupKeyOf = (p: Product) => {
+    const fam = familyOf(p);
+    return fam.startsWith("stab-") || fam === "industrial" ? fam : `cat-${p.categoryId}`;
+  };
+
+  // Keep the active item's group expanded (on load and when selection changes).
+  useEffect(() => {
+    const b = PRODUCTS.find((p) => p.id === activeId) ||
+      (map[activeId]?.baseId ? PRODUCTS.find((p) => p.id === map[activeId]?.baseId) : undefined);
+    if (!b) return;
+    const key = groupKeyOf(b);
+    setOpen((prev) => (prev.has(key) ? prev : new Set(prev).add(key)));
+  }, [activeId, map]);
+
+  const toggleOpen = (key: string) =>
+    setOpen((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else next.add(key);
+      return next;
+    });
 
   // The code product backing the active selection: itself (code product) or the
   // base of an admin-created variant.
@@ -419,60 +444,84 @@ export default function ProductAdmin() {
               onChange={(e) => setQuery(e.target.value)}
               style={{ padding: "9px 12px", border: "1px solid var(--rule-strong)", background: "var(--paper)", borderRadius: 6, fontSize: 14 }}
             />
-            <div className="admin-post-list" style={{ marginTop: 4, display: "flex", flexDirection: "column", gap: 18 }}>
-              {/* ---- Stabilizer & industrial families → variants ---- */}
+            <div className="admin-post-list" style={{ marginTop: 4, display: "flex", flexDirection: "column", gap: 2 }}>
+              {/* ---- Stabilizer & industrial families → variants (collapsible) ---- */}
               {VARIANT_FAMILIES.map((fam) => {
                 const variants = familyVariants(fam);
                 if (q && variants.length === 0) return null;
+                const isOpen = Boolean(q) || open.has(fam.key);
+                const hasActive = Boolean(base) && groupKeyOf(base!) === fam.key;
                 return (
                   <div key={fam.key}>
-                    <h3 style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--ink-3)", margin: "0 0 6px", display: "flex", gap: 8, alignItems: "center" }}>
-                      <span>{fam.name}</span>
+                    <button
+                      type="button"
+                      onClick={() => toggleOpen(fam.key)}
+                      className="admin-group-head"
+                      style={{ width: "100%", display: "flex", gap: 8, alignItems: "center", padding: "8px 8px", background: isOpen ? "var(--paper-2)" : "transparent", border: 0, borderRadius: 6, cursor: "pointer", fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: hasActive ? "var(--accent-deep)" : "var(--ink-2)" }}
+                    >
+                      <span style={{ display: "inline-block", width: 9, color: "var(--ink-4)", transition: "transform .15s", transform: isOpen ? "rotate(90deg)" : "none" }}>▸</span>
+                      <span style={{ flex: 1, textAlign: "left", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{fam.name}</span>
                       <span style={{ color: "var(--ink-4)" }}>{variants.length}</span>
-                      {fam.hidden && <span style={{ color: "var(--warn)", fontSize: 9 }}>line hidden</span>}
-                    </h3>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                      {variants.map((v) => renderItem(v.id, v.name, v.created))}
-                      {addingFamily === fam.key ? (
-                        <div style={{ display: "flex", gap: 6, padding: "4px 0" }}>
-                          <input
-                            autoFocus
-                            value={newCap}
-                            onChange={(e) => setNewCap(e.target.value)}
-                            onKeyDown={(e) => {
-                              if (e.key === "Enter") { e.preventDefault(); addVariant(fam); }
-                              if (e.key === "Escape") { setAddingFamily(null); setNewCap(""); }
-                            }}
-                            placeholder="Capacity e.g. 1kVA"
-                            style={{ flex: 1, minWidth: 0, padding: "7px 9px", border: "1px solid var(--rule-strong)", background: "var(--paper)", borderRadius: 6, fontSize: 13 }}
-                          />
-                          <button className="filter-chip" onClick={() => addVariant(fam)} disabled={!newCap.trim() || busy} title="Add">✓</button>
-                          <button className="filter-chip" onClick={() => { setAddingFamily(null); setNewCap(""); }} title="Cancel">✕</button>
-                        </div>
-                      ) : (
-                        <button
-                          onClick={() => { setAddingFamily(fam.key); setNewCap(""); }}
-                          style={{ textAlign: "left", padding: "6px 8px", border: "1px dashed var(--rule-strong)", borderRadius: 6, background: "transparent", color: "var(--ink-3)", fontSize: 12, cursor: "pointer" }}
-                        >
-                          ＋ Add variant
-                        </button>
-                      )}
-                    </div>
+                      {fam.hidden && <span style={{ color: "var(--warn)", fontSize: 9 }}>hidden</span>}
+                    </button>
+                    {isOpen && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 4, padding: "6px 0 10px 6px" }}>
+                        {variants.map((v) => renderItem(v.id, v.name, v.created))}
+                        {addingFamily === fam.key ? (
+                          <div style={{ display: "flex", gap: 6, padding: "4px 0" }}>
+                            <input
+                              autoFocus
+                              value={newCap}
+                              onChange={(e) => setNewCap(e.target.value)}
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") { e.preventDefault(); addVariant(fam); }
+                                if (e.key === "Escape") { setAddingFamily(null); setNewCap(""); }
+                              }}
+                              placeholder="Capacity e.g. 1kVA"
+                              style={{ flex: 1, minWidth: 0, padding: "7px 9px", border: "1px solid var(--rule-strong)", background: "var(--paper)", borderRadius: 6, fontSize: 13 }}
+                            />
+                            <button className="filter-chip" onClick={() => addVariant(fam)} disabled={!newCap.trim() || busy} title="Add">✓</button>
+                            <button className="filter-chip" onClick={() => { setAddingFamily(null); setNewCap(""); }} title="Cancel">✕</button>
+                          </div>
+                        ) : (
+                          <button
+                            onClick={() => { setAddingFamily(fam.key); setNewCap(""); }}
+                            style={{ textAlign: "left", padding: "6px 8px", border: "1px dashed var(--rule-strong)", borderRadius: 6, background: "transparent", color: "var(--ink-3)", fontSize: 12, cursor: "pointer" }}
+                          >
+                            ＋ Add variant
+                          </button>
+                        )}
+                      </div>
+                    )}
                   </div>
                 );
               })}
 
-              {/* ---- Cells & parts (flat) ---- */}
-              {flatGroups.map((g) => (
-                <div key={g.id}>
-                  <h3 style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--ink-3)", margin: "0 0 6px" }}>
-                    {g.label}
-                  </h3>
-                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                    {g.items.map((p) => renderItem(p.id, map[p.id]?.name || p.name, false))}
+              {/* ---- Cells & parts (collapsible, flat) ---- */}
+              {flatGroups.map((g) => {
+                const key = `cat-${g.id}`;
+                const isOpen = Boolean(q) || open.has(key);
+                const hasActive = Boolean(base) && groupKeyOf(base!) === key;
+                return (
+                  <div key={g.id}>
+                    <button
+                      type="button"
+                      onClick={() => toggleOpen(key)}
+                      className="admin-group-head"
+                      style={{ width: "100%", display: "flex", gap: 8, alignItems: "center", padding: "8px 8px", background: isOpen ? "var(--paper-2)" : "transparent", border: 0, borderRadius: 6, cursor: "pointer", fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: hasActive ? "var(--accent-deep)" : "var(--ink-2)" }}
+                    >
+                      <span style={{ display: "inline-block", width: 9, color: "var(--ink-4)", transition: "transform .15s", transform: isOpen ? "rotate(90deg)" : "none" }}>▸</span>
+                      <span style={{ flex: 1, textAlign: "left" }}>{g.label}</span>
+                      <span style={{ color: "var(--ink-4)" }}>{g.items.length}</span>
+                    </button>
+                    {isOpen && (
+                      <div style={{ display: "flex", flexDirection: "column", gap: 4, padding: "6px 0 10px 6px" }}>
+                        {g.items.map((p) => renderItem(p.id, map[p.id]?.name || p.name, false))}
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </aside>
 
