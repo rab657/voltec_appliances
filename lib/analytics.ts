@@ -24,38 +24,54 @@ const FB_STANDARD: Record<string, string> = {
   lead: "Lead",
 };
 
+// One id per event, shared between the browser Pixel (eventID) and the
+// server-side Conversions API call (event_id) so Meta dedupes the pair.
+function genId(): string {
+  try {
+    if (typeof crypto !== "undefined" && crypto.randomUUID) return crypto.randomUUID();
+  } catch {
+    /* fall through */
+  }
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+}
+
 export function pageview(url: string) {
   if (typeof window === "undefined") return;
+  const eventId = genId();
   if (GA_ID && window.gtag) {
     window.gtag("event", "page_view", { page_path: url });
   }
   if (FB_PIXEL_ID && window.fbq) {
-    window.fbq("track", "PageView");
+    window.fbq("track", "PageView", {}, { eventID: eventId });
   }
-  collect("page_view", { path: url });
+  collect("page_view", { path: url }, eventId);
 }
 
 export function track(event: string, params: Params = {}) {
   if (typeof window === "undefined") return;
+  const eventId = genId();
   if (GA_ID && window.gtag) {
     window.gtag("event", event, params);
   }
   if (FB_PIXEL_ID && window.fbq) {
     const std = FB_STANDARD[event];
-    if (std) window.fbq("track", std, params);
-    else window.fbq("trackCustom", event, params);
+    if (std) window.fbq("track", std, params, { eventID: eventId });
+    else window.fbq("trackCustom", event, params, { eventID: eventId });
   }
-  collect(event, params);
+  collect(event, params, eventId);
 }
 
 // First-party beacon to our own analytics endpoint (never blocks the UI).
-function collect(event: string, params: Params) {
+// Also carries event_id + full href so the server can mirror to Meta CAPI.
+function collect(event: string, params: Params, eventId?: string) {
   try {
     const payload = JSON.stringify({
       event,
       params,
       path: typeof location !== "undefined" ? location.pathname : "",
+      href: typeof location !== "undefined" ? location.href : "",
       ref: typeof document !== "undefined" ? document.referrer : "",
+      event_id: eventId,
       ts: Date.now(),
     });
     if (navigator.sendBeacon) {
