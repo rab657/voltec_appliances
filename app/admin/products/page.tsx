@@ -33,6 +33,7 @@ function imgSrc(s: string) {
 // this image over the lead model's photo.
 const COVER_PREFIX = "homecover-";
 const COVER_TARGETS: { key: string; label: string; fallback: string }[] = [
+  { key: "hero", label: "Homepage hero (main banner)", fallback: "assets/svc-stabilizer.png" },
   ...["stab-svc", "stab-avr", "industrial", "cells"].map((k) => {
     const f = FAMILIES.find((x) => x.key === k);
     return { key: k, label: f?.name || k, fallback: f?.image || "" };

@@ -113,6 +113,9 @@ export default async function HomePage() {
     .filter((p) => !p.hidden && !isProductInHiddenFamily(p));
   const posts = (await getPublishedPosts()).slice(0, 3);
   const range = buildRange(mediaMap);
+  // Admin-settable hero image (Homepage images → Hero); falls back to the default.
+  const heroCover = mediaMap["homecover-hero"]?.images?.[0];
+  const heroImg = heroCover ? norm(heroCover) : "/assets/svc-stabilizer.png";
 
   return (
     <main>
@@ -149,7 +152,7 @@ export default async function HomePage() {
           <div className="vhero-feature">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/svc-stabilizer.png"
+              src={heroImg}
               alt="Voltec servo motor (SVC) voltage stabilizer"
               className="vhero-feature-img"
             />
