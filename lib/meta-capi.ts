@@ -5,7 +5,7 @@ import { clientIp } from "./analytics-server";
 // from the same request, deduped via a shared event_id. Best-effort and
 // non-throwing — analytics must never break the app. No-op until configured.
 
-const PIXEL = process.env.META_PIXEL_ID || "";
+const PIXEL = process.env.META_PIXEL_ID || "1012908876950112";
 const TOKEN = process.env.META_CAPI_TOKEN || "";
 const VER = process.env.META_GRAPH_VERSION || "v21.0";
 

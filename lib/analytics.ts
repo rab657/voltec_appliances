@@ -2,8 +2,11 @@
 // Fans every event out to GA4 (gtag), Facebook Pixel (fbq), and our own
 // first-party collector (/api/track) used by the "living site" dashboard.
 
-export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "";
-export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || "";
+// Public IDs (not secrets — they ship in the page anyway). Defaulted in code so
+// tracking is live in every environment without depending on env config; env
+// still overrides if set.
+export const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "G-L04YY2FKCG";
+export const FB_PIXEL_ID = process.env.NEXT_PUBLIC_FB_PIXEL_ID || "1012908876950112";
 
 type Params = Record<string, unknown>;
 
