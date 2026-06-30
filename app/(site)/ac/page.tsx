@@ -102,18 +102,28 @@ export default async function AcPage() {
             <Link href="/">{t("nav.home")}</Link> <span>/</span> <span>{t("nav.solutions")}</span>{" "}
             <span>/</span> <span>{t("nav.ac")}</span>
           </div>
-          <div className="med-eyebrow">For homes with AC</div>
-          <h1>Low voltage? AC keeps tripping?</h1>
-          <p className="page-lede" style={{ maxWidth: "60ch" }}>
-            In this heat wave your solar runs the AC all day. But at night there&apos;s no solar — the AC
-            runs on the grid, and the voltage drops low. On low voltage your AC won&apos;t start, and the
-            compressor can burn out. A Voltec AC stabilizer boosts that weak voltage back to a steady
-            220V — so your AC runs cool all night, and the compressor stays safe.
-          </p>
-          <div className="med-cta">
-            <WhatsAppButton productName="AC Stabilizer — help me pick (1/1.5 ton)">
-              Get my AC stabilizer <span className="arrow" style={{ marginLeft: 4 }}>→</span>
-            </WhatsAppButton>
+          <div className="ac-hero">
+            <div>
+              <div className="med-eyebrow">For homes with AC</div>
+              <h1>Low voltage? AC keeps tripping?</h1>
+              <p className="page-lede">
+                In this heat wave your solar runs the AC all day. But at night there&apos;s no solar — the
+                AC runs on the grid, and the voltage drops low. On low voltage your AC won&apos;t start, and
+                the compressor can burn out. A Voltec AC stabilizer boosts that weak voltage back to a
+                steady 220V — so your AC runs cool all night, and the compressor stays safe.
+              </p>
+              <div className="med-cta">
+                <WhatsAppButton productName="AC Stabilizer — help me pick (1/1.5 ton)">
+                  Get my AC stabilizer <span className="arrow" style={{ marginLeft: 4 }}>→</span>
+                </WhatsAppButton>
+              </div>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              className="ac-hero-img"
+              src="/assets/ac-bedroom.webp"
+              alt="A Voltec AC stabilizer keeping the bedroom AC running through a low-voltage night"
+            />
           </div>
         </div>
       </section>
