@@ -104,7 +104,7 @@ export default async function AcPage() {
             <span>/</span> <span>{t("nav.ac")}</span>
           </div>
           <div className="med-eyebrow">For homes with AC</div>
-          <h1>Your AC won&apos;t start at night?</h1>
+          <h1>Low voltage tripping your AC at night?</h1>
           <p className="page-lede" style={{ maxWidth: "60ch" }}>
             In this heat wave your solar runs the AC all day. But at night there&apos;s no solar — the AC
             runs on the grid, and the voltage drops low. On low voltage your AC won&apos;t start, and the
