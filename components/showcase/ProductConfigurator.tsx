@@ -28,7 +28,11 @@ export default function ProductConfigurator({
   const [sel, setSel] = useState(
     Math.max(0, members.findIndex((p) => p.status !== "upcoming")),
   );
+  const [imgIdx, setImgIdx] = useState(0);
   const active = members[sel] || members[0];
+  const toUrl = (s: string) => (s.startsWith("/") || s.startsWith("http") ? s : `/${s}`);
+  const imgs = (active.images && active.images.length ? active.images : [active.image]).filter(Boolean);
+  const safeIdx = Math.min(imgIdx, Math.max(0, imgs.length - 1));
 
   const quick: [string, string | undefined][] = [
     [t("cfg.bestfor"), lc(active.useFor || spec(active, /capacity/i) || "")],
@@ -39,11 +43,34 @@ export default function ProductConfigurator({
 
   return (
     <div className="cfg-grid">
-      <div className="cfg-media">
-        <div className="slot slot-tech-frame">
-          <Slot src={active.image} label={active.name} />
+      <div className="cfg-media-col">
+        <div className="cfg-media">
+          <div className="slot slot-tech-frame">
+            {imgs.length ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img className="cfg-main-img" src={toUrl(imgs[safeIdx])} alt={lc(active.name)} />
+            ) : (
+              <Slot src={active.image} label={active.name} />
+            )}
+          </div>
+          {active.tech && <span className="cfg-media-tech" data-tech={active.tech}>{active.tech}</span>}
         </div>
-        {active.tech && <span className="cfg-media-tech" data-tech={active.tech}>{active.tech}</span>}
+        {imgs.length > 1 && (
+          <div className="cfg-thumbs">
+            {imgs.map((src, i) => (
+              <button
+                key={src + i}
+                type="button"
+                className={`cfg-thumb ${i === safeIdx ? "active" : ""}`}
+                onClick={() => setImgIdx(i)}
+                aria-label={`${lc(active.name)} image ${i + 1}`}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={toUrl(src)} alt="" />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
       <div className="cfg-panel">
@@ -66,6 +93,7 @@ export default function ProductConfigurator({
                 aria-pressed={i === sel}
                 onClick={() => {
                   setSel(i);
+                  setImgIdx(0);
                   track("configurator_select", { family: family.slug, model: p.id });
                 }}
               >
