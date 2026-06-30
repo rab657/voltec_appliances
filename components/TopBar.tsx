@@ -49,6 +49,7 @@ export default function TopBar() {
   }, [pathname]);
 
   return (
+    <>
     <header className="topbar">
       <div className="container topbar-inner">
         <div className="topbar-left">
@@ -112,6 +113,7 @@ export default function TopBar() {
           <span></span>
         </button>
       </div>
+    </header>
       <div className={`nav-drawer ${open ? "is-open" : ""}`} role="dialog" aria-modal="true">
         <div className="nav-drawer-scrim" onClick={() => setOpen(false)}></div>
         <nav className="nav-drawer-panel">
@@ -175,6 +177,6 @@ export default function TopBar() {
           </div>
         </nav>
       </div>
-    </header>
+    </>
   );
 }
