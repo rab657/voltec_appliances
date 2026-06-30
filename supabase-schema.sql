@@ -66,10 +66,20 @@ alter table public.events enable row level security;
 create table if not exists public.product_overrides (
   product_id text primary key,
   images jsonb not null default '[]'::jsonb,  -- ["url", ...] first = primary/cover
+  videos jsonb not null default '[]'::jsonb,  -- ["url", ...] YouTube/Vimeo or direct
   hidden boolean not null default false,      -- admin show/hide toggle
   price numeric,                              -- PKR; null = "Request price"
+  name text,                                  -- display-name override (rename a variant)
+  base_id text,                               -- created variants: code product to clone
+  is_variant boolean not null default false,  -- true = admin-created variant (not in code)
   updated_at timestamptz not null default now()
 );
+
+-- For existing projects, add the later columns idempotently:
+alter table public.product_overrides add column if not exists videos jsonb not null default '[]'::jsonb;
+alter table public.product_overrides add column if not exists name text;
+alter table public.product_overrides add column if not exists base_id text;
+alter table public.product_overrides add column if not exists is_variant boolean not null default false;
 
 alter table public.product_overrides enable row level security;
 -- Public can read overrides (the storefront renders them); writes are server-only

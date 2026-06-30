@@ -12,7 +12,7 @@ import CellDetail from "@/components/CellDetail";
 import "@/styles/stabilizer.css";
 import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
 import { getT, getContent } from "@/lib/i18n-server";
-import { getMediaMap, applyMedia } from "@/lib/product-media";
+import { getMediaMap, resolveProducts } from "@/lib/product-media";
 
 export function generateStaticParams() {
   return PRODUCTS.filter((p) => !isProductInHiddenFamily(p)).map((p) => ({ id: p.id }));
@@ -42,14 +42,17 @@ export default async function ProductDetailPage({
   params,
 }: PageProps<"/products/[id]">) {
   const { id } = await params;
-  const product = getProduct(id);
-  if (!product || isProductInHiddenFamily(product)) notFound();
+  const mediaMap = await getMediaMap();
+  // Resolve includes admin-created variants (and applies name/media overrides).
+  const merged = resolveProducts(mediaMap).find((p) => p.id === id);
+  if (!merged || isProductInHiddenFamily(merged)) notFound();
   // Stabilizers & industrial have no standalone per-model page — the family
   // showcase + model picker is the product page. Redirect there.
-  if (product.categoryId === "stabilizers" || product.categoryId === "industrial") {
-    const fam = familySlugOf(product);
+  if (merged.categoryId === "stabilizers" || merged.categoryId === "industrial") {
+    const fam = familySlugOf(merged);
     if (fam) redirect(`/showcase/${fam}`);
   }
+  const product = merged;
   const related = relatedProducts(product, 3);
   const phoneHref = `tel:${SITE.phone.replace(/[^+\d]/g, "")}`;
   const famSlug = familySlugOf(product);
@@ -57,7 +60,6 @@ export default async function ProductDetailPage({
   const t = await getT();
   const { lc } = await getContent();
   const familyName = family ? lc(family.name) : "";
-  const merged = applyMedia(product, await getMediaMap());
   const gallery = merged.images && merged.images.length ? merged.images : [product.image];
 
   return (
