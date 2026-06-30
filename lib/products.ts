@@ -471,11 +471,11 @@ export const PRODUCTS: Product[] = [
   // ===== INDUSTRIAL STABILIZERS =====
   {
     id: "vt-ind-100k",
-    name: "Industrial Stabilizer — 100kVA",
-    category: "Industrial Stabilizers",
+    name: "3-Phase Industrial Stabilizer — 100kVA",
+    category: "3-Phase Industrial Stabilizers",
     categoryId: "industrial",
     tech: "SVC",
-    badge: "Industrial",
+    badge: "3-Phase",
     tagline: "3-phase servo stabilizer for factories, mills, and commercial buildings.",
     highlight: ["100kVA", "3-phase"],
     description:
@@ -494,8 +494,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "vt-ind-200k",
-    name: "Industrial Stabilizer — 200kVA",
-    category: "Industrial Stabilizers",
+    name: "3-Phase Industrial Stabilizer — 200kVA",
+    category: "3-Phase Industrial Stabilizers",
     categoryId: "industrial",
     tech: "SVC",
     badge: "Heavy duty",
@@ -517,8 +517,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "vt-ind-500k",
-    name: "Industrial Stabilizer — 500kVA",
-    category: "Industrial Stabilizers",
+    name: "3-Phase Industrial Stabilizer — 500kVA",
+    category: "3-Phase Industrial Stabilizers",
     categoryId: "industrial",
     tech: "SVC",
     tagline: "Half-megawatt servo stabilizer that fixes very low voltage.",
@@ -840,7 +840,7 @@ export const CATEGORIES: Category[] = [
   { id: "all", label: "All products", count: 26 },
   { id: "stabilizers", label: "Stabilizers", count: 13 },
   { id: "cells", label: "Lithium Cells", count: 5 },
-  { id: "industrial", label: "Industrial", count: 4 },
+  { id: "industrial", label: "3-Phase Industrial", count: 4 },
   { id: "parts", label: "Electric Parts", count: 4 },
 ];
 
