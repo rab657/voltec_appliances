@@ -66,7 +66,10 @@ export default async function SiteFooter() {
         </div>
         <div className="foot-bottom">
           <span>© {SITE.established + 25} Voltec Appliances Global</span>
-          <span>{SITE.cities.join(" · ")}</span>
+          <span style={{ display: "flex", gap: 16, alignItems: "center" }}>
+            <Link href="/privacy">Privacy Policy</Link>
+            <span>{SITE.cities.join(" · ")}</span>
+          </span>
         </div>
       </div>
     </footer>

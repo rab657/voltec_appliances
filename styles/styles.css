@@ -413,6 +413,13 @@ input, textarea, select { font: inherit; color: inherit; }
   .med-stat:last-child { border-bottom: 0; }
 }
 
+/* Legal / policy pages */
+.legal-body h2.med-h2 { font-size: clamp(20px, 2.4vw, 26px); margin-top: 36px; }
+.legal-body p, .legal-body li { font-size: 15.5px; line-height: 1.7; color: var(--ink-2); }
+.legal-body ul { padding-left: 20px; display: flex; flex-direction: column; gap: 8px; margin: 8px 0 0; }
+.legal-body a { color: var(--accent-deep); text-decoration: underline; }
+.legal-body strong { color: var(--ink); }
+
 /* Solar — protected-vs-surge comparison + protection shields */
 .solar-vs { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .solar-vs-card { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--rule); background: #fff; }

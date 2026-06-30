@@ -15,6 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: absUrl("/blog"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: absUrl("/about"), lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: absUrl("/contact"), lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: absUrl("/privacy"), lastModified: now, changeFrequency: "yearly", priority: 0.2 },
   ];
 
   // Only cells & electric parts have their own page. Stabilizers/industrial
