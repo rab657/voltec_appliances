@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { VOLTEC_WHATSAPP } from "@/lib/products";
-import { WhatsAppIcon } from "@/components/icons";
+import StabilizerFinder from "@/components/StabilizerFinder";
 import { PROT_ICONS } from "@/components/showcase/primitives";
 import JsonLd from "@/components/JsonLd";
 import { absUrl } from "@/lib/site";
@@ -13,13 +12,7 @@ import { getT } from "@/lib/i18n-server";
 // Keep the language simple — no "over-voltage", "servo", "±1%", "kVA matching".
 // Content is English (the site's content layer); chrome stays localized.
 
-const wa = (text: string) =>
-  `https://wa.me/${VOLTEC_WHATSAPP}?text=${encodeURIComponent(text)}`;
-// Single, repeated call to action across the whole page.
-const WA_HELP = wa(
-  "Hi Voltec, my solar inverter keeps shutting down when the voltage is high. Which stabilizer do I need?",
-);
-const CTA_LABEL = "Get my stabilizer price now";
+// CTAs use the <StabilizerFinder> picker, which builds a dynamic WhatsApp message.
 
 const BENEFITS: string[] = [
   "No more sudden shutdowns — your inverter stays on",
@@ -133,9 +126,7 @@ export default async function SolarPage() {
             inverter stays on and nothing gets damaged.
           </p>
           <div className="med-cta">
-            <a href={WA_HELP} target="_blank" rel="noopener" className="btn btn-wa">
-              <WhatsAppIcon /> <span>{CTA_LABEL}</span>
-            </a>
+            <StabilizerFinder label="Get my stabilizer now" />
           </div>
         </div>
       </section>
@@ -342,9 +333,7 @@ export default async function SolarPage() {
             Send us your inverter size on WhatsApp. We&apos;ll tell you the right stabilizer and the
             price — same day.
           </p>
-          <a href={WA_HELP} target="_blank" rel="noopener" className="btn btn-wa" style={{ display: "inline-flex" }}>
-            <WhatsAppIcon /> <span>{CTA_LABEL}</span>
-          </a>
+          <StabilizerFinder label="Get my stabilizer now" block />
         </div>
       </section>
     </main>
