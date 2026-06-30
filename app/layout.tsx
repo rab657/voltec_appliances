@@ -60,6 +60,7 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true, "max-image-preview": "large" } as Metadata["robots"],
+  verification: { google: "eudUmDINvCPiefN8NuG9xS1FlPrw_jazEMO1cSSLqyg" },
 };
 
 export default async function RootLayout({
