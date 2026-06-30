@@ -556,12 +556,12 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
     benefits: {
       eyebrow: "Key advantages", title: "Small part, <em>serious spec</em>.",
       items: [
-        { n: "01", title: "Up to 40 A @ 250 VAC", desc: "T90 takes real motor and power loads." },
-        { n: "02", title: "Inductive-load proof", desc: "Silver-alloy contacts that do not weld under motor loads." },
-        { n: "03", title: "≤10 ms operate", desc: "Fast, reliable switching." },
-        { n: "04", title: "2,000,000-cycle life", desc: "Built to outlast the board it sits on." },
-        { n: "05", title: "Standard footprint", desc: "Through-hole pins fit common PCB designs." },
-        { n: "06", title: "Stocked deep", desc: "Thousands on the shelf for next-day dispatch." },
+        { n: "01", title: "Up to 40 A @ 250 VAC", desc: "T90 takes real motor and power loads.", img: "assets/relay/vp-load.jpg" },
+        { n: "02", title: "Inductive-load proof", desc: "Silver-alloy contacts that do not weld under motor loads.", img: "assets/relay/vp-inductive.jpg" },
+        { n: "03", title: "≤10 ms operate", desc: "Fast, reliable switching.", img: "assets/relay/vp-fast.jpg" },
+        { n: "04", title: "2,000,000-cycle life", desc: "Built to outlast the board it sits on.", img: "assets/relay/vp-life.jpg" },
+        { n: "05", title: "Standard footprint", desc: "Through-hole pins fit common PCB designs.", img: "assets/relay/vp-footprint.jpg" },
+        { n: "06", title: "Stocked deep", desc: "Thousands on the shelf for next-day dispatch.", img: "assets/parts/vp-stocked.jpg" },
       ],
     },
     faqs: [
@@ -609,12 +609,12 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
     benefits: {
       eyebrow: "Key advantages", title: "A clean readout, <em>two sizes</em>.",
       items: [
-        { n: "01", title: "5630 & 4630", desc: "Two footprints from one supplier." },
-        { n: "02", title: "Bright segments", desc: "Easy to read across a room." },
-        { n: "03", title: "Wide viewing angle", desc: "Clear from off-axis too." },
-        { n: "04", title: "Standard pinout", desc: "Drops into common panel layouts." },
-        { n: "05", title: "Red standard", desc: "Other colours on request." },
-        { n: "06", title: "Stocked deep", desc: "On the shelf for next-day dispatch." },
+        { n: "01", title: "5630 & 4630", desc: "Two footprints from one supplier.", img: "assets/led/vp-modules.jpg" },
+        { n: "02", title: "Bright segments", desc: "Easy to read across a room.", img: "assets/led/vp-bright.jpg" },
+        { n: "03", title: "Wide viewing angle", desc: "Clear from off-axis too.", img: "assets/led/vp-angle.jpg" },
+        { n: "04", title: "Standard pinout", desc: "Drops into common panel layouts.", img: "assets/led/vp-pinout.jpg" },
+        { n: "05", title: "Red standard", desc: "Other colours on request.", img: "assets/led/vp-red.jpg" },
+        { n: "06", title: "Stocked deep", desc: "On the shelf for next-day dispatch.", img: "assets/parts/vp-stocked.jpg" },
       ],
     },
     faqs: [
