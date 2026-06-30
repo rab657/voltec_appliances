@@ -698,8 +698,8 @@ export const FAMILIES: FamilyMeta[] = [
   {
     slug: "industrial",
     key: "industrial",
-    name: "Industrial Systems",
-    category: "Industrial",
+    name: "3-Phase Industrial Systems",
+    category: "3-Phase Industrial",
     categoryId: "industrial",
     blurb: "Three-phase SJW-series systems, built to order — heavy servo stabilizers, line conditioners and buck-boost from 100kVA to 500kVA and up. Made to fit your plant.",
     image: "assets/industrial-sjw.png",
@@ -772,9 +772,10 @@ export function familySlugOf(p: Product): string | undefined {
   return KEY_TO_SLUG[familyOf(p)];
 }
 
-/** All SKUs/models that belong to a family, in catalogue order. */
-export function membersOf(family: FamilyMeta): Product[] {
-  return PRODUCTS.filter((p) => familyOf(p) === family.key);
+/** All SKUs/models that belong to a family, in catalogue order. Pass a resolved
+ *  product list (code + admin-created variants) to include admin-added variants. */
+export function membersOf(family: FamilyMeta, products: Product[] = PRODUCTS): Product[] {
+  return products.filter((p) => familyOf(p) === family.key);
 }
 
 /** Pick the headline model for a family (flagship/best-seller, else first). */

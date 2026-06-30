@@ -13,7 +13,7 @@ import CellsHub from "@/components/showcase/CellsHub";
 import JsonLd from "@/components/JsonLd";
 import ViewItemTracker from "@/components/ViewItemTracker";
 import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
-import { getMediaMap, applyMedia } from "@/lib/product-media";
+import { getMediaMap, resolveProducts } from "@/lib/product-media";
 
 export function generateStaticParams() {
   return FAMILIES.filter((f) => !f.hidden).map((f) => ({ family: f.slug }));
@@ -48,10 +48,12 @@ export default async function ShowcasePage({
   if (!family || family.hidden) notFound();
 
   const mediaMap = await getMediaMap();
-  const visible = membersOf(family).map((p) => applyMedia(p, mediaMap)).filter((p) => !p.hidden);
+  // Resolve = code products (name/media applied) + admin-created variants.
+  const merged = membersOf(family, resolveProducts(mediaMap));
+  const visible = merged.filter((p) => !p.hidden);
   // Fall back to the full (merged) set if an editor hid every model, so the
   // model picker never renders empty.
-  const members = visible.length ? visible : membersOf(family).map((p) => applyMedia(p, mediaMap));
+  const members = visible.length ? visible : merged;
   const lead = leadOf(members);
 
   return (

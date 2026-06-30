@@ -1,21 +1,43 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import { PRODUCTS, CATEGORIES } from "@/lib/products";
+import { PRODUCTS } from "@/lib/products";
+import { FAMILIES, familyOf, leadOf, type FamilyMeta } from "@/lib/showcase-data";
+import { variantLabel } from "@/lib/variant-label";
+import type { Product } from "@/lib/types";
 import { logout } from "@/lib/admin-store";
 
-type Media = { images: string[]; videos: string[]; hidden: boolean; price: number | null };
+type Media = {
+  images: string[];
+  videos: string[];
+  hidden: boolean;
+  price: number | null;
+  name: string | null;
+  baseId: string | null;
+  isVariant: boolean;
+};
 type MediaMap = Record<string, Media>;
 
-const CAT_ORDER = ["stabilizers", "industrial", "cells", "parts"] as const;
+// Families whose variants (capacities) are admin-managed. Stabilizers + industrial
+// only — cells & parts keep the flat editor below.
+const VARIANT_FAMILIES = FAMILIES.filter(
+  (f) => f.categoryId === "stabilizers" || f.categoryId === "industrial",
+);
 
 function imgSrc(s: string) {
   return s.startsWith("/") || s.startsWith("http") ? s : `/${s}`;
 }
 
+// Family display name without its capacity suffix, e.g. "SVC Servo Stabilizer".
+function familyBaseName(famKey: string): string {
+  const code = PRODUCTS.filter((p) => familyOf(p) === famKey);
+  const lead = code.length ? leadOf(code) : undefined;
+  return lead ? lead.name.split("—")[0].trim() : "";
+}
+
 export default function ProductAdmin() {
   const [map, setMap] = useState<MediaMap>({});
-  const [activeId, setActiveId] = useState<string>(PRODUCTS[0]?.id || "");
+  const [activeId, setActiveId] = useState<string>("");
   const [query, setQuery] = useState("");
   const [loaded, setLoaded] = useState(false);
   const [authed, setAuthed] = useState(true);
@@ -23,6 +45,8 @@ export default function ProductAdmin() {
   const [toast, setToast] = useState("");
   const [dirty, setDirty] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
+  const [addingFamily, setAddingFamily] = useState<string | null>(null);
+  const [newCap, setNewCap] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLInputElement>(null);
 
@@ -42,25 +66,43 @@ export default function ProductAdmin() {
       .finally(() => setLoaded(true));
   }, []);
 
-  const active = PRODUCTS.find((p) => p.id === activeId);
+  useEffect(() => {
+    if (!activeId && PRODUCTS[0]) setActiveId(PRODUCTS[0].id);
+  }, [activeId]);
 
-  // Effective state for the active product: override row if present, else the
-  // code defaults (so the toggle/price reflect what the site currently shows).
+  // The code product backing the active selection: itself (code product) or the
+  // base of an admin-created variant.
+  const baseProductFor = (id: string): Product | undefined => {
+    const code = PRODUCTS.find((p) => p.id === id);
+    if (code) return code;
+    const m = map[id];
+    return m?.isVariant && m.baseId ? PRODUCTS.find((p) => p.id === m.baseId) : undefined;
+  };
+
+  const base = baseProductFor(activeId);
   const stored = map[activeId];
-  const eff: Media = active
+  const isCreated = Boolean(stored?.isVariant);
+  const inScope = base ? familyOf(base).startsWith("stab-") || familyOf(base) === "industrial" : false;
+
+  // Effective override state for the active product (override row, else code defaults).
+  const eff: Media = base
     ? {
         images: stored?.images ?? [],
         videos: stored?.videos ?? [],
-        hidden: stored ? stored.hidden : Boolean(active.hidden),
-        price: stored ? stored.price : active.price ?? null,
+        hidden: stored ? stored.hidden : Boolean(base.hidden),
+        price: stored ? stored.price : base.price ?? null,
+        name: stored?.name ?? null,
+        baseId: stored?.baseId ?? null,
+        isVariant: stored?.isVariant ?? false,
       }
-    : { images: [], videos: [], hidden: false, price: null };
-  const gallery = eff.images.length ? eff.images : active ? [active.image] : [];
+    : { images: [], videos: [], hidden: false, price: null, name: null, baseId: null, isVariant: false };
+  const effName = eff.name || base?.name || "";
+  const gallery = eff.images.length ? eff.images : base ? [base.image] : [];
   const usingDefaultImg = eff.images.length === 0;
 
   const flash = (m: string) => {
     setToast(m);
-    setTimeout(() => setToast(""), 2200);
+    setTimeout(() => setToast(""), 2600);
   };
 
   const patch = (p: Partial<Media>) => {
@@ -71,7 +113,7 @@ export default function ProductAdmin() {
   // Visibility is a single click that's easy to lose if it waits for the global
   // Save (which only persists the open product). So persist it immediately.
   const toggleHidden = async () => {
-    if (!active || busy) return;
+    if (!base || busy) return;
     const prevEff = eff;
     const next: Media = { ...eff, hidden: !eff.hidden };
     setMap((prev) => ({ ...prev, [activeId]: next })); // optimistic
@@ -93,7 +135,7 @@ export default function ProductAdmin() {
   };
 
   const save = async () => {
-    if (!active) return;
+    if (!base) return;
     setBusy(true);
     try {
       const res = await fetch("/api/admin/product-media", {
@@ -111,8 +153,80 @@ export default function ProductAdmin() {
     }
   };
 
+  // Create a new variant under a family: clone the family lead, capacity → name.
+  const addVariant = async (fam: FamilyMeta) => {
+    const cap = newCap.trim();
+    if (!cap || busy) return;
+    const code = PRODUCTS.filter((p) => familyOf(p) === fam.key);
+    if (!code.length) {
+      flash("This family has no base model to clone.");
+      return;
+    }
+    const lead = leadOf(code);
+    const baseName = familyBaseName(fam.key);
+    const name = baseName ? `${baseName} — ${cap}` : cap;
+    const slug = cap.toLowerCase().replace(/[^a-z0-9]+/g, "");
+    let id = `${fam.slug}-${slug || "new"}`;
+    const taken = (x: string) => PRODUCTS.some((p) => p.id === x) || Boolean(map[x]);
+    let n = 2;
+    while (taken(id)) id = `${fam.slug}-${slug || "new"}-${n++}`;
+    const media: Media = {
+      images: [],
+      videos: [],
+      hidden: false,
+      price: null,
+      name,
+      baseId: lead.id,
+      isVariant: true,
+    };
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/product-media", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId: id, media }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error || "Create failed");
+      setMap((prev) => ({ ...prev, [id]: media }));
+      setActiveId(id);
+      setAddingFamily(null);
+      setNewCap("");
+      flash("Variant added · upload an image, then Save");
+    } catch (e) {
+      flash(String(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const removeVariant = async () => {
+    if (!isCreated || busy) return;
+    if (!confirm(`Delete this variant (${effName})? This cannot be undone.`)) return;
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/product-media", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId: activeId }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error || "Delete failed");
+      setMap((prev) => {
+        const next = { ...prev };
+        delete next[activeId];
+        return next;
+      });
+      setActiveId(PRODUCTS[0]?.id || "");
+      setDirty(false);
+      flash("Variant deleted · live on site");
+    } catch (e) {
+      flash(String(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+
   const upload = async (files: FileList | null) => {
-    if (!files || !files.length || !active) return;
+    if (!files || !files.length || !base) return;
     setBusy(true);
     try {
       const added: string[] = [];
@@ -142,7 +256,7 @@ export default function ProductAdmin() {
   };
   const removeVideo = (i: number) => patch({ videos: eff.videos.filter((_, idx) => idx !== i) });
   const uploadVideo = async (files: FileList | null) => {
-    if (!files || !files.length || !active) return;
+    if (!files || !files.length || !base) return;
     setBusy(true);
     try {
       const added: string[] = [];
@@ -180,19 +294,78 @@ export default function ProductAdmin() {
     patch({ images: arr });
   };
 
-  const grouped = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    const list = PRODUCTS.filter((p) => !q || p.name.toLowerCase().includes(q) || p.id.includes(q));
-    return CAT_ORDER.map((cid) => ({
-      cid,
-      label: CATEGORIES.find((c) => c.id === cid)?.label || cid,
-      items: list.filter((p) => p.categoryId === cid),
-    })).filter((g) => g.items.length);
-  }, [query]);
+  // ---- left-rail data ----
+  const q = query.trim().toLowerCase();
+  const matches = (id: string, name: string) =>
+    !q || name.toLowerCase().includes(q) || id.toLowerCase().includes(q);
+
+  // Variants of a family = code members + admin-created variants, with effective name.
+  const familyVariants = (fam: FamilyMeta) => {
+    const code = PRODUCTS.filter((p) => familyOf(p) === fam.key).map((p) => ({
+      id: p.id,
+      name: map[p.id]?.name || p.name,
+      created: false,
+    }));
+    const created = Object.entries(map)
+      .filter(([, m]) => {
+        if (!m.isVariant || !m.baseId) return false;
+        const b = PRODUCTS.find((p) => p.id === m.baseId);
+        return b ? familyOf(b) === fam.key : false;
+      })
+      .map(([id, m]) => ({ id, name: m.name || id, created: true }));
+    return [...code, ...created].filter((v) => matches(v.id, v.name));
+  };
+
+  // Cells & parts keep the flat list (out of scope for variants).
+  const flatGroups = useMemo(() => {
+    const cats: { id: string; label: string }[] = [
+      { id: "cells", label: "Lithium Cells" },
+      { id: "parts", label: "Electric Parts" },
+    ];
+    return cats
+      .map((c) => ({
+        ...c,
+        items: PRODUCTS.filter(
+          (p) => p.categoryId === c.id && matches(p.id, map[p.id]?.name || p.name),
+        ),
+      }))
+      .filter((g) => g.items.length);
+  }, [query, map]);
 
   const effHidden = (id: string) => {
-    const p = PRODUCTS.find((x) => x.id === id);
-    return map[id] ? map[id].hidden : Boolean(p?.hidden);
+    const b = PRODUCTS.find((x) => x.id === id) || (map[id]?.baseId ? PRODUCTS.find((x) => x.id === map[id]?.baseId) : undefined);
+    return map[id] ? map[id].hidden : Boolean(b?.hidden);
+  };
+
+  const activeFamily = base
+    ? VARIANT_FAMILIES.find((f) => f.key === familyOf(base))
+    : undefined;
+  const liveHref = activeFamily ? `/showcase/${activeFamily.slug}` : `/products/${activeId}`;
+
+  const renderItem = (id: string, name: string, created: boolean) => {
+    const n = map[id]?.images?.length || 0;
+    const hidden = effHidden(id);
+    const b = baseProductFor(id);
+    return (
+      <div
+        key={id}
+        className={`admin-post-item ${id === activeId ? "active" : ""}`}
+        onClick={() => setActiveId(id)}
+        style={{ cursor: "pointer", opacity: hidden ? 0.55 : 1 }}
+      >
+        <div className="title" style={{ fontSize: 13, display: "flex", gap: 6, alignItems: "center" }}>
+          {b && <span style={{ fontFamily: "var(--font-mono)", fontSize: 11, color: "var(--accent-deep)" }}>{variantLabel({ ...b, name } as Product)}</span>}
+          <span>{name}</span>
+        </div>
+        <div className="sub" style={{ display: "flex", gap: 8 }}>
+          <span className={`badge ${n ? "badge-published" : "badge-draft"}`}>
+            {n ? `${n} image${n === 1 ? "" : "s"}` : "default img"}
+          </span>
+          {created && <span style={{ color: "var(--accent-deep)" }}>added</span>}
+          {hidden && <span style={{ color: "var(--warn)" }}>hidden</span>}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -236,7 +409,7 @@ export default function ProductAdmin() {
                 Products
               </div>
               <div className="mono" style={{ fontSize: 10, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--ink-3)" }}>
-                Images · video · price · visibility
+                Family · variants · media
               </div>
             </div>
             <input
@@ -246,34 +419,57 @@ export default function ProductAdmin() {
               onChange={(e) => setQuery(e.target.value)}
               style={{ padding: "9px 12px", border: "1px solid var(--rule-strong)", background: "var(--paper)", borderRadius: 6, fontSize: 14 }}
             />
-            <div className="admin-post-list" style={{ marginTop: 4, display: "flex", flexDirection: "column", gap: 14 }}>
-              {grouped.map((g) => (
-                <div key={g.cid}>
+            <div className="admin-post-list" style={{ marginTop: 4, display: "flex", flexDirection: "column", gap: 18 }}>
+              {/* ---- Stabilizer & industrial families → variants ---- */}
+              {VARIANT_FAMILIES.map((fam) => {
+                const variants = familyVariants(fam);
+                if (q && variants.length === 0) return null;
+                return (
+                  <div key={fam.key}>
+                    <h3 style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--ink-3)", margin: "0 0 6px", display: "flex", gap: 8, alignItems: "center" }}>
+                      <span>{fam.name}</span>
+                      <span style={{ color: "var(--ink-4)" }}>{variants.length}</span>
+                      {fam.hidden && <span style={{ color: "var(--warn)", fontSize: 9 }}>line hidden</span>}
+                    </h3>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                      {variants.map((v) => renderItem(v.id, v.name, v.created))}
+                      {addingFamily === fam.key ? (
+                        <div style={{ display: "flex", gap: 6, padding: "4px 0" }}>
+                          <input
+                            autoFocus
+                            value={newCap}
+                            onChange={(e) => setNewCap(e.target.value)}
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") { e.preventDefault(); addVariant(fam); }
+                              if (e.key === "Escape") { setAddingFamily(null); setNewCap(""); }
+                            }}
+                            placeholder="Capacity e.g. 1kVA"
+                            style={{ flex: 1, minWidth: 0, padding: "7px 9px", border: "1px solid var(--rule-strong)", background: "var(--paper)", borderRadius: 6, fontSize: 13 }}
+                          />
+                          <button className="filter-chip" onClick={() => addVariant(fam)} disabled={!newCap.trim() || busy} title="Add">✓</button>
+                          <button className="filter-chip" onClick={() => { setAddingFamily(null); setNewCap(""); }} title="Cancel">✕</button>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => { setAddingFamily(fam.key); setNewCap(""); }}
+                          style={{ textAlign: "left", padding: "6px 8px", border: "1px dashed var(--rule-strong)", borderRadius: 6, background: "transparent", color: "var(--ink-3)", fontSize: 12, cursor: "pointer" }}
+                        >
+                          ＋ Add variant
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+
+              {/* ---- Cells & parts (flat) ---- */}
+              {flatGroups.map((g) => (
+                <div key={g.id}>
                   <h3 style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: "0.12em", color: "var(--ink-3)", margin: "0 0 6px" }}>
                     {g.label}
                   </h3>
                   <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                    {g.items.map((p) => {
-                      const n = map[p.id]?.images?.length || 0;
-                      const hidden = effHidden(p.id);
-                      return (
-                        <div
-                          key={p.id}
-                          className={`admin-post-item ${p.id === activeId ? "active" : ""}`}
-                          onClick={() => setActiveId(p.id)}
-                          style={{ cursor: "pointer", opacity: hidden ? 0.55 : 1 }}
-                        >
-                          <div className="title" style={{ fontSize: 13 }}>{p.name}</div>
-                          <div className="sub" style={{ display: "flex", gap: 8 }}>
-                            <span className={`badge ${n ? "badge-published" : "badge-draft"}`}>
-                              {n ? `${n} image${n === 1 ? "" : "s"}` : "default img"}
-                            </span>
-                            {hidden && <span style={{ color: "var(--warn)" }}>hidden</span>}
-                            {p.status === "upcoming" && <span>coming soon</span>}
-                          </div>
-                        </div>
-                      );
-                    })}
+                    {g.items.map((p) => renderItem(p.id, map[p.id]?.name || p.name, false))}
                   </div>
                 </div>
               ))}
@@ -281,21 +477,45 @@ export default function ProductAdmin() {
           </aside>
 
           <main className="admin-main">
-            {!active ? (
+            {!base ? (
               <p style={{ color: "var(--ink-3)" }}>Pick a product on the left.</p>
             ) : (
               <>
                 <div className="editor-head">
                   <div style={{ flex: 1 }}>
                     <div className="mono" style={{ fontSize: 11, color: "var(--ink-3)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 }}>
-                      {active.category} · {active.id}
+                      {activeFamily ? activeFamily.name : base.category} · {activeId}
+                      {isCreated && <span style={{ color: "var(--accent-deep)" }}> · added variant</span>}
                     </div>
-                    <h1 className="editor-title" style={{ border: 0, padding: 0 }}>{active.name}</h1>
+                    <h1 className="editor-title" style={{ border: 0, padding: 0 }}>{effName}</h1>
                   </div>
-                  <a href={`/products/${active.id}`} target="_blank" rel="noreferrer" className="btn btn-ghost">
+                  <a href={liveHref} target="_blank" rel="noreferrer" className="btn btn-ghost">
                     View live ↗
                   </a>
                 </div>
+
+                {/* ---- Capacity / name (stabilizer & industrial only) ---- */}
+                {inScope && (
+                  <div className="field" style={{ marginBottom: 24, maxWidth: 460 }}>
+                    <label style={{ fontFamily: "var(--font-mono)", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ink-3)", display: "block", marginBottom: 6 }}>
+                      Variant name / capacity
+                    </label>
+                    <input
+                      type="text"
+                      value={effName}
+                      onChange={(e) => {
+                        const v = e.target.value.trim();
+                        // Store an override only when it differs from the code name.
+                        patch({ name: !v || v === base?.name ? null : v });
+                      }}
+                      placeholder="e.g. SVC Servo Stabilizer — 1kVA"
+                      style={{ width: "100%", padding: "10px 12px", border: "1px solid var(--rule-strong)", background: "var(--paper)", borderRadius: 6, fontSize: 14 }}
+                    />
+                    <div className="mono" style={{ fontSize: 10.5, color: "var(--ink-3)", marginTop: 5 }}>
+                      The capacity in the name (e.g. “1kVA”) becomes the chip label in the model picker. Remember to Save.
+                    </div>
+                  </div>
+                )}
 
                 {/* ---- Visibility ---- */}
                 <div
@@ -338,9 +558,9 @@ export default function ProductAdmin() {
                 </div>
 
                 {/* ---- Images ---- */}
-                <div className="eyebrow" style={{ margin: "8px 0 12px" }}>Product images</div>
+                <div className="eyebrow" style={{ margin: "8px 0 12px" }}>Variant images</div>
                 <p style={{ fontSize: 13, color: "var(--ink-2)", margin: "0 0 16px", lineHeight: 1.5 }}>
-                  Upload one or more photos. The <strong>first</strong> image is the cover shown on cards and the
+                  Upload one or more photos for this variant. The <strong>first</strong> image is the cover shown on cards and the
                   model picker; the rest appear in the product gallery. {usingDefaultImg && "Currently showing the built-in default image."}
                 </p>
 
@@ -390,7 +610,7 @@ export default function ProductAdmin() {
                 </div>
 
                 {/* ---- Videos ---- */}
-                <div className="eyebrow" style={{ margin: "36px 0 12px" }}>Product video</div>
+                <div className="eyebrow" style={{ margin: "36px 0 12px" }}>Variant video</div>
                 <p style={{ fontSize: 13, color: "var(--ink-2)", margin: "0 0 16px", lineHeight: 1.5 }}>
                   Paste a <strong>YouTube</strong> or video link, or upload a short clip (max 50&nbsp;MB).
                   Videos appear in the product&apos;s showcase. For long or large videos, a YouTube link is best.
@@ -439,13 +659,23 @@ export default function ProductAdmin() {
                   />
                 </div>
 
-                <div style={{ marginTop: 36, paddingTop: 20, borderTop: "1px solid var(--rule)", display: "flex", gap: 12, alignItems: "center" }}>
+                <div style={{ marginTop: 36, paddingTop: 20, borderTop: "1px solid var(--rule)", display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
                   <button className="btn btn-primary" onClick={save} disabled={!dirty || busy}>
                     {busy ? "Saving…" : dirty ? "Save changes" : "Saved"}
                   </button>
                   <span className="mono" style={{ fontSize: 11, color: "var(--ink-3)" }}>
                     Saves to the database — changes go live immediately.
                   </span>
+                  {isCreated && (
+                    <button
+                      className="btn btn-ghost"
+                      onClick={removeVariant}
+                      disabled={busy}
+                      style={{ marginLeft: "auto", color: "var(--warn)", borderColor: "var(--warn)" }}
+                    >
+                      Delete variant
+                    </button>
+                  )}
                 </div>
               </>
             )}

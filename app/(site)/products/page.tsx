@@ -10,7 +10,7 @@ import SortSelect from "@/components/SortSelect";
 import JsonLd from "@/components/JsonLd";
 import { SITE, absUrl } from "@/lib/site";
 import { getT } from "@/lib/i18n-server";
-import { getMediaMap, applyMedia } from "@/lib/product-media";
+import { getMediaMap, applyMedia, resolveProducts } from "@/lib/product-media";
 
 export const metadata: Metadata = {
   title: "Shop Products — Voltage Stabilizers, Lithium Cells & Industrial",
@@ -25,6 +25,8 @@ export default async function ProductsPage({
   const sp = await searchParams;
   const t = await getT();
   const mediaMap = await getMediaMap();
+  // Code products + admin-created variants, so family counts include new variants.
+  const resolved = resolveProducts(mediaMap);
   const cat = (typeof sp.cat === "string" ? sp.cat : "all") as CategoryId;
   const sort = typeof sp.sort === "string" ? sp.sort : "default";
   const catName = (id: string) => t(`cat.${id}`);
@@ -36,10 +38,10 @@ export default async function ProductsPage({
     (mediaMap[p.id] ? mediaMap[p.id].hidden : Boolean(p.hidden));
   const famVisible = (slug: string) => {
     const f = FAMILIES.find((x) => x.slug === slug);
-    return f ? membersOf(f).filter((p) => !isHidden(p)) : [];
+    return f ? membersOf(f, resolved).filter((p) => !isHidden(p)) : [];
   };
   const catCount = (id: string) =>
-    PRODUCTS.filter((p) => (id === "all" || p.categoryId === id) && !isHidden(p)).length;
+    resolved.filter((p) => (id === "all" || p.categoryId === id) && !isHidden(p)).length;
 
   // Catalog entries: stabilizers/industrial/parts show as FAMILY cards (→ range
   // page, model picker); cells show as individual product cards (→ own page).
