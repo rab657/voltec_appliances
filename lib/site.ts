@@ -7,8 +7,8 @@ export const SITE = {
   description:
     "Maker of voltage stabilizers (IGBT, SVC, AVR), EVE lithium cells, industrial systems and electric parts. Established as Voltec in 1995, with roots in a 1980s Lahore workshop. Serving Pakistan, the UAE and China.",
   locale: "en-PK",
-  phone: "+92-324-400-4778",
-  phoneDisplay: "+92 324 400 4778",
+  phone: "+92-342-636-8601",
+  phoneDisplay: "+92 342 636 8601",
   phoneUae: "+971 525 414 894",
   email: "voltecappliances@hotmail.com",
   wechat: "rab657",
