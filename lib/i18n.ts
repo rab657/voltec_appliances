@@ -40,7 +40,7 @@ type Dict = Record<string, string>;
 
 const DICT: Record<LocaleCode, Dict> = {
   en: {
-    "nav.home": "Home", "nav.products": "Products", "nav.solutions": "Solutions", "nav.solar": "Solar Inverters", "nav.medical": "Medical Industry", "nav.about": "About", "nav.blog": "Blog", "nav.contact": "Contact",
+    "nav.home": "Home", "nav.products": "Products", "nav.solutions": "Solutions", "nav.ac": "AC Stabilizers", "nav.solar": "Solar Inverters", "nav.medical": "Medical Industry", "nav.about": "About", "nav.blog": "Blog", "nav.contact": "Contact",
     "pill.shipping": "SHIPPING", "cta.whatsapp": "WhatsApp us", "cta.call": "Call",
     "rail.call": "Call us", "rail.whatsapp": "WhatsApp", "rail.email": "Email us", "rail.visit": "Visit us", "rail.scan": "Scan",
     "rail.wa.sub": "Chat with us now", "rail.visit.sub": "Lahore showroom — get directions", "rail.scan.t": "Scan to chat", "rail.scan.sub": "Open WhatsApp on your phone",
@@ -153,7 +153,7 @@ const DICT: Record<LocaleCode, Dict> = {
     "blog.takeaways": "✱ Key takeaways", "blog.metadata": "Metadata", "blog.cat": "Category", "blog.published": "Published", "blog.readingtime": "Reading time", "blog.author": "Author", "blog.min": "min", "blog.faq.n": "§ FAQ", "blog.faq.t": "Frequently asked <em>questions</em>.", "blog.faq.d1": "Quick answers for buyers across Pakistan. Still unsure?", "blog.faq.wa": "Message us on WhatsApp", "blog.faq.d2": "— we reply within 30 minutes.", "blog.continue": "§ Continue", "blog.more.t": "More from the <em>Blog</em>.", "blog.allarticles": "All articles", "blog.list.t": "All guides &amp; <em>case studies</em>", "blog.all": "All", "blog.none": "No guides in this category yet.",
   },
   ur: {
-    "nav.home": "ہوم", "nav.products": "پروڈکٹس", "nav.solutions": "حل", "nav.solar": "سولر انورٹر", "nav.medical": "میڈیکل انڈسٹری", "nav.about": "ہمارے بارے میں", "nav.blog": "بلاگ", "nav.contact": "رابطہ",
+    "nav.home": "ہوم", "nav.products": "پروڈکٹس", "nav.solutions": "حل", "nav.ac": "اے سی اسٹیبلائزر", "nav.solar": "سولر انورٹر", "nav.medical": "میڈیکل انڈسٹری", "nav.about": "ہمارے بارے میں", "nav.blog": "بلاگ", "nav.contact": "رابطہ",
     "pill.shipping": "شپنگ", "cta.whatsapp": "واٹس ایپ کریں", "cta.call": "کال",
     "rail.call": "کال کریں", "rail.whatsapp": "واٹس ایپ", "rail.email": "ای میل", "rail.visit": "ملاقات", "rail.scan": "اسکین",
     "rail.wa.sub": "ابھی ہم سے چیٹ کریں", "rail.visit.sub": "لاہور شو روم — راستہ حاصل کریں", "rail.scan.t": "چیٹ کے لیے اسکین کریں", "rail.scan.sub": "اپنے فون پر واٹس ایپ کھولیں",
@@ -266,13 +266,13 @@ const DICT: Record<LocaleCode, Dict> = {
     "blog.takeaways": "✱ اہم نکات", "blog.metadata": "میٹا ڈیٹا", "blog.cat": "زمرہ", "blog.published": "شائع شدہ", "blog.readingtime": "پڑھنے کا وقت", "blog.author": "مصنف", "blog.min": "منٹ", "blog.faq.n": "§ عمومی سوالات", "blog.faq.t": "اکثر پوچھے جانے والے <em>سوالات</em>۔", "blog.faq.d1": "پاکستان بھر کے خریداروں کے لیے فوری جواب۔ ابھی بھی غیر یقینی؟", "blog.faq.wa": "واٹس ایپ پر ہمیں پیغام کریں", "blog.faq.d2": "— ہم 30 منٹ میں جواب دیتے ہیں۔", "blog.continue": "§ جاری رکھیں", "blog.more.t": "<em>بلاگ</em> سے مزید۔", "blog.allarticles": "تمام مضامین", "blog.list.t": "تمام گائیڈز اور <em>کیس اسٹڈیز</em>", "blog.all": "تمام", "blog.none": "اس زمرے میں ابھی کوئی گائیڈ نہیں۔",
   },
   de: {
-    "nav.home": "Start", "nav.products": "Produkte", "nav.solutions": "Lösungen", "nav.solar": "Solar-Wechselrichter", "nav.medical": "Medizin", "nav.about": "Über uns", "nav.blog": "Blog", "nav.contact": "Kontakt",
+    "nav.home": "Start", "nav.products": "Produkte", "nav.solutions": "Lösungen", "nav.ac": "Klimaanlagen-Stabilisatoren", "nav.solar": "Solar-Wechselrichter", "nav.medical": "Medizin", "nav.about": "Über uns", "nav.blog": "Blog", "nav.contact": "Kontakt",
     "pill.shipping": "VERSAND", "cta.whatsapp": "WhatsApp schreiben", "cta.call": "Anrufen",
     "rail.call": "Anrufen", "rail.whatsapp": "WhatsApp", "rail.email": "E-Mail", "rail.visit": "Besuchen", "rail.scan": "Scannen",
     "lang.label": "Sprache",
   },
   ar: {
-    "nav.home": "الرئيسية", "nav.products": "المنتجات", "nav.solutions": "الحلول", "nav.solar": "محولات الطاقة الشمسية", "nav.medical": "القطاع الطبي", "nav.about": "من نحن", "nav.blog": "المدونة", "nav.contact": "اتصل بنا",
+    "nav.home": "الرئيسية", "nav.products": "المنتجات", "nav.solutions": "الحلول", "nav.ac": "منظّمات المكيّفات", "nav.solar": "محولات الطاقة الشمسية", "nav.medical": "القطاع الطبي", "nav.about": "من نحن", "nav.blog": "المدونة", "nav.contact": "اتصل بنا",
     "pill.shipping": "الشحن", "cta.whatsapp": "راسلنا على واتساب", "cta.call": "اتصل",
     "rail.call": "اتصل بنا", "rail.whatsapp": "واتساب", "rail.email": "راسلنا", "rail.visit": "زورونا", "rail.scan": "مسح",
     "rail.wa.sub": "تحدّث معنا الآن", "rail.visit.sub": "معرض لاهور — احصل على الاتجاهات", "rail.scan.t": "امسح للدردشة", "rail.scan.sub": "افتح واتساب على هاتفك",
@@ -385,13 +385,13 @@ const DICT: Record<LocaleCode, Dict> = {
     "blog.takeaways": "✱ النقاط الرئيسية", "blog.metadata": "البيانات الوصفية", "blog.cat": "الفئة", "blog.published": "نُشر في", "blog.readingtime": "وقت القراءة", "blog.author": "الكاتب", "blog.min": "دقيقة", "blog.faq.n": "§ الأسئلة الشائعة", "blog.faq.t": "الأسئلة <em>الشائعة</em>.", "blog.faq.d1": "إجابات سريعة للمشترين في أنحاء باكستان. ما زلت غير متأكد؟", "blog.faq.wa": "راسلنا عبر واتساب", "blog.faq.d2": "— نردّ خلال 30 دقيقة.", "blog.continue": "§ تابع", "blog.more.t": "المزيد من <em>المدونة</em>.", "blog.allarticles": "كل المقالات", "blog.list.t": "كل الأدلة و<em>دراسات الحالة</em>", "blog.all": "الكل", "blog.none": "لا توجد أدلة في هذه الفئة بعد.",
   },
   ru: {
-    "nav.home": "Главная", "nav.products": "Продукты", "nav.solutions": "Решения", "nav.solar": "Солнечные инверторы", "nav.medical": "Медицина", "nav.about": "О нас", "nav.blog": "Блог", "nav.contact": "Контакты",
+    "nav.home": "Главная", "nav.products": "Продукты", "nav.solutions": "Решения", "nav.ac": "Стабилизаторы для кондиционеров", "nav.solar": "Солнечные инверторы", "nav.medical": "Медицина", "nav.about": "О нас", "nav.blog": "Блог", "nav.contact": "Контакты",
     "pill.shipping": "ДОСТАВКА", "cta.whatsapp": "Написать в WhatsApp", "cta.call": "Позвонить",
     "rail.call": "Позвонить", "rail.whatsapp": "WhatsApp", "rail.email": "Эл. почта", "rail.visit": "Посетить", "rail.scan": "Скан",
     "lang.label": "Язык",
   },
   id: {
-    "nav.home": "Beranda", "nav.products": "Produk", "nav.solutions": "Solusi", "nav.solar": "Inverter Surya", "nav.medical": "Industri Medis", "nav.about": "Tentang", "nav.blog": "Blog", "nav.contact": "Kontak",
+    "nav.home": "Beranda", "nav.products": "Produk", "nav.solutions": "Solusi", "nav.ac": "Stabilizer AC", "nav.solar": "Inverter Surya", "nav.medical": "Industri Medis", "nav.about": "Tentang", "nav.blog": "Blog", "nav.contact": "Kontak",
     "pill.shipping": "PENGIRIMAN", "cta.whatsapp": "WhatsApp kami", "cta.call": "Telepon",
     "rail.call": "Telepon", "rail.whatsapp": "WhatsApp", "rail.email": "Email", "rail.visit": "Kunjungi", "rail.scan": "Pindai",
     "lang.label": "Bahasa",

@@ -19,6 +19,7 @@ const RIGHT = [
 ];
 // Solutions is a dropdown of industry verticals (more to come).
 const SOLUTIONS = [
+  { href: "/ac", key: "ac" },
   { href: "/solar", key: "solar" },
   { href: "/medical", key: "medical" },
 ];
