@@ -52,3 +52,6 @@ next-env.d.ts
 # Claude Code local + skill symlinks (skills restored via skills-lock.json)
 .claude/skills/
 .claude/settings.local.json
+
+# Private working memory — never publish (repo is public)
+memory.md
