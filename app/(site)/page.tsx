@@ -54,19 +54,19 @@ function buildRange(mediaMap: MediaMap) {
     const f = fam(slug);
     const merged = membersOf(f).map((p) => applyMedia(p, mediaMap));
     const visible = merged.filter((p) => !p.hidden);
-    // Band image follows the lead model's admin-managed photo (falls back to the
-    // family asset), so uploading a product image updates the homepage band too.
     const lead = leadOf(visible.length ? visible : merged);
     const n = visible.length;
+    // Admin-uploaded category cover (admin/products → "Homepage images") wins.
+    const cover = mediaMap[`homecover-${f.key}`]?.images?.[0];
     return {
       href: `/showcase/${f.slug}`,
-      // Curated band art wins; otherwise the admin-managed lead photo, then the
-      // family fallback. So a line graduates to bespoke art without losing the
-      // upload-to-update behaviour for families that don't have it yet.
-      img: norm(f.bandImage || lead?.image || f.image),
-      // Bespoke band art is full-bleed (cover); a product-photo fallback is shown
-      // whole, padded (contain), so it never crops or looks zoomed.
-      art: Boolean(f.bandImage),
+      // Priority: admin category cover → curated band art → lead model's admin
+      // photo → family fallback. A category gets a bespoke band image without
+      // losing the upload-to-update behaviour for those that don't set one.
+      img: norm(cover || f.bandImage || lead?.image || f.image),
+      // A deliberate cover image (admin upload or curated art) is full-bleed
+      // (cover); a product-photo fallback is shown whole, padded (contain).
+      art: Boolean(cover || f.bandImage),
       name: f.name,
       blurb: f.blurb,
       meta: `${n} model${n === 1 ? "" : "s"}`,
@@ -74,7 +74,11 @@ function buildRange(mediaMap: MediaMap) {
       catId: f.categoryId,
     };
   };
-  // Lines that are hidden (e.g. not-yet-launched IGBT/SCR) drop out entirely.
+  // A line drops out entirely when it's flagged hidden (e.g. not-yet-launched
+  // IGBT/SCR) OR when every one of its models is hidden — matching the catalog,
+  // so an all-hidden line never shows an empty "0 models" band.
+  const hasVisibleModels = (slug: string) =>
+    membersOf(fam(slug)).map((p) => applyMedia(p, mediaMap)).some((p) => !p.hidden);
   const famSlugs = [
     "smart-inverter-voltage-stabilizer",
     "cells",
@@ -82,13 +86,14 @@ function buildRange(mediaMap: MediaMap) {
     "svc",
     "scr",
     "avr",
-  ].filter((slug) => !fam(slug).hidden);
+  ].filter((slug) => !fam(slug).hidden && hasVisibleModels(slug));
+  const partsCover = mediaMap["homecover-parts"]?.images?.[0];
   return [
     ...famSlugs.map(tile),
     {
       href: "/products?cat=parts",
-      img: "/assets/prod-relay.jpg",
-      art: false,
+      img: partsCover ? norm(partsCover) : "/assets/prod-relay.jpg",
+      art: Boolean(partsCover),
       name: "Electric Parts",
       blurb: "Wirell PCB relays (T73 / T90) and 7-segment LED displays (5630 / 4630) — the electronics our engineers keep in stock.",
       meta: "Relays · LED",

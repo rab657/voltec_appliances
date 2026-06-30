@@ -28,6 +28,18 @@ function imgSrc(s: string) {
   return s.startsWith("/") || s.startsWith("http") ? s : `/${s}`;
 }
 
+// Homepage category cover images live in product_overrides under reserved ids
+// ("homecover-<key>"), separate from any product. The homepage band prefers
+// this image over the lead model's photo.
+const COVER_PREFIX = "homecover-";
+const COVER_TARGETS: { key: string; label: string; fallback: string }[] = [
+  ...["stab-svc", "stab-avr", "industrial", "cells"].map((k) => {
+    const f = FAMILIES.find((x) => x.key === k);
+    return { key: k, label: f?.name || k, fallback: f?.image || "" };
+  }),
+  { key: "parts", label: "Electric Parts", fallback: "assets/prod-relay.jpg" },
+];
+
 // Family display name without its capacity suffix, e.g. "SVC Servo Stabilizer".
 function familyBaseName(famKey: string): string {
   const code = PRODUCTS.filter((p) => familyOf(p) === famKey);
@@ -49,6 +61,10 @@ export default function ProductAdmin() {
   const [newCap, setNewCap] = useState("");
   // Which sidebar groups are expanded (family key or "cat-cells"/"cat-parts").
   const [open, setOpen] = useState<Set<string>>(() => new Set());
+  // "product" = variant editor; "covers" = homepage category cover images.
+  const [view, setView] = useState<"product" | "covers">("product");
+  const [coverTargetKey, setCoverTargetKey] = useState<string>("");
+  const coverRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLInputElement>(null);
 
@@ -214,6 +230,7 @@ export default function ProductAdmin() {
       if (!res.ok) throw new Error((await res.json()).error || "Create failed");
       setMap((prev) => ({ ...prev, [id]: media }));
       setActiveId(id);
+      setView("product");
       setAddingFamily(null);
       setNewCap("");
       flash("Variant added · upload an image, then Save");
@@ -243,6 +260,60 @@ export default function ProductAdmin() {
       setActiveId(PRODUCTS[0]?.id || "");
       setDirty(false);
       flash("Variant deleted · live on site");
+    } catch (e) {
+      flash(String(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  // ---- homepage category cover images ----
+  const uploadCover = async (key: string, files: FileList | null) => {
+    if (!key || !files || !files.length) return;
+    const id = COVER_PREFIX + key;
+    setBusy(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", files[0]);
+      fd.append("productId", id);
+      const up = await fetch("/api/admin/upload", { method: "POST", body: fd });
+      const d = await up.json();
+      if (!up.ok) throw new Error(d.error || "Upload failed");
+      const media: Media = {
+        images: [d.url], videos: [], hidden: false, price: null,
+        name: null, baseId: null, isVariant: false,
+      };
+      const save = await fetch("/api/admin/product-media", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId: id, media }),
+      });
+      if (!save.ok) throw new Error((await save.json()).error || "Save failed");
+      setMap((prev) => ({ ...prev, [id]: media }));
+      flash("Category image updated · live on site");
+    } catch (e) {
+      flash(String(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+  const removeCover = async (key: string) => {
+    if (busy) return;
+    const id = COVER_PREFIX + key;
+    setBusy(true);
+    try {
+      const res = await fetch("/api/admin/product-media", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productId: id }),
+      });
+      if (!res.ok) throw new Error((await res.json()).error || "Remove failed");
+      setMap((prev) => {
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
+      flash("Category image removed · live on site");
     } catch (e) {
       flash(String(e));
     } finally {
@@ -374,8 +445,8 @@ export default function ProductAdmin() {
     return (
       <div
         key={id}
-        className={`admin-post-item ${id === activeId ? "active" : ""}`}
-        onClick={() => setActiveId(id)}
+        className={`admin-post-item ${id === activeId && view === "product" ? "active" : ""}`}
+        onClick={() => { setActiveId(id); setView("product"); }}
         style={{ cursor: "pointer", opacity: hidden ? 0.55 : 1 }}
       >
         <div className="title" style={{ fontSize: 13, display: "flex", gap: 6, alignItems: "center" }}>
@@ -445,6 +516,16 @@ export default function ProductAdmin() {
               style={{ padding: "9px 12px", border: "1px solid var(--rule-strong)", background: "var(--paper)", borderRadius: 6, fontSize: 14 }}
             />
             <div className="admin-post-list" style={{ marginTop: 4, display: "flex", flexDirection: "column", gap: 2 }}>
+              {/* ---- Homepage category cover images ---- */}
+              <button
+                type="button"
+                onClick={() => setView("covers")}
+                style={{ width: "100%", textAlign: "left", display: "flex", alignItems: "center", gap: 8, padding: "9px 10px", marginBottom: 8, borderRadius: 8, border: "1px solid var(--rule)", background: view === "covers" ? "var(--accent-soft)" : "var(--paper)", color: view === "covers" ? "var(--accent-deep)" : "var(--ink)", cursor: "pointer", fontSize: 13, fontWeight: 600 }}
+              >
+                <span aria-hidden>🖼</span>
+                <span style={{ flex: 1 }}>Homepage images</span>
+              </button>
+
               {/* ---- Stabilizer & industrial families → variants (collapsible) ---- */}
               {VARIANT_FAMILIES.map((fam) => {
                 const variants = familyVariants(fam);
@@ -526,7 +607,61 @@ export default function ProductAdmin() {
           </aside>
 
           <main className="admin-main">
-            {!base ? (
+            {view === "covers" ? (
+              <>
+                <div className="editor-head">
+                  <div style={{ flex: 1 }}>
+                    <div className="mono" style={{ fontSize: 11, color: "var(--ink-3)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: 6 }}>
+                      Homepage · category bands
+                    </div>
+                    <h1 className="editor-title" style={{ border: 0, padding: 0 }}>Homepage category images</h1>
+                  </div>
+                  <a href="/" target="_blank" rel="noreferrer" className="btn btn-ghost">View live ↗</a>
+                </div>
+                <p style={{ fontSize: 13, color: "var(--ink-2)", margin: "0 0 20px", maxWidth: "62ch", lineHeight: 1.55 }}>
+                  Upload a cover image for each homepage category band. Recommended <strong>16:9</strong> (e.g. 1600×900). When none is set, the band falls back to that line&apos;s lead product photo. A set cover fills the band edge-to-edge.
+                </p>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 16 }}>
+                  {COVER_TARGETS.map((c) => {
+                    const cur = map[COVER_PREFIX + c.key]?.images?.[0];
+                    const src = cur || c.fallback;
+                    return (
+                      <div key={c.key} style={{ border: "1px solid var(--rule)", borderRadius: 12, overflow: "hidden", background: "#fff" }}>
+                        <div style={{ position: "relative", aspectRatio: "16/9", background: "var(--paper-2)" }}>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img src={imgSrc(src)} alt="" style={{ width: "100%", height: "100%", objectFit: cur ? "cover" : "contain", padding: cur ? 0 : "10%", background: "#fff" }} />
+                          {!cur && (
+                            <span style={{ position: "absolute", top: 8, left: 8, fontSize: 9, fontFamily: "var(--font-mono)", letterSpacing: "0.1em", background: "var(--ink-3)", color: "#fff", padding: "2px 6px", borderRadius: 4 }}>
+                              DEFAULT
+                            </span>
+                          )}
+                        </div>
+                        <div style={{ padding: 12 }}>
+                          <div style={{ fontWeight: 600, fontSize: 14, marginBottom: 8 }}>{c.label}</div>
+                          <div style={{ display: "flex", gap: 8 }}>
+                            <button className="btn btn-ghost" style={{ fontSize: 12, padding: "6px 12px" }} disabled={busy} onClick={() => { setCoverTargetKey(c.key); coverRef.current?.click(); }}>
+                              {cur ? "Replace" : "Upload"}
+                            </button>
+                            {cur && (
+                              <button className="btn btn-ghost" style={{ fontSize: 12, padding: "6px 12px", color: "var(--warn)" }} disabled={busy} onClick={() => removeCover(c.key)}>
+                                Remove
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                <input
+                  ref={coverRef}
+                  type="file"
+                  accept="image/*"
+                  hidden
+                  onChange={(e) => { uploadCover(coverTargetKey, e.target.files); e.target.value = ""; }}
+                />
+              </>
+            ) : !base ? (
               <p style={{ color: "var(--ink-3)" }}>Pick a product on the left.</p>
             ) : (
               <>

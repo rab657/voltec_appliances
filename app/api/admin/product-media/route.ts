@@ -15,6 +15,7 @@ async function guard() {
 // Renames, new variants and visibility/price changes must surface on the live
 // storefront immediately. These pages render the resolved product list.
 function revalidateStorefront() {
+  revalidatePath("/");
   revalidatePath("/products");
   revalidatePath("/showcase/[family]", "page");
   revalidatePath("/products/[id]", "page");
