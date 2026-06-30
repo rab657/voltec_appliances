@@ -491,7 +491,6 @@ export const PRODUCTS: Product[] = [
     tagline: "Automatic stabilizer for fridges and deep freezers — 2500W, pure copper.",
     useFor: "6–18 cu ft fridge or deep freezer",
     highlight: ["A-25", "2500W"],
-    price: 6500,
     description:
       "Voltec's A-25 is an automatic voltage stabilizer for refrigerators and deep freezers (6–18 cubic feet). 2500W, 100% pure copper, with fast, accurate relay correction and a time-delay system that protects the compressor. Works from very low voltage and holds a steady 220V. Available in 150V, 120V, 100V and 70V input versions with 3, 4, 5 or 7 relays.",
     image: "assets/avr-a25.png",
@@ -515,7 +514,6 @@ export const PRODUCTS: Product[] = [
     tagline: "Energy-saver stabilizer for 1–1.5 ton split ACs — 5000W.",
     useFor: "1 / 1.5 ton split AC",
     highlight: ["A-50", "5000W"],
-    price: 25000,
     description:
       "Voltec's A-50 (Energy Saver) is a 5000W automatic voltage stabilizer for 1 to 1.5 ton split air-conditioners. 100% pure copper, with a wide 100–260V input held to a steady 220V output, relay correction and overload protection. Available in 150V input with 2 relays.",
     image: "assets/avr-a50.png",

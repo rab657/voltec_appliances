@@ -15,19 +15,18 @@ import { getT } from "@/lib/i18n-server";
 
 type AcModel = {
   code: string;
-  price: string;
   fromV: string;
   fits: string;
   badge?: string;
   popular?: boolean;
 };
 
-// Retail rates. The differentiator is the low-voltage floor — pick by how far the
-// voltage drops at night. Bulk/wholesale pricing is handled on WhatsApp.
+// The differentiator is the low-voltage floor — pick by how far the voltage drops
+// at night. Pricing (retail + bulk/wholesale) is shared on WhatsApp.
 const MODELS: AcModel[] = [
-  { code: "R2", price: "24,000", fromV: "150V", fits: "Inverter AC · 1 / 1.5 ton", badge: "Lighter sag" },
-  { code: "R3", price: "29,000", fromV: "120V", fits: "Inverter & Normal AC · 1 / 1.5 ton", badge: "Most popular", popular: true },
-  { code: "R4", price: "32,000", fromV: "100V", fits: "Inverter & Normal AC · 1 / 1.5 ton", badge: "Severe low-voltage" },
+  { code: "R2", fromV: "150V", fits: "Inverter AC · 1 / 1.5 ton", badge: "Lighter sag" },
+  { code: "R3", fromV: "120V", fits: "Inverter & Normal AC · 1 / 1.5 ton", badge: "Most popular", popular: true },
+  { code: "R4", fromV: "100V", fits: "Inverter & Normal AC · 1 / 1.5 ton", badge: "Severe low-voltage" },
 ];
 
 const VALUE_PROPS: { title: string; desc: string }[] = [
@@ -59,8 +58,8 @@ const FAQS: { q: string; a: string }[] = [
     a: "It draws about 10% less current thanks to the pure-copper, energy-saver design. Over a hot summer of nightly AC use, that adds up on your bill.",
   },
   {
-    q: "Do you have wholesale / bulk pricing?",
-    a: "Yes. These are retail rates. We supply dealers and bulk buyers in Karachi, Rawalpindi and Peshawar at wholesale prices. Message us on WhatsApp with your quantity and city for a bulk quote.",
+    q: "Do you supply dealers / bulk orders?",
+    a: "Yes. We supply dealers and bulk buyers across Pakistan. Message us on WhatsApp with your quantity and city and we'll share a quote.",
   },
 ];
 
@@ -170,12 +169,6 @@ export default async function AcPage() {
                     Works from {m.fromV}
                   </div>
                 </div>
-                <div style={{ display: "flex", alignItems: "baseline", gap: 8 }}>
-                  <span style={{ fontFamily: "var(--font-display)", fontSize: 32, color: "var(--ink)" }}>
-                    Rs {m.price}
-                  </span>
-                  <span className="mono" style={{ fontSize: 11, color: "var(--ink-3)" }}>retail</span>
-                </div>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: 14.5, color: "var(--ink-2)" }}>
                   <li>✓ {m.fits}</li>
                   <li>✓ 10,000W · 99% pure copper</li>
@@ -184,17 +177,17 @@ export default async function AcPage() {
                 </ul>
                 <div style={{ marginTop: "auto", paddingTop: 6 }}>
                   <WhatsAppButton
-                    productName={`AC Stabilizer ${m.code} (works from ${m.fromV}) — Rs ${m.price}`}
+                    productName={`AC Stabilizer ${m.code} (works from ${m.fromV})`}
                     className="ac-card-cta"
                   >
-                    Order {m.code} — Rs {m.price}
+                    Order {m.code} on WhatsApp
                   </WhatsAppButton>
                 </div>
               </div>
             ))}
           </div>
           <p className="med-scope" style={{ marginTop: 22 }}>
-            Retail rates shown. Dealer &amp; bulk pricing available — see below.
+            Pick by how low your voltage drops at night. Dealer &amp; bulk orders — see below.
           </p>
         </div>
       </section>
@@ -246,11 +239,11 @@ export default async function AcPage() {
                 Dealers &amp; bulk buyers
               </div>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: "clamp(24px,3vw,34px)", lineHeight: 1.1, margin: "0 0 10px" }}>
-                Wholesale pricing in {WHOLESALE_CITIES.join(", ")}
+                Bulk &amp; wholesale supply in {WHOLESALE_CITIES.join(", ")}
               </h2>
               <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.6, color: "oklch(90% 0.02 250 / 0.85)" }}>
-                Stocking up for the season? We supply dealers and bulk buyers at wholesale rates, with
-                stock ready for the heat wave. Message us your quantity and city for a bulk quote.
+                Stocking up for the season? We supply dealers and bulk buyers, with stock ready for
+                the heat wave. Message us your quantity and city for a bulk quote.
               </p>
             </div>
             <WhatsAppButton productName="WHOLESALE AC stabilizers — bulk quote (qty + city)" variant="light">
@@ -346,8 +339,8 @@ export default async function AcPage() {
             Keep your AC running all night.
           </h2>
           <p style={{ maxWidth: "50ch", margin: "0 auto 26px", fontSize: 16, lineHeight: 1.6, color: "oklch(85% 0.02 250 / 0.9)" }}>
-            Tell us your AC size and city on WhatsApp. We&apos;ll confirm the right model and the price —
-            same day, with delivery.
+            Tell us your AC size and city on WhatsApp. We&apos;ll confirm the right model and full
+            details — same day, with delivery.
           </p>
           <WhatsAppButton productName="AC Stabilizer — help me pick (1/1.5 ton)" variant="light">
             Get my AC stabilizer
