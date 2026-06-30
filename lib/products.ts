@@ -1,6 +1,6 @@
 import type { Product, Category } from "./types";
 
-export const VOLTEC_WHATSAPP = "923244004778";
+export const VOLTEC_WHATSAPP = "971525414894";
 
 export function whatsappLink(productName?: string): string {
   const text = productName

@@ -12,7 +12,7 @@ export const SITE = {
   phoneUae: "+971 525 414 894",
   email: "voltecappliances@hotmail.com",
   wechat: "rab657",
-  whatsapp: "923244004778",
+  whatsapp: "971525414894",
   established: 1995,
   founder: "Riaz Ahmad",
   chairman: "Riaz Ahmad",
