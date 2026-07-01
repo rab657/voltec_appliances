@@ -31,7 +31,10 @@ export default function ProductConfigurator({
   const isFridge = (p: Product) => /fridge|freezer|refriger/i.test(`${p.useFor || ""} ${p.name}`);
   const firstNonUpcoming = Math.max(0, members.findIndex((p) => p.status !== "upcoming"));
   const firstAc = members.findIndex((p) => !isFridge(p));
-  const [sel, setSel] = useState(isAvr && firstAc >= 0 ? firstAc : firstNonUpcoming);
+  // Default AVR to the most-popular AC model (A-100 R3), not the entry A-50.
+  const preferredAc = members.findIndex((p) => /\bR3\b/.test(p.name));
+  const acDefault = preferredAc >= 0 ? preferredAc : firstAc;
+  const [sel, setSel] = useState(isAvr && acDefault >= 0 ? acDefault : firstNonUpcoming);
   const [useCase, setUseCase] = useState<"ac" | "fridge">("ac");
   const [imgIdx, setImgIdx] = useState(0);
   const active = members[sel] || members[0];
