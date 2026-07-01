@@ -89,6 +89,22 @@ image-slot::part(empty),
 .cfg-thumb.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .cfg-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 6px; background: #fff; }
 .cfg-media-tech { position: absolute; top: 14px; left: 14px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 6px; background: var(--ink); color: #fff; }
+
+/* AVR at-a-glance info panel (watts · input/output · runs · badges) */
+.avr-glance { border: 1px solid var(--rule-strong); border-radius: 14px; padding: 18px 20px; margin-top: 16px; background: linear-gradient(180deg, var(--accent-soft), #fff); }
+.avr-glance-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+.avr-b { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; font-weight: 600; color: #fff; }
+.avr-b-energy { background: var(--ok); }
+.avr-b-copper { background: var(--copper); }
+.avr-b-warr { background: var(--accent); }
+.avr-glance-main { display: flex; align-items: baseline; gap: 26px; flex-wrap: wrap; }
+.avr-watts { font-family: var(--font-display); font-size: 52px; line-height: 1; letter-spacing: -0.02em; color: var(--ink); }
+.avr-meta { display: flex; gap: 24px; }
+.avr-meta-k { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 2px; }
+.avr-meta-v { font-weight: 700; font-size: 16px; color: var(--ink); }
+.avr-runs { display: flex; align-items: baseline; gap: 12px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--rule); }
+.avr-runs-k { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-deep); }
+.avr-runs-v { font-weight: 600; font-size: 15.5px; color: var(--ink-2); }
 .cfg-panel h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(30px, 4vw, 46px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 14px; }
 .cfg-lede { font-size: 16px; line-height: 1.6; color: var(--ink-2); margin: 0 0 26px; max-width: 52ch; }
 .cfg-row { margin-bottom: 22px; }

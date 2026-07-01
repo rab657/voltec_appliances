@@ -103,17 +103,53 @@ export default function ProductConfigurator({
           </div>
         </div>
 
-        <div className="cfg-row">
-          <span className="cfg-label">{t("cfg.glance")}</span>
-          <div className="cfg-specs">
-            {quick.filter(([, v]) => v).map(([k, v]) => (
-              <div className="cfg-spec" key={k}>
-                <span className="cfg-spec-k">{k}</span>
-                <span className="cfg-spec-v">{v}</span>
-              </div>
-            ))}
+        {active.tech !== "AVR" && (
+          <div className="cfg-row">
+            <span className="cfg-label">{t("cfg.glance")}</span>
+            <div className="cfg-specs">
+              {quick.filter(([, v]) => v).map(([k, v]) => (
+                <div className="cfg-spec" key={k}>
+                  <span className="cfg-spec-k">{k}</span>
+                  <span className="cfg-spec-v">{v}</span>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* AVR "at a glance" info panel — everything a buyer checks fast */}
+        {active.tech === "AVR" && (
+          <div className="avr-glance">
+            <div className="avr-glance-badges">
+              <span className="avr-b avr-b-energy">⚡ Energy Saver</span>
+              {/copper/i.test(JSON.stringify(active.specs)) && <span className="avr-b avr-b-copper">100% Copper</span>}
+              <span className="avr-b avr-b-warr">1-Year Warranty</span>
+            </div>
+            <div className="avr-glance-main">
+              <div className="avr-watts">{spec(active, /capacity/i)}</div>
+              <div className="avr-meta">
+                {(spec(active, /input/i) || spec(active, /works from/i)) && (
+                  <div>
+                    <span className="avr-meta-k">Input</span>
+                    <span className="avr-meta-v">{spec(active, /input/i) || spec(active, /works from/i)}</span>
+                  </div>
+                )}
+                {spec(active, /output/i) && (
+                  <div>
+                    <span className="avr-meta-k">Output</span>
+                    <span className="avr-meta-v">{spec(active, /output/i)}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+            {(active.useFor || spec(active, /best for/i)) && (
+              <div className="avr-runs">
+                <span className="avr-runs-k">Runs</span>
+                <span className="avr-runs-v">{active.useFor || spec(active, /best for/i)}</span>
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="cfg-price">
           {active.price ? (
