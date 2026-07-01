@@ -9,7 +9,7 @@ import { WhatsAppIcon } from "@/components/icons";
 import { useI18n } from "@/components/I18nProvider";
 import { Slot } from "./primitives";
 import { variantLabel } from "@/lib/variant-label";
-import { acModel } from "@/lib/ac-products";
+import { acModel, fmtPKR } from "@/lib/ac-products";
 
 const spec = (p: Product, re: RegExp) => (p.specs.find((s) => re.test(s[0])) || [])[1];
 
@@ -192,7 +192,12 @@ export default function ProductConfigurator({
           </div>
         )}
 
-        {!isAvr && (
+        {buyModel ? (
+          <div className="cfg-price">
+            <span className="cfg-price-v">{fmtPKR(acModel(buyModel)!.price)}</span>
+            <span className="cfg-price-note">{t("cfg.perunit")}</span>
+          </div>
+        ) : !isAvr ? (
           <div className="cfg-price">
             {active.price ? (
               <>
@@ -203,7 +208,7 @@ export default function ProductConfigurator({
               <span className="cfg-price-ask">{t("cfg.reqprice")}</span>
             )}
           </div>
-        )}
+        ) : null}
         <div className="cfg-status">
           {active.status === "upcoming" ? (
             <span className="cfg-soon">{t("cfg.preorder")}</span>
