@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PRODUCTS, CATEGORIES } from "@/lib/products";
-import { FAMILIES, membersOf, isProductInHiddenFamily } from "@/lib/showcase-data";
+import { FAMILIES, membersOf, leadOf, isProductInHiddenFamily } from "@/lib/showcase-data";
 import type { CategoryId } from "@/lib/types";
 import EcomCard from "@/components/EcomCard";
 import FamilyCard from "@/components/FamilyCard";
@@ -42,6 +42,19 @@ export default async function ProductsPage({
   };
   const catCount = (id: string) =>
     resolved.filter((p) => (id === "all" || p.categoryId === id) && !isHidden(p)).length;
+
+  // Same cover image + fit the homepage bands use, so the catalog matches:
+  // admin category cover → curated band art → lead model's photo → family fallback.
+  const famCover = (slug: string): { image?: string; contain: boolean } => {
+    const f = FAMILIES.find((x) => x.slug === slug);
+    if (!f) return { contain: false };
+    const merged = membersOf(f).map((p) => applyMedia(p, mediaMap));
+    const visible = merged.filter((p) => !p.hidden);
+    const lead = leadOf(visible.length ? visible : merged);
+    const cover = mediaMap[`homecover-${f.key}`]?.images?.[0];
+    const art = Boolean(cover || f.bandImage);
+    return { image: cover || f.bandImage || lead?.image || f.image, contain: !art };
+  };
 
   // Catalog entries: stabilizers/industrial/parts show as FAMILY cards (→ range
   // page, model picker); cells show as individual product cards (→ own page).
@@ -154,6 +167,7 @@ export default async function ProductsPage({
                       family={FAMILIES.find((f) => f.slug === e.slug)!}
                       count={famVisible(e.slug).length}
                       soon={famVisible(e.slug).length > 0 && famVisible(e.slug).every((p) => p.status === "upcoming")}
+                      {...famCover(e.slug)}
                     />
                   ) : (
                     <EcomCard key={e.id} p={applyMedia(PRODUCTS.find((p) => p.id === e.id)!, mediaMap)} />

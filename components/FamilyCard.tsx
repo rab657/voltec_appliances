@@ -10,11 +10,17 @@ export default function FamilyCard({
   family,
   count,
   soon: soonProp,
+  image,
+  contain,
 }: {
   family: FamilyMeta;
   /** Visible model count (server-computed, override-aware). Falls back to code. */
   count?: number;
   soon?: boolean;
+  /** Resolved cover image (matches the homepage band). Falls back to family.image. */
+  image?: string;
+  /** Product-photo fallbacks are contained/padded; bespoke covers are full-bleed. */
+  contain?: boolean;
 }) {
   const { t, lc } = useI18n();
   const members = membersOf(family);
@@ -24,7 +30,7 @@ export default function FamilyCard({
   return (
     <div className="ec-card" data-cat={family.categoryId}>
       <Link href={href} className="ec-thumb">
-        <Placeholder label="" image={family.image} contain={false} />
+        <Placeholder label="" image={image ?? family.image} contain={contain ?? false} />
         {family.tag && <span className="ec-soon" style={{ background: "var(--accent)" }}>{lc(family.tag)}</span>}
       </Link>
       <div className="ec-body">
