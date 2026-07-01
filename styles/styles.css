@@ -386,6 +386,28 @@ input, textarea, select { font: inherit; color: inherit; }
 .ac-hero .page-lede { max-width: 54ch; }
 .ac-hero-img { width: 100%; height: auto; border-radius: 18px; box-shadow: 0 24px 60px rgba(20, 20, 40, 0.16); display: block; }
 @media (max-width: 860px) { .ac-hero { grid-template-columns: 1fr; gap: 22px; } }
+
+/* AC model cards — full-bleed studio photo on top, priced body below */
+.ac-models { display: grid; grid-template-columns: repeat(auto-fit, minmax(288px, 1fr)); gap: 22px; align-items: stretch; }
+.ac-mcard { position: relative; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--rule-strong); border-radius: 20px; overflow: hidden; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+.ac-mcard:hover { transform: translateY(-4px); box-shadow: 0 26px 60px -30px oklch(30% 0.04 40 / 0.55); }
+.ac-mcard.is-popular { border: 2px solid var(--accent); box-shadow: 0 30px 70px -34px oklch(46% 0.11 30 / 0.6); }
+@media (min-width: 900px) { .ac-mcard.is-popular { transform: translateY(-10px); } .ac-mcard.is-popular:hover { transform: translateY(-14px); } }
+.ac-mcard-media { position: relative; aspect-ratio: 4 / 3; background: #17161a; overflow: hidden; }
+.ac-mcard-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s ease; }
+.ac-mcard:hover .ac-mcard-media img { transform: scale(1.04); }
+.ac-mcard-badge { position: absolute; top: 14px; left: 14px; z-index: 2; font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 11px; border-radius: 999px; color: #fff; background: oklch(30% 0.02 40 / 0.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border: 1px solid oklch(100% 0 0 / 0.18); }
+.ac-mcard.is-popular .ac-mcard-badge { background: var(--accent); border-color: transparent; }
+.ac-mcard-body { display: flex; flex-direction: column; gap: 12px; padding: 22px 22px 24px; flex: 1; }
+.ac-mcard-name { font-family: var(--font-display); font-size: 30px; line-height: 1; letter-spacing: -0.01em; color: var(--ink); }
+.ac-mcard-from { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: var(--accent-deep); margin-top: -4px; }
+.ac-mcard-feats { list-style: none; padding: 0; margin: 4px 0 0; display: flex; flex-direction: column; gap: 9px; }
+.ac-mcard-feats li { display: flex; align-items: flex-start; gap: 9px; font-size: 14.5px; line-height: 1.4; color: var(--ink-2); }
+.ac-mcard-feats li svg { flex: 0 0 auto; width: 16px; height: 16px; margin-top: 2px; color: var(--accent); }
+.ac-mcard-foot { margin-top: auto; padding-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+.ac-mcard-price { display: flex; align-items: baseline; gap: 8px; }
+.ac-mcard-price b { font-family: var(--font-display); font-weight: 400; font-size: 34px; letter-spacing: -0.01em; color: var(--ink); }
+.ac-mcard-price span { font-size: 12.5px; color: var(--ink-3); }
 .med-narrow { max-width: 68ch; }
 .med-h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(26px, 3.4vw, 40px); line-height: 1.08; letter-spacing: -0.02em; margin: 0 0 16px; color: var(--ink); }
 .med-body { font-size: 16.5px; line-height: 1.7; color: var(--ink-2); margin: 0; }

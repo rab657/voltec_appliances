@@ -127,68 +127,43 @@ export default async function AcPage() {
               Message us — we&apos;ll tell you the right one, free.
             </p>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 18 }}>
+          <div className="ac-models">
             {MODELS.map((m) => (
-              <div
-                key={m.code}
-                style={{
-                  position: "relative",
-                  border: m.popular ? "2px solid var(--accent)" : "1px solid var(--rule-strong)",
-                  borderRadius: 16,
-                  padding: "26px 22px",
-                  background: "#fff",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 14,
-                }}
-              >
-                <div style={{ background: "var(--paper-2)", borderRadius: 12, padding: "16px 12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <div key={m.code} className={`ac-mcard${m.popular ? " is-popular" : ""}`}>
+                <div className="ac-mcard-media">
+                  {m.badge && <span className="ac-mcard-badge">{m.badge}</span>}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src="/assets/avr-a100.webp" alt={`Voltec ${m.code} AC stabilizer`} style={{ width: "100%", maxHeight: 160, objectFit: "contain" }} />
+                  <img src={m.image} alt={`Voltec ${m.code} AC voltage stabilizer`} />
                 </div>
-                {m.badge && (
-                  <span
-                    style={{
-                      alignSelf: "flex-start",
-                      fontFamily: "var(--font-mono)",
-                      fontSize: 10,
-                      letterSpacing: "0.1em",
-                      textTransform: "uppercase",
-                      padding: "4px 10px",
-                      borderRadius: 999,
-                      background: m.popular ? "var(--accent)" : "var(--paper-2)",
-                      color: m.popular ? "#fff" : "var(--ink-2)",
-                    }}
-                  >
-                    {m.badge}
-                  </span>
-                )}
-                <div>
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: 30, letterSpacing: "-0.01em" }}>
-                    Voltec {m.code}
+                <div className="ac-mcard-body">
+                  <div className="ac-mcard-name">Voltec {m.code}</div>
+                  <div className="ac-mcard-from">Works from {m.fromV}</div>
+                  <ul className="ac-mcard-feats">
+                    {[m.fits, "10,000W · 99% pure copper", "Energy saver — ~10% less current", "1 year warranty"].map((f) => (
+                      <li key={f}>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <path d="M20 6 9 17l-5-5" />
+                        </svg>
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="ac-mcard-foot">
+                    <div className="ac-mcard-price">
+                      <b>{fmtPKR(m.price)}</b>
+                      <span>per unit</span>
+                    </div>
+                    <Link href={`/checkout?model=${m.code}`} className="btn btn-primary ac-card-cta" style={{ justifyContent: "center" }}>
+                      Buy {m.code} now →
+                    </Link>
+                    <WhatsAppButton
+                      productName={`AC Stabilizer ${m.code} (works from ${m.fromV})`}
+                      variant="light"
+                      className="ac-card-cta"
+                    >
+                      Ya WhatsApp par poochein
+                    </WhatsAppButton>
                   </div>
-                  <div className="mono" style={{ fontSize: 12, color: "var(--accent-deep)", letterSpacing: "0.04em", marginTop: 2 }}>
-                    Works from {m.fromV}
-                  </div>
-                </div>
-                <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8, fontSize: 14.5, color: "var(--ink-2)" }}>
-                  <li>✓ {m.fits}</li>
-                  <li>✓ 10,000W · 99% pure copper</li>
-                  <li>✓ Energy saver — ~10% less current</li>
-                  <li>✓ 1 year warranty</li>
-                </ul>
-                <div style={{ marginTop: "auto", paddingTop: 6, display: "flex", flexDirection: "column", gap: 10 }}>
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: 32, letterSpacing: "-0.01em" }}>{fmtPKR(m.price)}</div>
-                  <Link href={`/checkout?model=${m.code}`} className="btn btn-primary ac-card-cta" style={{ justifyContent: "center" }}>
-                    Buy {m.code} now →
-                  </Link>
-                  <WhatsAppButton
-                    productName={`AC Stabilizer ${m.code} (works from ${m.fromV})`}
-                    variant="light"
-                    className="ac-card-cta"
-                  >
-                    Ya WhatsApp par poochein
-                  </WhatsAppButton>
                 </div>
               </div>
             ))}

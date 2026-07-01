@@ -9,14 +9,15 @@ export type AcModel = {
   price: number;       // PKR
   fromV: string;       // low-voltage floor
   fits: string;
+  image: string;      // studio product photo (per-variant)
   badge?: string;
   popular?: boolean;
 };
 
 export const AC_MODELS: AcModel[] = [
-  { code: "R2", name: "Voltec R2 — AC Stabilizer", price: 24000, fromV: "150V", fits: "Inverter AC · 1 / 1.5 ton", badge: "Lighter sag" },
-  { code: "R3", name: "Voltec R3 — AC Stabilizer", price: 29000, fromV: "120V", fits: "Inverter & Normal AC · 1 / 1.5 ton", badge: "Most popular", popular: true },
-  { code: "R4", name: "Voltec R4 — AC Stabilizer", price: 32000, fromV: "100V", fits: "Inverter & Normal AC · 1 / 1.5 ton", badge: "Severe low-voltage" },
+  { code: "R2", name: "Voltec R2 — AC Stabilizer", price: 24000, fromV: "150V", fits: "Inverter AC · 1 / 1.5 ton", image: "/assets/r2_voltec.webp", badge: "Lighter sag" },
+  { code: "R3", name: "Voltec R3 — AC Stabilizer", price: 29000, fromV: "120V", fits: "Inverter & Normal AC · 1 / 1.5 ton", image: "/assets/r3_voltec.webp", badge: "Most popular", popular: true },
+  { code: "R4", name: "Voltec R4 — AC Stabilizer", price: 32000, fromV: "100V", fits: "Inverter & Normal AC · 1 / 1.5 ton", image: "/assets/r4_voltec.webp", badge: "Severe low-voltage" },
 ];
 
 export function acModel(code: string): AcModel | undefined {
