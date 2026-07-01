@@ -559,7 +559,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["R3", "from 120V"],
     description:
       "Voltec A-100 R3 — the most popular AC stabilizer. 10,000W, holds a steady 220V across a wide 120V–270V input for inverter and normal 1 to 1.5 ton ACs. 99.99% pure copper, relay correction and compressor protection.",
-    image: "assets/avr-a100.webp",
+    image: "assets/r3_voltec.webp",
     specs: [
       ["Model", "Voltec A-100 R3"],
       ["Capacity", "10000W"],
@@ -580,7 +580,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["R4", "from 100V"],
     description:
       "Voltec A-100 R4 — built for severe low-voltage areas. A 10,000W AC stabilizer that works from as low as 100V and holds a steady 220V (100V–270V input) for inverter and normal 1 to 1.5 ton ACs. 99.99% pure copper with compressor protection.",
-    image: "assets/avr-a100.webp",
+    image: "assets/r4_voltec.webp",
     specs: [
       ["Model", "Voltec A-100 R4"],
       ["Capacity", "10000W"],

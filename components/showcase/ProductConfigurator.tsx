@@ -9,6 +9,7 @@ import { WhatsAppIcon } from "@/components/icons";
 import { useI18n } from "@/components/I18nProvider";
 import { Slot } from "./primitives";
 import { variantLabel } from "@/lib/variant-label";
+import { acModel } from "@/lib/ac-products";
 
 const spec = (p: Product, re: RegExp) => (p.specs.find((s) => re.test(s[0])) || [])[1];
 
@@ -37,6 +38,9 @@ export default function ProductConfigurator({
   const shown = members
     .map((p, i) => ({ p, i }))
     .filter(({ p }) => (!isAvr ? true : useCase === "fridge" ? isFridge(p) : !isFridge(p)));
+  // Buyable if the model maps to a priced checkout entry (AC R2/R3/R4).
+  const rMatch = active.name.match(/\bR[2-9]\b/);
+  const buyModel = rMatch && acModel(rMatch[0]) ? rMatch[0] : null;
   const toUrl = (s: string) => (s.startsWith("/") || s.startsWith("http") ? s : `/${s}`);
   const imgs = (active.images && active.images.length ? active.images : [active.image]).filter(Boolean);
   const safeIdx = Math.min(imgIdx, Math.max(0, imgs.length - 1));
@@ -205,18 +209,36 @@ export default function ProductConfigurator({
         </div>
 
         <div className="cfg-cta">
-          <a
-            href={whatsappLink(active.name)}
-            target="_blank"
-            rel="noopener"
-            className="btn btn-wa cfg-inquiry"
-            onClick={() => track("whatsapp_click", { product: active.name, from: "configurator" })}
-          >
-            <WhatsAppIcon /> <span>{t("cfg.inquiry")} — {variantLabel(active)}</span>
-          </a>
-          <Link href="/contact" className="btn btn-ghost">
-            {t("cfg.contact")}
-          </Link>
+          {buyModel ? (
+            <>
+              <Link
+                href={`/checkout?model=${buyModel}`}
+                className="btn btn-primary cfg-inquiry"
+                onClick={() => track("configurator_select", { family: family.slug, model: active.id, action: "buy_now" })}
+              >
+                Buy now →
+              </Link>
+              <a
+                href={whatsappLink(active.name)}
+                target="_blank"
+                rel="noopener"
+                className="btn btn-wa-light"
+                onClick={() => track("whatsapp_click", { product: active.name, from: "configurator" })}
+              >
+                <WhatsAppIcon /> <span>Ya WhatsApp par poochein</span>
+              </a>
+            </>
+          ) : (
+            <a
+              href={whatsappLink(active.name)}
+              target="_blank"
+              rel="noopener"
+              className="btn btn-wa cfg-inquiry"
+              onClick={() => track("whatsapp_click", { product: active.name, from: "configurator" })}
+            >
+              <WhatsAppIcon /> <span>{t("cfg.inquiry")} — {variantLabel(active)}</span>
+            </a>
+          )}
         </div>
         <a href="#spec" className="cfg-speclink">
           {t("cfg.fullspecs")} ↓
