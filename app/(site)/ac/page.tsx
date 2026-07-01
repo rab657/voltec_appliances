@@ -142,6 +142,10 @@ export default async function AcPage() {
                   gap: 14,
                 }}
               >
+                <div style={{ background: "var(--paper-2)", borderRadius: 12, padding: "16px 12px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src="/assets/avr-a100.webp" alt={`Voltec ${m.code} AC stabilizer`} style={{ width: "100%", maxHeight: 160, objectFit: "contain" }} />
+                </div>
                 {m.badge && (
                   <span
                     style={{
