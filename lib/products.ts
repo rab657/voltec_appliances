@@ -538,7 +538,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["R2", "from 150V"],
     description:
       "Voltec A-100 R2 — a 10,000W automatic voltage stabilizer for a 1 to 1.5 ton air-conditioner. Holds a steady 220V across a 150V–270V input, with 99.99% pure copper and relay correction that protects the compressor. For areas with lighter voltage sag.",
-    image: "assets/r2_voltec.png",
+    image: "assets/r2_voltec.webp",
     specs: [
       ["Model", "Voltec A-100 R2"],
       ["Capacity", "10000W"],
@@ -559,7 +559,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["R3", "from 120V"],
     description:
       "Voltec A-100 R3 — the most popular AC stabilizer. 10,000W, holds a steady 220V across a wide 120V–270V input for inverter and normal 1 to 1.5 ton ACs. 99.99% pure copper, relay correction and compressor protection.",
-    image: "assets/r3_voltec.png",
+    image: "assets/r3_voltec.webp",
     specs: [
       ["Model", "Voltec A-100 R3"],
       ["Capacity", "10000W"],
