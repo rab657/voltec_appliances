@@ -20,6 +20,14 @@ export const SITE = {
   markets: ["Pakistan", "UAE", "China"],
   cities: ["Lahore", "Dubai", "Shenzhen"],
   mapsQuery: "Voltec Appliances Lahore",
+  // Bank-transfer checkout details — shown publicly on the order confirmation page.
+  bank: {
+    bankName: "United Bank Limited (UBL)",
+    branch: "Abid Market Branch",
+    accountTitle: "Voltec Appliances",
+    accountNumber: "0859203486113",
+    iban: "PK17UNIL0109000203486113",
+  },
 } as const;
 
 export const VOLTEC_ORG = {

@@ -25,6 +25,8 @@ const FB_STANDARD: Record<string, string> = {
   whatsapp_click: "Contact",
   phone_click: "Contact",
   lead: "Lead",
+  begin_checkout: "InitiateCheckout",
+  purchase: "Purchase",
 };
 
 // One id per event, shared between the browser Pixel (eventID) and the

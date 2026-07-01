@@ -99,3 +99,33 @@ drop policy if exists "product-images public read" on storage.objects;
 create policy "product-images public read"
   on storage.objects for select
   using (bucket_id = 'product-images');
+
+-- ===========================================================================
+-- Orders: direct-purchase (bank-transfer) checkout for the AC line.
+-- Flow: customer places order -> gets bank details -> transfers -> shares
+-- receipt + confirms on WhatsApp -> Voltec verifies (status) -> ships.
+-- Written + read server-side via the service-role key (RLS on, no public policy)
+-- so order details are never publicly queryable — only via the server + ref.
+-- ===========================================================================
+create table if not exists public.orders (
+  id            uuid primary key default gen_random_uuid(),
+  order_ref     text not null unique,       -- human code, e.g. VLT-7K3Q2
+  model         text not null,              -- R2 / R3 / R4
+  product_name  text not null,
+  unit_price    numeric not null,           -- PKR, server-derived
+  qty           integer not null default 1,
+  total         numeric not null,           -- PKR
+  customer_name text not null,
+  phone         text not null,
+  address       text not null,
+  city          text not null,
+  status        text not null default 'pending_payment',  -- pending_payment | receipt_sent | confirmed | shipped | cancelled
+  notes         text,
+  created_at    timestamptz not null default now()
+);
+
+create index if not exists orders_created_at_idx on public.orders (created_at desc);
+create index if not exists orders_status_idx on public.orders (status);
+
+alter table public.orders enable row level security;
+-- No public policies: orders are written and read only via the service role.

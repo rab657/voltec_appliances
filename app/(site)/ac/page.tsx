@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { AC_MODELS as MODELS, fmtPKR } from "@/lib/ac-products";
 import { PROT_ICONS } from "@/components/showcase/primitives";
 import JsonLd from "@/components/JsonLd";
 import { absUrl } from "@/lib/site";
@@ -13,21 +14,8 @@ import { getT } from "@/lib/i18n-server";
 // model by how low the voltage drops, message on WhatsApp. This page is the ad
 // destination for the retail + wholesale AC campaigns.
 
-type AcModel = {
-  code: string;
-  fromV: string;
-  fits: string;
-  badge?: string;
-  popular?: boolean;
-};
+// Buyable AC line (with prices) lives in lib/ac-products — shared with /checkout.
 
-// The differentiator is the low-voltage floor — pick by how far the voltage drops
-// at night. Pricing (retail + bulk/wholesale) is shared on WhatsApp.
-const MODELS: AcModel[] = [
-  { code: "R2", fromV: "150V", fits: "Inverter AC · 1 / 1.5 ton", badge: "Lighter sag" },
-  { code: "R3", fromV: "120V", fits: "Inverter & Normal AC · 1 / 1.5 ton", badge: "Most popular", popular: true },
-  { code: "R4", fromV: "100V", fits: "Inverter & Normal AC · 1 / 1.5 ton", badge: "Severe low-voltage" },
-];
 
 const VALUE_PROPS: { title: string; desc: string }[] = [
   { title: "Built for ACs — 10,000W", desc: "Sized and tuned for 1 and 1.5 ton air conditioners, inverter or normal." },
@@ -185,12 +173,17 @@ export default async function AcPage() {
                   <li>✓ Energy saver — ~10% less current</li>
                   <li>✓ 1 year warranty</li>
                 </ul>
-                <div style={{ marginTop: "auto", paddingTop: 6 }}>
+                <div style={{ marginTop: "auto", paddingTop: 6, display: "flex", flexDirection: "column", gap: 10 }}>
+                  <div style={{ fontFamily: "var(--font-display)", fontSize: 32, letterSpacing: "-0.01em" }}>{fmtPKR(m.price)}</div>
+                  <Link href={`/checkout?model=${m.code}`} className="btn btn-primary ac-card-cta" style={{ justifyContent: "center" }}>
+                    Buy {m.code} now →
+                  </Link>
                   <WhatsAppButton
                     productName={`AC Stabilizer ${m.code} (works from ${m.fromV})`}
+                    variant="light"
                     className="ac-card-cta"
                   >
-                    Order {m.code} on WhatsApp
+                    Ya WhatsApp par poochein
                   </WhatsAppButton>
                 </div>
               </div>

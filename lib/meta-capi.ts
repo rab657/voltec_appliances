@@ -16,6 +16,8 @@ const FB_STANDARD: Record<string, string> = {
   whatsapp_click: "Contact",
   phone_click: "Contact",
   lead: "Lead",
+  begin_checkout: "InitiateCheckout",
+  purchase: "Purchase",
 };
 
 function cookie(req: Request, name: string): string | undefined {
