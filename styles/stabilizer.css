@@ -90,6 +90,11 @@ image-slot::part(empty),
 .cfg-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 6px; background: #fff; }
 .cfg-media-tech { position: absolute; top: 14px; left: 14px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; padding: 5px 10px; border-radius: 6px; background: var(--ink); color: #fff; }
 
+/* AVR use-case tabs (Air Conditioner / Fridge) */
+.cfg-usecase { display: inline-flex; gap: 6px; background: var(--paper-2); padding: 5px; border-radius: 12px; }
+.cfg-usecase-btn { display: flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 9px; cursor: pointer; font-weight: 700; font-size: 15px; color: var(--ink-2); border: 2px solid transparent; background: transparent; }
+.cfg-usecase-btn.is-active { background: #fff; color: var(--ink); border-color: var(--accent); box-shadow: 0 4px 12px oklch(30% 0.05 250 / 0.08); }
+
 /* AVR at-a-glance info panel (watts · input/output · runs · badges) */
 .avr-glance { border: 1px solid var(--rule-strong); border-radius: 14px; padding: 18px 20px; margin-top: 16px; background: linear-gradient(180deg, var(--accent-soft), #fff); }
 .avr-glance-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }

@@ -25,11 +25,18 @@ export default function ProductConfigurator({
   valueProp: string;
 }) {
   const { t, lc } = useI18n();
-  const [sel, setSel] = useState(
-    Math.max(0, members.findIndex((p) => p.status !== "upcoming")),
-  );
+  // AVR: two use-case tabs (Air Conditioner / Fridge) filter the model chips.
+  const isAvr = family.slug === "avr";
+  const isFridge = (p: Product) => /fridge|freezer|refriger/i.test(`${p.useFor || ""} ${p.name}`);
+  const firstNonUpcoming = Math.max(0, members.findIndex((p) => p.status !== "upcoming"));
+  const firstAc = members.findIndex((p) => !isFridge(p));
+  const [sel, setSel] = useState(isAvr && firstAc >= 0 ? firstAc : firstNonUpcoming);
+  const [useCase, setUseCase] = useState<"ac" | "fridge">("ac");
   const [imgIdx, setImgIdx] = useState(0);
   const active = members[sel] || members[0];
+  const shown = members
+    .map((p, i) => ({ p, i }))
+    .filter(({ p }) => (!isAvr ? true : useCase === "fridge" ? isFridge(p) : !isFridge(p)));
   const toUrl = (s: string) => (s.startsWith("/") || s.startsWith("http") ? s : `/${s}`);
   const imgs = (active.images && active.images.length ? active.images : [active.image]).filter(Boolean);
   const safeIdx = Math.min(imgIdx, Math.max(0, imgs.length - 1));
@@ -80,12 +87,39 @@ export default function ProductConfigurator({
           <span className="sb-badge">{members.length} {t("cfg.models")}</span>
         </div>
         <h1>{lc(family.name)}</h1>
-        <p className="cfg-lede">{valueProp}</p>
+        {!isAvr && <p className="cfg-lede">{valueProp}</p>}
+
+        {isAvr && (
+          <div className="cfg-row">
+            <span className="cfg-label">Use for</span>
+            <div className="cfg-usecase" role="radiogroup" aria-label="Use for">
+              {([["ac", "❄️", "Air Conditioner"], ["fridge", "🧊", "Fridge / Freezer"]] as const).map(([k, ic, label]) => (
+                <button
+                  key={k}
+                  type="button"
+                  role="radio"
+                  aria-checked={useCase === k}
+                  className={`cfg-usecase-btn ${useCase === k ? "is-active" : ""}`}
+                  onClick={() => {
+                    setUseCase(k);
+                    const first = members.findIndex((p) => (k === "fridge" ? isFridge(p) : !isFridge(p)));
+                    if (first >= 0) {
+                      setSel(first);
+                      setImgIdx(0);
+                    }
+                  }}
+                >
+                  <span aria-hidden="true" style={{ fontSize: "1.2em" }}>{ic}</span> {label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="cfg-row">
-          <span className="cfg-label">{t("cfg.capacity")}</span>
+          <span className="cfg-label">{isAvr ? "Model" : t("cfg.capacity")}</span>
           <div className="cfg-chips">
-            {members.map((p, i) => (
+            {shown.map(({ p, i }) => (
               <button
                 key={p.id}
                 type="button"
