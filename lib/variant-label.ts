@@ -17,9 +17,11 @@ export function variantLabel(p: Product): string {
   // R-series AC-stabilizer variants (A-100 R2 / R3 / R4): chip by R-code + input range.
   const rcode = p.name.match(/\bR[2-9]\b/);
   if (rcode) {
+    const withModel = p.name.match(/\b(A-\d{2,3})\s+(R[2-9])\b/);
+    const label = withModel ? `${withModel[1]} ${withModel[2]}` : rcode[0];
     const input = (p.specs.find((s) => /input/i.test(s[0])) || [])[1] || "";
     const range = input.match(/(\d+)\s*V?\s*[–-]\s*(\d+)\s*V/);
-    return range ? `${rcode[0]} (${range[1]}–${range[2]}V)` : rcode[0];
+    return range ? `${label} (${range[1]}–${range[2]}V)` : label;
   }
   // Model-code lines (Voltec A-25 / A-120SP, Wirell T73 / T90) chip by their code.
   const model = p.name.match(/\b(A-\d{2,3}\w*|T\d{2,3})\b/i);
