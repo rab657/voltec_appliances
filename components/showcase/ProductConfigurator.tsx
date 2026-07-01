@@ -189,16 +189,18 @@ export default function ProductConfigurator({
           </div>
         )}
 
-        <div className="cfg-price">
-          {active.price ? (
-            <>
-              <span className="cfg-price-v">PKR {active.price.toLocaleString()}</span>
-              <span className="cfg-price-note">{t("cfg.perunit")}</span>
-            </>
-          ) : (
-            <span className="cfg-price-ask">{t("cfg.reqprice")}</span>
-          )}
-        </div>
+        {!isAvr && (
+          <div className="cfg-price">
+            {active.price ? (
+              <>
+                <span className="cfg-price-v">PKR {active.price.toLocaleString()}</span>
+                <span className="cfg-price-note">{t("cfg.perunit")}</span>
+              </>
+            ) : (
+              <span className="cfg-price-ask">{t("cfg.reqprice")}</span>
+            )}
+          </div>
+        )}
         <div className="cfg-status">
           {active.status === "upcoming" ? (
             <span className="cfg-soon">{t("cfg.preorder")}</span>
