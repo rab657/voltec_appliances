@@ -99,10 +99,15 @@ function CheckoutInner() {
               </div>
             </div>
             {err && <p style={{ color: "var(--warn)", fontWeight: 600, fontSize: 14 }}>{err}</p>}
+            <div style={{ display: "flex", gap: "6px 16px", flexWrap: "wrap", fontSize: 13, fontWeight: 600, color: "var(--ink-2)" }}>
+              <span>✓ 1-year warranty</span>
+              <span>✓ Trusted since 1995</span>
+              <span>✓ We confirm on WhatsApp before you pay</span>
+            </div>
             <button type="submit" disabled={busy} className="btn btn-primary" style={{ marginTop: 4, justifyContent: "center", fontSize: 17, padding: "15px 20px", opacity: busy ? 0.6 : 1 }}>
               {busy ? "Placing order…" : `Place order — ${fmtPKR(total)}`}
             </button>
-            <p style={{ fontSize: 12.5, color: "var(--ink-3)" }}>No online payment. You'll get our bank details on the next step and confirm via WhatsApp.</p>
+            <p style={{ fontSize: 12.5, color: "var(--ink-3)" }}>No online payment now — you'll get our bank details next and confirm on WhatsApp before transferring.</p>
           </form>
 
           {/* Summary */}
