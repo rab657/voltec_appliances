@@ -33,6 +33,9 @@ function AdminTopBar({
           <Link href="/admin/products" className="nav-link">
             Products
           </Link>
+          <Link href="/admin/orders" className="nav-link">
+            Orders
+          </Link>
           <Link href="/admin/analytics" className="nav-link">
             Analytics
           </Link>
