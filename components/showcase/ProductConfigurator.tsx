@@ -167,7 +167,7 @@ export default function ProductConfigurator({
               <span className="avr-b avr-b-warr">1-Year Warranty</span>
             </div>
             <div className="avr-glance-main">
-              <div className="avr-watts">{spec(active, /capacity/i)}</div>
+              <div className="avr-watts">{buyModel ? fmtPKR(acModel(buyModel)!.price) : spec(active, /capacity/i)}</div>
               <div className="avr-meta">
                 {(spec(active, /input/i) || spec(active, /works from/i)) && (
                   <div>
@@ -175,10 +175,10 @@ export default function ProductConfigurator({
                     <span className="avr-meta-v">{spec(active, /input/i) || spec(active, /works from/i)}</span>
                   </div>
                 )}
-                {spec(active, /output/i) && (
+                {buyModel && spec(active, /capacity/i) && (
                   <div>
-                    <span className="avr-meta-k">Output</span>
-                    <span className="avr-meta-v">{spec(active, /output/i)}</span>
+                    <span className="avr-meta-k">Capacity</span>
+                    <span className="avr-meta-v">{spec(active, /capacity/i)}</span>
                   </div>
                 )}
               </div>
@@ -192,12 +192,7 @@ export default function ProductConfigurator({
           </div>
         )}
 
-        {buyModel ? (
-          <div className="cfg-price">
-            <span className="cfg-price-v">{fmtPKR(acModel(buyModel)!.price)}</span>
-            <span className="cfg-price-note">{t("cfg.perunit")}</span>
-          </div>
-        ) : !isAvr ? (
+        {!isAvr && (
           <div className="cfg-price">
             {active.price ? (
               <>
@@ -208,7 +203,7 @@ export default function ProductConfigurator({
               <span className="cfg-price-ask">{t("cfg.reqprice")}</span>
             )}
           </div>
-        ) : null}
+        )}
         <div className="cfg-status">
           {active.status === "upcoming" ? (
             <span className="cfg-soon">{t("cfg.preorder")}</span>
