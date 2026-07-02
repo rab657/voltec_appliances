@@ -157,7 +157,7 @@ export default async function AcPage() {
                       Buy {m.code} now →
                     </Link>
                     <WhatsAppButton
-                      productName={`AC Stabilizer ${m.code} (works from ${m.fromV})`}
+                      productName={`Voltec A-100 ${m.code} AC Stabilizer (10,000W, works from ${m.fromV}) — ${fmtPKR(m.price)}`}
                       variant="light"
                       className="ac-card-cta"
                       lead
