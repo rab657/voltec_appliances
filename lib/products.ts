@@ -2,32 +2,15 @@ import type { Product, Category } from "./types";
 
 export const VOLTEC_WHATSAPP = "971525414894";
 
-// Pre-filled WhatsApp inquiry text. Structured so every incoming lead is
-// self-identifying — the exact model on its own line (never a vague "10kw
-// stabilizer": we sell SVC 10kVA, IGBT 10kVA, SCR 10kVA AND a 10,000W AC unit,
-// so a bare capacity is ambiguous) plus prompts for city + quantity so sales
-// doesn't have to chase basics. `ref` optionally carries the page/URL they came
-// from, so you can see exactly what they were looking at.
-export function whatsappLink(productName?: string, opts?: { ref?: string }): string {
-  const lines = productName
-    ? [
-        "Hi Voltec! I'd like to order this:",
-        "",
-        `▶ ${productName}`,
-        ...(opts?.ref ? [`(${opts.ref})`] : []),
-        "",
-        "Please share price, stock & delivery.",
-        "City: ",
-        "Quantity: ",
-      ]
-    : [
-        "Hi Voltec! I'd like to place an order.",
-        "",
-        "Which model: ",
-        "City: ",
-        "Quantity: ",
-      ];
-  return `https://wa.me/${VOLTEC_WHATSAPP}?text=${encodeURIComponent(lines.join("\n"))}`;
+// Pre-filled WhatsApp inquiry text — reads like a message the customer would
+// actually type. Keep it to one natural line; just carry the product name so
+// the lead is self-identifying (never a bare "10kw stabilizer" — we sell SVC,
+// IGBT and SCR 10kVA plus a 10,000W AC unit, so the model name matters).
+export function whatsappLink(productName?: string): string {
+  const text = productName
+    ? `Hi Voltec! I want to inquire about ${productName}.`
+    : "Hi Voltec! I want to inquire about your voltage stabilizers.";
+  return `https://wa.me/${VOLTEC_WHATSAPP}?text=${encodeURIComponent(text)}`;
 }
 
 // Voltec sells electrical PRODUCTS across Pakistan — voltage stabilizers (IGBT,

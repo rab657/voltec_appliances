@@ -224,7 +224,7 @@ export default function ProductConfigurator({
                 Buy now →
               </Link>
               <a
-                href={whatsappLink(active.name, { ref: `voltecappliances.com/showcase/${family.slug}` })}
+                href={whatsappLink(active.name)}
                 target="_blank"
                 rel="noopener"
                 className="btn btn-wa-light"
@@ -235,7 +235,7 @@ export default function ProductConfigurator({
             </>
           ) : (
             <a
-              href={whatsappLink(active.name, { ref: `voltecappliances.com/showcase/${family.slug}` })}
+              href={whatsappLink(active.name)}
               target="_blank"
               rel="noopener"
               className="btn btn-wa cfg-inquiry"
