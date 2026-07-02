@@ -66,7 +66,7 @@ function CheckoutInner() {
           Order now, pay by bank transfer, share your receipt on WhatsApp — we confirm and deliver.
         </p>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 32, alignItems: "start" }} className="checkout-grid">
+        <div className="checkout-grid">
           {/* Form */}
           <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
             <div>
@@ -84,7 +84,7 @@ function CheckoutInner() {
                 ))}
               </div>
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div className="checkout-two">
               <div><span style={label}>Full name</span><input style={input} required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your name" /></div>
               <div><span style={label}>Phone / WhatsApp</span><input style={input} required value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="03xx xxxxxxx" inputMode="tel" /></div>
             </div>
@@ -111,7 +111,7 @@ function CheckoutInner() {
           </form>
 
           {/* Summary */}
-          <aside style={{ border: "1px solid var(--rule-strong)", borderRadius: 16, padding: 22, background: "#fff", position: "sticky", top: 20 }}>
+          <aside className="checkout-aside">
             <div style={{ fontFamily: "var(--font-display)", fontSize: 24 }}>{m.name}</div>
             <div className="mono" style={{ fontSize: 12, color: "var(--accent-deep)", letterSpacing: "0.04em", marginTop: 4 }}>WORKS FROM {m.fromV} · {m.fits}</div>
             <ul style={{ listStyle: "none", padding: 0, margin: "16px 0", display: "flex", flexDirection: "column", gap: 7, fontSize: 14, color: "var(--ink-2)" }}>
