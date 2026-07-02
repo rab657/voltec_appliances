@@ -101,7 +101,7 @@ export default async function AcPage() {
                 steady 220V — so your AC runs cool all night, and the compressor stays safe.
               </p>
               <div className="med-cta">
-                <WhatsAppButton productName="AC Stabilizer — help me pick (1/1.5 ton)">
+                <WhatsAppButton productName="AC Stabilizer — help me pick (1/1.5 ton)" lead>
                   Get my AC stabilizer <span className="arrow" style={{ marginLeft: 4 }}>→</span>
                 </WhatsAppButton>
               </div>
@@ -160,6 +160,7 @@ export default async function AcPage() {
                       productName={`AC Stabilizer ${m.code} (works from ${m.fromV})`}
                       variant="light"
                       className="ac-card-cta"
+                      lead
                     >
                       Ya WhatsApp par poochein
                     </WhatsAppButton>
@@ -228,7 +229,7 @@ export default async function AcPage() {
                 the heat wave. Message us your quantity and city for a bulk quote.
               </p>
             </div>
-            <WhatsAppButton productName="WHOLESALE AC stabilizers — bulk quote (qty + city)" variant="light">
+            <WhatsAppButton productName="WHOLESALE AC stabilizers — bulk quote (qty + city)" variant="light" lead>
               Get a bulk quote
             </WhatsAppButton>
           </div>
@@ -324,7 +325,7 @@ export default async function AcPage() {
             Tell us your AC size and city on WhatsApp. We&apos;ll confirm the right model and full
             details — same day, with delivery.
           </p>
-          <WhatsAppButton productName="AC Stabilizer — help me pick (1/1.5 ton)" variant="light">
+          <WhatsAppButton productName="AC Stabilizer — help me pick (1/1.5 ton)" variant="light" lead>
             Get my AC stabilizer
           </WhatsAppButton>
         </div>

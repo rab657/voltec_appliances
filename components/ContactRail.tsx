@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { whatsappLink } from "@/lib/products";
 import { SITE } from "@/lib/site";
 import { WhatsAppIcon, PhoneIcon, PinIcon, MailIcon, QrIcon } from "./icons";
@@ -12,6 +13,16 @@ import { useI18n } from "./I18nProvider";
 export default function ContactRail() {
   const [qr, setQr] = useState(false);
   const { t } = useI18n();
+  const pathname = usePathname() || "";
+
+  // The ad landing pages (/solar, /ac) are lead-gen: a WhatsApp tap there IS a
+  // lead, so fire `lead` (Pixel Lead) — not `whatsapp_click` (Contact) — so Meta
+  // can optimize toward it and the ad report counts it. The rail is where nearly
+  // all landing-page contacts actually happen (people take the 1-tap rail over
+  // the in-page picker), so this is the fix that makes those leads measurable.
+  const isLanding = /^\/(solar|ac)(\/|$)/.test(pathname);
+  const waEvent = isLanding ? "lead" : "whatsapp_click";
+  const from = isLanding ? pathname.split("/")[1] : "";
 
   const tel = `tel:${SITE.phone.replace(/[^+\d]/g, "")}`;
   const wa = whatsappLink();
@@ -37,7 +48,7 @@ export default function ContactRail() {
       label: "WhatsApp",
       sub: "Chat with us now",
       subkey: "rail.wa.sub",
-      onClick: () => track("whatsapp_click", { product: "rail" }),
+      onClick: () => track(waEvent, { product: "rail", channel: "whatsapp", from }),
     },
     {
       key: "email",
@@ -133,7 +144,7 @@ export default function ContactRail() {
         target="_blank"
         rel="noopener"
         aria-label={t("rail.agent.t")}
-        onClick={() => track("whatsapp_click", { product: "rail-agent" })}
+        onClick={() => track(waEvent, { product: "rail-agent", channel: "whatsapp", from })}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/assets/engineer.jpg" alt={t("rail.agent.t")} />
