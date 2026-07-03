@@ -14,7 +14,7 @@ in Google, Maps and AI answer engines** — the on-site SEO/AEO is already done.
 
 ```
 Voltec Appliances
-[Shop/Plot #], Hall Road, Lahore, Punjab [postal code], Pakistan
+[Shop/Plot #], Abid Market, Lahore, Punjab [postal code], Pakistan
 Phone: +92 324 400 4778
 Email: voltecappliances@hotmail.com
 Web: https://voltecappliances.com
