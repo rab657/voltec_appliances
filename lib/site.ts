@@ -5,7 +5,7 @@ export const SITE = {
   shortName: "Voltec",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://voltecappliances.com",
   description:
-    "Maker of voltage stabilizers (IGBT, SVC, AVR), EVE lithium cells, industrial systems and electric parts. Established as Voltec in 1995, with roots in a 1980s Lahore workshop. Serving Pakistan, the UAE and China.",
+    "Direct importer of genuine EVE lithium cells and power electronics, and manufacturer of voltage stabilizers (IGBT, SVC, AVR) and industrial systems. Established as Voltec in 1995, with roots in a 1980s Lahore workshop. Serving Pakistan, the UAE and China.",
   locale: "en-PK",
   phone: "+92-342-636-8601",
   phoneDisplay: "+92 342 636 8601",

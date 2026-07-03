@@ -28,10 +28,11 @@ UAE contact (for UAE listings only): +971 52 541 4894
 **Business name:** Voltec Appliances
 
 **Primary category:** Electrical supply store
-**Additional categories:** Manufacturer · Battery store · Solar energy equipment supplier · Generator shop · Electronics repair shop
+**Additional categories:** Importer · Battery store · Solar energy equipment supplier · Manufacturer
+(Deliberately NO repair/appliance categories — we are importers & manufacturers, not a repair shop.)
 
 **Short description (for the listing headline / social bios — under 160 chars):**
-> Voltage stabilizers, EVE lithium cells & power electronics. Made in Lahore since 1995. Serving homes, factories & exporters across Pakistan, UAE & China.
+> Direct importers of EVE lithium cells & manufacturers of voltage stabilizers. Made in Lahore since 1995 — homes, solar & industry across Pakistan, UAE & China.
 
 **Full description (GBP "from the business", ~700 chars):**
 > Voltec Appliances has built reliable power equipment in Lahore since 1995. We make and supply voltage stabilizers for every need — AVR relay stabilizers for a single fridge or AC, servo (SVC) stabilizers for the whole home, inverter (IGBT) stabilizers for sensitive and precision equipment, and three-phase industrial systems built to order from 100 kVA to 500 kVA and beyond. We also supply genuine EVE Grade-A LFP lithium cells for solar and UPS storage, plus BMS, PCB relays and LED modules. Every product is backed by our own service network — the strongest in the market. Trusted by industry leaders including K&N's. WhatsApp us your appliance list or load and we'll size the right solution. We ship Pakistan-wide and export to the UAE and the region.
