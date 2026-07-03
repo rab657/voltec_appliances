@@ -4,7 +4,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { AC_MODELS as MODELS, fmtPKR } from "@/lib/ac-products";
 import { PROT_ICONS } from "@/components/showcase/primitives";
 import JsonLd from "@/components/JsonLd";
-import { absUrl } from "@/lib/site";
+import { absUrl, SITE } from "@/lib/site";
 import { getT } from "@/lib/i18n-server";
 
 // Solutions → AC stabilizers. Plain-language landing page for the 2026 heat wave:
@@ -26,7 +26,8 @@ const VALUE_PROPS: { title: string; desc: string }[] = [
   { title: "1 year warranty", desc: "Every unit is backed for a full year. We service what we sell." },
 ];
 
-const WHOLESALE_CITIES = ["Karachi", "Rawalpindi", "Peshawar"];
+// Walk-in-first (2026-07): we currently serve Lahore only — showroom visits
+// and Lahore delivery. No bulk / out-of-city sales for now.
 
 const FAQS: { q: string; a: string }[] = [
   {
@@ -46,8 +47,8 @@ const FAQS: { q: string; a: string }[] = [
     a: "It draws about 10% less current thanks to the pure-copper, energy-saver design. Over a hot summer of nightly AC use, that adds up on your bill.",
   },
   {
-    q: "Do you supply dealers / bulk orders?",
-    a: "Yes. We supply dealers and bulk buyers across Pakistan. Message us on WhatsApp with your quantity and city and we'll share a quote.",
+    q: "Where can I buy? Do you deliver?",
+    a: "Right now we serve Lahore — visit our showroom on Hall Road (10am–8pm) to see the stabilizers working, or order online for delivery within Lahore. Message us on WhatsApp and we'll help you pick the right model before you come.",
   },
 ];
 
@@ -170,7 +171,7 @@ export default async function AcPage() {
             ))}
           </div>
           <p className="med-scope" style={{ marginTop: 22 }}>
-            Pick by how low your voltage drops at night. Dealer &amp; bulk orders — see below.
+            Pick by how low your voltage drops at night. Or visit our Lahore showroom — details below.
           </p>
         </div>
       </section>
@@ -200,7 +201,7 @@ export default async function AcPage() {
         </div>
       </section>
 
-      {/* ===== Wholesale strip ===== */}
+      {/* ===== Lahore showroom strip ===== */}
       <section className="section hairline-top">
         <div className="container">
           <div
@@ -219,19 +220,29 @@ export default async function AcPage() {
           >
             <div style={{ maxWidth: "52ch" }}>
               <div className="mono" style={{ fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--steel-bright, oklch(70% 0.13 245))", marginBottom: 10 }}>
-                Dealers &amp; bulk buyers
+                Visit us in Lahore
               </div>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: "clamp(24px,3vw,34px)", lineHeight: 1.1, margin: "0 0 10px" }}>
-                Bulk &amp; wholesale supply in {WHOLESALE_CITIES.join(", ")}
+                See it working at our Hall Road showroom
               </h2>
               <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.6, color: "oklch(90% 0.02 250 / 0.85)" }}>
-                Stocking up for the season? We supply dealers and bulk buyers, with stock ready for
-                the heat wave. Message us your quantity and city for a bulk quote.
+                Open 10am–8pm. Watch the stabilizer hold 220V on a live low-voltage demo, get free
+                advice on the right model for your AC, and take yours home the same day.
               </p>
             </div>
-            <WhatsAppButton productName="WHOLESALE AC stabilizers — bulk quote (qty + city)" variant="light" lead>
-              Get a bulk quote
-            </WhatsAppButton>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "flex-start" }}>
+              <a
+                href={`https://maps.google.com/?q=${encodeURIComponent(SITE.mapsQuery)}`}
+                target="_blank"
+                rel="noopener"
+                className="btn btn-ghost-light"
+              >
+                Get directions →
+              </a>
+              <WhatsAppButton productName="AC Stabilizer — showroom visit (Lahore)" variant="light" lead>
+                WhatsApp before you come
+              </WhatsAppButton>
+            </div>
           </div>
         </div>
       </section>
@@ -322,8 +333,8 @@ export default async function AcPage() {
             Keep your AC running all night.
           </h2>
           <p style={{ maxWidth: "50ch", margin: "0 auto 26px", fontSize: 16, lineHeight: 1.6, color: "oklch(85% 0.02 250 / 0.9)" }}>
-            Tell us your AC size and city on WhatsApp. We&apos;ll confirm the right model and full
-            details — same day, with delivery.
+            Tell us your AC size on WhatsApp. We&apos;ll confirm the right model the same day —
+            then pick it up at our Lahore showroom, or get it delivered within Lahore.
           </p>
           <WhatsAppButton productName="AC Stabilizer — help me pick (1/1.5 ton)" variant="light" lead>
             Get my AC stabilizer

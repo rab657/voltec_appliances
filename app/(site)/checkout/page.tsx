@@ -12,7 +12,9 @@ function CheckoutInner() {
   const initial = acModel(sp.get("model") || "") ? (sp.get("model") as string) : "R3";
   const [code, setCode] = useState(initial);
   const [qty, setQty] = useState(1);
-  const [form, setForm] = useState({ name: "", phone: "", address: "", city: "" });
+  // Lahore-only for now (walk-in pivot 2026-07): city is fixed, delivery within
+  // Lahore or pickup at the Hall Road showroom.
+  const [form, setForm] = useState({ name: "", phone: "", address: "", city: "Lahore" });
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
 
@@ -63,7 +65,7 @@ function CheckoutInner() {
         </div>
         <h1 style={{ marginBottom: 6 }}>Checkout</h1>
         <p className="page-lede" style={{ maxWidth: "52ch", marginBottom: 28 }}>
-          Order now, pay by bank transfer, share your receipt on WhatsApp — we confirm and deliver.
+          Order now, pay by bank transfer, share your receipt on WhatsApp — we confirm and deliver in Lahore.
         </p>
 
         <div className="checkout-grid">
@@ -88,8 +90,14 @@ function CheckoutInner() {
               <div><span style={label}>Full name</span><input style={input} required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Your name" /></div>
               <div><span style={label}>Phone / WhatsApp</span><input style={input} required value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="03xx xxxxxxx" inputMode="tel" /></div>
             </div>
-            <div><span style={label}>Delivery address</span><textarea style={{ ...input, minHeight: 74, resize: "vertical" }} required value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} placeholder="House, street, area" /></div>
-            <div><span style={label}>City</span><input style={input} required value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} placeholder="e.g. Multan" /></div>
+            <div><span style={label}>Delivery address (Lahore)</span><textarea style={{ ...input, minHeight: 74, resize: "vertical" }} required value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} placeholder="House, street, area — Lahore" /></div>
+            <div>
+              <span style={label}>City</span>
+              <input style={{ ...input, background: "var(--paper-2)", color: "var(--ink-2)" }} value="Lahore" readOnly aria-readonly="true" />
+              <p style={{ fontSize: 12.5, color: "var(--ink-3)", margin: "6px 0 0" }}>
+                We currently deliver within Lahore only — or pick up at our Hall Road showroom (10am–8pm).
+              </p>
+            </div>
             <div>
               <span style={label}>Quantity</span>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -117,7 +125,7 @@ function CheckoutInner() {
             <ul style={{ listStyle: "none", padding: 0, margin: "16px 0", display: "flex", flexDirection: "column", gap: 7, fontSize: 14, color: "var(--ink-2)" }}>
               <li>✓ 10,000W · 99% pure copper</li>
               <li>✓ Energy saver · 1-year warranty</li>
-              <li>✓ Ships Pakistan-wide</li>
+              <li>✓ Lahore delivery · or showroom pickup</li>
             </ul>
             <div style={{ borderTop: "1px solid var(--rule)", paddingTop: 14, display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
               <span style={{ color: "var(--ink-2)" }}>{qty} × {fmtPKR(m.price)}</span>
