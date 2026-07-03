@@ -13,7 +13,7 @@ function CheckoutInner() {
   const [code, setCode] = useState(initial);
   const [qty, setQty] = useState(1);
   // Lahore-only for now (walk-in pivot 2026-07): city is fixed, delivery within
-  // Lahore or pickup at the Hall Road showroom.
+  // Lahore or pickup at the Abid Market showroom.
   const [form, setForm] = useState({ name: "", phone: "", address: "", city: "Lahore" });
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState("");
@@ -95,7 +95,7 @@ function CheckoutInner() {
               <span style={label}>City</span>
               <input style={{ ...input, background: "var(--paper-2)", color: "var(--ink-2)" }} value="Lahore" readOnly aria-readonly="true" />
               <p style={{ fontSize: 12.5, color: "var(--ink-3)", margin: "6px 0 0" }}>
-                We currently deliver within Lahore only — or pick up at our Hall Road showroom (10am–8pm).
+                We currently deliver within Lahore only — or pick up at our Abid Market showroom (10am–8pm).
               </p>
             </div>
             <div>

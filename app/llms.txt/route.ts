@@ -20,7 +20,7 @@ export async function GET() {
   );
   lines.push("");
   lines.push("## Key facts");
-  lines.push(`- Location: Hall Road, Lahore, Pakistan`);
+  lines.push(`- Location: Abid Market, Lahore, Pakistan`);
   lines.push(`- WhatsApp: ${SITE.phoneDisplay} · Phone: ${SITE.phoneDisplay} · UAE: ${SITE.phoneUae}`);
   lines.push(`- Email: ${SITE.email}`);
   lines.push(

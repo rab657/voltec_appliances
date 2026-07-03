@@ -48,7 +48,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Where can I buy? Do you deliver?",
-    a: "Right now we serve Lahore — visit our showroom on Hall Road (10am–8pm) to see the stabilizers working, or order online for delivery within Lahore. Message us on WhatsApp and we'll help you pick the right model before you come.",
+    a: "Right now we serve Lahore — visit our showroom on Abid Market (10am–8pm) to see the stabilizers working, or order online for delivery within Lahore. Message us on WhatsApp and we'll help you pick the right model before you come.",
   },
 ];
 
@@ -223,7 +223,7 @@ export default async function AcPage() {
                 Visit us in Lahore
               </div>
               <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: "clamp(24px,3vw,34px)", lineHeight: 1.1, margin: "0 0 10px" }}>
-                See it working at our Hall Road showroom
+                See it working at our Abid Market showroom
               </h2>
               <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.6, color: "oklch(90% 0.02 250 / 0.85)" }}>
                 Open 10am–8pm. Watch the stabilizer hold 220V on a live low-voltage demo, get free
