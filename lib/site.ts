@@ -43,7 +43,7 @@ export const VOLTEC_ORG = {
   slogan: "Power you can rely on. Power that never quits.",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Abid Market",
+    streetAddress: "Abid Market, 26/8 Temple Rd, Mozang Chungi",
     addressLocality: "Lahore",
     addressRegion: "Punjab",
     addressCountry: "PK",

@@ -76,6 +76,25 @@ export default async function OrderPage({ params }: { params: Promise<{ ref: str
           Order <strong>{order.order_ref}</strong> is already filled in — just attach your transfer screenshot. We verify and ship. 📦
         </p>
       </div>
+
+      {/* Showroom pickup — Lahore walk-in option */}
+      <div style={{ border: "1px solid var(--rule-strong)", borderRadius: 14, padding: "16px 20px", background: "#fff", marginTop: 20, display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "space-between" }}>
+        <div>
+          <div style={{ fontWeight: 800 }}>Prefer to pick it up?</div>
+          <p style={{ fontSize: 14, color: "var(--ink-2)", margin: "4px 0 0" }}>
+            Visit our showroom — 8-C Abid Market, Temple Road, Lahore · Mon–Sat 10am–8pm.
+            See it working before you take it home.
+          </p>
+        </div>
+        <a
+          href="https://maps.google.com/?q=Voltec%20Appliances%20Lahore"
+          target="_blank"
+          rel="noopener"
+          className="btn btn-ghost"
+        >
+          Get directions →
+        </a>
+      </div>
     </div></section>
   );
 }
