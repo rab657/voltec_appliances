@@ -13,6 +13,7 @@ import CellsHub from "@/components/showcase/CellsHub";
 import JsonLd from "@/components/JsonLd";
 import ViewItemTracker from "@/components/ViewItemTracker";
 import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
+import { productOffer } from "@/lib/product-offer";
 import { getMediaMap, resolveProducts } from "@/lib/product-media";
 
 export function generateStaticParams() {
@@ -89,16 +90,9 @@ export default async function ShowcasePage({
                   name: k,
                   value: v,
                 })),
-                offers: {
-                  "@type": "Offer",
-                  availability:
-                    p.status === "upcoming"
-                      ? "https://schema.org/PreOrder"
-                      : "https://schema.org/InStock",
-                  priceCurrency: "PKR",
-                  url: absUrl(`/products/${p.id}`),
-                  seller: VOLTEC_ORG,
-                },
+                // Offer only when a real price exists — a price-less Offer is a
+                // Search Console structured-data ERROR (Merchant listings report).
+                offers: productOffer(p),
               },
             })),
           },

@@ -11,6 +11,7 @@ import ViewItemTracker from "@/components/ViewItemTracker";
 import CellDetail from "@/components/CellDetail";
 import "@/styles/stabilizer.css";
 import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
+import { productOffer } from "@/lib/product-offer";
 import { getT, getContent } from "@/lib/i18n-server";
 import { getMediaMap, resolveProducts } from "@/lib/product-media";
 
@@ -85,16 +86,9 @@ export default async function ProductDetailPage({
             name: k,
             value: v,
           })),
-          offers: {
-            "@type": "Offer",
-            availability:
-              product.status === "upcoming"
-                ? "https://schema.org/PreOrder"
-                : "https://schema.org/InStock",
-            priceCurrency: "PKR",
-            url: absUrl(`/products/${product.id}`),
-            seller: VOLTEC_ORG,
-          },
+          // Offer only when a real price exists — a price-less Offer is a
+          // Search Console structured-data ERROR (Merchant listings report).
+          offers: productOffer(product),
         }}
       />
       <JsonLd
