@@ -19,7 +19,7 @@ const PILLARS: { id: string; title: string; body: string; points: string[] }[] =
     id: "stabilizers",
     title: "Voltage stabilizers — every technology",
     body: "We manufacture the full range in Lahore: servo (SVC) for whole buildings, IGBT/static for sensitive and precision loads, AVR relay for single machines, and heavy 3-phase for plants.",
-    points: ["Servo (SVC) — homes, shops, buildings", "IGBT / static — precision & medical loads", "AVR relay — single appliances & machines", "100% pure copper, 1-year warranty"],
+    points: ["Servo (SVC) — 10–500 kVA, built to order", "IGBT / static — precision & medical loads", "AVR relay — single appliances & machines", "100% pure copper, 1-year warranty"],
   },
   {
     id: "energy-storage",
