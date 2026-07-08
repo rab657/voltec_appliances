@@ -20,7 +20,7 @@ const VP: { title: string; desc: string; img: string }[] = [
 const FAQS: { q: string; a: string }[] = [
   {
     q: "What is the minimum order, and what is the price?",
-    a: "EVE LF100LA Grade-A cells are Rs 11,500 per cell, with a minimum order of 8 cells (one 24V set). 16 cells make a 48V set. Larger and dealer quantities get bulk pricing — message us with your requirement.",
+    a: "EVE LF100LA Grade-A cells are Rs 11,500 per cell. They ship in cartons of 8, so we sell by the carton — the minimum order is 1 carton (8 cells, a 24V set), and quantities go up in whole cartons: 2 cartons (16 cells) make a 48V set, and so on. Larger and dealer quantities get bulk pricing — message us with your requirement.",
   },
   {
     q: "Are these genuine Grade-A EVE cells?",
@@ -39,7 +39,7 @@ const FAQS: { q: string; a: string }[] = [
 export const metadata: Metadata = {
   title: "EVE LF100LA Grade-A Lithium Cells (3.2V 100Ah) — Price in Pakistan | Voltec",
   description:
-    "Genuine Grade-A EVE LF100LA lithium iron phosphate (LiFePO4) cells — 3.2V, 100Ah, 5000+ cycles, QR-traceable, full test report, direct from EVE Energy. Rs 11,500 per cell (minimum 8). Build lithium batteries for solar & UPS — 8 cells = 24V, 16 = 48V. Delivery across Pakistan. Order on WhatsApp.",
+    "Genuine Grade-A EVE LF100LA lithium iron phosphate (LiFePO4) cells — 3.2V, 100Ah, 5000+ cycles, QR-traceable, full test report, direct from EVE Energy. Rs 11,500 per cell, sold by the carton of 8 (minimum 1 carton). Build lithium batteries for solar & UPS — 8 cells = 24V, 16 = 48V. Delivery across Pakistan. Order on WhatsApp.",
   alternates: { canonical: "/cells" },
   openGraph: {
     type: "website",

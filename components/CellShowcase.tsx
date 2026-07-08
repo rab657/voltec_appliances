@@ -4,12 +4,12 @@ import { VOLTEC_WHATSAPP } from "@/lib/products";
 import { WhatsAppIcon } from "@/components/icons";
 import { track } from "@/lib/analytics";
 
-// EVE LF100LA lithium-cell buy panel + media gallery. Cells sell by quantity
-// (Rs 11,500 each, minimum 8 = one 24V set), so ordering is a qty picker with a
-// live total that opens a pre-filled WhatsApp order (fires `lead`). Bulk cells
-// need freight/packing confirmed, so the close happens on WhatsApp, not a card.
+// EVE LF100LA lithium-cell buy panel + media gallery. Cells ship in cartons of
+// 8, so we sell ONLY in whole cartons — quantity is locked to multiples of 8
+// (min 1 carton). Rs 11,500/cell. Qty picker → pre-filled WhatsApp order (fires
+// `lead`). Bulk cells need freight/packing confirmed, so the close is on WhatsApp.
 const PRICE = 11500;
-const MIN = 8;
+const CARTON = 8; // cells per carton — never sold loose / below one carton
 
 type Media = { type: "img" | "video"; src: string; poster?: string; alt: string };
 const MEDIA: Media[] = [
@@ -28,17 +28,18 @@ function fmt(n: number) {
 
 export default function CellShowcase() {
   const [active, setActive] = useState(0);
-  const [qty, setQty] = useState(MIN);
+  const [qty, setQty] = useState(CARTON);
   const total = qty * PRICE;
+  const cartons = qty / CARTON;
   const m = MEDIA[active];
 
   const order = () => {
-    const volts = qty % 16 === 0 ? ` (${qty / 16}× 48V set)` : qty % 8 === 0 ? ` (${qty / 8}× 24V set)` : "";
+    const cartonTxt = `${cartons} carton${cartons > 1 ? "s" : ""} of ${CARTON}`;
     const msg =
       `Hi Voltec! I'd like to order EVE LF100LA Grade-A lithium cells (3.2V 100Ah).\n\n` +
-      `Quantity: ${qty} cells${volts}\nAt ${fmt(PRICE)}/cell = ${fmt(total)} (before delivery).\n\n` +
+      `Quantity: ${qty} cells (${cartonTxt})\nAt ${fmt(PRICE)}/cell = ${fmt(total)} (before delivery).\n\n` +
       `Please confirm stock, packing and delivery to my city.`;
-    track("lead", { product: "EVE LF100LA lithium cell", channel: "whatsapp", qty, value: total, from: "cells" });
+    track("lead", { product: "EVE LF100LA lithium cell", channel: "whatsapp", qty, cartons, value: total, from: "cells" });
     window.open(`https://wa.me/${VOLTEC_WHATSAPP}?text=${encodeURIComponent(msg)}`, "_blank", "noopener");
   };
 
@@ -90,33 +91,33 @@ export default function CellShowcase() {
 
         <div className="cell-price">
           <span className="cell-price-v">{fmt(PRICE)}</span>
-          <span className="cell-price-u">per cell · minimum {MIN} cells</span>
+          <span className="cell-price-u">per cell · sold by the carton ({CARTON} cells) · min 1 carton</span>
         </div>
 
         <div className="cell-qtyrow">
-          <span className="cell-qty-label">Quantity</span>
+          <span className="cell-qty-label">Cartons</span>
           <div className="cell-chips">
-            {[8, 16, 32].map((q) => (
-              <button key={q} type="button" className={`cell-chip ${qty === q ? "is-active" : ""}`} onClick={() => setQty(q)}>
-                {q}
+            {[1, 2, 4].map((c) => (
+              <button key={c} type="button" className={`cell-chip ${cartons === c ? "is-active" : ""}`} onClick={() => setQty(c * CARTON)}>
+                {c}
               </button>
             ))}
           </div>
           <div className="cell-stepper">
-            <button type="button" onClick={() => setQty((q) => Math.max(MIN, q - 1))} aria-label="Fewer">−</button>
-            <span>{qty}</span>
-            <button type="button" onClick={() => setQty((q) => Math.min(200, q + 1))} aria-label="More">+</button>
+            <button type="button" onClick={() => setQty((q) => Math.max(CARTON, q - CARTON))} aria-label="Fewer cartons">−</button>
+            <span>{cartons}</span>
+            <button type="button" onClick={() => setQty((q) => Math.min(CARTON * 30, q + CARTON))} aria-label="More cartons">+</button>
           </div>
         </div>
 
         <div className="cell-total">
-          <span>{qty} cells</span>
+          <span>{cartons} carton{cartons > 1 ? "s" : ""} · {qty} cells</span>
           <strong>{fmt(total)}</strong>
         </div>
         <p className="cell-note">+ delivery — confirmed on WhatsApp. Bulk pricing on larger orders.</p>
 
         <button type="button" className="btn btn-wa cell-order" onClick={order}>
-          <WhatsAppIcon /> <span>Order {qty} cells on WhatsApp</span>
+          <WhatsAppIcon /> <span>Order {cartons} carton{cartons > 1 ? "s" : ""} on WhatsApp</span>
         </button>
       </div>
     </div>
