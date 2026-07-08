@@ -454,7 +454,21 @@ input, textarea, select { font: inherit; color: inherit; }
 .cell-total strong { font-family: var(--font-display); font-size: 28px; }
 .cell-note { font-size: 12.5px; color: var(--ink-3); margin: 0 0 16px; }
 .cell-order { justify-content: center; font-size: 17px; padding: 15px 20px; }
-.cellpg-buy { margin-top: 16px; }
+/* Compact order card on the cell page — tight rows, total always visible. */
+.cellpg-buy { margin-top: 16px; max-width: 520px; border: 1px solid var(--rule-strong); border-radius: 14px; padding: 16px 18px; background: #fff; }
+.cellpg-buy .cell-price { border-top: none; padding-top: 0; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.cellpg-buy .cell-price-v { font-size: 28px; }
+.cellpg-buy .cell-price-u { font-size: 12px; }
+.cellpg-buy .cell-qtyrow { margin: 12px 0; gap: 10px; }
+.cellpg-buy .cell-chip { min-width: 40px; padding: 7px 10px; border-radius: 9px; }
+.cellpg-buy .cell-stepper { gap: 8px; }
+.cellpg-buy .cell-stepper button { width: 34px; height: 34px; border-radius: 9px; font-size: 17px; }
+.cellpg-buy .cell-stepper span { font-size: 16px; min-width: 24px; }
+.cellpg-buy .cell-total { border-top: none; background: var(--paper-2); border-radius: 10px; padding: 10px 14px; margin-bottom: 12px; }
+.cellpg-buy .cell-total span { font-size: 13.5px; color: var(--ink-2); }
+.cellpg-buy .cell-total strong { font-size: 24px; }
+.cellpg-buy .cell-order { width: 100%; font-size: 16px; padding: 13px 18px; }
+.cellpg-buy .cell-note { margin: 8px 0 0; font-size: 12px; }
 .cell-vp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
 .cell-vp { border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; background: #fff; }
 .cell-vp img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
