@@ -469,6 +469,8 @@ input, textarea, select { font: inherit; color: inherit; }
 .cellpg-buy .cell-total strong { font-size: 24px; }
 .cellpg-buy .cell-order { width: 100%; font-size: 16px; padding: 13px 18px; }
 .cellpg-buy .cell-note { margin: 8px 0 0; font-size: 12px; }
+/* Spec tiles under the order card match its width for one clean column. */
+.cellpg-grid .cellpg-tiles { max-width: 520px; }
 .cell-vp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
 .cell-vp { border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; background: #fff; }
 .cell-vp img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
