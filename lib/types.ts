@@ -55,6 +55,12 @@ export interface Product {
     applications: string[];
     features: string[];
     certifications: string[];
+    /** Extra gallery images (beyond product.image) for the cell masthead. */
+    gallery?: string[];
+    /** Product videos {src, poster} shown in the gallery. */
+    videos?: { src: string; poster: string }[];
+    /** Cells ship in cartons of this size; sold only in whole cartons. */
+    cartonSize?: number;
   };
 }
 

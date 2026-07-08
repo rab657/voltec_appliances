@@ -3,6 +3,8 @@ import type { Product } from "@/lib/types";
 import { PRODUCTS, whatsappLink } from "@/lib/products";
 import { getT, getContent } from "@/lib/i18n-server";
 import { WhatsAppIcon } from "@/components/icons";
+import CellMedia, { type CellMediaItem } from "@/components/CellMedia";
+import CellBuy from "@/components/CellBuy";
 
 // EVE-style detail page for a single lithium cell — built on the same design
 // system (sb-section / sb-head / sb-spec) as the stabilizer showcase pages so
@@ -25,6 +27,15 @@ export default async function CellDetail({ product }: { product: Product }) {
   ];
   const others = PRODUCTS.filter((p) => p.categoryId === "cells" && p.id !== product.id).slice(0, 4);
 
+  // Masthead media: product.image first, then any extra gallery photos + videos.
+  const heroSrc = product.image.startsWith("/") || product.image.startsWith("http") ? product.image : `/${product.image}`;
+  const media: CellMediaItem[] = [
+    { type: "img", src: heroSrc, alt: product.name },
+    ...(c.gallery || []).map((src) => ({ type: "img" as const, src, alt: product.name })),
+    ...(c.videos || []).map((v) => ({ type: "video" as const, src: v.src, poster: v.poster, alt: `${product.name} — video` })),
+  ];
+  const buyable = Boolean(product.price && c.cartonSize);
+
   return (
     <main>
       {/* ===== Masthead ===== */}
@@ -39,9 +50,7 @@ export default async function CellDetail({ product }: { product: Product }) {
 
           <div className="cellpg-grid">
             <div className="cellpg-media">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={product.image.startsWith("/") || product.image.startsWith("http") ? product.image : `/${product.image}`} alt={product.name} />
-              <span className="cellpg-format">{lc(c.format)}</span>
+              <CellMedia media={media} format={lc(c.format)} />
             </div>
 
             <div>
@@ -63,25 +72,23 @@ export default async function CellDetail({ product }: { product: Product }) {
 
               <div className="cellpg-origin">{t("cell.origin")}</div>
 
-              {product.price ? (
-                <div style={{ fontFamily: "var(--font-display)", fontSize: 28, letterSpacing: "-0.01em", margin: "14px 0 0" }}>
-                  PKR {product.price.toLocaleString()}
+              {buyable ? (
+                <CellBuy price={product.price!} cartonSize={c.cartonSize!} name={product.name} />
+              ) : (
+                <div className="sb-mast-cta">
+                  <a
+                    href={whatsappLink(product.name)}
+                    target="_blank"
+                    rel="noopener"
+                    className="btn btn-wa cellpg-inquiry"
+                  >
+                    <WhatsAppIcon /> <span>{upcoming ? t("cell.preorder") : `${t("cell.inquiry")} — ${c.capacityAh}Ah`}</span>
+                  </a>
+                  <Link href="/contact" className="btn btn-ghost">
+                    {t("cell.contact")}
+                  </Link>
                 </div>
-              ) : null}
-
-              <div className="sb-mast-cta">
-                <a
-                  href={whatsappLink(product.name)}
-                  target="_blank"
-                  rel="noopener"
-                  className="btn btn-wa cellpg-inquiry"
-                >
-                  <WhatsAppIcon /> <span>{upcoming ? t("cell.preorder") : `${t("cell.inquiry")} — ${c.capacityAh}Ah`}</span>
-                </a>
-                <Link href="/contact" className="btn btn-ghost">
-                  {t("cell.contact")}
-                </Link>
-              </div>
+              )}
             </div>
           </div>
         </div>
