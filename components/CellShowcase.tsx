@@ -13,6 +13,7 @@ const MIN = 8;
 
 type Media = { type: "img" | "video"; src: string; poster?: string; alt: string };
 const MEDIA: Media[] = [
+  { type: "img", src: "/assets/cells/cell-hero.webp", alt: "EVE LF100LA Grade-A 3.2V 100Ah lithium cell — back in stock at Voltec" },
   { type: "img", src: "/assets/cells/cell-1.webp", alt: "EVE LF100LA Grade-A LiFePO4 prismatic cell" },
   { type: "img", src: "/assets/cells/cell-2.webp", alt: "EVE LF100LA 3.2V 100Ah lithium cell pair" },
   { type: "video", src: "/assets/cells/cell-video-1.mp4", poster: "/assets/cells/cell-video-1-poster.webp", alt: "EVE lithium cells — close look" },

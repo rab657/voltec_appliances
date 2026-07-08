@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     description:
       "Genuine Grade-A EVE LiFePO4 cells, QR-traceable with full test report. Rs 11,500/cell (min 8). Solar & UPS energy storage. Delivery Pakistan-wide.",
     url: absUrl("/cells"),
-    images: [{ url: absUrl("/assets/cells/cell-1.webp"), width: 799, height: 799, alt: "EVE LF100LA Grade-A lithium cell" }],
+    images: [{ url: absUrl("/assets/cells/cell-hero.webp"), width: 1080, height: 1080, alt: "EVE LF100LA Grade-A lithium cell — back in stock at Voltec" }],
   },
 };
 
@@ -62,7 +62,7 @@ export default async function CellsPage() {
           "@context": "https://schema.org",
           "@type": "Product",
           name: "EVE LF100LA Grade-A LiFePO4 Lithium Cell (3.2V 100Ah)",
-          image: [absUrl("/assets/cells/cell-1.webp"), absUrl("/assets/cells/cell-3.webp")],
+          image: [absUrl("/assets/cells/cell-hero.webp"), absUrl("/assets/cells/cell-1.webp"), absUrl("/assets/cells/cell-3.webp")],
           description:
             "Genuine Grade-A EVE LF100LA LiFePO4 prismatic cell, 3.2V 100Ah (320Wh), 5000+ cycles, QR-traceable with full capacity test report. For solar and UPS energy storage.",
           brand: { "@type": "Brand", name: "EVE" },
