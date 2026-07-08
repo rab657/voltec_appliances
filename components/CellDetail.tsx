@@ -73,17 +73,7 @@ export default async function CellDetail({ product }: { product: Product }) {
               <h1>{lc(product.name)}</h1>
               <p className="sb-mast-lede">{lc(product.description)}</p>
 
-              <div className="sb-mast-stats cellpg-tiles">
-                {tiles.map(([k, v]) => (
-                  <div className="sb-stat" key={k}>
-                    <div className="v">{v}</div>
-                    <div className="k">{k}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="cellpg-origin">{t("cell.origin")}</div>
-
+              {/* Order first — price + carton picker above the spec tiles. */}
               {buyable ? (
                 <CellBuy price={product.price!} cartonSize={c.cartonSize!} name={product.name} />
               ) : (
@@ -101,6 +91,17 @@ export default async function CellDetail({ product }: { product: Product }) {
                   </Link>
                 </div>
               )}
+
+              <div className="sb-mast-stats cellpg-tiles" style={{ marginTop: 24 }}>
+                {tiles.map(([k, v]) => (
+                  <div className="sb-stat" key={k}>
+                    <div className="v">{v}</div>
+                    <div className="k">{k}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="cellpg-origin">{t("cell.origin")}</div>
             </div>
           </div>
         </div>
