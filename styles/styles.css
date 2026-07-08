@@ -454,7 +454,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .cell-total strong { font-family: var(--font-display); font-size: 28px; }
 .cell-note { font-size: 12.5px; color: var(--ink-3); margin: 0 0 16px; }
 .cell-order { justify-content: center; font-size: 17px; padding: 15px 20px; }
-.cellpg-buy { margin-top: 18px; border-top: 1px solid var(--rule); padding-top: 4px; }
+.cellpg-buy { margin-top: 16px; }
 .cell-vp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
 .cell-vp { border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; background: #fff; }
 .cell-vp img { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }

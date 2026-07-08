@@ -448,17 +448,8 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
         { icon: "pulse", title: "Commercial ESS", desc: "Large banks for shops, offices and industrial backup." },
       ],
     },
-    benefits: {
-      eyebrow: "Key advantages", title: "Built to last <em>15 years</em>.",
-      items: [
-        { n: "01", title: "6,000+ cycles", desc: "About 15 years of daily use at 80% depth of discharge.", img: "assets/cells/vp-cycles.jpg" },
-        { n: "02", title: "Thermal stability", desc: "LFP stays safe in Pakistan's hot rooms with no AC.", img: "assets/cells/vp-thermal.jpg" },
-        { n: "03", title: "Genuine & traceable", desc: "A scannable QR code checks every Grade-A cell.", img: "assets/cells/vp-traceable.jpg" },
-        { n: "04", title: "Factory matched", desc: "Capacity and voltage matched so your pack balances evenly.", img: "assets/cells/vp-matched.jpg" },
-        { n: "05", title: "Wide temperature", desc: "Works from -20 °C to +55 °C.", img: "assets/cells/vp-temperature.jpg" },
-        { n: "06", title: "5-year warranty", desc: "Prorated cover, backed from Lahore.", img: "assets/cells/vp-warranty.jpg" },
-      ],
-    },
+    // "Built to last" advantages now live on the LF100LA product page (CellDetail),
+    // not the cells hub — see components/CellDetail.tsx BENEFITS.
     faqs: [
       { q: "How many lithium cells do I need for a 48 V solar battery?", a: "Sixteen. A 48 V LFP battery is built from 16 cells in series (16S), each 3.2 V nominal. For 24 V use 8 cells, and for 12 V use 4 cells. Tell us your inverter voltage and backup hours and we will work out the cell count and capacity." },
       { q: "What cell size (Ah) should I choose?", a: "Match it to the energy you need. A common home bank uses 16× 280 Ah cells for about 14 kWh at 48 V — enough to run a home through an evening of load-shedding. For smaller backup, 100–150 Ah cells work; for bigger storage, use 304 Ah. Share your load in kW and the hours you need and we will size it." },

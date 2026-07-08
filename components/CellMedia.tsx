@@ -16,7 +16,7 @@ export default function CellMedia({ media, format }: { media: CellMediaItem[]; f
           // eslint-disable-next-line @next/next/no-img-element
           <img src={m.src} alt={m.alt} />
         ) : (
-          <video src={m.src} poster={m.poster} controls playsInline preload="none" />
+          <video src={m.src} poster={m.poster} controls muted playsInline preload="none" />
         )}
       </div>
       {media.length > 1 && (
