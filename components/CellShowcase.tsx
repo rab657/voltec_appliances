@@ -79,13 +79,13 @@ export default function CellShowcase() {
           <span className="cell-grade">Grade&nbsp;A</span>
         </div>
         <h1 className="cell-title">LF100LA Lithium Cell</h1>
-        <p className="cell-sub">Genuine EVE LiFePO4 · 3.2V · 100Ah (320Wh) · 5000+ cycles</p>
+        <p className="cell-sub">Lithium iron phosphate (LiFePO4) · 3.2V · 100Ah (320Wh) · 5000+ cycles</p>
 
         <ul className="cell-feats">
-          <li>✓ Brand new, Grade-A — direct from EVE factory</li>
-          <li>✓ Full capacity test report with every batch</li>
-          <li>✓ QR-traceable — genuine, verifiable cells</li>
-          <li>✓ For solar &amp; UPS banks — 8 cells = 24V, 16 = 48V</li>
+          <li>✓ Brand new, Grade-A — direct from EVE Energy</li>
+          <li>✓ Lithium iron phosphate (LiFePO4) — safe, long-life chemistry</li>
+          <li>✓ Build lithium batteries for solar &amp; UPS — 8 cells = 24V, 16 = 48V</li>
+          <li>✓ QR-traceable, full test report — genuine &amp; verifiable</li>
         </ul>
 
         <div className="cell-price">

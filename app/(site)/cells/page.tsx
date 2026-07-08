@@ -39,7 +39,7 @@ const FAQS: { q: string; a: string }[] = [
 export const metadata: Metadata = {
   title: "EVE LF100LA Grade-A Lithium Cells (3.2V 100Ah) — Price in Pakistan | Voltec",
   description:
-    "Genuine Grade-A EVE LF100LA LiFePO4 cells — 3.2V, 100Ah, 5000+ cycles, QR-traceable, full test report. Rs 11,500 per cell (minimum 8). For solar & UPS banks — 8 cells = 24V, 16 = 48V. Delivery across Pakistan. Order on WhatsApp.",
+    "Genuine Grade-A EVE LF100LA lithium iron phosphate (LiFePO4) cells — 3.2V, 100Ah, 5000+ cycles, QR-traceable, full test report, direct from EVE Energy. Rs 11,500 per cell (minimum 8). Build lithium batteries for solar & UPS — 8 cells = 24V, 16 = 48V. Delivery across Pakistan. Order on WhatsApp.",
   alternates: { canonical: "/cells" },
   openGraph: {
     type: "website",
@@ -64,7 +64,7 @@ export default async function CellsPage() {
           name: "EVE LF100LA Grade-A LiFePO4 Lithium Cell (3.2V 100Ah)",
           image: [absUrl("/assets/cells/cell-hero.webp"), absUrl("/assets/cells/cell-1.webp"), absUrl("/assets/cells/cell-3.webp")],
           description:
-            "Genuine Grade-A EVE LF100LA LiFePO4 prismatic cell, 3.2V 100Ah (320Wh), 5000+ cycles, QR-traceable with full capacity test report. For solar and UPS energy storage.",
+            "Genuine Grade-A EVE LF100LA lithium iron phosphate (LiFePO4) prismatic cell, 3.2V 100Ah (320Wh), 5000+ cycles, QR-traceable with full capacity test report, direct from EVE Energy. Used to build lithium batteries for solar and UPS energy storage.",
           brand: { "@type": "Brand", name: "EVE" },
           sku: "EVE-LF100LA",
           offers: {
