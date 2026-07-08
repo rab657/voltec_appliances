@@ -122,6 +122,34 @@ export default async function CellDetail({ product }: { product: Product }) {
         </div>
       </section>
 
+      {/* ===== Full specs — same sb-spec table as the showcase pages ===== */}
+      <section className="sb-section" id="spec" style={{ paddingTop: 0 }}>
+        <div className="container">
+          <div className="sb-head is-center">
+            <div className="sb-eyebrow">{t("cell.spec.k")}</div>
+            <h2 dangerouslySetInnerHTML={{ __html: t("cell.spec.t") }}></h2>
+          </div>
+          <div className="sb-spec-wrap">
+            <table className="sb-spec">
+              <thead>
+                <tr>
+                  <th className="is-class">{t("tbl.param")}</th>
+                  <th>{t("tbl.spec")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {product.specs.map(([k, v]) => (
+                  <tr key={k}>
+                    <td className="param">{lc(k)}</td>
+                    <td className="val">{lc(v)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       {/* ===== Built to last — key advantages (moved from the cells hub) ===== */}
       <section className="sb-section" style={{ paddingTop: 0 }}>
         <div className="container">
@@ -189,34 +217,6 @@ export default async function CellDetail({ product }: { product: Product }) {
             {c.certifications.map((cert) => (
               <span className="cellpg-cert" key={cert}>{cert}</span>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== Full specs — same sb-spec table as the showcase pages ===== */}
-      <section className="sb-section" id="spec" style={{ paddingTop: 0 }}>
-        <div className="container">
-          <div className="sb-head is-center">
-            <div className="sb-eyebrow">{t("cell.spec.k")}</div>
-            <h2 dangerouslySetInnerHTML={{ __html: t("cell.spec.t") }}></h2>
-          </div>
-          <div className="sb-spec-wrap">
-            <table className="sb-spec">
-              <thead>
-                <tr>
-                  <th className="is-class">{t("tbl.param")}</th>
-                  <th>{t("tbl.spec")}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {product.specs.map(([k, v]) => (
-                  <tr key={k}>
-                    <td className="param">{lc(k)}</td>
-                    <td className="val">{lc(v)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
           </div>
         </div>
       </section>
