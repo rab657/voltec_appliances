@@ -53,6 +53,9 @@ export default async function ProductDetailPage({
     const fam = familySlugOf(merged);
     if (fam) redirect(`/showcase/${fam}`);
   }
+  // The EVE LF100 cell has a dedicated buyable landing page (/cells) — the
+  // catalog detail page would duplicate it, so send both there.
+  if (merged.id === "vt-eve-lf100") redirect("/cells");
   const product = merged;
   const related = relatedProducts(product, 3);
   const phoneHref = `tel:${SITE.phone.replace(/[^+\d]/g, "")}`;
