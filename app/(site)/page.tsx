@@ -8,7 +8,7 @@ import JsonLd from "@/components/JsonLd";
 import { getT, getContent } from "@/lib/i18n-server";
 import { getMediaMap, applyMedia, type MediaMap } from "@/lib/product-media";
 
-const FEATURED_IDS = ["vt-eve-lf100", "vt-eve-lf280k", "vt-ind-200k", "vt-svc-5k"];
+const FEATURED_IDS = ["vt-eve-lf100", "vt-ind-200k", "vt-svc-5k"];
 
 // Each card's copy lives in the i18n dictionary (serve.<key>.{t,d,tag}).
 const SERVE_KEYS = ["med", "ind", "gov", "home"];
