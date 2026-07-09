@@ -70,27 +70,30 @@ export default async function ProductDetailPage({
         name={product.name}
         category={product.category}
       />
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Product",
-          name: product.name,
-          description: product.description,
-          category: product.category,
-          sku: product.id.toUpperCase(),
-          brand: { "@type": "Brand", name: SITE.shortName },
-          image: absUrl(`/${product.image}`),
-          manufacturer: VOLTEC_ORG,
-          additionalProperty: product.specs.map(([k, v]) => ({
-            "@type": "PropertyValue",
-            name: k,
-            value: v,
-          })),
-          // Offer only when a real price exists — a price-less Offer is a
-          // Search Console structured-data ERROR (Merchant listings report).
-          offers: productOffer(product),
-        }}
-      />
+      {/* Product markup must carry offers/review/aggregateRating or Search
+          Console flags it critical — inquiry-only products get no Product
+          schema at all (breadcrumbs + org markup still describe the page). */}
+      {productOffer(product) && (
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: product.name,
+            description: product.description,
+            category: product.category,
+            sku: product.id.toUpperCase(),
+            brand: { "@type": "Brand", name: SITE.shortName },
+            image: absUrl(`/${product.image}`),
+            manufacturer: VOLTEC_ORG,
+            additionalProperty: product.specs.map(([k, v]) => ({
+              "@type": "PropertyValue",
+              name: k,
+              value: v,
+            })),
+            offers: productOffer(product),
+          }}
+        />
+      )}
       <JsonLd
         data={{
           "@context": "https://schema.org",

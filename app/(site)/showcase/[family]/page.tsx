@@ -72,29 +72,38 @@ export default async function ShowcasePage({
           mainEntity: {
             "@type": "ItemList",
             numberOfItems: members.length,
-            itemListElement: members.map((p, i) => ({
-              "@type": "ListItem",
-              position: i + 1,
-              item: {
-                "@type": "Product",
-                name: p.name,
-                description: p.description,
-                category: p.category,
-                sku: p.id.toUpperCase(),
-                brand: { "@type": "Brand", name: SITE.shortName },
-                image: absUrl(`/${p.image}`),
-                manufacturer: VOLTEC_ORG,
-                url: absUrl(`/products/${p.id}`),
-                additionalProperty: p.specs.map(([k, v]) => ({
-                  "@type": "PropertyValue",
-                  name: k,
-                  value: v,
-                })),
-                // Offer only when a real price exists — a price-less Offer is a
-                // Search Console structured-data ERROR (Merchant listings report).
-                offers: productOffer(p),
-              },
-            })),
+            // Google requires Product markup to carry offers, review or
+            // aggregateRating — a bare Product is a "critical issue" in the
+            // Product snippets report. So: full Product only for priced
+            // members; inquiry-only members stay plain ListItems (name + url).
+            itemListElement: members.map((p, i) => {
+              const offers = productOffer(p);
+              return {
+                "@type": "ListItem",
+                position: i + 1,
+                ...(offers
+                  ? {
+                      item: {
+                        "@type": "Product",
+                        name: p.name,
+                        description: p.description,
+                        category: p.category,
+                        sku: p.id.toUpperCase(),
+                        brand: { "@type": "Brand", name: SITE.shortName },
+                        image: absUrl(`/${p.image}`),
+                        manufacturer: VOLTEC_ORG,
+                        url: absUrl(`/products/${p.id}`),
+                        additionalProperty: p.specs.map(([k, v]) => ({
+                          "@type": "PropertyValue",
+                          name: k,
+                          value: v,
+                        })),
+                        offers,
+                      },
+                    }
+                  : { name: p.name, url: absUrl(`/products/${p.id}`) }),
+              };
+            }),
           },
         }}
       />
