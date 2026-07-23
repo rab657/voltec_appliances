@@ -673,7 +673,7 @@ export const PRODUCTS: Product[] = [
     categoryId: "cells",
     tech: "LFP",
     badge: "Most shipped",
-    price: 11500,
+    price: 10500,
     tagline: "Genuine EVE Grade-A LF100LA 100Ah prismatic cell — our most-shipped product.",
     highlight: ["5,000+", "cycles"],
     cell: {
