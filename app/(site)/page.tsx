@@ -113,9 +113,10 @@ export default async function HomePage() {
     .filter((p) => !p.hidden && !isProductInHiddenFamily(p));
   const posts = (await getPublishedPosts()).slice(0, 3);
   const range = buildRange(mediaMap);
-  // Admin-settable hero image (Homepage images → Hero); falls back to the default.
+  // Admin-settable hero image (Homepage images → Hero); falls back to the EVE
+  // cell hero — the in-stock, best-converting product we feature in the hero.
   const heroCover = mediaMap["homecover-hero"]?.images?.[0];
-  const heroImg = heroCover ? norm(heroCover) : "/assets/svc-stabilizer.png";
+  const heroImg = heroCover ? norm(heroCover) : "/assets/cells/cell-hero.webp";
 
   return (
     <main>
@@ -153,17 +154,17 @@ export default async function HomePage() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={heroImg}
-              alt="Voltec servo motor (SVC) voltage stabilizer"
+              alt="Genuine EVE LF100LA Grade-A LiFePO4 lithium cells, in stock at Voltec"
               className="vhero-feature-img"
             />
             <div className="vhero-feature-overlay"></div>
             <div className="vhero-feature-badge">
-              <span className="ec-tech" data-tech="SVC">
+              <span className="ec-tech" data-tech="cells">
                 {t("home.feat.badge")}
               </span>
               <div className="vhero-feature-title">{t("home.feat.title")}</div>
               <div className="vhero-feature-sub">{t("home.feat.sub")}</div>
-              <Link href="/showcase/svc" className="vhero-feature-link">
+              <Link href="/products/vt-eve-lf100" className="vhero-feature-link">
                 {t("home.feat.link")} →
               </Link>
             </div>
