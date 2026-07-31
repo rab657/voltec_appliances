@@ -3,7 +3,7 @@ import { Instrument_Serif, Inter_Tight, JetBrains_Mono } from "next/font/google"
 import "../styles/styles.css";
 import "./globals.css";
 import { cookies } from "next/headers";
-import { SITE, VOLTEC_ORG } from "@/lib/site";
+import { SITE, VOLTEC_ORG, VOLTEC_STORE } from "@/lib/site";
 import { LOCALE_COOKIE, isLocale, isRtl, DEFAULT_LOCALE } from "@/lib/i18n";
 import { I18nProvider } from "@/components/I18nProvider";
 import Analytics from "@/components/Analytics";
@@ -34,7 +34,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — Voltage Stabilizers, Lithium Cells & Power Electronics in Pakistan`,
+    default: `${SITE.name} — Lithium Batteries, EVE Cells & Voltage Stabilizers in Pakistan`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -44,6 +44,10 @@ export const metadata: Metadata = {
     "IGBT static stabilizer",
     "SVC servo stabilizer",
     "industrial stabilizer",
+    "lithium battery Pakistan",
+    "LiFePO4 battery Pakistan",
+    "solar battery Pakistan",
+    "lithium battery Lahore",
     "EVE lithium cells",
     "LFP battery Pakistan",
     "Lahore power electronics",
@@ -82,6 +86,16 @@ export default async function RootLayout({
           data={{
             "@context": "https://schema.org",
             ...VOLTEC_ORG,
+          }}
+        />
+        {/* Physical showroom: hours, coordinates and the GBP-matching landline.
+            Site-wide on purpose — it is how Google builds the local listing that
+            the "Lahore Showroom (Calls + Directions)" campaign pays to fill. */}
+        <JsonLd
+          id="ld-store"
+          data={{
+            "@context": "https://schema.org",
+            ...VOLTEC_STORE,
           }}
         />
         <JsonLd

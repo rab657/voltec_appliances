@@ -229,6 +229,9 @@ export default async function AcPage() {
                 Open 10am–8pm. Watch the stabilizer hold 220V on a live low-voltage demo, get free
                 advice on the right model for your AC, and take yours home the same day.
               </p>
+              <p style={{ margin: "10px 0 0", fontSize: 15.5, lineHeight: 1.6, color: "oklch(90% 0.02 250 / 0.85)" }}>
+                Call the shop: <a href={`tel:${SITE.phoneStore.replace(/[^+\d]/g, "")}`} style={{ color: "inherit" }}>{SITE.phoneStoreDisplay}</a>
+              </p>
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "flex-start" }}>
               <a

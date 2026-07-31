@@ -129,3 +129,70 @@ create index if not exists orders_status_idx on public.orders (status);
 
 alter table public.orders enable row level security;
 -- No public policies: orders are written and read only via the service role.
+
+-- ===========================================================================
+-- WhatsApp CTWA leads + messages (added 2026-07-31).
+--
+-- WHY: click-to-WhatsApp ads are the whole funnel, but Meta only tells us a
+-- "conversation started" — and on 2026-07-31 we proved that count can be ~59x
+-- inflated. The fix is to capture the real inbound message ourselves and, most
+-- importantly, the **ctwa_clid** that Meta puts in the message's `referral`
+-- payload. That click id is what lets us post a *qualified lead* event back via
+-- the Conversions API, so Meta optimises for real assemblers instead of whoever
+-- is cheapest to make say hello.
+--
+-- Requires the PK number to be on WhatsApp **Cloud API** with a webhook
+-- subscribed. Until that migration happens these tables simply stay empty.
+-- Service-role only (RLS on, no public policy) — this is customer PII.
+-- ===========================================================================
+create table if not exists public.whatsapp_leads (
+  id            uuid primary key default gen_random_uuid(),
+  wa_id         text not null,              -- customer WhatsApp id (digits)
+  profile_name  text,                       -- name from the webhook contact profile
+  ctwa_clid     text,                       -- CTWA click id = the attribution key
+  source_id     text,                       -- referral.source_id (the ad id)
+  source_type   text,                       -- referral.source_type (ad | post)
+  source_url    text,
+  headline      text,                       -- which creative they came from
+  body          text,
+  first_message text,
+  message_count integer not null default 0,
+  -- Lead quality, set by a human (or later by order data), then fed back to Meta.
+  quality       text not null default 'unknown',   -- unknown | qualified | rejected | bought
+  quality_note  text,
+  qualified_at  timestamptz,
+  capi_event    text,                       -- which event we posted back
+  capi_sent_at  timestamptz,
+  first_seen_at timestamptz not null default now(),
+  last_seen_at  timestamptz not null default now()
+);
+
+-- One row per (person, click). coalesce so organic (no-referral) chats still
+-- get exactly one row per person instead of duplicating on every message.
+create unique index if not exists whatsapp_leads_wa_clid_uidx
+  on public.whatsapp_leads (wa_id, coalesce(ctwa_clid, ''));
+create index if not exists whatsapp_leads_quality_idx on public.whatsapp_leads (quality);
+create index if not exists whatsapp_leads_last_seen_idx on public.whatsapp_leads (last_seen_at desc);
+
+-- Full message log. Not optional: once the number moves to Cloud API the
+-- WhatsApp Business phone app stops working on it, so this becomes the only
+-- place the conversation can be read.
+create table if not exists public.whatsapp_messages (
+  id           uuid primary key default gen_random_uuid(),
+  lead_id      uuid references public.whatsapp_leads (id) on delete cascade,
+  wa_id        text not null,
+  message_id   text not null unique,        -- WhatsApp wamid — dedupes webhook retries
+  direction    text not null default 'in',  -- in | out
+  type         text,                        -- text | image | audio | ...
+  body         text,
+  raw          jsonb,
+  sent_at      timestamptz,
+  created_at   timestamptz not null default now()
+);
+
+create index if not exists whatsapp_messages_wa_id_idx on public.whatsapp_messages (wa_id, sent_at desc);
+create index if not exists whatsapp_messages_lead_idx on public.whatsapp_messages (lead_id);
+
+alter table public.whatsapp_leads enable row level security;
+alter table public.whatsapp_messages enable row level security;
+-- No public policies: customer PII, service role only.

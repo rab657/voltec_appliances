@@ -34,7 +34,7 @@ const HOME_FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Where is Voltec based, and do you deliver?",
-    a: "Voltec Appliances has been making power equipment in Lahore, Pakistan for four decades. We ship Pakistan-wide and supply bulk and export orders to the UAE and China. Message us on WhatsApp at +92 324 400 4778 for stock, pricing and freight.",
+    a: "Voltec Appliances has been making power equipment in Lahore, Pakistan for four decades. We ship Pakistan-wide and supply bulk and export orders to the UAE and China. Message us on WhatsApp at +92 321 1644447 for stock, pricing and freight.",
   },
   {
     q: "Do you supply businesses, factories and bulk orders?",
@@ -184,6 +184,28 @@ export default async function HomePage() {
               <img src="/assets/client-4.png" alt="Client" className="client-logo" />
               <img src="/assets/client-5.png" alt="Client" className="client-logo" />
               {/* eslint-enable @next/next/no-img-element */}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Official partner — EVE Energy. Full colour, deliberately NOT in the greyed
+          clients strip: this is a supply relationship, not a logo wall. Kept
+          deliberately quiet (2026-07-31) — it leads with direct factory import
+          rather than a distributor-status claim, and must not out-shout the range
+          section below it. */}
+      <section className="partner-strip">
+        <div className="container">
+          <div className="partner-inner">
+            <div className="partner-mark">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/assets/partners/eve-logo.png" alt="EVE Energy" className="partner-logo" />
+            </div>
+            <div className="partner-copy">
+              <div className="eyebrow">{t("partner.eyebrow")}</div>
+              <h3>{t("partner.title")}</h3>
+              <p dangerouslySetInnerHTML={{ __html: t("partner.body") }}></p>
+              <div className="partner-badge">{t("partner.badge")}</div>
             </div>
           </div>
         </div>

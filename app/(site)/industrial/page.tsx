@@ -12,7 +12,7 @@ import { getT } from "@/lib/i18n-server";
 // Capture = WhatsApp quote (load/kVA + city + tender), fires `lead`.
 
 const B2B_WA =
-  "your business/bulk supply — please share specs, documentation and pricing. Requirement: ___ (stabilizer kVA / lithium cells / energy storage), city ___ (tender / corporate / dealer)";
+  "your business/bulk supply — please share specs, documentation and pricing. Requirement: ___ (stabilizer kVA / lithium batteries / cells / energy storage), city ___ (tender / corporate / dealer)";
 
 const PILLARS: { id: string; title: string; body: string; points: string[] }[] = [
   {
@@ -23,8 +23,8 @@ const PILLARS: { id: string; title: string; body: string; points: string[] }[] =
   },
   {
     id: "energy-storage",
-    title: "Lithium cells & energy storage",
-    body: "Direct importers of genuine Grade-A EVE LiFePO4 cells — matched and QR-traceable in Lahore — with BMS for solar and UPS banks. Supplied loose or as built packs, in volume.",
+    title: "Lithium batteries, cells & energy storage",
+    body: "Authorised EVE distributor and direct importer of genuine Grade-A EVE LiFePO4 cells — matched and QR-traceable in Lahore — with BMS for solar and UPS banks. Supplied loose or as built packs, in volume.",
     points: ["Grade-A EVE LiFePO4 (280Ah / 304Ah)", "BMS & battery packs, built to spec", "Solar & UPS energy-storage banks", "Bulk / dealer pricing on request"],
   },
   {
@@ -51,7 +51,7 @@ const TENDER: { title: string; desc: string }[] = [
 const FAQS: { q: string; a: string }[] = [
   {
     q: "Do you supply for government or corporate tenders?",
-    a: "Yes. We are a Lahore-based importer and manufacturer since 1995 and supply industrial, corporate and institutional buyers nationwide. We prepare complete tender documentation — certified specifications, datasheets, test reports and compliance papers — and quote against your BOQ, for stabilizers and for lithium cells / energy storage. Message us your requirement and we respond with specs and pricing.",
+    a: "Yes. We are a Lahore-based importer and manufacturer since 1995 and supply industrial, corporate and institutional buyers nationwide. We prepare complete tender documentation — certified specifications, datasheets, test reports and compliance papers — and quote against your BOQ, for stabilizers and for lithium batteries, cells and energy storage. Message us your requirement and we respond with specs and pricing.",
   },
   {
     q: "What size three-phase stabilizer does my factory or project need?",
@@ -59,7 +59,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Are your lithium cells genuine EVE, and can you supply in bulk?",
-    a: "Yes — genuine Grade-A EVE LiFePO4 cells (280Ah / 304Ah), QR-traceable and capacity-matched at our Lahore facility, supplied loose or as BMS-managed packs. We handle volume and dealer orders for solar and UPS energy storage. Message us your quantity and we will quote.",
+    a: "Yes — genuine Grade-A EVE LiFePO4 cells (280Ah / 304Ah), QR-traceable and capacity-matched at our Lahore facility, supplied loose or as BMS-managed packs. We handle volume and dealer orders for solar and UPS lithium batteries and energy storage. Message us your quantity and we will quote.",
   },
   {
     q: "Do you provide installation and service, and deliver outside Lahore?",
@@ -70,13 +70,13 @@ const FAQS: { q: string; a: string }[] = [
 export const metadata: Metadata = {
   title: "Voltage Stabilizers, Lithium Cells & Industrial Power — Bulk & Tenders | Voltec",
   description:
-    "Importer & manufacturer since 1995 — voltage stabilizers (servo, IGBT, 3-phase 100–500 kVA+), genuine EVE Grade-A LiFePO4 lithium cells and energy storage. Bulk, dealer, corporate & government tender supply across Pakistan. Full documentation, install & service.",
+    "Importer & manufacturer since 1995 — voltage stabilizers (servo, IGBT, 3-phase 100–500 kVA+), genuine EVE Grade-A LiFePO4 lithium batteries and cells for solar energy storage. Bulk, dealer, corporate & government tender supply across Pakistan. Full documentation, install & service.",
   alternates: { canonical: "/industrial" },
   openGraph: {
     type: "website",
     title: "Voltage Stabilizers, Lithium Cells & Industrial Power — Bulk & Tenders | Voltec",
     description:
-      "Servo, IGBT & 3-phase stabilizers plus EVE Grade-A lithium cells & energy storage. Corporate, dealer & government tender supply nationwide. Since 1995.",
+      "Servo, IGBT & 3-phase stabilizers plus EVE Grade-A lithium batteries, cells & energy storage. Corporate, dealer & government tender supply nationwide. Since 1995.",
     url: absUrl("/industrial"),
   },
 };
@@ -127,7 +127,7 @@ export default async function IndustrialPage() {
             <img
               className="ac-hero-img"
               src="/assets/factory-1.jpg"
-              alt="Voltec industrial power equipment — 3-phase stabilizers and lithium energy storage"
+              alt="Voltec industrial power equipment — 3-phase stabilizers and lithium batteries for energy storage"
             />
           </div>
         </div>
@@ -266,7 +266,7 @@ export default async function IndustrialPage() {
             Get a quote for your project or tender.
           </h2>
           <p style={{ maxWidth: "54ch", margin: "0 auto 26px", fontSize: 16, lineHeight: 1.6, color: "oklch(85% 0.02 250 / 0.9)" }}>
-            Message us what you need — stabilizer kVA, lithium cells or energy storage — your city,
+            Message us what you need — stabilizer kVA, lithium batteries or cells — your city,
             and any tender or BOQ details. Our engineers reply with specs, documentation and pricing,
             usually the same day.
           </p>

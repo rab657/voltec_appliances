@@ -15,12 +15,15 @@ export const metadata: Metadata = {
 };
 
 const tel = `tel:${SITE.phone.replace(/[^+\d]/g, "")}`;
+// The "call the showroom" card rings the Abid Market landline, not the mobile
+// sales line — it matches the Google Business Profile listing.
+const telStore = `tel:${SITE.phoneStore.replace(/[^+\d]/g, "")}`;
 
 export default async function ContactPage() {
   const t = await getT();
   const channels = [
     { icon: "wa", label: t("ct.wa.l"), value: SITE.phoneDisplay, note: t("ct.wa.n"), href: whatsappLink("a question"), primary: true },
-    { icon: "call", label: t("ct.call.l"), value: SITE.phoneDisplay, note: t("ct.call.n"), href: tel },
+    { icon: "call", label: t("ct.call.l"), value: SITE.phoneStoreDisplay, note: t("ct.call.n"), href: telStore },
     { icon: "mail", label: t("ct.mail.l"), value: SITE.email, note: t("ct.mail.n"), href: `mailto:${SITE.email}` },
     { icon: "pin", label: t("ct.pin.l"), value: t("ct.pin.v"), note: t("ct.pin.n"), href: `https://maps.google.com/?q=${encodeURIComponent(SITE.mapsQuery)}` },
   ];
@@ -122,7 +125,7 @@ export default async function ContactPage() {
               </div>
               <div className="contact-fact">
                 <span>{t("ct.f.also")}</span>
-                <strong>UAE {SITE.phoneUae} · WeChat {SITE.wechat}</strong>
+                <strong>Dubai office {SITE.phoneUae} · WeChat {SITE.wechat}</strong>
               </div>
               <div className="contact-fact">
                 <span>{t("ct.f.langs")}</span>

@@ -1,0 +1,4 @@
+{
+  "_comment": "Append-only record of every group post attempt. Written by social.py log. Never edit by hand except to correct a mistake.",
+  "posts": []
+}

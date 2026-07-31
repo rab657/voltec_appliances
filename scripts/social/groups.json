@@ -1,0 +1,132 @@
+{
+  "_comment": "Registry of Facebook groups, from the Voltec Appliances PAGE profile (not a personal profile). Verified state as of 2026-07-27.",
+  "_schema": {
+    "url": "canonical https://www.facebook.com/groups/<id-or-slug>/",
+    "promo_ok": "true | false | 'admin_discretion' — from pinned rules AND observed practice",
+    "shares_ok": "whether shared Page posts are allowed/perform (trade groups favour native photo posts)",
+    "posting_gate": "anything blocking a first post (admin review, participant questions, etc.)",
+    "cadence_days": "minimum days between our posts here",
+    "relevance": "high | medium | low for battery assemblers / cell buyers",
+    "last_posted": "ISO date, or null",
+    "last_variant": "A-E, or null"
+  },
+  "defaults": {
+    "cadence_days": 30,
+    "max_posts_per_day": 5,
+    "min_minutes_between_posts": 20
+  },
+  "groups": [
+    {
+      "url": "https://www.facebook.com/groups/megawattlithium/",
+      "name": "Pakistan's Best Lithium Battery & Inverter Review",
+      "members": 256800,
+      "activity": "80+ posts/day",
+      "promo_ok": "admin_discretion",
+      "shares_ok": false,
+      "posting_gate": null,
+      "cadence_days": 14,
+      "relevance": "high",
+      "last_posted": null,
+      "last_variant": null,
+      "notes": "Biggest by far. Loosely moderated — saw a completely off-topic UV-DTF printing ad in the feed, so promo is clearly tolerated. Lower signal-to-noise; post quality matters less here than frequency."
+    },
+    {
+      "url": "https://www.facebook.com/groups/336884726453195/",
+      "name": "LiFePO4 Lithium Battery",
+      "members": 111700,
+      "activity": "90+ posts/day",
+      "promo_ok": "admin_discretion",
+      "shares_ok": false,
+      "posting_gate": null,
+      "cadence_days": 14,
+      "relevance": "medium",
+      "last_posted": null,
+      "last_variant": null,
+      "notes": "INTERNATIONAL, not Pakistan-specific (top post was a Europe trip). We can't deliver to most of this audience — lower priority, and lead with Punjab/KPK delivery so we don't waste replies."
+    },
+    {
+      "url": "https://www.facebook.com/groups/5573572429408163/",
+      "name": "Pakistan Battery Dealers and Retailers",
+      "members": 99600,
+      "activity": "90+ posts/day",
+      "promo_ok": "admin_discretion",
+      "shares_ok": false,
+      "posting_gate": null,
+      "cadence_days": 14,
+      "relevance": "high",
+      "last_posted": null,
+      "last_variant": null,
+      "notes": "Excellent fit — actual PK dealers posting phone-number trade ads (Multan, solar brands). Native idiom is photo + number + delivery area. One of the best targets."
+    },
+    {
+      "url": "https://www.facebook.com/groups/2077712005780089/",
+      "name": "Lithium / LiFePo4 / Li-ion / Battery / EV / PowerWall",
+      "members": 69300,
+      "activity": "10+ posts/day",
+      "promo_ok": "admin_discretion",
+      "shares_ok": false,
+      "posting_gate": "PARTICIPANT QUESTION UNANSWERED — admins review every member before their first post/comment, and the form asks a bot-check maths question. Raheel must answer it himself; Claude must not (bot-detection). Until then we CANNOT post here.",
+      "cadence_days": 14,
+      "relevance": "high",
+      "last_posted": null,
+      "last_variant": null,
+      "notes": "Run by ElectroDiy. International + DIY powerwall crowd."
+    },
+    {
+      "url": "https://www.facebook.com/groups/lithiumbatterysuppliers/",
+      "name": "Lithium Battery Suppliers",
+      "members": 45100,
+      "activity": "90+ posts/day",
+      "promo_ok": "admin_discretion",
+      "shares_ok": false,
+      "posting_gate": null,
+      "cadence_days": 14,
+      "relevance": "high",
+      "last_posted": null,
+      "last_variant": null,
+      "notes": "About says 'For Lithium Battery Supplier and Buyers' — explicitly a trade group."
+    },
+    {
+      "url": "https://www.facebook.com/groups/1287011386032403/",
+      "name": "Lithium Phosphate Battery Pakistan",
+      "members": 32700,
+      "activity": "37 posts/day, +86 members/week",
+      "promo_ok": "admin_discretion",
+      "shares_ok": false,
+      "posting_gate": null,
+      "cadence_days": 14,
+      "relevance": "high",
+      "last_posted": null,
+      "last_variant": null,
+      "notes": "Pre-existing membership. Desc 'This Group Only Lithium Batteries Sales and Purchase' + rule 1 bans non-lithium posts, but rule 3 is boilerplate 'No promotions or spam'. Contradictory; observed practice = members post price/availability ads freely. Native photo+price+delivery-area idiom. Admins: Shabz +4."
+    },
+    {
+      "url": "https://www.facebook.com/groups/811826569380308/",
+      "name": "Daily Gold, Silver (chandi) Rates",
+      "members": null,
+      "promo_ok": false,
+      "shares_ok": false,
+      "posting_gate": null,
+      "cadence_days": 9999,
+      "relevance": "low",
+      "last_posted": null,
+      "last_variant": null,
+      "notes": "Irrelevant to Voltec. Never post here."
+    }
+  ],
+  "candidates": [
+    { "name": "Rechargeable Batteties-Lithium cells", "members": 40200, "activity": "20+/day", "relevance": "high", "url": "https://www.facebook.com/groups/620499445045385/" },
+    { "name": "Pakistan Lithium Battery Market", "members": 29700, "activity": "90+/day", "relevance": "high", "url": "https://www.facebook.com/groups/lithiumbatteryindustry/" },
+    { "name": "BATTERY WORLD", "members": 15700, "activity": "30/day", "relevance": "high", "url": "https://www.facebook.com/groups/1541629292814542/", "notes": "About: 'Batteries, Inverters & Solar Group'. Run by Everon." },
+    { "name": "Lithium battery information sharing group", "members": 10100, "activity": "10+/day", "relevance": "medium", "url": "https://www.facebook.com/groups/1217308475273306/" },
+    { "name": "Battery Traders Pakistan", "members": 9300, "activity": "10+/day", "relevance": "high", "url": "https://www.facebook.com/groups/183947305288701/", "notes": "Run by Tribal Batteries." },
+    { "name": "Lithium Battery in pakistan", "members": 8200, "activity": "40+/day", "relevance": "high", "url": "https://www.facebook.com/groups/1317733819473714/" },
+    { "name": "Lithium Battery Pakistan", "members": 7000, "activity": "20+/day", "relevance": "high", "url": "https://www.facebook.com/groups/438134847641188/" },
+    { "name": "online ups solar plates inverter lithium and dry batteries Fsd Pakistan", "members": 5700, "activity": "20+/day", "relevance": "high", "url": "https://www.facebook.com/groups/710947727910100/", "notes": "Faisalabad-focused." },
+    { "name": "Lithium cells and batteries Pakistan", "members": 4000, "activity": "20+/day", "relevance": "high", "url": "https://www.facebook.com/groups/1251495363398843/" },
+    { "name": "Battery Dealers in Pakistan 🇵🇰", "members": 2400, "activity": null, "relevance": "high", "url": "https://www.facebook.com/groups/530520149129547/" },
+    { "name": "Lithium Iron Phosphate Batteries Pakistan", "members": 2000, "activity": "9/day", "relevance": "high", "url": "https://www.facebook.com/groups/2708623139320337/" },
+    { "name": "Lithium Batteries Lahore", "members": 1900, "activity": "10+/day", "relevance": "high", "url": "https://www.facebook.com/groups/2531961143822530/", "notes": "Local to Lahore — high value despite small size." },
+    { "name": "Lithium Ion batteries in Pakistan", "members": 639, "activity": "6/day", "relevance": "medium", "url": "https://www.facebook.com/groups/758785093657669/" }
+  ]
+}

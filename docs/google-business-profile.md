@@ -15,10 +15,11 @@ in Google, Maps and AI answer engines** — the on-site SEO/AEO is already done.
 ```
 Voltec Appliances
 Abid Market, 26/8 Temple Rd, Mozang Chungi, Lahore, Punjab 54000, Pakistan
-Phone: +92 324 400 4778
+Phone: +92 42 3636 8601   (store landline — dialled locally as (042) 36368601)
 Email: voltecappliances@hotmail.com
 Web: https://voltecappliances.com
 ```
+Primary sales + WhatsApp line (add as the listing's secondary phone): +92 321 1644447
 UAE contact (for UAE listings only): +971 52 541 4894
 
 ---
@@ -32,7 +33,7 @@ UAE contact (for UAE listings only): +971 52 541 4894
 (Deliberately NO repair/appliance categories — we are importers & manufacturers, not a repair shop.)
 
 **Short description (for the listing headline / social bios — under 160 chars):**
-> Direct importers of EVE lithium cells & manufacturers of voltage stabilizers. Made in Lahore since 1995 — homes, solar & industry across Pakistan, UAE & China.
+> Authorised EVE distributor & manufacturer of voltage stabilizers. Made in Lahore since 1995 — homes, solar & industry across Pakistan, UAE & China.
 
 **Full description (GBP "from the business", ~700 chars):**
 > Voltec Appliances has built reliable power equipment in Lahore since 1995. We make and supply voltage stabilizers for every need — AVR relay stabilizers for a single fridge or AC, servo (SVC) stabilizers for the whole home, inverter (IGBT) stabilizers for sensitive and precision equipment, and three-phase industrial systems built to order from 100 kVA to 500 kVA and beyond. We also supply genuine EVE Grade-A LFP lithium cells for solar and UPS storage, plus BMS, PCB relays and LED modules. Every product is backed by our own service network — the strongest in the market. Trusted by industry leaders including K&N's. WhatsApp us your appliance list or load and we'll size the right solution. We ship Pakistan-wide and export to the UAE and the region.
@@ -55,7 +56,7 @@ UAE contact (for UAE listings only): +971 52 541 4894
 **Service areas:** Lahore, Punjab, and Pakistan-wide; export: UAE, China.
 
 **Website link:** https://voltecappliances.com
-**Appointment/quote link:** WhatsApp — https://wa.me/923244004778
+**Appointment/quote link:** WhatsApp — https://wa.me/923211644447
 
 **Products to add (with the product photos from the site):** A-25 / A-50 / A-100 / A-120SP AVR stabilizers, SVC 5/10/15 kVA, EVE 280 Ah / 304 Ah LFP cells, three-phase SJW systems.
 
@@ -64,7 +65,7 @@ UAE contact (for UAE listings only): +971 52 541 4894
 ## 3. GBP Posts (publish 1–2 per week to keep the profile active)
 
 1. **"Which stabilizer do you need?"**
-   One appliance → A-series AVR. Whole home → SVC servo (5–15 kVA). Sensitive gear → inverter (IGBT). Factory → three-phase SJW. Message us your load and we'll size it. 📲 +92 324 400 4778
+   One appliance → A-series AVR. Whole home → SVC servo (5–15 kVA). Sensitive gear → inverter (IGBT). Factory → three-phase SJW. Message us your load and we'll size it. 📲 +92 321 1644447
 
 2. **"Genuine EVE Grade-A LFP cells, matched in Lahore"**
    16 cells = a 48 V solar bank. 16× 280 Ah ≈ 14 kWh — an evening of load-shedding covered. QR-traceable, 6,000+ cycles. Ask for a quote.
@@ -84,7 +85,7 @@ UAE contact (for UAE listings only): +971 52 541 4894
 - **Q:** Are your lithium cells genuine EVE?
   **A:** Yes — genuine Grade-A EVE LFP cells, QR-traceable and matched for capacity at our Lahore facility before they ship.
 - **Q:** Do you deliver outside Lahore?
-  **A:** Yes, Pakistan-wide, and we export to the UAE and China. WhatsApp +92 324 400 4778 for freight.
+  **A:** Yes, Pakistan-wide, and we export to the UAE and China. WhatsApp +92 321 1644447 for freight.
 
 ---
 

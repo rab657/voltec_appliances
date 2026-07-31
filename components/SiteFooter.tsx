@@ -58,8 +58,9 @@ export default async function SiteFooter() {
             <h4>{t("foot.reach")}</h4>
             <ul>
               <li>{SITE.email}</li>
-              <li>UAE {SITE.phoneUae}</li>
               <li>PK {SITE.phoneDisplay}</li>
+              <li>Showroom {SITE.phoneStoreDisplay}</li>
+              <li>Dubai {SITE.phoneUae}</li>
               <li>WeChat: {SITE.wechat}</li>
             </ul>
           </div>

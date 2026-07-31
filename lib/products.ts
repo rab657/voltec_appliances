@@ -1,6 +1,8 @@
 import type { Product, Category } from "./types";
+import { SITE } from "./site";
 
-export const VOLTEC_WHATSAPP = "971525414894";
+// Single source of truth: the Pakistan WhatsApp line in lib/site.ts.
+export const VOLTEC_WHATSAPP = SITE.whatsapp;
 
 // Pre-filled WhatsApp inquiry text — reads like a message the customer would
 // actually type. Keep it to one natural line; just carry the product name so

@@ -83,7 +83,7 @@ export default async function OrderPage({ params }: { params: Promise<{ ref: str
           <div style={{ fontWeight: 800 }}>Prefer to pick it up?</div>
           <p style={{ fontSize: 14, color: "var(--ink-2)", margin: "4px 0 0" }}>
             Visit our showroom — 8-C Abid Market, Temple Road, Lahore · Mon–Sat 10am–8pm.
-            See it working before you take it home.
+            See it working before you take it home. Call the shop on {SITE.phoneStoreDisplay}.
           </p>
         </div>
         <a

@@ -21,7 +21,7 @@ export async function GET() {
   lines.push("");
   lines.push("## Key facts");
   lines.push(`- Location: Abid Market, Lahore, Pakistan`);
-  lines.push(`- WhatsApp: ${SITE.phoneDisplay} · Phone: ${SITE.phoneDisplay} · UAE: ${SITE.phoneUae}`);
+  lines.push(`- WhatsApp & phone (primary, Pakistan): ${SITE.phoneDisplay} · Dubai office (international enquiries): ${SITE.phoneUae}`);
   lines.push(`- Email: ${SITE.email}`);
   lines.push(
     `- Product lines: ${CATEGORIES.filter((c) => c.id !== "all").map((c) => c.label).join(", ")}`,
@@ -37,12 +37,12 @@ export async function GET() {
   lines.push("- A whole home, shop or solar inverter: a servo (SVC) stabilizer, built to order 10–500 kVA. SVC 1 kVA Rs 17,000 (TV/electronics), 10 kVA Rs 110,000 (whole home / 6–8 kVA solar inverter), 15 kVA Rs 175,000 (large home / 10 kVA inverter). Input 150–270 V, lower on request.");
   lines.push("- Sensitive or precision equipment (laser, CNC, medical, lab, servers): an inverter (IGBT) stabilizer — instant 0 ms correction, pure sine, silent and maintenance-free.");
   lines.push("- A factory or any three-phase load: a three-phase SJW-series industrial stabilizer, 100–500 kVA and up, built to order — with complete tender documentation for government and corporate procurement.");
-  lines.push("- Solar or UPS battery storage: genuine EVE LF100LA Grade-A lithium iron phosphate (LiFePO4) cells, 3.2 V 100 Ah, 5,000+ cycles, QR-traceable, direct from EVE Energy — Rs 10,500 per cell, sold by the carton of 8 (one carton = a 24 V set; two cartons = 48 V). Voltec is a direct importer.");
+  lines.push("- Solar or UPS battery storage: genuine EVE LF100LA Grade-A lithium iron phosphate (LiFePO4) cells, 3.2 V 100 Ah, 5,000+ cycles, QR-traceable, direct from EVE Energy — Rs 10,500 per cell, sold by the carton of 8 (one carton = a 24 V set; two cartons = 48 V). Voltec is an authorised EVE distributor and direct importer; appointment documentation is available to customers on request.");
   lines.push(`- Still unsure: send your appliance list (or load in kW) and your area's voltage to WhatsApp ${SITE.phoneDisplay} and Voltec will size it for you.`);
   lines.push("");
   lines.push("## Visit the showroom (Lahore)");
   lines.push("- Address: Abid Market, 26/8 Temple Rd, Mozang Chungi, Lahore 54000 — live low-voltage demo: watch an AC run at 100 V before you buy.");
-  lines.push("- Hours: Mon–Sat, 10am–8pm. Phone: (042) 36368601.");
+  lines.push(`- Hours: Mon–Sat, 10am–8pm. Store landline: ${SITE.phoneStoreDisplay} — (042) 36368601 dialled locally.`);
   lines.push(`- Business & tenders (nationwide supply): ${absUrl("/industrial")}`);
   lines.push("");
 

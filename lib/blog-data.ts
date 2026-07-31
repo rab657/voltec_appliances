@@ -41,7 +41,7 @@ export const DEFAULT_POSTS: BlogPost[] = [
 <h2>Step 4: Make sure you get original cells</h2>
 <p>There is a lot of fake and low-quality lithium in the Pakistani market. Always ask for EVE, CATL, or REPT cells. These are the top three Chinese factories — and yes, they make what goes into Tesla and BYD cars. Every cell we sell has a factory QR code that you can check.</p>
 
-<p>Have questions about your specific setup? Send us a WhatsApp at +92 324 400 4778. We will help you pick the right size — no pressure, no sales talk.</p>`,
+<p>Have questions about your specific setup? Send us a WhatsApp at +92 321 1644447. We will help you pick the right size — no pressure, no sales talk.</p>`,
   },
   {
     id: "p-002",
