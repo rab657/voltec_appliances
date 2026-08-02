@@ -167,10 +167,15 @@ create table if not exists public.whatsapp_leads (
   last_seen_at  timestamptz not null default now()
 );
 
--- One row per (person, click). coalesce so organic (no-referral) chats still
--- get exactly one row per person instead of duplicating on every message.
+-- One row per (person, click). NULLS NOT DISTINCT (PG15+) so organic chats with
+-- no ctwa_clid still collapse to one row per person rather than one per message.
+-- ⚠️ Must be a PLAIN two-column index, NOT an expression like
+-- (wa_id, coalesce(ctwa_clid,'')): the webhook upserts with
+-- onConflict "wa_id,ctwa_clid", and Postgres cannot infer an expression index
+-- from a plain column list — every write fails with "no unique or exclusion
+-- constraint matching the ON CONFLICT specification" while the route still 200s.
 create unique index if not exists whatsapp_leads_wa_clid_uidx
-  on public.whatsapp_leads (wa_id, coalesce(ctwa_clid, ''));
+  on public.whatsapp_leads (wa_id, ctwa_clid) nulls not distinct;
 create index if not exists whatsapp_leads_quality_idx on public.whatsapp_leads (quality);
 create index if not exists whatsapp_leads_last_seen_idx on public.whatsapp_leads (last_seen_at desc);
 

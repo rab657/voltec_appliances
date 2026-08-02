@@ -127,20 +127,64 @@ def apply_fix():
 
 
 def lead():
-    """Run after the GA4 import: find the lead goal and make it biddable."""
+    """Finish the job after `lead` is marked a key event in GA4.
+
+    ⚠️ Marking the key event in GA4 is NOT enough. Google auto-creates the matching
+    conversion action in Google Ads but lands it **status=HIDDEN, category=DEFAULT**
+    (observed 2026-07-31, action 7704986591 "www.voltecappliances.com (web) lead").
+    Hidden + DEFAULT means it is counted nowhere and bid on by nothing, so the
+    campaigns still look like they have zero conversions. Two fixes are needed:
+
+      1. conversion_action: status -> ENABLED, category -> SUBMIT_LEAD_FORM
+      2. customer_conversion_goal SUBMIT_LEAD_FORM/WEBSITE -> biddable
+
+    SUBMIT_LEAD_FORM rather than CONTACT on purpose: CONTACT/CALL_FROM_ADS is already
+    biddable for ad call-clicks, and lumping website WhatsApp leads in with phone taps
+    would make the one number we actually want to judge unreadable.
+    """
     tok = token()
-    found = [(c, o, b) for c, o, b in goals(tok) if c in LEADISH]
-    if not found:
-        raise SystemExit("No lead-type goal exists yet — the GA4 key-event + import steps are "
-                         "not done. See `show` output.")
-    print("lead-type goals found:")
-    for c, o, b in found: print(f"  {'🟢' if b else '  '} {c} / {o}")
-    todo = [op(c, o, True) for c, o, b in found if not b and o == "WEBSITE"]
-    if not todo:
-        print("\nNothing to enable (either already biddable, or none with WEBSITE origin yet).")
-        return
-    mutate(tok, todo, "enable website lead goal")
+
+    # -- step 1: find GA4-imported actions that look like the lead event
+    q = ("SELECT conversion_action.id, conversion_action.name, conversion_action.status, "
+         "conversion_action.category, conversion_action.type FROM conversion_action "
+         "WHERE conversion_action.type IN ('GOOGLE_ANALYTICS_4_CUSTOM','GOOGLE_ANALYTICS_4_PURCHASE')")
+    res = call("googleAds:search", {"query": q}, tok)
+    if "ERROR" in res: raise SystemExit(res["ERROR"])
+    actions = [r["conversionAction"] for r in res.get("results", [])]
+    leads = [a for a in actions if "lead" in a.get("name", "").lower()]
+    if not leads:
+        raise SystemExit(
+            "No GA4 conversion action containing 'lead' exists yet.\n"
+            "Mark `lead` as a key event in GA4 first (Admin -> Data display -> Events),\n"
+            "then wait for Google to create the action, then re-run this.")
+
+    ops = []
+    for a in leads:
+        need = a.get("status") != "ENABLED" or a.get("category") != "SUBMIT_LEAD_FORM"
+        print(f"  {a['name']}: status={a.get('status')} category={a.get('category')}"
+              f"{'  -> ENABLED / SUBMIT_LEAD_FORM' if need else '  (already correct)'}")
+        if need:
+            ops.append({
+                "update": {"resourceName": f"customers/{CID}/conversionActions/{a['id']}",
+                           "status": "ENABLED", "category": "SUBMIT_LEAD_FORM"},
+                "updateMask": "status,category",
+            })
+    if ops:
+        r = call("conversionActions:mutate", {"operations": ops, "partialFailure": False}, tok)
+        if "ERROR" in r:
+            print(f"  ✗ could not enable the action:\n{r['ERROR'][:600]}"); sys.exit(1)
+        print(f"  ✓ enabled/recategorised {len(r.get('results', []))} action(s)")
+
+    # -- step 2: make the resulting goal biddable
+    cur = {(c, o): b for c, o, b in goals(tok)}
+    todo = [op(c, o, True) for (c, o), b in cur.items()
+            if c in LEADISH and o == "WEBSITE" and not b]
+    mutate(tok, todo, "make the website lead goal biddable")
+    print()
     show(tok)
+    print("\nGoogle needs a few hours before conversions start reporting against this.\n"
+          "Only once real lead data is flowing should you move the Search campaigns off\n"
+          "TARGET_SPEND (Maximize Clicks) to a conversion-based bid strategy.")
 
 
 cmd = sys.argv[1] if len(sys.argv) > 1 else "show"
