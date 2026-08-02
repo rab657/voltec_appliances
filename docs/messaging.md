@@ -14,8 +14,9 @@ each found saying different things (and two of them carrying an unknown phone nu
 
 ## 2. Short bio (~160–255 chars — FB `about`, IG bio, GBP headline)
 
-> Voltage stabilizers, genuine EVE lithium cells, BMS & battery packs — made and
-> supplied in Lahore since 1995. Homes, solar installers, dealers, assemblers & industry.
+> Servo (SVC), relay (AVR) & inverter (IGBT) stabilizers — single unit to 3-phase
+> industrial — genuine EVE lithium cells, BMS & battery packs. Made in Lahore since 1995.
+> Homes, solar installers, dealers, assemblers & industry.
 
 ## 3. Long description (FB `description`, GBP "from the business" ≤750 chars)
 
