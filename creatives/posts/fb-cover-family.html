@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+<style>
+  /* FB cover v2 — the user's product-family photo, full and uncropped.
+     1640x624 canvas. The photo is 1376x768 = 1.792:1 and the centre panel is
+     1118x624 = 1.792:1 — an EXACT fit, so nothing of the image is lost.
+     Flanks are the same image blurred (the ad-video recipe), which mobile's
+     narrower crop simply discards: the sharp panel is the middle 68%.
+     Logo + tagline sit on the empty grey wall above the AVR row. */
+  :root{
+    --ink:#231a16; --accent:oklch(46% 0.092 30);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1640px;height:624px;position:relative;overflow:hidden;
+       font-family:"Instrument Serif",serif;background:#8e8b88}
+  .blur{position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);
+        object-fit:cover;filter:blur(30px) saturate(.85) brightness(.82)}
+  .panel{position:absolute;left:261px;top:0;width:1118px;height:624px;
+         object-fit:cover;box-shadow:0 0 80px rgba(0,0,0,.45)}
+  /* soft paper glow so the ink text stays crisp on the mottled wall */
+  .halo{position:absolute;left:261px;top:0;width:1118px;height:240px;
+        background:radial-gradient(560px 190px at 50% 38%,rgba(250,247,242,.5),transparent 72%)}
+  .head{position:absolute;left:261px;width:1118px;top:30px;text-align:center;color:var(--ink)}
+  .head img{height:58px;width:auto;filter:drop-shadow(0 2px 8px rgba(255,255,255,.55))}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:15px;letter-spacing:.26em;
+           text-transform:uppercase;color:var(--accent);font-weight:600;margin-top:12px}
+  h1{font-weight:400;font-size:41px;line-height:1;letter-spacing:-.01em;margin-top:10px;
+     text-shadow:0 1px 0 rgba(255,255,255,.5),0 2px 18px rgba(255,255,255,.35)}
+  h1 em{font-style:italic;color:var(--accent)}
+</style>
+</head>
+<body>
+  <img class="blur" src="../assets/product-family.png" alt="" />
+  <img class="panel" src="../assets/product-family.png" alt="The Voltec range" />
+  <div class="halo"></div>
+  <div class="head">
+    <img src="../assets/voltec-logo.png" alt="Voltec Appliances" />
+    <div class="eyebrow">Lahore &middot; Since 1995</div>
+    <h1>Power you can rely on. Power that <em>never quits</em>.</h1>
+  </div>
+</body>
+</html>
