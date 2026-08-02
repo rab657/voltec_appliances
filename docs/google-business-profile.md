@@ -1,5 +1,9 @@
 # Voltec Appliances — Google Business Profile & Directory Copy
 
+> **Canonical wording now lives in [`docs/messaging.md`](messaging.md)** — if the two
+> files disagree, messaging.md wins. This file keeps the GBP-specific field lists,
+> Q&A seeds and citation checklist.
+
 Ready-to-paste copy for off-site presence. **Off-site authority (a verified GBP,
 consistent listings, and a few citations) is the single biggest lever for ranking
 in Google, Maps and AI answer engines** — the on-site SEO/AEO is already done.
@@ -51,14 +55,14 @@ UAE contact (for UAE listings only): +971 52 541 4894
 
 **Attributes to enable:** Online appointments / quotes · Onsite services · LGBTQ-friendly (optional) · Identifies as… (optional) · Wheelchair accessible (if true) · Free Wi-Fi (if true).
 
-**Hours:** [Mon–Sat 10:00–19:00, Sun closed — confirm actual]
+**Hours:** Mon–Sat 10:00–20:00, Sun closed (confirmed 2026-07-31 — matches the FB Page and SITE.hours)
 
 **Service areas:** Lahore, Punjab, and Pakistan-wide; export: UAE, China.
 
 **Website link:** https://voltecappliances.com
 **Appointment/quote link:** WhatsApp — https://wa.me/923211644447
 
-**Products to add (with the product photos from the site):** A-25 / A-50 / A-100 / A-120SP AVR stabilizers, SVC 5/10/15 kVA, EVE 280 Ah / 304 Ah LFP cells, three-phase SJW systems.
+**Products to add (with the product photos from the site):** A-25 / A-50 / A-100 / A-120SP AVR stabilizers, SVC 5/10/15 kVA, EVE LF100LA 100 Ah LFP cells (carton of 8), three-phase SJW systems.
 
 ---
 
@@ -68,7 +72,7 @@ UAE contact (for UAE listings only): +971 52 541 4894
    One appliance → A-series AVR. Whole home → SVC servo (5–15 kVA). Sensitive gear → inverter (IGBT). Factory → three-phase SJW. Message us your load and we'll size it. 📲 +92 321 1644447
 
 2. **"Genuine EVE Grade-A LFP cells, matched in Lahore"**
-   16 cells = a 48 V solar bank. 16× 280 Ah ≈ 14 kWh — an evening of load-shedding covered. QR-traceable, 6,000+ cycles. Ask for a quote.
+   16 cells = a 48 V solar bank. 16 cells = 5.12 kWh, exactly what a hybrid inverter expects. QR-traceable, 5,000+ cycles, test report with every carton. Ask for a quote.
 
 3. **"Works from as low as 75 V"**
    The Voltec A-120SP keeps your fridge and AC protected even where evening voltage collapses. 100% pure copper. Plug & play.
