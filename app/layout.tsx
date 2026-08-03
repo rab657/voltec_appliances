@@ -64,7 +64,12 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   robots: { index: true, follow: true, "max-image-preview": "large" } as Metadata["robots"],
-  verification: { google: "eudUmDINvCPiefN8NuG9xS1FlPrw_jazEMO1cSSLqyg" },
+  verification: {
+    google: "eudUmDINvCPiefN8NuG9xS1FlPrw_jazEMO1cSSLqyg",
+    // Meta Business Manager domain verification (public token, like the Google
+    // one above). Gates Business Verification → WhatsApp Cloud API production.
+    other: { "facebook-domain-verification": "aejph1k0vkxqp89f6g82gfytlikrks" },
+  },
 };
 
 export default async function RootLayout({
