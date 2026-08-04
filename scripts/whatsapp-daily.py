@@ -59,7 +59,10 @@ def requested_cells(text: str) -> int:
 
 def hours_since(ts: str) -> float:
     if not ts: return 1e9
-    t = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+    # Supabase emits variable-precision fractions ('.89', '.58254') that Python
+    # 3.9's fromisoformat rejects — strip them; hour precision is all we need.
+    ts = re.sub(r"\.\d+", "", ts).replace("Z", "+00:00")
+    t = datetime.fromisoformat(ts)
     return (datetime.now(timezone.utc) - t).total_seconds() / 3600
 
 
