@@ -81,18 +81,34 @@ by_wa = {}
 for m in msgs:
     by_wa.setdefault(m["wa_id"], []).append(m)
 
-rows = []
+# One row PER PERSON: a lead can have two DB rows (ad-click row + organic row —
+# the (wa_id, ctwa_clid) index is per-click by design). Merge them here or the
+# list shows duplicates and the pipeline total double-counts.
+BOILER = re.compile(r"Hello! Can I get more info on this\??", re.IGNORECASE)
+merged = {}
 for l in leads:
     if which != "all" and l.get("quality") != which:
         continue
+    m = merged.setdefault(l["wa_id"], dict(l))
+    # keep the attributed row's ad info, the most recent activity, best name
+    if l.get("ctwa_clid") and not m.get("ctwa_clid"):
+        m["ctwa_clid"], m["source_id"] = l["ctwa_clid"], l.get("source_id")
+    if (l.get("last_seen_at") or "") > (m.get("last_seen_at") or ""):
+        m["last_seen_at"] = l["last_seen_at"]
+    if l.get("profile_name") and not m.get("profile_name"):
+        m["profile_name"] = l["profile_name"]
+rows = []
+for wa, l in merged.items():
     quiet = hours_since(l.get("last_seen_at"))
     if quiet < quiet_h:
         continue
     text = " ".join([l.get("first_message") or ""] +
-                    [m.get("body") or "" for m in by_wa.get(l["wa_id"], [])])
+                    [m.get("body") or "" for m in by_wa.get(wa, [])])
+    text = BOILER.sub("", text)                 # strip the ad auto-greeting noise
+    text = re.sub(r"\s{2,}", " ", text).strip()
     cells = requested_cells(text)
     rows.append({**l, "quiet_h": quiet, "cells": cells, "value": cells * CELL_PRICE,
-                 "text": text.strip()})
+                 "text": text})
 
 rows.sort(key=lambda r: (-r["value"], -r["quiet_h"]))
 
