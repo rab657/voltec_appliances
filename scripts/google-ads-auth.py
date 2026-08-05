@@ -13,8 +13,10 @@ import http.server, json, os, pathlib, socketserver, threading, urllib.parse, ur
 
 ENV = pathlib.Path(__file__).resolve().parent.parent / ".env.local"
 PORT = 8765
-# Ads + Merchant Center (Content API) — one token drives both.
-SCOPE = "https://www.googleapis.com/auth/adwords https://www.googleapis.com/auth/content"
+# Ads + Merchant Center + Search Console (rank tracking) — one token drives all three.
+SCOPE = ("https://www.googleapis.com/auth/adwords "
+         "https://www.googleapis.com/auth/content "
+         "https://www.googleapis.com/auth/webmasters.readonly")
 
 
 def env() -> dict:

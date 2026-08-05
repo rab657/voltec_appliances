@@ -76,7 +76,7 @@ const price = {
 <li><strong>For a home or solar inverter:</strong> send your inverter size or a photo of your meter/load — an engineer sizes it and quotes.</li>
 <li><strong>For a factory or tender:</strong> send the load sheet or BOQ — written quote with specifications, same day.</li>
 </ul>
-<p>WhatsApp <a href="https://wa.me/923211644447">+92 321 1644447</a> — or see the units running live low-voltage demos at the showroom: 8/26 Shadab Colony, Abid Market, Lahore, Mon–Sat 10am–8pm. Guides: <a href="/blog/what-size-stabilizer-pakistan-home">home sizing</a> · <a href="/blog/servo-voltage-stabilizer-pakistan">the full SVC guide</a>.</p>`,
+<p>WhatsApp <a href="https://wa.me/923211644447?text=Stabilizer%20quote%3A%20">+92 321 1644447</a> — or see the units running live low-voltage demos at the showroom: 8/26 Shadab Colony, Abid Market, Lahore, Mon–Sat 10am–8pm. Guides: <a href="/blog/what-size-stabilizer-pakistan-home">home sizing</a> · <a href="/blog/servo-voltage-stabilizer-pakistan">the full SVC guide</a>.</p>`,
   faqs: [
     { q: "What is the price of a voltage stabilizer in Pakistan?",
       a: "It depends on the type, the real kVA, the winding metal and the input range — which is why the same printed size can differ 2x between brands. WhatsApp Voltec your appliance or load (+92 321 1644447) and you get the exact written price the same day, and that number holds." },
@@ -144,7 +144,7 @@ const servo = {
 <h2>Government and tender buyers</h2>
 <p>We prepare <strong>complete tender documentation</strong> — certified specifications, datasheets, test reports and compliance papers — and quote against your BOQ. If you are a procurement officer comparing bids: ask every bidder whether the winding is copper, what the per-phase correction range is, and for a factory test report. Those three questions eliminate most of the field.</p>
 
-<p>Send your load sheet or BOQ on WhatsApp — <a href="https://wa.me/923211644447">+92 321 1644447</a> — and an engineer sizes it the same day.</p>`,
+<p>Send your load sheet or BOQ on WhatsApp — <a href="https://wa.me/923211644447?text=Servo%20%2F%203-phase%20quote%3A%20">+92 321 1644447</a> — and an engineer sizes it the same day.</p>`,
   faqs: [
     { q: "What is a servo voltage stabilizer?",
       a: "A stabilizer in which a servo motor continuously drives a variable transformer, so the output voltage is corrected smoothly and accurately rather than in steps. It is the standard choice from whole-home sizes up to industrial three-phase systems." },
@@ -198,7 +198,7 @@ const brands = {
 <h2>5. Will they put it in writing?</h2>
 <p>Winding metal, real kVA, input range, warranty terms — on the invoice. Any brand confident in its unit will do this. Any brand that hesitates has answered your question.</p>
 
-<p>Run these five on us and on anyone else — <a href="/blog/voltage-stabilizer-price-in-pakistan">here is what decides our prices</a>, our quotes come in writing the same day, and the showroom on Abid Market runs live low-voltage demos Mon–Sat. WhatsApp <a href="https://wa.me/923211644447">+92 321 1644447</a>.</p>`,
+<p>Run these five on us and on anyone else — <a href="/blog/voltage-stabilizer-price-in-pakistan">here is what decides our prices</a>, our quotes come in writing the same day, and the showroom on Abid Market runs live low-voltage demos Mon–Sat. WhatsApp <a href="https://wa.me/923211644447?text=Stabilizer%20quote%3A%20">+92 321 1644447</a>.</p>`,
   faqs: [
     { q: "Which is the best voltage stabilizer brand in Pakistan?",
       a: "Judge any brand — including Voltec — on five verifiable things: copper vs aluminium winding, a full-load test report proving the kVA rating, the exact input voltage range in writing, a real service network, and willingness to put all of it on the invoice. Brands that pass all five are rare." },
