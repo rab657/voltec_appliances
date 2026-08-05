@@ -39,9 +39,13 @@ for line in ROOT.joinpath(".env.local").read_text().splitlines():
 
 SB_URL = CFG.get("NEXT_PUBLIC_SUPABASE_URL", "").rstrip("/")
 SB_KEY = CFG.get("SUPABASE_SERVICE_ROLE_KEY", "")
-PIXEL = CFG.get("META_PIXEL_ID", "1012908876950112")
-CAPI = CFG.get("META_CAPI_TOKEN", "")
+# CTWA quality events go to the WABA-OWNED dataset, NOT the website pixel —
+# the pixel has no WhatsApp Business account associated (err 2804132). Created
+# via POST /{waba}/dataset on 2026-08-06.
+PIXEL = "1969968263652773"
+CAPI = CFG.get("META_ADS_TOKEN") or CFG.get("META_CAPI_TOKEN", "")
 VER = CFG.get("META_GRAPH_VERSION", "v21.0")
+WABA = "1051206810604714"   # PK WhatsApp Business Account — required in business_messaging events (err 2804116)
 
 
 def sb(method, path, body=None, **params):
@@ -85,7 +89,7 @@ def post_capi(lead, event_name, value=None, dry=False):
         "event_time": int(time.time()),
         "action_source": "business_messaging",
         "messaging_channel": "whatsapp",
-        "user_data": {"ctwa_clid": clid},
+        "user_data": {"ctwa_clid": clid, "whatsapp_business_account_id": WABA},
     }
     if value is not None:
         event["custom_data"] = {"value": float(value), "currency": "PKR"}
