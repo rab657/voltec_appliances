@@ -18,11 +18,9 @@ because it learns quality from real outcomes rather than guessing at it.
    3. Supabase tables created (see supabase-schema.sql, whatsapp_leads)
    Until then `list` will simply show nothing.
 
-⚠️ UNTESTED PAYLOAD SHAPE. There is no real ctwa_clid in the system yet, so the
-CAPI body below has never been exercised against Meta. Run `qualify --dry-run`
-first, check the printed payload against the current CTWA CAPI docs, and expect
-to adjust where `ctwa_clid` / `messaging_channel` sit. Do not assume a 200 here
-means Meta attributed it — confirm in Events Manager.
+PAYLOAD SHAPE verified live 2026-08-06: business_messaging events require
+event_name "LeadSubmitted" (NOT "Lead" — err 2804066) or "Purchase". A 200 means
+accepted; confirm attribution in Events Manager.
 
 Usage:
   python3 scripts/whatsapp-qualify.py list [unknown|qualified|rejected|bought]
@@ -67,10 +65,12 @@ def sb(method, path, body=None, **params):
 
 def find(wa_id):
     rows = sb("GET", "whatsapp_leads", select="*", wa_id=f"eq.{wa_id}",
-              order="last_seen_at.desc", limit="1")
+              order="last_seen_at.desc")
     if not rows:
         raise SystemExit(f"No lead found for wa_id {wa_id}. Run `list` to see what exists.")
-    return rows[0]
+    # A person can hold several rows (one per ad click + an organic one). Prefer the
+    # attributed row — the ctwa_clid is the whole point of posting quality to Meta.
+    return next((r for r in rows if r.get("ctwa_clid")), rows[0])
 
 
 def post_capi(lead, event_name, value=None, dry=False):
@@ -127,7 +127,9 @@ def mark(wa_id, quality, event_name=None, value=None, note=None, dry=False):
     if sent and sent != "dry-run":
         patch["capi_event"] = sent
         patch["capi_sent_at"] = "now()"
-    sb("PATCH", "whatsapp_leads", body=patch, id=f"eq.{lead['id']}")
+    # Mark EVERY row of this person, not just the matched one — otherwise their
+    # organic row keeps resurfacing on the daily list after they're classified.
+    sb("PATCH", "whatsapp_leads", body=patch, wa_id=f"eq.{lead['wa_id']}")
     print(f"  ✓ marked {quality}")
 
 
@@ -159,7 +161,7 @@ pos = [a for a in args[1:] if not a.startswith("--")
 if cmd == "list":
     cmd_list(pos[0] if pos else "unknown")
 elif cmd == "qualify":
-    mark(pos[0], "qualified", "Lead", None, note, dry)
+    mark(pos[0], "qualified", "LeadSubmitted", None, note, dry)
 elif cmd == "bought":
     mark(pos[0], "bought", "Purchase", val, note, dry)
 elif cmd == "reject":
