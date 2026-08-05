@@ -55,9 +55,10 @@ Compact form for art/footers: `Cells & packs · BMS · Servo / AVR / IGBT · 3-p
 - **WhatsApp / sales CTA:** +92 321 1644447 (`wa.me/923211644447`)
 - **Showroom landline (location surfaces + GBP/FB phone field ONLY):** +92 42 3636 8601
 - **UAE (export only):** +971 52 541 4894
-- ⚠️ **0324-4004778 is NOT a confirmed Voltec number.** It was found baked into the old
-  FB cover, the EVE product-card image and a reel caption. Do not reproduce it anywhere
-  until the user confirms it; replace artwork that carries it.
+- **0324-4004778 = Raheel Ahmad's own line** (RESOLVED 2026-08-06 — it appears on every
+  invoice as his contact, alongside Riaz Ahmed +92-321-4855800). It is legitimate, but the
+  **sales CTA everywhere stays +92 321 1644447** — that's the line wired to lead capture.
+  Artwork carrying 0324 is not wrong, just not the tracked funnel.
 - **Address:** 8/26 Shadab Colony, Abid Market, Temple Road, Lahore 54000
 - **Hours:** Mon–Sat 10:00–20:00, Sunday closed (confirmed 2026-07-31)
 - **Founded:** 1995 · geo 31.550733, 74.316244
