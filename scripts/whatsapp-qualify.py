@@ -28,7 +28,7 @@ Usage:
   python3 scripts/whatsapp-qualify.py bought  <wa_id> [--value 84000] [--dry-run]
   python3 scripts/whatsapp-qualify.py reject  <wa_id> [--note "wanted 4 cells"]
 """
-import json, os, pathlib, sys, time, urllib.parse, urllib.request
+import hashlib, json, os, pathlib, sys, time, urllib.parse, urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 CFG = {}
@@ -46,6 +46,8 @@ PIXEL = "1969968263652773"
 CAPI = CFG.get("META_ADS_TOKEN") or CFG.get("META_CAPI_TOKEN", "")
 VER = CFG.get("META_GRAPH_VERSION", "v21.0")
 WABA = "1051206810604714"   # PK WhatsApp Business Account — required in business_messaging events (err 2804116)
+QUAL_CA = "120248872646540617"  # "Voltec — Qualified WhatsApp leads" — auto-grown on every qualify/bought
+ADS_TOKEN = CFG.get("META_ADS_TOKEN", "")
 
 
 def sb(method, path, body=None, **params):
@@ -89,7 +91,9 @@ def post_capi(lead, event_name, value=None, dry=False):
         "event_time": int(time.time()),
         "action_source": "business_messaging",
         "messaging_channel": "whatsapp",
-        "user_data": {"ctwa_clid": clid, "whatsapp_business_account_id": WABA},
+        "user_data": {"ctwa_clid": clid, "whatsapp_business_account_id": WABA,
+                      # hashed phone alongside the clid = stronger person-matching
+                      "ph": [hashlib.sha256(lead["wa_id"].encode()).hexdigest()]},
     }
     if value is not None:
         event["custom_data"] = {"value": float(value), "currency": "PKR"}
@@ -135,6 +139,20 @@ def mark(wa_id, quality, event_name=None, value=None, note=None, dry=False):
     # organic row keeps resurfacing on the daily list after they're classified.
     sb("PATCH", "whatsapp_leads", body=patch, wa_id=f"eq.{lead['wa_id']}")
     print(f"  ✓ marked {quality}")
+    if quality in ("qualified", "bought") and ADS_TOKEN:
+        # keep the "Qualified leads" Custom Audience in sync — hashed, never raw
+        h = hashlib.sha256(lead["wa_id"].encode()).hexdigest()
+        req = urllib.request.Request(
+            f"https://graph.facebook.com/{VER}/{QUAL_CA}/users",
+            data=urllib.parse.urlencode({"payload": json.dumps(
+                {"schema": "PHONE_SHA256", "data": [[h]]}),
+                "access_token": ADS_TOKEN}).encode(), method="POST")
+        try:
+            with urllib.request.urlopen(req, timeout=30) as r:
+                ok = json.loads(r.read()).get("num_received") == 1
+            print(f"  {'✓' if ok else '⚠️'} added to Qualified-leads audience (hashed)")
+        except Exception as e:
+            print(f"  ⚠️ audience add failed: {e}")
 
 
 def cmd_list(quality="unknown"):
