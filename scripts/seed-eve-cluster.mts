@@ -16,7 +16,7 @@
 // RESEARCH THIS IS BUILT ON (2026-07-31):
 //  - The PK field is fragmented small shops (alladin.pk, evolta.pk,
 //    neexgentsolar.pk, burncart.pk, hakadibattery.com, daroghawala.org). None
-//    dominant. Evolta lists 100Ah around Rs 12,000 — Voltec is Rs 10,000.
+//    dominant. Evolta lists 100Ah around Rs 12,000 — Voltec is Rs 9,800.
 //  - The top-ranking PK lithium buying guide (badarenergy) is ~2.5-3k words with
 //    NO FAQ schema, NO product schema, NO author, NO date, and never mentions EVE
 //    cells. This blog already emits Article + FAQPage + BreadcrumbList, so the
@@ -59,7 +59,7 @@ const pillar = {
     "Which EVE cells actually reach Pakistan, what they cost, how to tell Grade A from Grade B, and how many cells you need for a 24V or 48V pack. Written for assemblers and dealers.",
   metaTitle: "EVE Lithium Cells in Pakistan — Prices, Grades & Buyer's Guide (2026)",
   metaDescription:
-    "Genuine EVE LiFePO4 cells in Pakistan: LF100LA at Rs 10,000 per cell, sold by the carton of 8. Grades explained, QR verification, and 24V/48V pack sizing.",
+    "Genuine EVE LiFePO4 cells in Pakistan: LF100LA at Rs 9,800 per cell, sold by the carton of 8. Grades explained, QR verification, and 24V/48V pack sizing.",
   keywords: [
     "eve cells in pakistan", "eve lithium cells pakistan", "eve lifepo4 pakistan",
     "eve cells price in pakistan", "lifepo4 cells pakistan", "eve lf100la pakistan",
@@ -67,7 +67,7 @@ const pillar = {
   ],
   takeaways: [
     "EVE is one of the world's largest LiFePO4 cell makers — the cells are genuine, but Pakistan's supply chain is where the risk sits.",
-    "Voltec stocks EVE LF100LA (3.2V 100Ah) at Rs 10,000 per cell, sold by the carton of 8. One carton = a 24V bank; two = 48V.",
+    "Voltec stocks EVE LF100LA (3.2V 100Ah) at Rs 9,800 per cell, sold by the carton of 8. One carton = a 24V bank; two = 48V.",
     "Grade A and Grade B look almost identical. The QR code is what separates them, and EVE stamps rejected cells with a B.",
     "Always ask for the per-cell test report before you pay. A seller who cannot produce one is selling you someone else's rejects.",
   ],
@@ -96,7 +96,7 @@ const pillar = {
 <div class="callout"><div class="c-label">Never mix</div><div>Do not mix capacities, batches or ages in one pack. The weakest cell sets the ceiling for the whole bank — a 100Ah cell in a 105Ah string turns the entire pack into a 100Ah pack, and the mismatch accelerates ageing.</div></div>
 
 <h2>What EVE cells cost in Pakistan</h2>
-<p>Voltec sells the <strong>EVE LF100LA at Rs 10,000 per cell</strong>, by the carton of 8. We do not break cartons. Local listings for comparable 100–105Ah cells sit around Rs 11,000–12,000, so the carton price is competitive — but price alone is a bad way to choose.</p>
+<p>Voltec sells the <strong>EVE LF100LA at Rs 9,800 per cell</strong>, by the carton of 8. We do not break cartons. Local listings for comparable 100–105Ah cells sit around Rs 11,000–12,000, so the carton price is competitive — but price alone is a bad way to choose.</p>
 
 <p><strong>Be suspicious of anything much cheaper.</strong> A genuine Grade A cell has a floor cost set by the factory. When a price looks impossible, you are usually being offered one of three things: a Grade B cell, a recycled cell pulled from an old pack, or a counterfeit with a printed QR code. The third kind is the dangerous one.</p>
 
@@ -133,10 +133,10 @@ const pillar = {
 
 <h2>Buying from Voltec</h2>
 <p>We have been building voltage stabilizers in Pakistan since 1995 and import EVE cells directly. Every carton ships with its test report, the QR codes are yours to verify before you pay, and we publish teardown and load-test videos of the stock we actually sell rather than stock photos.</p>
-<p>Cells are Rs 10,000 each, carton of 8, delivered across Punjab, KPK and Gilgit-Baltistan, or collected from our Abid Market showroom in Lahore. See the <a href="/products/vt-eve-lf100">LF100LA product page</a> or message us on WhatsApp for dealer rates on multiple cartons.</p>`,
+<p>Cells are Rs 9,800 each, carton of 8, delivered across Punjab, KPK and Gilgit-Baltistan, or collected from our Abid Market showroom in Lahore. See the <a href="/products/vt-eve-lf100">LF100LA product page</a> or message us on WhatsApp for dealer rates on multiple cartons.</p>`,
   faqs: [
     { q: "What is the price of EVE cells in Pakistan?",
-      a: "Voltec sells the EVE LF100LA 3.2V 100Ah cell at Rs 10,000 per cell, sold by the carton of 8 (Rs 80,000 per carton). Dealer rates are available on multiple cartons — ask on WhatsApp. Comparable 100–105Ah cells are commonly listed locally at Rs 11,000–12,000." },
+      a: "Voltec sells the EVE LF100LA 3.2V 100Ah cell at Rs 9,800 per cell, sold by the carton of 8 (Rs 78,400 per carton). Dealer rates are available on multiple cartons — ask on WhatsApp. Comparable 100–105Ah cells are commonly listed locally at Rs 11,000–12,000." },
     { q: "Can I buy a single EVE cell?",
       a: "No. Cells are sold by the carton of 8, because a pack must be built from cells of the same batch and capacity. Mixing batches means the weakest cell limits the entire bank. One carton gives you a 24V bank; two cartons give you 48V." },
     { q: "How many EVE cells do I need for a 48V battery?",
@@ -309,7 +309,7 @@ const distributor = {
 <p><strong>Verify the cells as well as the seller.</strong> Scan the QR codes, count the characters, check for the B mark and confirm the safety valve is present. It takes ten minutes and it is the only check that examines the actual cells you will be putting in someone's home. Our full method is in <a href="/blog/genuine-eve-cells-check-pakistan">how to check if your EVE cells are genuine</a>.</p>
 
 <h2>Buying from us</h2>
-<p>EVE LF100LA cells are Rs 10,000 each, sold by the carton of 8, with the batch test report included and the QR codes available for you to check before payment. Delivery across Punjab, KPK and Gilgit-Baltistan, or collection from our Abid Market showroom in Lahore.</p>
+<p>EVE LF100LA cells are Rs 9,800 each, sold by the carton of 8, with the batch test report included and the QR codes available for you to check before payment. Delivery across Punjab, KPK and Gilgit-Baltistan, or collection from our Abid Market showroom in Lahore.</p>
 <p>See the <a href="/products/vt-eve-lf100">LF100LA product page</a>, the <a href="/blog/eve-lithium-cells-pakistan">complete buyer's guide</a>, or message us on WhatsApp for dealer rates.</p>`,
   faqs: [
     { q: "Is Voltec an authorised EVE distributor in Pakistan?",
@@ -336,17 +336,17 @@ const pricing = {
   cover: "assets/cells/vp-matched.jpg",
   readTime: 7,
   excerpt:
-    "Rs 10,000 per cell, carton of 8. Here is what a complete 24V and 48V build actually costs once you add the BMS and busbars — and when buying a finished pack makes more sense.",
+    "Rs 9,800 per cell, carton of 8. Here is what a complete 24V and 48V build actually costs once you add the BMS and busbars — and when buying a finished pack makes more sense.",
   metaTitle: "EVE LF100LA Price in Pakistan (2026) — 24V & 48V Pack Cost Breakdown",
   metaDescription:
-    "EVE LF100LA 3.2V 100Ah at Rs 10,000 per cell, carton of 8. Full 24V (2.56 kWh) and 48V (5.12 kWh) pack sizing, what else you need, and total build cost.",
+    "EVE LF100LA 3.2V 100Ah at Rs 9,800 per cell, carton of 8. Full 24V (2.56 kWh) and 48V (5.12 kWh) pack sizing, what else you need, and total build cost.",
   keywords: [
     "eve lf100la price in pakistan", "eve cell price pakistan", "lifepo4 cell price in pakistan",
     "48v lifepo4 battery pack pakistan", "24v lithium battery pack cells",
     "5kwh lithium battery cost pakistan", "diy lifepo4 pack pakistan",
   ],
   takeaways: [
-    "EVE LF100LA is Rs 10,000 per cell, sold by the carton of 8 — Rs 80,000 per carton.",
+    "EVE LF100LA is Rs 9,800 per cell, sold by the carton of 8 — Rs 78,400 per carton.",
     "8 cells in series gives a 24V bank at 2.56 kWh. 16 cells gives a 48V bank at 5.12 kWh.",
     "Cells are roughly 80–85% of a build. Budget for a BMS, busbars, nuts and compression as well.",
     "Building your own makes sense above roughly one 48V pack — below that, a finished pack is usually better value once you count your time.",
@@ -354,7 +354,7 @@ const pricing = {
   body: `<p>The most common question we get from assemblers is simply: what does a pack cost? Here is the arithmetic, with nothing hidden.</p>
 
 <h2>Cell price</h2>
-<p><strong>EVE LF100LA, 3.2V 100Ah: Rs 10,000 per cell.</strong> Sold by the carton of 8, so Rs 80,000 per carton. We do not break cartons — a pack has to be built from cells of the same batch, and splitting cartons is how mismatched banks get made. Dealer rates apply on multiple cartons; ask on WhatsApp.</p>
+<p><strong>EVE LF100LA, 3.2V 100Ah: Rs 9,800 per cell.</strong> Sold by the carton of 8, so Rs 78,400 per carton. We do not break cartons — a pack has to be built from cells of the same batch, and splitting cartons is how mismatched banks get made. Dealer rates apply on multiple cartons; ask on WhatsApp.</p>
 
 <h2>Pack sizing</h2>
 <p>LFP is 3.2V nominal per cell, so series count sets voltage and the cell capacity sets the amp-hours:</p>
@@ -367,10 +367,10 @@ const pricing = {
 <div class="table-scroll"><table>
 <thead><tr><th>Config</th><th>Cells</th><th>Cartons</th><th>Nominal</th><th>Capacity</th><th>Cell cost</th></tr></thead>
 <tbody>
-<tr><td>8S</td><td>8</td><td>1</td><td>25.6V ("24V")</td><td>2.56 kWh</td><td>Rs 80,000</td></tr>
-<tr><td>16S</td><td>16</td><td>2</td><td>51.2V ("48V")</td><td>5.12 kWh</td><td>Rs 160,000</td></tr>
-<tr><td>16S2P</td><td>32</td><td>4</td><td>51.2V ("48V")</td><td>10.24 kWh</td><td>Rs 320,000</td></tr>
-<tr><td>16S3P</td><td>48</td><td>6</td><td>51.2V ("48V")</td><td>15.36 kWh</td><td>Rs 480,000</td></tr>
+<tr><td>8S</td><td>8</td><td>1</td><td>25.6V ("24V")</td><td>2.56 kWh</td><td>Rs 78,400</td></tr>
+<tr><td>16S</td><td>16</td><td>2</td><td>51.2V ("48V")</td><td>5.12 kWh</td><td>Rs 156,800</td></tr>
+<tr><td>16S2P</td><td>32</td><td>4</td><td>51.2V ("48V")</td><td>10.24 kWh</td><td>Rs 313,600</td></tr>
+<tr><td>16S3P</td><td>48</td><td>6</td><td>51.2V ("48V")</td><td>15.36 kWh</td><td>Rs 470,400</td></tr>
 </tbody></table></div>
 <p>Cell cost only — see below for what else a finished pack needs.</p>
 
@@ -396,7 +396,7 @@ const pricing = {
 <li><strong>Compression</strong> — end plates and banding. Prismatic LFP cells swell slightly in normal use and need to be held under even pressure to reach rated cycle life.</li>
 <li><strong>An enclosure, wiring and a main fuse or breaker.</strong></li>
 </ul>
-<p>In practice the cells come to roughly 80–85% of a self-built pack. So a 48V 5.12 kWh build starts around Rs 160,000 in cells, with the balance of materials on top of that depending on the BMS you choose.</p>
+<p>In practice the cells come to roughly 80–85% of a self-built pack. So a 48V 5.12 kWh build starts around Rs 156,800 in cells, with the balance of materials on top of that depending on the BMS you choose.</p>
 
 <h2>Build or buy?</h2>
 <p>Honest answer: <strong>below about one 48V pack, buying a finished battery is usually better value</strong> once you count your own time, the tools, and the risk of getting compression or the BMS wrong. Self-building pays off when you are making several packs, when you want to choose your own BMS, or when you are assembling for customers — which is exactly who most of our cell buyers are.</p>
@@ -407,9 +407,9 @@ const pricing = {
 <p>Current stock and specifications are on the <a href="/products/vt-eve-lf100">LF100LA product page</a>. Delivery across Punjab, KPK and Gilgit-Baltistan, or collect in Lahore.</p>`,
   faqs: [
     { q: "What is the price of an EVE LF100LA cell in Pakistan?",
-      a: "Rs 10,000 per cell, sold by the carton of 8, which is Rs 80,000 per carton. Dealer rates are available on multiple cartons. Nuts and copper busbars are supplied with the cells." },
+      a: "Rs 9,800 per cell, sold by the carton of 8, which is Rs 78,400 per carton. Dealer rates are available on multiple cartons. Nuts and copper busbars are supplied with the cells." },
     { q: "How much does a 48V 5kWh lithium battery cost to build?",
-      a: "A 16S 48V pack at 5.12 kWh needs 16 EVE LF100LA cells — two cartons, so about Rs 160,000 in cells. Cells are roughly 80–85% of a build, so add a suitably sized BMS, compression end plates and banding, an enclosure, wiring and a main fuse on top." },
+      a: "A 16S 48V pack at 5.12 kWh needs 16 EVE LF100LA cells — two cartons, so about Rs 156,800 in cells. Cells are roughly 80–85% of a build, so add a suitably sized BMS, compression end plates and banding, an enclosure, wiring and a main fuse on top." },
     { q: "How many EVE cells make a 24V battery?",
       a: "Eight cells in series (8S) gives 25.6V nominal, which inverters call 24V. With 100Ah cells that is 2.56 kWh — exactly one carton." },
     { q: "Do I need a BMS with EVE LFP cells?",

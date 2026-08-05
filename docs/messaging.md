@@ -45,7 +45,7 @@ Compact form for art/footers: `Cells & packs · BMS · Servo / AVR / IGBT · 3-p
 | claim | allowed | not allowed |
 |---|---|---|
 | "Authorised EVE distributor" | homepage partner row, blog, llms.txt, GBP/FB long description, Google ad copy | the top utility strip (user: too loud, 2026-07-31) |
-| Prices | website (Rs 10,000/cell list) | **any Meta ad creative** (standing rule 2026-07-27); WhatsApp quote is Rs 9,700 (9,600 bulk) — deliberate discount-on-contact |
+| Prices | website (Rs 9,800/cell — firesale window from 2026-08-06) | **any Meta ad creative** (standing rule 2026-07-27); WhatsApp quote is Rs 9,700 (9,600 bulk) — deliberate discount-on-contact |
 | "Trusted by K&N's" etc. | everywhere (real clients) | — |
 | Superlatives ("best", "No.1") | — | everywhere (CLAUDE.md: no false superlatives) |
 | Clever hooks / dramatic openers in ad copy | — | **anywhere** (user, 2026-08-05: "keep messaging simple — no such stupid titles… yeh extra fazool cheezain nahi likhin"). Ad copy = product name first, specs, carton rule, WhatsApp CTA. Nothing else. |
