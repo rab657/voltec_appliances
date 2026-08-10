@@ -36,18 +36,29 @@ CREATE  shop  CNAME  cname.vercel-dns.com
 `shop.voltecappliances.com`. Vercel issues the certificate automatically; the
 `next.config.ts` rules then answer every request with a 301.
 
-## ⚠️ If it still returns 409 after the DNS change: Cloudflare is proxying it
+## ⚠️ Expect a transition window of up to ~1 hour — this is NOT a misconfiguration
 
-Observed 2026-08-10 after the Vercel domain was added: `shop.voltecappliances.com` answered
-**HTTP 409 with `server: cloudflare` and `error code: 1001`** (Cloudflare cannot resolve the
-origin), while `voltecappliances.com` answered `server: Vercel` directly. DNS already
-resolved to `cname.vercel-dns.com`, so the record itself was right — the request never
-reached Vercel because the `shop` record is still **Proxied** (orange cloud) from the
-Shopify era.
+Right after the switch, `shop.voltecappliances.com` returned **HTTP 409 with
+`server: cloudflare`, `error code: 1001`**. That Cloudflare is **Shopify's own CDN**
+(`shops.myshopify.com` is served by Cloudflare) answering for requests that still resolved
+to the OLD record — the DNS is hosted at **GoDaddy** (`ns35/ns36.domaincontrol.com`), and
+there is no Cloudflare account involved. Nothing to toggle.
 
-**Fix:** Cloudflare dashboard → DNS → the `shop` record → set proxy status to
-**DNS only (grey cloud)**. Proxying also blocks Vercel's certificate challenge, which is
-why the domain sat on "Generating SSL Certificate".
+Proof the config was already correct while the 409s were still appearing — force the
+request past every DNS cache straight at a Vercel edge IP:
+
+```bash
+curl -sI --resolve shop.voltecappliances.com:443:76.76.21.241 \
+  https://shop.voltecappliances.com/collections/avr
+# HTTP/2 308 · server: Vercel
+# location: https://voltecappliances.com/showcase/avr
+```
+
+The CNAME's TTL is **3600s**, so stale answers can persist about an hour. Wait it out and
+re-check; do not "fix" anything in the meantime.
+
+**Note on the status code:** Next.js `permanent: true` emits **308**, not 301. Both are
+permanent redirects and Google treats them equivalently for consolidation.
 
 ## Verify afterwards
 
