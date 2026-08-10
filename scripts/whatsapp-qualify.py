@@ -47,6 +47,10 @@ CAPI = CFG.get("META_ADS_TOKEN") or CFG.get("META_CAPI_TOKEN", "")
 VER = CFG.get("META_GRAPH_VERSION", "v21.0")
 WABA = "1051206810604714"   # PK WhatsApp Business Account — required in business_messaging events (err 2804116)
 QUAL_CA = "120248872646540617"  # "Voltec — Qualified WhatsApp leads" — auto-grown on every qualify/bought
+# "DIY & sub-carton buyers (EXCLUDE)" — grown on every reject so we stop PAYING to reach
+# people who will never buy a carton. User ruled out self-qualifying prompts (2026-08-10:
+# "doesn't work for Pakistani awaam"), so exclusion is the only pre-click filter that works.
+DIY_CA = "120248989052070617"
 ADS_TOKEN = CFG.get("META_ADS_TOKEN", "")
 
 
@@ -139,18 +143,21 @@ def mark(wa_id, quality, event_name=None, value=None, note=None, dry=False):
     # organic row keeps resurfacing on the daily list after they're classified.
     sb("PATCH", "whatsapp_leads", body=patch, wa_id=f"eq.{lead['wa_id']}")
     print(f"  ✓ marked {quality}")
-    if quality in ("qualified", "bought") and ADS_TOKEN:
-        # keep the "Qualified leads" Custom Audience in sync — hashed, never raw
+    ca = QUAL_CA if quality in ("qualified", "bought") else (DIY_CA if quality == "rejected" else None)
+    if ca and ADS_TOKEN:
+        # sync the matching Custom Audience — hashed, never raw. qualified/bought grow the
+        # lookalike seed; rejected grows the EXCLUSION list so ad money stops chasing them.
         h = hashlib.sha256(lead["wa_id"].encode()).hexdigest()
         req = urllib.request.Request(
-            f"https://graph.facebook.com/{VER}/{QUAL_CA}/users",
+            f"https://graph.facebook.com/{VER}/{ca}/users",
             data=urllib.parse.urlencode({"payload": json.dumps(
                 {"schema": "PHONE_SHA256", "data": [[h]]}),
                 "access_token": ADS_TOKEN}).encode(), method="POST")
         try:
             with urllib.request.urlopen(req, timeout=30) as r:
                 ok = json.loads(r.read()).get("num_received") == 1
-            print(f"  {'✓' if ok else '⚠️'} added to Qualified-leads audience (hashed)")
+            print(f"  {'✓' if ok else '⚠️'} added to "
+                  f"{'Qualified-leads' if ca == QUAL_CA else 'DIY-EXCLUDE'} audience (hashed)")
         except Exception as e:
             print(f"  ⚠️ audience add failed: {e}")
 
