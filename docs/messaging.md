@@ -16,7 +16,7 @@ each found saying different things (and two of them carrying an unknown phone nu
 
 > Servo (SVC), relay (AVR) & inverter (IGBT) stabilizers — single unit to 3-phase
 > industrial — genuine EVE lithium cells, BMS & battery packs. Made in Lahore since 1995.
-> Homes, solar installers, dealers, assemblers & industry.
+> Homes, industry & battery pack assemblers.
 
 ## 3. Long description (FB `description`, GBP "from the business" ≤750 chars)
 
@@ -48,6 +48,7 @@ Compact form for art/footers: `Cells & packs · BMS · Servo / AVR / IGBT · 3-p
 | Prices | website (Rs 9,800/cell — firesale window from 2026-08-06) | **any Meta ad creative** (standing rule 2026-07-27); WhatsApp quote is Rs 9,700 (9,600 bulk) — deliberate discount-on-contact |
 | "Trusted by K&N's" etc. | everywhere (real clients) | — |
 | Superlatives ("best", "No.1") | — | everywhere (CLAUDE.md: no false superlatives) |
+| Audience naming in CELLS ad copy | **"Battery pack assemblers"** only (user, 2026-08-10) | ❌ "solar installers", ❌ "dealers/distributors/resellers" — cells ads target pack assemblers & factories exclusively; MOQ 1 carton (8 cells) must be stated |
 | Clever hooks / dramatic openers in ad copy | — | **anywhere** (user, 2026-08-05: "keep messaging simple — no such stupid titles… yeh extra fazool cheezain nahi likhin"). Ad copy = product name first, specs, carton rule, WhatsApp CTA. Nothing else. |
 
 ## 6. Contact & facts (must be byte-identical everywhere)
