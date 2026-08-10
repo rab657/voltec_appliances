@@ -59,10 +59,19 @@ BIG = re.compile(r"\b(280|304|314|306|230)\s*(a|ah|amp)?\b|\bmb31\b", re.I)
 
 
 def get(table, **params):
-    url = f"{SB}/rest/v1/{table}?" + urllib.parse.urlencode(params)
-    req = urllib.request.Request(url, headers={"apikey": KEY, "Authorization": f"Bearer {KEY}"})
-    with urllib.request.urlopen(req, timeout=90) as r:
-        return json.loads(r.read())
+    """Paged fetch. ⚠️ PostgREST caps a response at 1000 rows and does NOT tell you —
+    an unpaged read silently truncates and every total downstream comes out wrong."""
+    out, step, off = [], 1000, 0
+    while True:
+        p = dict(params); p["limit"] = step; p["offset"] = off
+        url = f"{SB}/rest/v1/{table}?" + urllib.parse.urlencode(p)
+        req = urllib.request.Request(url, headers={"apikey": KEY, "Authorization": f"Bearer {KEY}"})
+        with urllib.request.urlopen(req, timeout=90) as r:
+            batch = json.loads(r.read())
+        out += batch
+        if len(batch) < step:
+            return out
+        off += step
 
 
 def cells(text):
