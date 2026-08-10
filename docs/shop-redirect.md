@@ -36,6 +36,19 @@ CREATE  shop  CNAME  cname.vercel-dns.com
 `shop.voltecappliances.com`. Vercel issues the certificate automatically; the
 `next.config.ts` rules then answer every request with a 301.
 
+## ⚠️ If it still returns 409 after the DNS change: Cloudflare is proxying it
+
+Observed 2026-08-10 after the Vercel domain was added: `shop.voltecappliances.com` answered
+**HTTP 409 with `server: cloudflare` and `error code: 1001`** (Cloudflare cannot resolve the
+origin), while `voltecappliances.com` answered `server: Vercel` directly. DNS already
+resolved to `cname.vercel-dns.com`, so the record itself was right — the request never
+reached Vercel because the `shop` record is still **Proxied** (orange cloud) from the
+Shopify era.
+
+**Fix:** Cloudflare dashboard → DNS → the `shop` record → set proxy status to
+**DNS only (grey cloud)**. Proxying also blocks Vercel's certificate challenge, which is
+why the domain sat on "Generating SSL Certificate".
+
 ## Verify afterwards
 
 ```bash
