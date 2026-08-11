@@ -45,7 +45,7 @@ Compact form for art/footers: `Cells & packs · BMS · Servo / AVR / IGBT · 3-p
 | claim | allowed | not allowed |
 |---|---|---|
 | "Authorised EVE distributor" | homepage partner row, blog, llms.txt, GBP/FB long description, Google ad copy | the top utility strip (user: too loud, 2026-07-31) |
-| Prices | website (**Rs 9,400/cell** — clearance rate from 2026-08-11) | **any Meta ad creative** (standing rule 2026-07-27). WhatsApp ladder: **start 9,400, floor 9,300** (user: "goal is to sell as quickly as possible… the longer they stay, the more it costs me") |
+| Prices | website stays **Rs 9,800/cell** — the public list price never moves with the deal rate | **any Meta ad creative** (standing rule 2026-07-27). ⚠️ **NEVER sweep the WhatsApp rate onto the site** (user, 2026-08-11: "don't sweep the rate anywhere. Keep Rs.9800 online — this is when they reach out to me and I'll give that on whatsapp"). Private ladder, WhatsApp only: **start 9,400, floor 9,300** |
 | "Trusted by K&N's" etc. | everywhere (real clients) | — |
 | Superlatives ("best", "No.1") | — | everywhere (CLAUDE.md: no false superlatives) |
 | Audience naming in CELLS ad copy | **"Battery pack assemblers"** only (user, 2026-08-10) | ❌ "solar installers", ❌ "dealers/distributors/resellers" — cells ads target pack assemblers & factories exclusively; MOQ 1 carton (8 cells) must be stated |
