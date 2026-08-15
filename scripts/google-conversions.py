@@ -36,7 +36,7 @@ for line in ENV.read_text().splitlines():
     if line and "=" in line and not line.startswith("#"):
         k, v = line.split("=", 1); CFG[k.strip()] = v.strip().strip('"').strip("'")
 CID = CFG["GOOGLE_ADS_CUSTOMER_ID"]
-API = "https://googleads.googleapis.com/v21"
+API = "https://googleads.googleapis.com/v22"
 
 # Goals that can never fire on an inquiry-only site with no live checkout.
 PHANTOM = [("PURCHASE", "WEBSITE"), ("ADD_TO_CART", "WEBSITE")]

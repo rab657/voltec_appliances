@@ -30,7 +30,7 @@ for line in (pathlib.Path(__file__).resolve().parent.parent / ".env.local").read
     if line and "=" in line and not line.startswith("#"):
         k, v = line.split("=", 1); CFG[k.strip()] = v.strip().strip('"').strip("'")
 CID = CFG["GOOGLE_ADS_CUSTOMER_ID"]
-API = "https://googleads.googleapis.com/v21"
+API = "https://googleads.googleapis.com/v22"
 
 BRAND_AD = "818037394941"      # ad group "EVE Cells (brand)"
 GENERIC_AD = "816046360518"    # ad group "Lithium Cells & Energy Storage"
