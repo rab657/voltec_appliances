@@ -10,7 +10,10 @@ Auth: OAuth refresh token (offline) + developer token. Stdlib only.
 import json, os, pathlib, sys, urllib.parse, urllib.request
 
 ENV = pathlib.Path(__file__).resolve().parent.parent / ".env.local"
-VERSIONS = ["v21", "v20", "v19", "v18"]  # try newest first; Google sunsets yearly
+VERSIONS = ["v22", "v21", "v20", "v19"]  # newest first; Google sunsets yearly
+# ⚠️ v21 was blocked 2026-08-15 ("Version v21 is deprecated"). Keep this list ahead of
+# the sunset — a blocked version returns an ERROR, and any caller that swallows it will
+# silently report zero spend instead of a failure.
 
 
 def env() -> dict:
