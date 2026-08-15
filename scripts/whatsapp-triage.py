@@ -38,8 +38,23 @@ PKT = timezone(timedelta(hours=5))
 
 # The canned block. States MOQ so sub-carton buyers self-drop, and asks for the two
 # facts a quote needs — without pretending they will answer.
+#
+# The KIT line was added 2026-08-11 on evidence, not a hunch: BMS is the only accessory
+# with real pull in the inbox (32 of 769 leads = 4.2%, vs 0.3% for busbars and 0.8% for
+# cases), buyers name brands themselves ("JK k BMS 24v 51v", "16s ka BMS kitne ka"), and
+# one asked to be REFERRED to a BMS seller — margin walking out the door. Historic ads
+# agree: the DALY BMS package pulled qualified leads at AED 3.30 while the standalone
+# "120A Terminals" post pulled cheap ones at 8.19. So BMS leads the kit, terminals ride
+# along, and the kit lets us hold the cell rate instead of discounting it.
 CANNED = """EVE LF100LA Grade A — original cell, 3.2V 100Ah.
 5,000+ cycles · QR-traceable · test report har batch ke saath.
+Busbar + nuts/bolts included.
+
+Complete pack kit bhi available:
+• EVE LF100LA cells (busbar + nuts included)
+• JK BMS — 8S / 16S
+• 120A copper terminals
+Kit rate cells se behtar banta hai.
 
 Minimum order: 1 carton = 8 cells. Single cell available nahi.
 Rate carton par depend karta hai — quantity batayein to exact rate bhej deta hoon.
