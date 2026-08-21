@@ -35,6 +35,20 @@ def api(path, method="GET", **p):
     except Exception: return {"raw": out[:300]}
 
 
+def adset_budget(cid):
+    """Sum the ACTIVE ad sets' daily budgets, for ABO campaigns.
+
+    A campaign that carries its budget on the ad sets (non-CBO) has
+    daily_budget = 0 at the campaign level. Reading only the campaign therefore
+    reported AED 0.00/day while real money was spending — dangerous in the one
+    tool we use to check burn. Ad-set budgets are now rolled up and marked ᵃ.
+    """
+    sets = api(f"{cid}/adsets", fields="effective_status,daily_budget",
+               limit="100").get("data", [])
+    return sum(int(s.get("daily_budget") or 0)
+               for s in sets if s.get("effective_status") == "ACTIVE")
+
+
 def show(only_live=False):
     rows = api(f"{ACT}/campaigns", fields="id,name,status,effective_status,daily_budget",
                limit="200").get("data", [])
@@ -44,11 +58,16 @@ def show(only_live=False):
         if only_live and not live:
             continue
         b = int(c.get("daily_budget") or 0)
+        abo = ""
+        if not b and live:                     # ABO — budget lives on the ad sets
+            b = adset_budget(c["id"])
+            abo = "\u1d43" if b else ""
         if live:
             total += b
-        print(f" {'🟢' if live else '⏸ '} AED {b/100:>7.2f}/day  {c['effective_status']:12} "
+        print(f" {'🟢' if live else '⏸ '} AED {b/100:>7.2f}/day{abo:1} {c['effective_status']:12} "
               f"{c['id']}  {c['name'][:48]}")
-    print(f"\n TOTAL LIVE SPEND: AED {total/100:.2f}/day  (~Rs {total/100*78:,.0f})")
+    print(f"\n TOTAL LIVE SPEND: AED {total/100:.2f}/day  (~Rs {total/100*78:,.0f})"
+          f"\n ᵃ = budget held on the ad sets (non-CBO), rolled up here.")
 
 
 def set_budget(cid, minor):
