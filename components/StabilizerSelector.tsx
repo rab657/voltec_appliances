@@ -223,7 +223,7 @@ export default function StabilizerSelector() {
             >
               <WhatsAppIcon /> <span>Get my recommendation &amp; price</span>
             </a>
-            <Link href={`/showcase/${rec.slug}`} className="btn btn-ghost">
+            <Link href={`/products?range=${rec.slug}`} className="btn btn-ghost">
               See the {rec.name} range →
             </Link>
           </div>

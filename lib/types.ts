@@ -28,14 +28,23 @@ export interface Product {
   status?: "upcoming";
   /** Hide from catalog listings/navigation (kept in data for easy re-enable). */
   hidden?: boolean;
-  /** Gallery images (admin-managed). First entry is the primary/cover image. */
+  /** Gallery images. First entry is the primary/cover image and should match
+      `image`. Set here or overridden per-product by the admin UI. */
   images?: string[];
-  /** Product videos (admin-managed): YouTube/Vimeo links or direct video URLs. */
+  /** Product videos: YouTube/Vimeo links, or `assets/…` files we ship (those
+      carry a sibling `-poster.webp` — see lib/video.ts). Admin-overridable. */
   videos?: string[];
   /** Plain-language "what it runs", e.g. "Small home — 1–2 ACs + basics". */
   useFor?: string;
   /** Price in PKR. Optional — when unset the UI shows "Request price". */
   price?: number;
+  /** Former price in PKR — shown struck-through with a SAVE badge when > price.
+      Only set this to a price the product genuinely sold at. */
+  compareAt?: number;
+  /** Public datasheet PDF (under /public) — shows a "View datasheet" button. */
+  datasheet?: string;
+  /** Key feature bullets for the description section (Alladin-style PDP). */
+  features?: string[];
   /** Packing / logistics info for the packing table. */
   packing?: {
     productSize: string;

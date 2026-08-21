@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "@/styles/stabilizer.css";
+import "@/styles/pdp.css";
 import {
   FAMILIES,
   familyBySlug,

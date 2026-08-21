@@ -4,27 +4,15 @@ import { SITE } from "@/lib/site";
 import { showcaseFor, siblingFamilies, type FamilyMeta } from "@/lib/showcase-data";
 import { getT, getContent } from "@/lib/i18n-server";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import EcomCard from "@/components/EcomCard";
 import { SbIcon, SbWave, PROT_ICONS, AnnoStage, Slot } from "./primitives";
 import ShowcaseSpec from "./ShowcaseSpec";
 import { variantLabel } from "@/lib/variant-label";
+import { videoSource } from "@/lib/video";
 import PowersDiagram from "./PowersDiagram";
 import ProductConfigurator from "./ProductConfigurator";
 
 const tel = `tel:${SITE.phone.replace(/[^+\d]/g, "")}`;
-
-// Turn an admin-entered video URL (YouTube / Vimeo / direct file) into an
-// embeddable source. Returns null for anything we can't safely embed.
-function videoSource(url: string): { kind: "iframe" | "file"; src: string } | null {
-  if (!url) return null;
-  const yt = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([\w-]{6,})/);
-  if (yt) return { kind: "iframe", src: `https://www.youtube-nocookie.com/embed/${yt[1]}` };
-  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
-  if (vimeo) return { kind: "iframe", src: `https://player.vimeo.com/video/${vimeo[1]}` };
-  if (/\.(mp4|webm|ogg|mov|m4v)(\?|$)/i.test(url)) {
-    return { kind: "file", src: url.startsWith("/") || url.startsWith("http") ? url : `/${url}` };
-  }
-  return null;
-}
 
 export default async function Showcase({
   family,
@@ -115,6 +103,29 @@ export default async function Showcase({
           </div>
         </div>
       </section>
+
+      {/* ===== All models — cards, each opening its own product page.
+           Replaces the old chip picker in the masthead (user, 2026-08-19). ===== */}
+      {members.length > 1 && (
+        <section className="sb-section" style={{ paddingBottom: 0 }}>
+          <div className="container">
+            <div className="section-head">
+              <div className="num"></div>
+              <h2>
+                {members.length} <em>{t("cfg.models")}</em>
+              </h2>
+              <Link href={`/products?range=${family.slug}`} className="btn-link">
+                {t("sh.seeall")} <span className="arrow">→</span>
+              </Link>
+            </div>
+            <div className="ec-grid">
+              {members.map((m) => (
+                <EcomCard key={m.id} p={m} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ===== Hero — annotated render + monitor ===== */}
       {c.hero && (
@@ -482,7 +493,7 @@ export default async function Showcase({
             </div>
             <div className="home-cat-grid">
               {related.map((f) => (
-                <Link key={f.slug} href={`/showcase/${f.slug}`} className="cat-tile" data-cat={f.categoryId}>
+                <Link key={f.slug} href={`/products?range=${f.slug}`} className="cat-tile" data-cat={f.categoryId}>
                   <div className="cat-tile-img">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={`/${f.image}`} alt={lc(f.name)} />

@@ -42,7 +42,7 @@ const MENUS: Menu[] = [
     // item on the right, so repeating it in the menu is noise.
     items: [
       { href: "/products?cat=cells", key: "nav.shopAll" },
-      { href: "/showcase/cells", label: "EVE LF100LA" },
+      { href: "/products/vt-eve-lf100", label: "EVE LF100LA" },
       { href: "/blog/eve-lithium-cells-pakistan", key: "nav.guide" },
     ],
   },
@@ -51,8 +51,8 @@ const MENUS: Menu[] = [
     match: ["/showcase/svc", "/showcase/avr", "/showcase/relay", "/showcase/led"],
     items: [
       { href: "/products?cat=stabilizers", key: "nav.shopAll" },
-      { href: "/showcase/svc", label: "Servo (SVC)" },
-      { href: "/showcase/avr", label: "Relay (AVR)" },
+      { href: "/products?range=svc", label: "Servo (SVC)" },
+      { href: "/products?range=avr", label: "Relay (AVR)" },
       { href: "/products?cat=parts", key: "cat.parts" },
     ],
   },

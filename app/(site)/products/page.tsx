@@ -1,93 +1,88 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PRODUCTS, CATEGORIES } from "@/lib/products";
-import { FAMILIES, membersOf, leadOf, isProductInHiddenFamily } from "@/lib/showcase-data";
+import { FAMILIES, familyBySlug, membersOf, isProductInHiddenFamily } from "@/lib/showcase-data";
 import type { CategoryId } from "@/lib/types";
 import EcomCard from "@/components/EcomCard";
-import FamilyCard from "@/components/FamilyCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SortSelect from "@/components/SortSelect";
 import JsonLd from "@/components/JsonLd";
 import { SITE, absUrl } from "@/lib/site";
-import { getT } from "@/lib/i18n-server";
-import { getMediaMap, applyMedia, resolveProducts } from "@/lib/product-media";
+import { getT, getContent } from "@/lib/i18n-server";
+import { getMediaMap, resolveProducts } from "@/lib/product-media";
 
-export const metadata: Metadata = {
-  title: "Shop Products — Voltage Stabilizers, Lithium Cells & Industrial",
-  description:
-    "Voltage stabilizers (IGBT, SVC, AVR), genuine EVE lithium cells, and industrial systems to 500kVA — in stock and ready to ship from our China and Pakistan hubs.",
-  alternates: { canonical: "/products" },
-};
+export async function generateMetadata({
+  searchParams,
+}: PageProps<"/products">): Promise<Metadata> {
+  const sp = await searchParams;
+  const slug = typeof sp.range === "string" ? sp.range : undefined;
+  const range = slug ? familyBySlug(slug) : undefined;
+  if (range && !range.hidden) {
+    return {
+      title: `${range.name} — all models & prices`,
+      description: range.blurb,
+      alternates: { canonical: `/products?range=${range.slug}` },
+    };
+  }
+  return {
+    title: "Shop Products — Voltage Stabilizers, Lithium Cells & Industrial",
+    description:
+      "Voltage stabilizers (IGBT, SVC, AVR), genuine EVE lithium cells, and industrial systems to 500kVA — in stock and ready to ship from our China and Pakistan hubs.",
+    alternates: { canonical: "/products" },
+  };
+}
 
 export default async function ProductsPage({
   searchParams,
 }: PageProps<"/products">) {
   const sp = await searchParams;
   const t = await getT();
+  const { lc } = await getContent();
   const mediaMap = await getMediaMap();
   // Code products + admin-created variants, so family counts include new variants.
   const resolved = resolveProducts(mediaMap);
   const cat = (typeof sp.cat === "string" ? sp.cat : "all") as CategoryId;
   const sort = typeof sp.sort === "string" ? sp.sort : "default";
+  // ?range=<family slug> narrows to one product line (e.g. the 4 SVC models).
+  // This is where the homepage range bands and the nav now point — a collection
+  // of that line's models, each card opening its own product page.
+  const rangeSlug = typeof sp.range === "string" ? sp.range : undefined;
+  const range = rangeSlug ? familyBySlug(rangeSlug) : undefined;
   const catName = (id: string) => t(`cat.${id}`);
 
   // Visibility respects admin overrides (product_overrides.hidden) layered over
-  // the code default. A family with no visible members is dropped entirely.
+  // the code default.
   const isHidden = (p: (typeof PRODUCTS)[number]) =>
     isProductInHiddenFamily(p) ||
     (mediaMap[p.id] ? mediaMap[p.id].hidden : Boolean(p.hidden));
-  const famVisible = (slug: string) => {
-    const f = FAMILIES.find((x) => x.slug === slug);
-    return f ? membersOf(f, resolved).filter((p) => !isHidden(p)) : [];
-  };
   const catCount = (id: string) =>
     resolved.filter((p) => (id === "all" || p.categoryId === id) && !isHidden(p)).length;
 
-  // Same cover image + fit the homepage bands use, so the catalog matches:
-  // admin category cover → curated band art → lead model's photo → family fallback.
-  const famCover = (slug: string): { image?: string; contain: boolean } => {
-    const f = FAMILIES.find((x) => x.slug === slug);
-    if (!f) return { contain: false };
-    const merged = membersOf(f).map((p) => applyMedia(p, mediaMap));
-    const visible = merged.filter((p) => !p.hidden);
-    const lead = leadOf(visible.length ? visible : merged);
-    const cover = mediaMap[`homecover-${f.key}`]?.images?.[0];
-    const art = Boolean(cover || f.bandImage);
-    return { image: cover || f.bandImage || lead?.image || f.image, contain: !art };
-  };
+  // Every model is its own card → its own /products/[id] page (2026-08-19).
+  const productsIn = (cid: CategoryId) =>
+    resolved.filter((p) => p.categoryId === cid && !isHidden(p));
 
-  // Catalog entries: stabilizers/industrial/parts show as FAMILY cards (→ range
-  // page, model picker); cells show as individual product cards (→ own page).
-  type Entry = { kind: "family"; slug: string } | { kind: "product"; id: string };
-  const stabFamilies = (cid: CategoryId): Entry[] =>
-    FAMILIES.filter((f) => f.categoryId === cid && famVisible(f.slug).length > 0).map((f) => ({
-      kind: "family",
-      slug: f.slug,
-    }));
-  const productsIn = (cid: CategoryId): Entry[] =>
-    PRODUCTS.filter((p) => p.categoryId === cid && !isHidden(p)).map((p) => ({ kind: "product", id: p.id }));
-
-  let entries: Entry[];
-  if (cat === "stabilizers") entries = stabFamilies("stabilizers");
-  else if (cat === "industrial") entries = stabFamilies("industrial");
-  else if (cat === "cells") entries = productsIn("cells");
-  else if (cat === "parts") entries = stabFamilies("parts");
-  else
-    entries = [
-      ...stabFamilies("stabilizers"),
-      ...stabFamilies("industrial"),
-      ...productsIn("cells"),
-      ...stabFamilies("parts"),
-    ];
-  if (sort === "az" && (cat === "cells" || cat === "parts")) {
-    const byName = (id: string) => PRODUCTS.find((p) => p.id === id)?.name || "";
-    entries = [...entries].sort((a, b) =>
-      a.kind === "product" && b.kind === "product" ? byName(a.id).localeCompare(byName(b.id)) : 0,
-    );
+  let entries =
+    range && !range.hidden
+      ? membersOf(range, resolved).filter((p) => !isHidden(p))
+      : cat === "all"
+        ? ["stabilizers", "industrial", "cells", "parts"].flatMap((c) => productsIn(c as CategoryId))
+        : productsIn(cat);
+  if (sort === "az") {
+    entries = [...entries].sort((a, b) => a.name.localeCompare(b.name));
   }
 
-  const productCount = catCount(cat);
-  const catLabel = catName(cat);
+  const productCount = range ? entries.length : catCount(cat);
+  const catLabel = range ? lc(range.name) : catName(cat);
+  // Sibling lines within the same category, so a range collection can pivot.
+  const siblingRanges = range
+    ? FAMILIES.filter(
+        (f) =>
+          !f.hidden &&
+          f.categoryId === range.categoryId &&
+          membersOf(f, resolved).some((p) => !isHidden(p)),
+      )
+    : [];
 
   return (
     <>
@@ -97,45 +92,71 @@ export default async function ProductsPage({
           "@type": "ItemList",
           name: catLabel,
           numberOfItems: entries.length,
-          itemListElement: entries.map((e, i) => {
-            const fam = e.kind === "family" ? FAMILIES.find((f) => f.slug === e.slug)! : null;
-            const prod = e.kind === "product" ? PRODUCTS.find((p) => p.id === e.id)! : null;
-            return {
-              "@type": "ListItem",
-              position: i + 1,
-              url: fam ? absUrl(`/showcase/${fam.slug}`) : absUrl(`/products/${prod!.id}`),
-              name: fam ? fam.name : prod!.name,
-            };
-          }),
+          itemListElement: entries.map((p, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            url: absUrl(`/products/${p.id}`),
+            name: p.name,
+          })),
         }}
       />
       <main>
         <section className="shop-head">
           <div className="container">
             <div className="crumbs">
-              <Link href="/">{t("nav.home")}</Link> <span>/</span> <span>{t("shop.crumb")}</span>
-              {cat !== "all" && (
+              <Link href="/">{t("nav.home")}</Link> <span>/</span>
+              {range ? (
                 <>
-                  <span>/</span> <span>{catLabel}</span>
+                  <Link href="/products">{t("shop.crumb")}</Link> <span>/</span>{" "}
+                  <span>{catLabel}</span>
+                </>
+              ) : (
+                <>
+                  <span>{t("shop.crumb")}</span>
+                  {cat !== "all" && (
+                    <>
+                      <span>/</span> <span>{catLabel}</span>
+                    </>
+                  )}
                 </>
               )}
             </div>
-            <h1>{t("shop.h1")}</h1>
-            <p>{t("shop.intro")}</p>
+            <h1>{range ? catLabel : t("shop.h1")}</h1>
+            <p>{range ? lc(range.blurb) : t("shop.intro")}</p>
           </div>
         </section>
 
         <section className="shop-wrap">
           <div className="container shop-grid">
             <aside className="shop-side">
+              {siblingRanges.length > 1 && (
+                <div className="shop-side-block">
+                  <h4>{t("shop.ranges")}</h4>
+                  <ul className="shop-cats">
+                    {siblingRanges.map((f) => (
+                      <li key={f.slug}>
+                        <Link
+                          href={`/products?range=${f.slug}`}
+                          className={range?.slug === f.slug ? "active" : ""}
+                        >
+                          <span>{lc(f.name)}</span>
+                          <span className="shop-count">
+                            {membersOf(f, resolved).filter((p) => !isHidden(p)).length}
+                          </span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
               <div className="shop-side-block">
                 <h4>{t("shop.cats")}</h4>
                 <ul className="shop-cats">
-                  {CATEGORIES.map((c) => (
+                  {CATEGORIES.filter((c) => catCount(c.id) > 0).map((c) => (
                     <li key={c.id}>
                       <Link
                         href={c.id === "all" ? "/products" : `/products?cat=${c.id}`}
-                        className={cat === c.id ? "active" : ""}
+                        className={!range && cat === c.id ? "active" : ""}
                       >
                         <span>{catName(c.id)}</span>
                         <span className="shop-count">{catCount(c.id)}</span>
@@ -155,24 +176,14 @@ export default async function ProductsPage({
               <div className="shop-toolbar">
                 <span className="shop-results">
                   {productCount} {productCount === 1 ? t("shop.product") : t("shop.products")}
-                  {cat !== "all" ? ` ${t("shop.in")} ${catLabel}` : ""}
+                  {cat !== "all" || range ? ` ${t("shop.in")} ${catLabel}` : ""}
                 </span>
                 <SortSelect value={sort} />
               </div>
               <div className="ec-grid">
-                {entries.map((e) =>
-                  e.kind === "family" ? (
-                    <FamilyCard
-                      key={`f-${e.slug}`}
-                      family={FAMILIES.find((f) => f.slug === e.slug)!}
-                      count={famVisible(e.slug).length}
-                      soon={famVisible(e.slug).length > 0 && famVisible(e.slug).every((p) => p.status === "upcoming")}
-                      {...famCover(e.slug)}
-                    />
-                  ) : (
-                    <EcomCard key={e.id} p={applyMedia(PRODUCTS.find((p) => p.id === e.id)!, mediaMap)} />
-                  ),
-                )}
+                {entries.map((p) => (
+                  <EcomCard key={p.id} p={p} />
+                ))}
               </div>
             </div>
           </div>

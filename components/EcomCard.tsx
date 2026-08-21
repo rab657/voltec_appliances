@@ -2,7 +2,7 @@
 import Link from "next/link";
 import type { Product } from "@/lib/types";
 import { whatsappLink } from "@/lib/products";
-import { familySlugOf } from "@/lib/showcase-data";
+import { acModel } from "@/lib/ac-products";
 import { track } from "@/lib/analytics";
 import { WhatsAppIcon } from "./icons";
 import { useI18n } from "./I18nProvider";
@@ -11,11 +11,12 @@ import Placeholder from "./Placeholder";
 export default function EcomCard({ p }: { p: Product }) {
   const { t, lc } = useI18n();
   const upcoming = p.status === "upcoming";
-  // Cells & electric parts get their own page; stabilizers/industrial route to
-  // the family showcase (the model picker lives there — no per-model page).
-  const standalone = Boolean(p.cell) || p.categoryId === "parts";
-  const famSlug = standalone ? undefined : familySlugOf(p);
-  const href = famSlug ? `/showcase/${famSlug}` : `/products/${p.id}`;
+  // Every model has its own page (2026-08-19) — cards always link there.
+  const href = `/products/${p.id}`;
+  // Priced AC models (R2/R3/R4) carry their checkout price on the card too.
+  const rMatch = p.name.match(/\bR[2-9]\b/);
+  const price = p.price ?? (rMatch ? acModel(rMatch[0])?.price : undefined);
+  const save = price && p.compareAt && p.compareAt > price;
   const keySpecs = p.specs
     .slice(1, 4)
     .map((s) => lc(s[1]))
@@ -37,9 +38,16 @@ export default function EcomCard({ p }: { p: Product }) {
           {lc(p.name)}
         </Link>
         <div className="ec-spec">{keySpecs}</div>
-        {p.price ? (
-          <div style={{ fontFamily: "var(--font-display)", fontSize: 19, color: "var(--ink)", margin: "2px 0 0" }}>
-            PKR {p.price.toLocaleString()}
+        {price ? (
+          <div style={{ display: "flex", alignItems: "baseline", gap: 8, margin: "2px 0 0" }}>
+            {save && (
+              <span style={{ fontSize: 13, color: "var(--ink-3)", textDecoration: "line-through" }}>
+                Rs {p.compareAt!.toLocaleString("en-PK")}
+              </span>
+            )}
+            <span style={{ fontFamily: "var(--font-display)", fontSize: 19, color: "var(--ink)" }}>
+              Rs {price.toLocaleString("en-PK")}
+            </span>
           </div>
         ) : null}
         <div className="ec-foot">

@@ -44,7 +44,9 @@ const HOME_FAQS: { q: string; a: string }[] = [
 
 // Single, non-redundant navigation: the real Voltec product lines. The three
 // stabilizer series (SVC / AVR / IGBT) plus Industrial, Cells and Accessories.
-// Each tile opens that line's showcase, which lists its models.
+// Each band opens PRODUCT pages, never the showcase (user, 2026-08-19): a line
+// with one model goes straight to that model's page, a multi-model line to its
+// range collection on /products.
 const norm = (s: string) =>
   s.startsWith("/") || s.startsWith("http") ? s : `/${s}`;
 
@@ -59,7 +61,7 @@ function buildRange(mediaMap: MediaMap) {
     // Admin-uploaded category cover (admin/products → "Homepage images") wins.
     const cover = mediaMap[`homecover-${f.key}`]?.images?.[0];
     return {
-      href: `/showcase/${f.slug}`,
+      href: n === 1 && lead ? `/products/${lead.id}` : `/products?range=${f.slug}`,
       // Priority: admin category cover → curated band art → lead model's admin
       // photo → family fallback. A category gets a bespoke band image without
       // losing the upload-to-update behaviour for those that don't set one.

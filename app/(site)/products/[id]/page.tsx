@@ -1,19 +1,22 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
-import { PRODUCTS, getProduct, relatedProducts } from "@/lib/products";
-import { familySlugOf, familyBySlug, isProductInHiddenFamily } from "@/lib/showcase-data";
+import { notFound } from "next/navigation";
+import { PRODUCTS, getProduct } from "@/lib/products";
+import { familySlugOf, familyBySlug, membersOf, isProductInHiddenFamily } from "@/lib/showcase-data";
+import { acModel } from "@/lib/ac-products";
 import EcomCard from "@/components/EcomCard";
-import WhatsAppButton from "@/components/WhatsAppButton";
-import PdpGallery from "@/components/PdpGallery";
 import JsonLd from "@/components/JsonLd";
 import ViewItemTracker from "@/components/ViewItemTracker";
 import CellDetail from "@/components/CellDetail";
+import PdpShell, { type PdpMedia, type PdpModel, type PdpTrust } from "@/components/pdp/PdpShell";
+import PdpDetails from "@/components/pdp/PdpDetails";
 import "@/styles/stabilizer.css";
+import "@/styles/pdp.css";
 import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
 import { productOffer } from "@/lib/product-offer";
 import { getT, getContent } from "@/lib/i18n-server";
 import { getMediaMap, resolveProducts } from "@/lib/product-media";
+import { videoPoster, videoSource } from "@/lib/video";
 
 export function generateStaticParams() {
   return PRODUCTS.filter((p) => !isProductInHiddenFamily(p)).map((p) => ({ id: p.id }));
@@ -45,16 +48,13 @@ export default async function ProductDetailPage({
   const { id } = await params;
   const mediaMap = await getMediaMap();
   // Resolve includes admin-created variants (and applies name/media overrides).
-  const merged = resolveProducts(mediaMap).find((p) => p.id === id);
+  const resolved = resolveProducts(mediaMap);
+  const merged = resolved.find((p) => p.id === id);
   if (!merged || isProductInHiddenFamily(merged)) notFound();
-  // Stabilizers & industrial have no standalone per-model page — the family
-  // showcase + model picker is the product page. Redirect there.
-  if (merged.categoryId === "stabilizers" || merged.categoryId === "industrial") {
-    const fam = familySlugOf(merged);
-    if (fam) redirect(`/showcase/${fam}`);
-  }
+  // Every model gets its OWN page (user decision 2026-08-19) — no redirect to
+  // the family showcase, no in-page model switching. Range navigation happens
+  // via sibling link chips in the buy panel.
   const product = merged;
-  const related = relatedProducts(product, 3);
   const phoneHref = `tel:${SITE.phone.replace(/[^+\d]/g, "")}`;
   const famSlug = familySlugOf(product);
   const family = famSlug ? familyBySlug(famSlug) : undefined;
@@ -62,6 +62,68 @@ export default async function ProductDetailPage({
   const { lc } = await getContent();
   const familyName = family ? lc(family.name) : "";
   const gallery = merged.images && merged.images.length ? merged.images : [product.image];
+  // Photos first, then any clips — the gallery only plays self-hosted files, so
+  // a YouTube/Vimeo link (which the admin UI allows) is skipped rather than
+  // rendered as a dead <video>.
+  const media: PdpMedia[] = [
+    ...gallery.map((src) => ({ type: "img" as const, src })),
+    ...(merged.videos || []).flatMap((url) => {
+      const v = videoSource(url);
+      return v && v.kind === "file"
+        ? [{ type: "video" as const, src: v.src, poster: videoPoster(v.src) }]
+        : [];
+    }),
+  ];
+
+  // Related products, Alladin-style: the OTHER capacities/models of this range
+  // come first (the buy panel stays purely single-product — user decision
+  // 2026-08-19), then other visible products from the same category.
+  const famMembers = family ? membersOf(family, resolved).filter((p) => !p.hidden) : [];
+  const siblings = famMembers.filter((p) => p.id !== product.id);
+  const sameCat = resolved.filter(
+    (x) =>
+      x.id !== product.id &&
+      x.categoryId === product.categoryId &&
+      !x.hidden &&
+      !isProductInHiddenFamily(x) &&
+      !siblings.some((s) => s.id === x.id),
+  );
+  const related = [...siblings, ...sameCat].slice(0, 4);
+
+  // Priced AC models (R2/R3/R4) map to the bank-transfer checkout.
+  const rMatch = product.name.match(/\bR[2-9]\b/);
+  const ac = rMatch ? acModel(rMatch[0]) : undefined;
+  const price = merged.price ?? ac?.price;
+  const isStab = product.categoryId === "stabilizers" || product.categoryId === "industrial";
+  const spec = (re: RegExp) => (product.specs.find((s) => re.test(s[0])) || [])[1];
+  const glance: [string, string][] | undefined = isStab
+    ? ([
+        [t("cfg.bestfor"), lc(product.useFor || spec(/capacity/i) || "")],
+        [t("cfg.input"), lc(spec(/input/i) || spec(/works from/i) || "")],
+        [t("cfg.output"), lc(spec(/output/i) || "")],
+        [t("cfg.efficiency"), lc(spec(/efficiency/i) || spec(/response|correction/i) || "")],
+      ] as [string, string][])
+    : undefined;
+  const trust: PdpTrust[] =
+    product.tech === "AVR"
+      ? [
+          { icon: "shield", k: "pp.trust.wty1" },
+          { icon: "store", k: "cfg.moq" },
+          { icon: "truck", k: "pp.trust.deliv" },
+          { icon: "bank", k: "pp.trust.pay" },
+        ]
+      : isStab
+        ? [
+            { icon: "check", k: "pp.trust.cert" },
+            { icon: "box", k: "pp.trust.custom" },
+            { icon: "truck", k: "pp.trust.deliv" },
+            { icon: "bank", k: "pp.trust.pay" },
+          ]
+        : [
+            { icon: "truck", k: "pp.trust.deliv" },
+            { icon: "bank", k: "pp.trust.pay" },
+            { icon: "store", k: "cfg.moq" },
+          ];
 
   return (
     <>
@@ -140,220 +202,114 @@ export default async function ProductDetailPage({
 
         <section>
           <div className="container">
-            <div className="pdp-hero">
-              <PdpGallery image={gallery[0]} images={gallery} category={product.category} />
+            <PdpShell
+              h1={lc(product.name)}
+              lede={lc(product.tagline)}
+              model={
+                {
+                  id: product.id,
+                  name: lc(product.name),
+                  waName: product.name,
+                  sku: product.id.toUpperCase(),
+                  type: lc(product.category),
+                  price,
+                  compareAt: merged.compareAt,
+                  unitNote: price ? t("cfg.perunit") : undefined,
+                  media,
+                  status: product.status,
+                  tech: product.tech,
+                  badge: product.badge,
+                  glance,
+                  buyHref: ac ? `/checkout?model=${ac.code}` : undefined,
+                } satisfies PdpModel
+              }
+              familySlug={famSlug}
+              badges={
+                product.status === "upcoming"
+                  ? [t("pdp.preorderopen"), t("pp.since")]
+                  : [t("pp.since"), ...(product.badge ? [lc(product.badge)] : [])]
+              }
+              datasheet={product.datasheet}
+              trust={trust}
+              phone={phoneHref}
+            />
 
-              <div className="pdp-info">
-                <div
-                  style={{
-                    display: "flex",
-                    gap: 12,
-                    alignItems: "center",
-                    marginBottom: 6,
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {product.tech && (
-                    <span className="tech-chip" data-tech={product.tech}>
-                      {product.tech}
-                    </span>
-                  )}
+            {family && siblings.length > 0 && (
+              <Link
+                href={`/products?range=${family.slug}`}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 16,
+                  padding: "16px 20px",
+                  margin: "0 auto 8px",
+                  maxWidth: 900,
+                  borderRadius: 12,
+                  background: "var(--ink)",
+                  color: "#fff",
+                  textDecoration: "none",
+                }}
+              >
+                <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                   <span
-                    className="mono"
-                    style={{
-                      color: "var(--ink-3)",
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      fontSize: 11,
-                    }}
-                  >
-                    {lc(product.category)}
-                  </span>
-                  <span className="mono" style={{ color: "var(--ink-4)", fontSize: 11 }}>
-                    ·
-                  </span>
-                  <span className="mono" style={{ color: "var(--ink-3)", fontSize: 11 }}>
-                    SKU {product.id.toUpperCase()}
-                  </span>
-                </div>
-                <h1>{lc(product.name)}</h1>
-                <p
-                  style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: 22,
-                    fontStyle: "italic",
-                    color: "var(--ink-2)",
-                    lineHeight: 1.35,
-                    margin: "0 0 24px 0",
-                    maxWidth: "44ch",
-                  }}
-                >
-                  {lc(product.tagline)}
-                </p>
-
-                {family && (
-                  <Link
-                    href={`/showcase/${family.slug}`}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "space-between",
-                      gap: 16,
-                      padding: "16px 20px",
-                      marginBottom: 24,
-                      borderRadius: 12,
-                      background: "var(--ink)",
-                      color: "#fff",
-                      textDecoration: "none",
-                    }}
-                  >
-                    <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-                      <span
-                        className="mono"
-                        style={{
-                          fontSize: 10,
-                          letterSpacing: "0.14em",
-                          textTransform: "uppercase",
-                          color: "var(--steel-bright, oklch(68% 0.14 245))",
-                        }}
-                      >
-                        {familyName} · {t("pdp.allmodels")}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-display)",
-                          fontSize: 20,
-                          lineHeight: 1.1,
-                        }}
-                      >
-                        {t("pdp.explore").replace("{n}", familyName)}
-                      </span>
-                    </span>
-                    <span className="arrow" style={{ fontSize: 20 }}>
-                      →
-                    </span>
-                  </Link>
-                )}
-
-                <div className="pdp-tags">
-                  {product.status === "upcoming" ? (
-                    <>
-                      <span
-                        className="tag"
-                        style={{ borderColor: "var(--sun-deep)", color: "var(--sun-deep)" }}
-                      >
-                        {t("pdp.preorderopen")}
-                      </span>
-                      <span className="tag">{t("pdp.reserve")}</span>
-                    </>
-                  ) : (
-                    <>
-                      <span className="tag">{t("pdp.instock")}</span>
-                      <span className="tag">{t("pdp.ships")}</span>
-                      <span className="tag">{t("pdp.custom")}</span>
-                    </>
-                  )}
-                </div>
-
-                {merged.price ? (
-                  <div style={{ margin: "0 0 24px", display: "flex", alignItems: "baseline", gap: 10 }}>
-                    <span style={{ fontFamily: "var(--font-display)", fontSize: 30, letterSpacing: "-0.01em", color: "var(--ink)" }}>
-                      PKR {merged.price.toLocaleString()}
-                    </span>
-                    <span className="mono" style={{ fontSize: 11, color: "var(--ink-3)" }}>{t("cfg.perunit")}</span>
-                  </div>
-                ) : null}
-
-                <table className="spec-table">
-                  <tbody>
-                    {product.specs.map(([k, v], i) => (
-                      <tr key={i}>
-                        <td>{lc(k)}</td>
-                        <td>{lc(v)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-
-                {product.description && (
-                  <div
-                    style={{ marginTop: 24, padding: "24px 0", borderTop: "1px solid var(--rule)" }}
-                  >
-                    <div
-                      className="mono"
-                      style={{
-                        fontSize: 10,
-                        letterSpacing: "0.14em",
-                        textTransform: "uppercase",
-                        color: "var(--accent-deep)",
-                        marginBottom: 12,
-                      }}
-                    >
-                      {t("pdp.why")}
-                    </div>
-                    <p
-                      style={{
-                        margin: 0,
-                        fontSize: 15.5,
-                        lineHeight: 1.65,
-                        color: "var(--ink)",
-                        textWrap: "pretty",
-                      }}
-                    >
-                      {lc(product.description)}
-                    </p>
-                  </div>
-                )}
-
-                <div
-                  style={{
-                    display: "flex",
-                    gap: 10,
-                    flexWrap: "wrap",
-                    marginTop: 24,
-                    paddingTop: 24,
-                    borderTop: "1px solid var(--ink)",
-                  }}
-                >
-                  <WhatsAppButton productName={product.name}>
-                    {product.status === "upcoming"
-                      ? t("pdp.preorderwa")
-                      : t("pdp.inquirewa")}{" "}
-                    <span className="arrow" style={{ marginLeft: 4 }}>
-                      →
-                    </span>
-                  </WhatsAppButton>
-                  <a href={phoneHref} className="btn btn-ghost">
-                    {t("pdp.callus")}
-                  </a>
-                </div>
-
-                <div
-                  style={{
-                    marginTop: 24,
-                    padding: 24,
-                    background: "var(--accent-soft)",
-                    border: "1px solid var(--accent)",
-                    borderRadius: 8,
-                  }}
-                >
-                  <div
                     className="mono"
                     style={{
                       fontSize: 10,
                       letterSpacing: "0.14em",
                       textTransform: "uppercase",
-                      color: "var(--accent-deep)",
-                      marginBottom: 10,
+                      color: "var(--steel-bright, oklch(68% 0.14 245))",
                     }}
                   >
-                    {t("pdp.note.k")}
-                  </div>
-                  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "var(--ink)" }}>
-                    {t("pdp.note.d")}
-                  </p>
-                </div>
+                    {familyName} · {t("pdp.allmodels")}
+                  </span>
+                  <span
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: 20,
+                      lineHeight: 1.1,
+                    }}
+                  >
+                    {t("pdp.seerange").replace("{n}", String(famMembers.length))}
+                  </span>
+                </span>
+                <span className="arrow" style={{ fontSize: 20 }}>
+                  →
+                </span>
+              </Link>
+            )}
+
+            <PdpDetails
+              description={lc(product.description)}
+              features={(product.features || []).map((f) => lc(f))}
+              specs={product.specs.map(([k, v]) => [lc(k), lc(v)] as [string, string])}
+            />
+
+            <div
+              style={{
+                margin: "0 auto 40px",
+                maxWidth: 900,
+                padding: 24,
+                background: "var(--accent-soft)",
+                border: "1px solid var(--accent)",
+                borderRadius: 8,
+              }}
+            >
+              <div
+                className="mono"
+                style={{
+                  fontSize: 10,
+                  letterSpacing: "0.14em",
+                  textTransform: "uppercase",
+                  color: "var(--accent-deep)",
+                  marginBottom: 10,
+                }}
+              >
+                {t("pdp.note.k")}
               </div>
+              <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "var(--ink)" }}>
+                {t("pdp.note.d")}
+              </p>
             </div>
           </div>
         </section>

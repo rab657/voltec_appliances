@@ -134,7 +134,7 @@ export default async function CellsHub({
             </div>
             <div className="home-cat-grid">
               {related.map((f) => (
-                <Link key={f.slug} href={`/showcase/${f.slug}`} className="cat-tile" data-cat={f.categoryId}>
+                <Link key={f.slug} href={`/products?range=${f.slug}`} className="cat-tile" data-cat={f.categoryId}>
                   <div className="cat-tile-img">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={`/${f.image}`} alt={f.name} />

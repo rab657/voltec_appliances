@@ -5,7 +5,13 @@ import type { Product } from "./types";
 // use it without pulling server-only modules into the client bundle.
 export function variantLabel(p: Product): string {
   const kva = p.name.match(/(\d+)\s*kVA/i);
-  if (kva) return kva[1] + "kVA";
+  if (kva) {
+    // Two models can share a capacity when one is a wide-input variant: the
+    // 30kVA ultra-low-voltage unit works from 60V where the standard one needs
+    // 150V. Carry that floor from the name so the two chips stay distinct.
+    const floor = p.name.match(/\b(\d{2,3})V\b/);
+    return floor ? `${kva[1]}kVA · ${floor[1]}V` : kva[1] + "kVA";
+  }
   const cap = (p.specs.find((s) => /capacity/i.test(s[0])) || [])[1];
   const ah = cap && cap.match(/(\d+)\s*Ah/i);
   if (ah) return ah[1] + "Ah";
