@@ -438,6 +438,75 @@ def update():
         print(f"     hours={str(sched[0]['start_minute']//60) + ':00-' + ('24:00' if sched[0]['end_minute'] >= 1440 else str(sched[0]['end_minute']//60) + ':00') + ' viewer-local' if sched else '24h (no schedule)'}")
 
 
+CONV = "onsite_conversion.messaging_conversation_started_7d"
+D3 = "onsite_conversion.messaging_user_depth_3_message_send"
+
+
+def readout():
+    """Phase-1 → phase-2 narrowing report. Run from ~2026-08-23.
+
+    Ranks every breakdown by **cost per depth-3** (a real chat), not by
+    conversation count — conversation count alone has misled this account before.
+    ⚠️ `..._7d` backfills for days, so anything under 48h old is provisional.
+    """
+    st = load_state()
+    if not st.get("campaign"): die("nothing built yet")
+    cid = st["campaign"]
+
+    def pull(breakdowns=None, level="campaign"):
+        kw = dict(date_preset="maximum", level=level,
+                  fields="spend,impressions,reach,frequency,actions")
+        if breakdowns: kw["breakdowns"] = breakdowns
+        r = api(f"{cid}/insights", limit="80", **kw)
+        if r.get("error"): return []
+        out = []
+        for d in r.get("data", []):
+            a = {x["action_type"]: float(x["value"]) for x in d.get("actions", [])}
+            label = " / ".join(str(d[k]) for k in (breakdowns or "").split(",")
+                               if k and d.get(k) is not None) or d.get("campaign_name", "total")
+            out.append((label, float(d.get("spend", 0)), a.get(CONV, 0), a.get(D3, 0),
+                        float(d.get("frequency") or 0)))
+        return out
+
+    tot = pull()
+    if not tot or tot[0][1] == 0:
+        print("  no spend recorded yet — nothing to narrow on."); return
+    _, sp, cv, d3, fq = tot[0]
+    print(f"  TOTAL  AED {sp:.2f}  ·  {cv:.0f} conversations (AED {sp/cv:.2f})"
+          f"  ·  {d3:.0f} depth-3 (AED {sp/d3:.2f})" if d3 else
+          f"  TOTAL  AED {sp:.2f}  ·  {cv:.0f} conversations  ·  0 depth-3")
+    print(f"  frequency {fq:.2f}" + ("  ⚠️ >3 = fatigue, refresh creative" if fq > 3 else ""))
+    if d3 and cv: print(f"  qualification rate {d3/cv*100:.1f}%  (cells v2 ran 12.7%)")
+
+    for bd, title in (("publisher_platform,platform_position", "PLACEMENT"),
+                      ("age,gender", "AGE"),
+                      ("region", "REGION")):
+        rows = [r for r in pull(bd) if r[1] > 0]
+        if not rows: continue
+        print(f"\n  == {title} — ranked by AED per depth-3 ==")
+        ranked = sorted(rows, key=lambda r: (r[3] == 0, r[1] / r[3] if r[3] else 9e9))
+        for label, sp_, cv_, d3_, _f in ranked:
+            per = f"{sp_/d3_:.2f}" if d3_ else "no depth-3"
+            verdict = "KEEP" if d3_ and sp_ / d3_ <= 3 else ("watch" if d3_ else "CUT?")
+            print(f"     {label[:34]:<36} AED {sp_:>7.2f}  convo {cv_:>4.0f}  d3 {d3_:>3.0f}"
+                  f"  AED/d3 {per:>10}  {verdict}")
+
+    print("\n  == ads ==")
+    for a in api(f"{cid}/ads", fields="id,name", limit="20").get("data", []):
+        r = api(f"{a['id']}/insights", date_preset="maximum", fields="spend,actions").get("data", [])
+        if not r: continue
+        acts = {x["action_type"]: float(x["value"]) for x in r[0].get("actions", [])}
+        sp_ = float(r[0].get("spend", 0)); d3_ = acts.get(D3, 0); cv_ = acts.get(CONV, 0)
+        print(f"     {a['name'][:40]:<42} AED {sp_:>7.2f}  convo {cv_:>4.0f}  d3 {d3_:>3.0f}"
+              f"  AED/d3 {(f'{sp_/d3_:.2f}' if d3_ else '—'):>8}")
+
+    print("\n  NARROWING (phase 1 → phase 2), in this order:")
+    print("   1. Cut every placement / age / region marked CUT? above.")
+    print("   2. Flip OWNER_AND_GATE = True  (2.7-3.1M → ~0.9M, requires 'runs a business').")
+    print("   3. Drop the ads with no depth-3; keep the winner and refresh against it.")
+    print("   Then: python3 scripts/meta-svc60-ctwa.py update")
+
+
 cmd = sys.argv[1] if len(sys.argv) > 1 else "estimate"
 {"estimate": estimate, "upload": upload, "build": build, "update": update,
- "activate": activate, "status": status}.get(cmd, lambda: print(__doc__))()
+ "activate": activate, "status": status, "readout": readout}.get(cmd, lambda: print(__doc__))()
