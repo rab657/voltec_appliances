@@ -139,8 +139,20 @@ export default function ProductAdmin() {
       }
     : { images: [], videos: [], hidden: false, price: null, name: null, baseId: null, isVariant: false };
   const effName = eff.name || base?.name || "";
-  const gallery = eff.images.length ? eff.images : base ? [base.image] : [];
+  // No override → show what products.ts actually ships: its gallery if it has one,
+  // else the lone cover. Falling straight to [base.image] used to hide code-defined
+  // galleries and videos here even though the live page was rendering them.
+  const gallery = eff.images.length
+    ? eff.images
+    : base?.images?.length
+      ? base.images
+      : base
+        ? [base.image]
+        : [];
   const usingDefaultImg = eff.images.length === 0;
+  const codeVideos = base?.videos ?? [];
+  const videoList = eff.videos.length ? eff.videos : codeVideos;
+  const usingDefaultVideo = eff.videos.length === 0 && codeVideos.length > 0;
 
   const flash = (m: string) => {
     setToast(m);
@@ -746,7 +758,11 @@ export default function ProductAdmin() {
                 <div className="eyebrow" style={{ margin: "8px 0 12px" }}>Variant images</div>
                 <p style={{ fontSize: 13, color: "var(--ink-2)", margin: "0 0 16px", lineHeight: 1.5 }}>
                   Upload one or more photos for this variant. The <strong>first</strong> image is the cover shown on cards and the
-                  model picker; the rest appear in the product gallery. {usingDefaultImg && "Currently showing the built-in default image."}
+                  model picker; the rest appear in the product gallery.{" "}
+                  {usingDefaultImg &&
+                    (gallery.length > 1
+                      ? `No override set — showing the ${gallery.length} images shipped in the code for this product. Upload here to replace them.`
+                      : "Currently showing the built-in default image.")}
                 </p>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 14 }}>
@@ -762,7 +778,9 @@ export default function ProductAdmin() {
                         )}
                       </div>
                       {usingDefaultImg ? (
-                        <div style={{ padding: 8, fontSize: 11, color: "var(--ink-3)", textAlign: "center" }}>built-in default</div>
+                        <div style={{ padding: 8, fontSize: 11, color: "var(--ink-3)", textAlign: "center" }}>
+                          {gallery.length > 1 ? (i === 0 ? "in code · cover" : "in code") : "built-in default"}
+                        </div>
                       ) : (
                         <div style={{ display: "flex", gap: 2, padding: 6, borderTop: "1px solid var(--rule)", flexWrap: "wrap", justifyContent: "center" }}>
                           <button className="filter-chip" title="Move left" onClick={() => moveImage(i, -1)} disabled={i === 0}>←</button>
@@ -798,12 +816,14 @@ export default function ProductAdmin() {
                 <div className="eyebrow" style={{ margin: "36px 0 12px" }}>Variant video</div>
                 <p style={{ fontSize: 13, color: "var(--ink-2)", margin: "0 0 16px", lineHeight: 1.5 }}>
                   Paste a <strong>YouTube</strong> or video link, or upload a short clip (max 50&nbsp;MB).
-                  Videos appear in the product&apos;s showcase. For long or large videos, a YouTube link is best.
+                  Videos appear in the product&apos;s gallery. For long or large videos, a YouTube link is best.{" "}
+                  {usingDefaultVideo &&
+                    `No override set — the ${codeVideos.length} clip${codeVideos.length > 1 ? "s" : ""} below ship with the code and already play on the live page.`}
                 </p>
 
-                {eff.videos.length > 0 && (
+                {videoList.length > 0 && (
                   <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 16 }}>
-                    {eff.videos.map((v, i) => {
+                    {videoList.map((v, i) => {
                       const isFile = /\.(mp4|webm|ogg|mov|m4v)(\?|$)/i.test(v);
                       return (
                         <div key={v + i} style={{ display: "flex", gap: 12, alignItems: "center", border: "1px solid var(--rule)", borderRadius: 8, padding: 10, background: "#fff" }}>
@@ -814,7 +834,11 @@ export default function ProductAdmin() {
                             <div style={{ width: 120, height: 68, borderRadius: 4, background: "var(--ink)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24 }}>▶</div>
                           )}
                           <div style={{ flex: 1, minWidth: 0, fontSize: 12, color: "var(--ink-2)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{v}</div>
-                          <button className="filter-chip" title="Remove" onClick={() => removeVideo(i)} style={{ color: "var(--warn)" }}>✕ Remove</button>
+                          {usingDefaultVideo ? (
+                            <span className="mono" style={{ fontSize: 10, letterSpacing: "0.08em", color: "var(--ink-3)" }}>IN CODE</span>
+                          ) : (
+                            <button className="filter-chip" title="Remove" onClick={() => removeVideo(i)} style={{ color: "var(--warn)" }}>✕ Remove</button>
+                          )}
                         </div>
                       );
                     })}

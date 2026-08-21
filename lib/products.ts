@@ -503,8 +503,11 @@ export const PRODUCTS: Product[] = [
     price: 225000,
     description:
       "Most stabilizers cut off below 150V. This one starts working at 60V. It is a 30kVA single-phase servo stabilizer for the weakest lines in the country — the factory areas of Faisalabad, Karachi and Lahore, Peshawar, Swabi and Mardan, and Gilgit and Skardu, where voltage drops all day and machines stall. A servo motor sweeps a slider across a 100% pure copper autotransformer and holds a steady 220V from 60V all the way up to 250V. Copper windings only, no aluminium. This is a single-phase unit, not three-phase.",
-    image: "assets/svc-60v/svc60-cover.webp",
+    // Cover is the campaign creative, minus its baked-in phone CTA — the page has
+    // its own WhatsApp/call buttons, and the printed number was a digit short.
+    image: "assets/svc-60v/svc60-hero.webp",
     images: [
+      "assets/svc-60v/svc60-hero.webp",
       "assets/svc-60v/svc60-cover.webp",
       "assets/svc-60v/svc60-unit.webp",
       "assets/svc-60v/svc60-copper.webp",
@@ -520,7 +523,7 @@ export const PRODUCTS: Product[] = [
       "Works from 60V — where an ordinary stabilizer has already cut off",
       "100% pure copper windings and autotransformer. No aluminium.",
       "30kVA single-phase — this is not a three-phase unit",
-      "Holds 220V ±1% from 60V right up to 250V input",
+      "Holds 220V ±3% from 60V right up to 250V input",
       "LED panel shows input volts, output volts, load current and temperature",
       "High and low-voltage cutoff, overload, over-temperature and time-delay restart",
       "Floor cabinet on castor wheels — roll it where you need it",
@@ -529,7 +532,7 @@ export const PRODUCTS: Product[] = [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "30kVA, single-phase (not 3-phase)"],
       ["Input range", "60V – 250V AC"],
-      ["Output", "220V ±1%"],
+      ["Output", "220V ±3%"],
       ["Rated current", "136A at 220V"],
       ["Windings", "100% pure copper — autotransformer and coils"],
       ["Efficiency", "> 96%"],
