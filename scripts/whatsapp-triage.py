@@ -103,13 +103,17 @@ def main():
     hours = int(sys.argv[1]) if len(sys.argv) > 1 else 24
     since = datetime.now(timezone.utc) - timedelta(hours=hours)
     leads = get("whatsapp_leads", select="*", order="first_seen_at.desc")
-    msgs = get("whatsapp_messages", select="wa_id,body,created_at")
+    msgs = get("whatsapp_messages", select="wa_id,body,sent_at,created_at")
     body = {}
     for m in msgs:
         body.setdefault(m["wa_id"], []).append(m.get("body") or "")
 
     def ts(s):
         return datetime.fromisoformat(re.sub(r"\.\d+", "", s.replace("Z", "+00:00")))
+
+    # ⚠️ sent_at is the real WhatsApp send time; created_at is when OUR webhook inserted
+    # the row. They differ by ~3s normally, but only sent_at is meaningful if rows are
+    # ever backfilled. Always prefer sent_at.
 
     # one row per person; keep the attributed row's clid
     people = {}
@@ -127,7 +131,7 @@ def main():
     for wa, p in people.items():
         if p["quality"] in ("bought", "rejected"):
             continue
-        last = max([p["_seen"]] + [ts(m["created_at"]) for m in msgs if m["wa_id"] == wa],
+        last = max([p["_seen"]] + [ts(m.get("sent_at") or m["created_at"]) for m in msgs if m["wa_id"] == wa],
                    default=p["_seen"])
         if last < since:
             continue
