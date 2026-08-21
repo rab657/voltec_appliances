@@ -12,7 +12,9 @@ inside a CONVERSATIONS / destination_type=WHATSAPP ad set instead of via the
 Boost button. Engagement still accrues on the real post (social proof), but the
 tap goes to WhatsApp.
 
-AUDIENCE — trade AND business-owner, verified topics only. Every interest below
+AUDIENCE — phase 1 is deliberately wide (2.6-3.1M): three tight technical
+interests, male only, no business-owner gate. Narrow after the first read by
+flipping OWNER_AND_GATE. Verified topics only — every interest below
 was checked with GET /{id}?fields=name,topic and is "Business and industry".
 ⚠️ REJECTED on that check, despite being in meta-gb-ctwa.py / the assembler
 rebuild: Electric power industry 6002919390822, Machine tool 6002907602679 and
@@ -21,7 +23,8 @@ Textile industry 6002957337050 are all filed under **Hobbies and activities**.
 Facebook only: Instagram adds ~3% reach here (555K vs 540K) and has a documented
 waste record on this account (IG AED 17.17 -> 1 conversation, 0 depth-3).
 
-Reach: 540-635K MAU across the 8 cities Raheel named.
+Reach: 2.6-3.1M males 25-58 across 33 cities (the 8 Raheel named plus the
+industrial centres and under-voltage sag belts), 07:00-24:00 viewer-local.
 
   python3 scripts/meta-svc60-ctwa.py estimate   # read-only reach check
   python3 scripts/meta-svc60-ctwa.py upload     # push the 3 ad videos, cache ids
@@ -51,18 +54,42 @@ VIDEO_DIR = ROOT / "creatives" / "video"
 BUDGET_VIDEO = "3500"   # AED 35.00/day
 BUDGET_POST  = "1500"   # AED 15.00/day
 
-CITIES = [1784775, 1800796, 1807162, 1818989, 1829523, 1811172, 1787643, 1828278]
+# The 8 Raheel named, plus the big industrial centres and the documented
+# under-voltage sag belts (MEPCO / FESCO / PESCO / SEPCO) — his brief was
+# "anywhere there's low voltage and 30kva requirements", not only these 8.
+CITIES_NAMED = [1784775, 1800796, 1807162, 1818989, 1829523, 1811172, 1787643, 1828278]
 # Faisalabad · Karachi · Lahore · Peshawar · Swabi · Mardan · Gilgit · Skardu
+CITIES_EXTRA = [
+    1792796, 1827865, 1814658, 1824942, 1822222, 1796082, 1795700, 1829048, 1792799,
+    1827094, 1801447, 1823386, 1768090, 1821159, 1802534, 1797916, 1817231, 1778655,
+    1812591, 1804508, 1820949, 1807952, 1816434, 1796324, 1833652,
+]
+# Gujranwala · Sialkot · Multan · Sargodha · Rawalpindi · Islamabad · Hyderabad ·
+# Sukkur · Gujrat · Sheikhupura · Kasur · Sahiwal · Bahawalpur · Rahim Yar Khan ·
+# Khanewal · Jhang · Nowshera · Charsadda · Mingora · Kohat · Quetta · Larkana ·
+# Nawabshah · Jacobabad · Wah
+CITIES = CITIES_NAMED + CITIES_EXTRA
+RADIUS = 50   # km — industrial estates sit well outside the city boundary
 
-TRADE = [   # all verified topic == "Business and industry"
-    ("6003374398954", "Manufacturing"),
-    ("6003012400881", "Factory"),
+# START WIDE, THEN NARROW (Raheel, 2026-08-21: "start a bit wide and then narrow
+# down"). Sizing is binary either side of the owner AND-gate, so the middle ground
+# comes from which interests are used, not from the gate:
+#   3 tight technical interests, no gate ....  2.6-3.1M   <-- PHASE 1, running now
+#   all 6 interests, no gate ................  9.8-11.6M  (too loose to bother with)
+#   all 6 interests AND owner gate ..........  0.85-1.0M  <-- PHASE 2 target
+# All verified topic == "Business and industry".
+TRADE_TIGHT = [     # genuinely technical/industrial — the phase-1 audience
     ("6003698591713", "Industrial engineering"),
     ("6003071898429", "Machining"),
     ("6003326561843", "Electrical engineering"),
 ]
+TRADE_BROAD = [     # enormous and loose; held back for reach if phase 1 starves
+    ("6003374398954", "Manufacturing"),
+    ("6003012400881", "Factory"),
+    ("6003252179711", "Engineering"),
+]
 OWNER = [   # "that they actually run a business" — page-admin behaviours are the
-            # best available proxy for a real shop/factory in PK
+            # best available proxy for a real shop/factory in PK. Held for phase 2.
     ("6002714898572", "Small business owners"),
     ("6020530281783", "Business page admins"),
     ("6020530250383", "Retail page admins"),
@@ -70,20 +97,33 @@ OWNER = [   # "that they actually run a business" — page-admin behaviours are 
     ("6273196847983", "New Active Business <12mo"),
 ]
 
+# --- the two knobs to turn when narrowing after the first read ---
+TRADE = TRADE_TIGHT          # + TRADE_BROAD to widen
+OWNER_AND_GATE = False       # True = require "runs a business" too (~0.9M)
+
 TARGETING = {
     "geo_locations": {
-        "cities": [{"key": str(k), "radius": 25, "distance_unit": "kilometer"} for k in CITIES],
+        "cities": [{"key": str(k), "radius": RADIUS, "distance_unit": "kilometer"} for k in CITIES],
         "location_types": ["home", "recent"],
     },
-    "age_min": 25, "age_max": 58,
-    "flexible_spec": [
-        {"interests": [{"id": i, "name": n} for i, n in TRADE]},
-        {"behaviors": [{"id": i, "name": n} for i, n in OWNER]},
-    ],
+    # Male only (Raheel, 2026-08-21: "male only. No females."). This overrides the
+    # earlier "leave genders open, delivery self-selects ~98% male" note — it costs
+    # ~16% of reach, which the city/interest expansion more than pays back.
+    "age_min": 25, "age_max": 58, "genders": [1],
+    "flexible_spec": (
+        [{"interests": [{"id": i, "name": n} for i, n in TRADE]}]
+        + ([{"behaviors": [{"id": i, "name": n} for i, n in OWNER]}] if OWNER_AND_GATE else [])
+    ),
     "targeting_automation": {"advantage_audience": 0},
     "publisher_platforms": ["facebook"],
     "facebook_positions": ["feed", "facebook_reels", "story"],
 }
+
+# No ads 00:00-07:00 (Raheel, 2026-08-21) — 420 = 07:00, 1440 = midnight,
+# viewer-local. Meta normally wants a lifetime budget for adset_schedule but
+# accepts it on a daily budget here (verified on the cells v3 ad sets).
+SCHEDULE = [{"days": [0, 1, 2, 3, 4, 5, 6], "start_minute": 420,
+             "end_minute": 1440, "timezone_type": "USER"}]
 
 CITIES_LINE = ("Faisalabad, Karachi, Lahore, Peshawar, Swabi, Mardan, Gilgit, Skardu — "
                "delivery poore Pakistan mein (charges alag).")
@@ -199,7 +239,7 @@ def estimate(soft=False):
             print("  (delivery_estimate unavailable right now — targeting unchanged, continuing)")
             return
         die("delivery_estimate failed", r)
-    print(f"  trade AND owner · 8 cities · FB only · 25-58 → MAU "
+    print(f"  {'trade AND owner' if OWNER_AND_GATE else 'trade interests'} · {len(CITIES)} cities · male · FB only · 25-58 → MAU "
           f"{d.get('estimate_mau_lower_bound',0):,} - {d.get('estimate_mau_upper_bound',0):,}")
     print(f"  budget: AED {int(BUDGET_VIDEO)/100:.2f} video + {int(BUDGET_POST)/100:.2f} post "
           f"= AED {(int(BUDGET_VIDEO)+int(BUDGET_POST))/100:.2f}/day")
@@ -279,13 +319,14 @@ def build():
                 optimization_goal="CONVERSATIONS", billing_event="IMPRESSIONS",
                 destination_type="WHATSAPP",
                 promoted_object=json.dumps({"page_id": PAGE}),
+                adset_schedule=json.dumps(SCHEDULE),
                 targeting=json.dumps(TARGETING))
         if not r.get("id"): die(f"ad set failed: {name} (campaign {cid} left PAUSED)", r)
         print(f"  ad set {r['id']}  {name}")
         return r["id"]
 
     # --- Ad set 1: the three video variations -------------------------------
-    s_vid = adset("SVC60 video · factory trade+owner · 8 cities", BUDGET_VIDEO)
+    s_vid = adset(f"SVC60 video · industrial male 25-58 · {len(CITIES)} cities", BUDGET_VIDEO)
     ads = {}
     for v in VARIATIONS:
         vid = vids[v["key"]]
@@ -361,6 +402,42 @@ def status():
     print("  IN_PROCESS / PENDING_REVIEW on ads = normal Meta review.")
 
 
+def update():
+    """Push the TARGETING + SCHEDULE above onto the already-live ad sets.
+
+    ⚠️ Editing targeting on a live ad set restarts Meta's learning phase. Cheap
+    while the ads are hours old; expensive once they have days of history.
+    """
+    st = load_state()
+    if not st.get("campaign"): die("nothing built yet")
+    print("-- new reach --"); estimate(soft=True)
+    for key in ("adset_video", "adset_post"):
+        sid = st[key]
+        r = api(sid, "POST", targeting=json.dumps(TARGETING),
+                adset_schedule=json.dumps(SCHEDULE))
+        ok = bool(r.get("success") or r.get("id"))
+        if not ok:
+            print(f"  {key}: schedule+targeting together failed "
+                  f"({r.get('error', {}).get('error_user_title', '')}) — retrying targeting only")
+            r = api(sid, "POST", targeting=json.dumps(TARGETING))
+            ok = bool(r.get("success") or r.get("id"))
+        print(f"  {key:12} {sid} {'ok' if ok else json.dumps(r)[:200]}")
+    print("\n-- verify --")
+    for key in ("adset_video", "adset_post"):
+        v = api(st[key], fields="name,targeting,adset_schedule,daily_budget,effective_status")
+        t = v.get("targeting") or {}
+        sched = v.get("adset_schedule")
+        g = t.get("genders")
+        print(f"  {key:12} AED {int(v.get('daily_budget') or 0)/100:>5.2f}/day  {v['effective_status']}")
+        print(f"     genders={g} ({'male only' if g == [1] else 'ALL'})  age {t.get('age_min')}-{t.get('age_max')}  "
+              f"cities={len((t.get('geo_locations') or {}).get('cities') or [])} @"
+              f"{((t.get('geo_locations') or {}).get('cities') or [{}])[0].get('radius')}km")
+        blocks = t.get("flexible_spec") or []
+        print(f"     interests={len((blocks[0] or {}).get('interests') or []) if blocks else 0}  "
+              f"behaviors={len((blocks[1] or {}).get('behaviors') or []) if len(blocks) > 1 else 0}")
+        print(f"     hours={str(sched[0]['start_minute']//60) + ':00-' + ('24:00' if sched[0]['end_minute'] >= 1440 else str(sched[0]['end_minute']//60) + ':00') + ' viewer-local' if sched else '24h (no schedule)'}")
+
+
 cmd = sys.argv[1] if len(sys.argv) > 1 else "estimate"
-{"estimate": estimate, "upload": upload, "build": build,
+{"estimate": estimate, "upload": upload, "build": build, "update": update,
  "activate": activate, "status": status}.get(cmd, lambda: print(__doc__))()

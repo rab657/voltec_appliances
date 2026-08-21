@@ -29,7 +29,12 @@ WHAT CHANGED, EACH FROM v2's OWN BREAKDOWN — not from a hunch:
     here so the lookalike actually gets tested instead of being starved by the
     interest set. (Not 15/10 — see the AED 11.07 per-ad-set floor below.)
  5. **Ad set B is the LAL 1% battery-manufacturers audience**, which did not exist
-    when v2 launched. 519-610K, already "ready for use".
+    when v2 launched. ~503-592K, already "ready for use".
+ 6. **Male only** (Raheel, 2026-08-21). Near-free here: females were AED ~4 of v2's
+    AED 210 and 3 of its 88 depth-3. Sizes after this: trade 661-777K, LAL 503-592K.
+NOT widened, unlike the stabilizer campaign: "start wide then narrow" is for an
+audience with no evidence behind it. This one has 692 conversations of evidence at
+AED 0.30, so it stays at the size that produced them.
 Kept from v2 because it worked: the trade-interest AND business-owner structure,
 the DIY/sub-carton exclusion audience, CONVERSATIONS + destination_type=WHATSAPP.
 
@@ -96,7 +101,9 @@ LAL_1PCT    = "120249033986980617"   # "Voltec — LAL 1% battery manufacturers 
 
 FB_ONLY = {"publisher_platforms": ["facebook"],
            "facebook_positions": ["feed", "facebook_reels", "story"]}
-BASE = {"geo_locations": GEO, "age_min": 25, "age_max": 54,
+# Male only (Raheel, 2026-08-21: "male only. No females."). Costs almost nothing
+# here — females were AED ~4 of v2's 210 and 3 of its 88 depth-3.
+BASE = {"geo_locations": GEO, "age_min": 25, "age_max": 54, "genders": [1],
         "excluded_custom_audiences": [{"id": EXCLUDE_DIY}],
         "targeting_automation": {"advantage_audience": 0}, **FB_ONLY}
 
