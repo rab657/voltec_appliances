@@ -79,8 +79,15 @@ BUDGET_TRADE = "1350"   # AED 13.50/day — the proven workhorse
 BUDGET_LAL   = "1150"   # AED 11.50/day — testing the new lookalike
                         # total AED 25.00/day, as instructed
 
-REGIONS = ["2939", "2938", "2940", "2943", "2942"]   # Punjab · KPK · Sindh · Islamabad · GB
-GEO = {"regions": [{"key": k} for k in REGIONS], "location_types": ["home", "recent"]}
+# SPLIT BY REGION so the cheap-converting ones actually get budget. v2 pooled all
+# regions in one CBO campaign and Meta chased Punjab's volume: Punjab took 69% of
+# spend at AED 2.60 per depth-3, while Sindh (1.80), KPK (2.06) and GB (1.14) —
+# every one CHEAPER per qualified lead — shared the remaining 26%. GB got 1%.
+# Two ad sets, separate budgets, so that cannot happen again.
+REGIONS_VOLUME = ["2939", "2943"]            # Punjab · Islamabad
+REGIONS_EFFICIENT = ["2938", "2940", "2942"]  # KPK · Sindh · Gilgit-Baltistan
+def geo(regions):
+    return {"regions": [{"key": k} for k in regions], "location_types": ["home", "recent"]}
 
 TRADE = [   # every one verified topic == "Business and industry"
     ("6003012400881", "Factory"),
@@ -103,15 +110,23 @@ FB_ONLY = {"publisher_platforms": ["facebook"],
            "facebook_positions": ["feed", "facebook_reels", "story"]}
 # Male only (Raheel, 2026-08-21: "male only. No females."). Costs almost nothing
 # here — females were AED ~4 of v2's 210 and 3 of its 88 depth-3.
-BASE = {"geo_locations": GEO, "age_min": 25, "age_max": 54, "genders": [1],
-        "excluded_custom_audiences": [{"id": EXCLUDE_DIY}],
-        "targeting_automation": {"advantage_audience": 0}, **FB_ONLY}
+def base(regions):
+    return {"geo_locations": geo(regions), "age_min": 25, "age_max": 54, "genders": [1],
+            "excluded_custom_audiences": [{"id": EXCLUDE_DIY}],
+            "targeting_automation": {"advantage_audience": 0}, **FB_ONLY}
 
-TGT_TRADE = {**BASE, "flexible_spec": [
-    {"interests": [{"id": i, "name": n} for i, n in TRADE]},
-    {"behaviors": [{"id": i, "name": n} for i, n in OWNER]},
-]}
-TGT_LAL = {**BASE, "custom_audiences": [{"id": LAL_1PCT}]}
+def trade_spec(regions):
+    """The audience that actually converted: trade interest AND runs-a-business."""
+    return {**base(regions), "flexible_spec": [
+        {"interests": [{"id": i, "name": n} for i, n in TRADE]},
+        {"behaviors": [{"id": i, "name": n} for i, n in OWNER]},
+    ]}
+
+TGT_VOLUME = trade_spec(REGIONS_VOLUME)
+TGT_EFFICIENT = trade_spec(REGIONS_EFFICIENT)
+# Kept for reference — the Places-seeded lookalike. Add as a 3rd ad set only if the
+# budget clears 3x the AED 11.07 floor; it is a weaker signal than the trade gate.
+TGT_LAL = {**base(REGIONS_VOLUME + REGIONS_EFFICIENT), "custom_audiences": [{"id": LAL_1PCT}]}
 
 # 09:00-22:00 viewer-local, as v2 ran. Only applied if Meta accepts it alongside a
 # daily budget (it normally requires a lifetime budget).
@@ -119,8 +134,8 @@ SCHEDULE = [{"days": [0, 1, 2, 3, 4, 5, 6], "start_minute": 540,
              "end_minute": 1320, "timezone_type": "USER"}]
 
 AD_SETS = [
-    ("trade", "v3 · trade AND owner · FB only · 25-54", BUDGET_TRADE, TGT_TRADE),
-    ("lal",   "v3 · LAL 1% battery mfrs · FB only · 25-54", BUDGET_LAL, TGT_LAL),
+    ("volume",    "v3 · Punjab+ISB · trade AND owner · male 25-54", BUDGET_TRADE, TGT_VOLUME),
+    ("efficient", "v3 · KPK+Sindh+GB · trade AND owner · male 25-54", BUDGET_LAL, TGT_EFFICIENT),
 ]
 
 
