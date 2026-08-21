@@ -57,12 +57,13 @@ land — that keeps the ad set (and its learning) and only changes the creative.
 
   python3 scripts/meta-cells-v3.py estimate
   python3 scripts/meta-cells-v3.py build              # PAUSED
+  python3 scripts/meta-cells-v3.py videos    # upload container clips as ads
   python3 scripts/meta-cells-v3.py swap <creative_id> [<creative_id2>]
   python3 scripts/meta-cells-v3.py activate
   python3 scripts/meta-cells-v3.py status
   python3 scripts/meta-cells-v3.py retire-v2          # pause the spent-out v2
 """
-import json, os, pathlib, subprocess, hmac, hashlib, sys
+import json, os, pathlib, subprocess, hmac, hashlib, sys, time
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 for line in (ROOT / ".env.local").read_text().splitlines():
@@ -251,6 +252,119 @@ def swap(*creative_ids):
     status()
 
 
+# ---------------------------------------------------------------- container ads
+# Raheel, 2026-08-21: "let's not post these on the page and just include them in
+# the ad" — so these run as direct video ads, no organic reel. (Page publishing is
+# impossible on this token anyway: pages_manage_posts is NOT granted, only
+# pages_manage_ads.) Source clips are 1440x1920 (3:4) fitted into a 4:5 ad canvas
+# by HEIGHT, so the full frame survives with ~34px of blurred fill each side —
+# nothing trimmed, nothing cropped, per "don't cut anything".
+CONTAINER_ADS = [
+    {
+        "key": "container",
+        "file": "ad-container-arrival-4x5.mp4",
+        "thumb": "thumb-container-arrival.jpg",
+        "name": "cells v3 · container arrival (original EVE)",
+        "headline": "Apna container aa gaya — original EVE cells",
+        "desc": "Grade A · QR-traceable · test report",
+        "primary": (
+            "Humara apna container puhanch gaya. 🚚\n\n"
+            "Original EVE cells — seedha EVE Energy se. Beech mein koi nahi, isi liye "
+            "rate behtar.\n\n"
+            "✅ Genuine EVE LF100LA · Grade A · 3.2V 100Ah · 5,000+ cycles\n"
+            "✅ Har cell par QR — khud scan kar ke verify karein\n"
+            "✅ Har carton ke saath EVE ka test report\n"
+            "✅ Nakli aur B-grade cell se hoshiyaar\n\n"
+            "Minimum 1 carton (8 cells) — single cell nahi milta.\n"
+            "Assemblers aur dealers: apni quantity likh kar WhatsApp karein 👇"
+        ),
+    },
+    {
+        "key": "stock",
+        "file": "ad-stock-landed-4x5.mp4",
+        "thumb": "thumb-stock-landed.jpg",
+        "name": "cells v3 · stock landed (importer rate)",
+        "headline": "Container stock — original EVE, Lahore mein",
+        "desc": "Importer rate · minimum 1 carton",
+        "primary": (
+            "Stock utar gaya — ab Lahore mein maujood hai. 📦\n\n"
+            "Poora container original EVE LF100LA. Hum importer hain, dukaan nahi — "
+            "isi liye rate behtar milta hai.\n\n"
+            "✅ 3.2V 100Ah · Grade A · 5,000+ cycles\n"
+            "✅ QR se asli hona khud check karein\n"
+            "✅ EVE ka test report har carton ke saath\n"
+            "✅ Copper busbar + nuts included\n\n"
+            "Minimum 1 carton (8 cells) · Delivery poore Pakistan mein.\n"
+            "Quantity aur sheher likh kar WhatsApp karein 👇"
+        ),
+    },
+]
+VIDEO_DIR = ROOT / "creatives" / "video"
+
+
+def _upload_media(path, edge, field):
+    a = ["curl", "-s", "--max-time", "900", "-X", "POST",
+         f"https://graph.facebook.com/{V}/{ACT}/{edge}",
+         "-F", f"{field}=@{path}", "-F", f"access_token={T}", "-F", f"appsecret_proof={PROOF}"]
+    return json.loads(subprocess.run(a, capture_output=True, text=True).stdout or "{}")
+
+
+def videos():
+    """Upload the container clips and attach them to BOTH ad sets, then pause the
+    placeholder ads so the new creatives get the whole budget."""
+    st = load()
+    if not st.get("campaign"): die("run `build` first")
+    st.setdefault("videos", {}); st.setdefault("container_ads", {})
+
+    for spec in CONTAINER_ADS:
+        k = spec["key"]
+        if not st["videos"].get(k):
+            f = VIDEO_DIR / spec["file"]
+            if not f.exists(): die(f"missing {f}")
+            print(f"  uploading {spec['file']} ({f.stat().st_size/1048576:.1f} MB)…")
+            r = _upload_media(f, "advideos", "source")
+            if not r.get("id"): die(f"video upload failed for {k}", r)
+            st["videos"][k] = r["id"]; save(st)
+            print(f"    → video {r['id']}")
+        for _ in range(40):
+            if api(st["videos"][k], fields="status").get("status", {}).get("video_status") == "ready":
+                print(f"  {k}: ready"); break
+            time.sleep(15)
+        else:
+            die(f"{k} still transcoding — re-run `videos`")
+
+    for spec in CONTAINER_ADS:
+        k = spec["key"]
+        ih = _upload_media(VIDEO_DIR / spec["thumb"], "adimages", "filename")
+        imgs = ih.get("images") or {}
+        if not imgs: die(f"thumbnail upload failed for {k}", ih)
+        thumb_hash = list(imgs.values())[0]["hash"]
+        story = {"page_id": PAGE, "video_data": {
+            "video_id": st["videos"][k], "image_hash": thumb_hash,
+            "message": spec["primary"], "title": spec["headline"],
+            "link_description": spec["desc"],
+            "call_to_action": {"type": "WHATSAPP_MESSAGE",
+                               "value": {"app_destination": "WHATSAPP",
+                                         "link": "https://api.whatsapp.com/send"}}}}
+        cre = api(f"{ACT}/adcreatives", "POST", name=f"cells v3 {k} creative",
+                  object_story_spec=json.dumps(story))
+        if not cre.get("id"): die(f"creative failed for {k}", cre)
+        for aset_key, sid in st["adsets"].items():
+            ad = api(f"{ACT}/ads", "POST", name=f"{spec['name']} · {aset_key}",
+                     adset_id=sid, creative=json.dumps({"creative_id": cre["id"]}),
+                     status="PAUSED")
+            if not ad.get("id"): die(f"ad failed {k}/{aset_key}", ad)
+            st["container_ads"][f"{k}:{aset_key}"] = ad["id"]; save(st)
+            print(f"    ad {ad['id']}  {spec['name']} · {aset_key}")
+
+    for k, aid in (st.get("ads") or {}).items():
+        r = api(aid, "POST", status="PAUSED")
+        print(f"  placeholder {k} paused: {'ok' if (r.get('success') or r.get('id')) else r}")
+    save(st)
+    print("\n  Container ads attached to BOTH ad sets, all PAUSED with the campaign.")
+    status()
+
+
 def activate():
     st = load()
     if not st.get("campaign"): die("nothing built yet — run `build`")
@@ -288,6 +402,7 @@ def status():
 
 cmd = sys.argv[1] if len(sys.argv) > 1 else "estimate"
 if cmd == "swap": swap(*sys.argv[2:])
+elif cmd == "videos": videos()
 elif cmd == "retire-v2": retire_v2()
 else:
     {"estimate": estimate, "build": build, "activate": activate,
