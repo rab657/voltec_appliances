@@ -18,7 +18,7 @@ export default async function SiteFooter() {
             <h4>{t("foot.products")}</h4>
             <ul>
               <li>
-                <Link href="/showcase/svc">{t("foot.igbt")}</Link>
+                <Link href="/products?range=svc">{t("foot.igbt")}</Link>
               </li>
               <li>
                 <Link href="/products?cat=cells">{t("foot.cells")}</Link>

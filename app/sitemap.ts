@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { PRODUCTS } from "@/lib/products";
-import { FAMILIES } from "@/lib/showcase-data";
+import { FAMILIES, isProductInHiddenFamily } from "@/lib/showcase-data";
 import { getPublishedPosts } from "@/lib/blog";
 import { absUrl } from "@/lib/site";
 
@@ -19,10 +19,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: absUrl("/privacy"), lastModified: now, changeFrequency: "yearly", priority: 0.2 },
   ];
 
-  // Only cells & electric parts have their own page. Stabilizers/industrial
-  // live on their family showcase (model picker) — covered by showcasePages.
+  // Every model has its own page (2026-08-19) — stabilizers/industrial too.
   const productPages: MetadataRoute.Sitemap = PRODUCTS.filter(
-    (p) => p.categoryId === "cells" || p.categoryId === "parts",
+    (p) => !p.hidden && !isProductInHiddenFamily(p),
   ).map((p) => ({
     url: absUrl(`/products/${p.id}`),
     lastModified: now,

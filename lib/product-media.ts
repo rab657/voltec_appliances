@@ -179,7 +179,11 @@ export async function deleteVariant(id: string): Promise<void> {
 /** Overlay admin overrides onto a code-defined product. Safe when map is empty. */
 export function applyMedia(product: Product, map: MediaMap): Product {
   const m = map[product.id];
-  const images = m && m.images.length ? m.images : [product.image];
+  // An admin gallery wins, then a gallery shipped in products.ts, then the lone
+  // cover image. Skipping that middle case used to silently flatten every
+  // code-defined gallery down to one photo.
+  const images =
+    m && m.images.length ? m.images : product.images?.length ? product.images : [product.image];
   const videos = m && m.videos.length ? m.videos : product.videos || [];
   return {
     ...product,

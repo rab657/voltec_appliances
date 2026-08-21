@@ -488,6 +488,57 @@ export const PRODUCTS: Product[] = [
       ["Protection", "High/low-voltage cutoff, overload, time delay"],
     ],
   },
+  // The ultra-low-voltage 30kVA. A separate product, not an admin variant, because
+  // its input range is genuinely different (60V, not 150V) — see CLAUDE.md.
+  {
+    id: "vt-svc-30k-60v",
+    name: "SVC Servo Stabilizer — 30kVA Ultra Low Voltage (60V)",
+    category: "Voltage Stabilizers",
+    categoryId: "stabilizers",
+    tech: "SVC",
+    badge: "New",
+    tagline: "Starts working at 60V. Single-phase 30kVA, 100% pure copper.",
+    useFor: "A factory, mill or workshop on a weak single-phase line",
+    highlight: ["60V", "minimum input"],
+    price: 225000,
+    description:
+      "Most stabilizers cut off below 150V. This one starts working at 60V. It is a 30kVA single-phase servo stabilizer for the weakest lines in the country — the factory areas of Faisalabad, Karachi and Lahore, Peshawar, Swabi and Mardan, and Gilgit and Skardu, where voltage drops all day and machines stall. A servo motor sweeps a slider across a 100% pure copper autotransformer and holds a steady 220V from 60V all the way up to 250V. Copper windings only, no aluminium. This is a single-phase unit, not three-phase.",
+    image: "assets/svc-60v/svc60-cover.webp",
+    images: [
+      "assets/svc-60v/svc60-cover.webp",
+      "assets/svc-60v/svc60-unit.webp",
+      "assets/svc-60v/svc60-copper.webp",
+      "assets/svc-60v/svc60-servo.webp",
+      "assets/svc-60v/svc60-260v.webp",
+    ],
+    videos: [
+      "assets/svc-60v/svc60-demo-lowvolt.mp4",
+      "assets/svc-60v/svc60-demo-range.mp4",
+      "assets/svc-60v/svc60-demo-copper.mp4",
+    ],
+    features: [
+      "Works from 60V — where an ordinary stabilizer has already cut off",
+      "100% pure copper windings and autotransformer. No aluminium.",
+      "30kVA single-phase — this is not a three-phase unit",
+      "Holds 220V ±1% from 60V right up to 250V input",
+      "LED panel shows input volts, output volts, load current and temperature",
+      "High and low-voltage cutoff, overload, over-temperature and time-delay restart",
+      "Floor cabinet on castor wheels — roll it where you need it",
+    ],
+    specs: [
+      ["Technology", "SVC — servo motor"],
+      ["Capacity", "30kVA, single-phase (not 3-phase)"],
+      ["Input range", "60V – 250V AC"],
+      ["Output", "220V ±1%"],
+      ["Rated current", "136A at 220V"],
+      ["Windings", "100% pure copper — autotransformer and coils"],
+      ["Efficiency", "> 96%"],
+      ["Display", "LED — input, output, load current, temperature"],
+      ["Protection", "High/low-voltage cutoff, overload, over-temp, time-delay restart"],
+      ["Model", "TND-30 KVA"],
+      ["Mounting", "Floor cabinet on castor wheels"],
+    ],
+  },
   {
     id: "vt-avr-a25",
     name: "Voltec A-25 — Refrigerator Stabilizer (2500W)",
@@ -676,6 +727,10 @@ export const PRODUCTS: Product[] = [
     tech: "LFP",
     badge: "Most shipped",
     price: 9800,
+    // Genuine former price (Rs 10,500 until the 2026 cut) — drives the
+    // struck-through was/now + SAVE badge on the product page.
+    compareAt: 10500,
+    datasheet: "assets/datasheets/eve-lf100la-spec-sheet.pdf",
     tagline: "Genuine EVE Grade-A LF100LA 100Ah prismatic cell — our most-shipped product.",
     highlight: ["5,000+", "cycles"],
     cell: {
@@ -830,8 +885,8 @@ export const PRODUCTS: Product[] = [
 ];
 
 export const CATEGORIES: Category[] = [
-  { id: "all", label: "All products", count: 26 },
-  { id: "stabilizers", label: "Stabilizers", count: 13 },
+  { id: "all", label: "All products", count: 27 },
+  { id: "stabilizers", label: "Stabilizers", count: 14 },
   { id: "cells", label: "Lithium Cells", count: 1 },
   { id: "industrial", label: "3-Phase Industrial", count: 4 },
   { id: "parts", label: "Electric Parts", count: 4 },
@@ -841,8 +896,3 @@ export function getProduct(id: string): Product | undefined {
   return PRODUCTS.find((p) => p.id === id);
 }
 
-export function relatedProducts(p: Product, limit = 3): Product[] {
-  return PRODUCTS.filter(
-    (x) => x.id !== p.id && x.categoryId === p.categoryId,
-  ).slice(0, limit);
-}
