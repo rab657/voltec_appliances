@@ -31,7 +31,14 @@ WHAT CHANGED, EACH FROM v2's OWN BREAKDOWN — not from a hunch:
  5. **Ad set B is the LAL 1% battery-manufacturers audience**, which did not exist
     when v2 launched. ~503-592K, already "ready for use".
  6. **Male only** (Raheel, 2026-08-21). Near-free here: females were AED ~4 of v2's
-    AED 210 and 3 of its 88 depth-3. Sizes after this: trade 661-777K, LAL 503-592K.
+    AED 210 and 3 of its 88 depth-3.
+ 7. **PUNJAB ONLY, assembler-audience led** (Raheel, later the same day: "target
+    battery assemblers in punjab (even lahore works right now) ... let's focus on
+    punjab for now"). Ad set 1 is the three real battery/lithium business audiences
+    OR'd together (368-433K); ad set 2 is the proven trade AND owner gate
+    (417-491K). The KPK/Sindh/GB efficiency finding is recorded in memory.md for
+    when focus widens — it is not lost, just out of scope while one market is
+    serviceable.
 NOT widened, unlike the stabilizer campaign: "start wide then narrow" is for an
 audience with no evidence behind it. This one has 692 conversations of evidence at
 AED 0.30, so it stays at the size that produced them.
@@ -75,17 +82,18 @@ STATE = ROOT / ".data" / "cells-v3-campaign.json"
 # ⚠️ Meta floor for CONVERSATIONS on this account is **AED 11.07 per ad set**
 # (err 1885272 "Budget Is Too Low"). A 15/10 split is therefore illegal, so the
 # proven set gets as much as it can while leaving the lookalike above the floor.
-BUDGET_TRADE = "1350"   # AED 13.50/day — the proven workhorse
-BUDGET_LAL   = "1150"   # AED 11.50/day — testing the new lookalike
+BUDGET_TRADE = "1350"   # AED 13.50/day — the assembler audiences (the priority)
+BUDGET_LAL   = "1150"   # AED 11.50/day — the proven trade AND owner audience
                         # total AED 25.00/day, as instructed
 
-# SPLIT BY REGION so the cheap-converting ones actually get budget. v2 pooled all
-# regions in one CBO campaign and Meta chased Punjab's volume: Punjab took 69% of
-# spend at AED 2.60 per depth-3, while Sindh (1.80), KPK (2.06) and GB (1.14) —
-# every one CHEAPER per qualified lead — shared the remaining 26%. GB got 1%.
-# Two ad sets, separate budgets, so that cannot happen again.
-REGIONS_VOLUME = ["2939", "2943"]            # Punjab · Islamabad
-REGIONS_EFFICIENT = ["2938", "2940", "2942"]  # KPK · Sindh · Gilgit-Baltistan
+# PUNJAB ONLY (Raheel, 2026-08-21: "we need to target battery assemblers in punjab
+# (even lahore works right now) ... let's focus on punjab for now"). Islamabad is
+# its OWN region key and is therefore NOT included; Rawalpindi is in Punjab.
+# This drops the earlier region split — KPK/Sindh/GB were cheaper per depth-3
+# (1.80-2.06 vs Punjab's 2.60) and that stays on record for when focus widens
+# again, but concentration beats optimisation when only one market is serviceable.
+PUNJAB = ["2939"]
+LAHORE_CITY = 1807162   # for the tighter fallback, if Punjab-wide proves too loose
 def geo(regions):
     return {"regions": [{"key": k} for k in regions], "location_types": ["home", "recent"]}
 
@@ -115,6 +123,20 @@ def base(regions):
             "excluded_custom_audiences": [{"id": EXCLUDE_DIY}],
             "targeting_automation": {"advantage_audience": 0}, **FB_ONLY}
 
+# "Battery assemblers" as precisely as this account can express it — three
+# audiences OR'd, all built from real battery/lithium/UPS businesses rather than
+# from generic industrial interests. No flexible_spec here on purpose: adding
+# interests would INTERSECT with these and gut delivery.
+ASSEMBLER_AUDIENCES = [
+    (LAL_1PCT,            "LAL 1% battery manufacturers"),
+    ("120248832291210617", "Punjab lithium trade — Places sweep"),
+    ("120248990689140617", "Battery pack assemblers ONLY (Places, no solar)"),
+]
+
+def assembler_spec(regions):
+    return {**base(regions),
+            "custom_audiences": [{"id": i} for i, _n in ASSEMBLER_AUDIENCES]}
+
 def trade_spec(regions):
     """The audience that actually converted: trade interest AND runs-a-business."""
     return {**base(regions), "flexible_spec": [
@@ -122,11 +144,8 @@ def trade_spec(regions):
         {"behaviors": [{"id": i, "name": n} for i, n in OWNER]},
     ]}
 
-TGT_VOLUME = trade_spec(REGIONS_VOLUME)
-TGT_EFFICIENT = trade_spec(REGIONS_EFFICIENT)
-# Kept for reference — the Places-seeded lookalike. Add as a 3rd ad set only if the
-# budget clears 3x the AED 11.07 floor; it is a weaker signal than the trade gate.
-TGT_LAL = {**base(REGIONS_VOLUME + REGIONS_EFFICIENT), "custom_audiences": [{"id": LAL_1PCT}]}
+TGT_ASSEMBLERS = assembler_spec(PUNJAB)   # 368-433K
+TGT_TRADE = trade_spec(PUNJAB)            # 417-491K
 
 # 09:00-22:00 viewer-local, as v2 ran. Only applied if Meta accepts it alongside a
 # daily budget (it normally requires a lifetime budget).
@@ -134,8 +153,10 @@ SCHEDULE = [{"days": [0, 1, 2, 3, 4, 5, 6], "start_minute": 540,
              "end_minute": 1320, "timezone_type": "USER"}]
 
 AD_SETS = [
-    ("volume",    "v3 · Punjab+ISB · trade AND owner · male 25-54", BUDGET_TRADE, TGT_VOLUME),
-    ("efficient", "v3 · KPK+Sindh+GB · trade AND owner · male 25-54", BUDGET_LAL, TGT_EFFICIENT),
+    ("assemblers", "v3 · Punjab · battery assemblers (LAL+Places) · male 25-54",
+     BUDGET_TRADE, TGT_ASSEMBLERS),
+    ("trade",      "v3 · Punjab · trade AND owner · male 25-54",
+     BUDGET_LAL, TGT_TRADE),
 ]
 
 
@@ -178,7 +199,7 @@ def build():
     if st.get("campaign"): die(f"already built ({st['campaign']}) — use status/swap/activate")
     print("-- reach --"); estimate(soft=True)
     camp = api(f"{ACT}/campaigns", "POST",
-               name="Voltec - EVE Cells v3 CTWA (25/day, FB only, 25-54)",
+               name="Voltec - EVE Cells v3 CTWA (Punjab, assemblers, 25/day)",
                objective="OUTCOME_ENGAGEMENT", status="PAUSED",
                special_ad_categories="[]", buying_type="AUCTION",
                is_adset_budget_sharing_enabled="false")
