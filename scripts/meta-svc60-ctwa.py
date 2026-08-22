@@ -119,10 +119,14 @@ TARGETING = {
     "facebook_positions": ["feed", "facebook_reels", "story"],
 }
 
-# No ads 00:00-07:00 (Raheel, 2026-08-21) — 420 = 07:00, 1440 = midnight,
-# viewer-local. Meta normally wants a lifetime budget for adset_schedule but
-# accepts it on a daily budget here (verified on the cells v3 ad sets).
-SCHEDULE = [{"days": [0, 1, 2, 3, 4, 5, 6], "start_minute": 420,
+# No ads 00:00-07:00 (Raheel, 2026-08-21) — 420 = 07:00, 1440 = midnight, viewer-local.
+# NO SUNDAYS either (2026-08-23): `days` is 0-6 with **0 = Sunday**, so [1..6] = Mon-Sat.
+# Backed by v2 cells day-of-week data: Sunday cost **AED 4.42 per depth-3** against
+# Monday's 1.34 — and it was a trap, because Sunday's CONVERSATION cost looked great
+# (AED 0.23, 2nd best) while almost none of them became real chats.
+# Meta normally wants a lifetime budget for adset_schedule but accepts it on a daily
+# budget here (verified on all four ad sets).
+SCHEDULE = [{"days": [1, 2, 3, 4, 5, 6], "start_minute": 420,
              "end_minute": 1440, "timezone_type": "USER"}]
 
 CITIES_LINE = ("Faisalabad, Karachi, Lahore, Peshawar, Swabi, Mardan, Gilgit, Skardu — "
