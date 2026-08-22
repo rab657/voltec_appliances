@@ -150,7 +150,9 @@ TGT_TRADE = trade_spec(PUNJAB)            # 417-491K
 
 # 09:00-22:00 viewer-local, as v2 ran. Only applied if Meta accepts it alongside a
 # daily budget (it normally requires a lifetime budget).
-SCHEDULE = [{"days": [0, 1, 2, 3, 4, 5, 6], "start_minute": 540,
+# NO SUNDAYS (2026-08-23): 0 = Sunday, so [1..6] = Mon-Sat. v2's own day-of-week
+# split: Sunday AED 4.42 per depth-3 vs Monday 1.34, on cheap-looking conversations.
+SCHEDULE = [{"days": [1, 2, 3, 4, 5, 6], "start_minute": 540,
              "end_minute": 1320, "timezone_type": "USER"}]
 
 AD_SETS = [
