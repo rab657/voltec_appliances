@@ -34,11 +34,11 @@ const HOME_FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Where is Voltec based, and do you deliver?",
-    a: "Voltec Appliances has been making power equipment in Lahore, Pakistan for four decades. We ship Pakistan-wide and supply bulk and export orders to the UAE and China. Message us on WhatsApp at +92 321 1644447 for stock, pricing and freight.",
+    a: "Voltec Appliances is based in Lahore, Pakistan, with four decades in power equipment. Our servo (SVC), inverter (IGBT) and SCR stabilizers and EVE cells are imported; our AVR relay stabilizers are made in Pakistan. We ship Pakistan-wide and supply bulk and export orders to the UAE and China. Message us on WhatsApp at +92 321 1644447 for stock, pricing and freight.",
   },
   {
     q: "Do you supply businesses, factories and bulk orders?",
-    a: "Yes. Alongside home stabilizers and cells, we build three-phase industrial voltage stabilizers (100–500 kVA and up) to order, and supply EVE cells, BMS, PCB relays and LED modules in bulk for installers, manufacturers and exporters. Send us your load list or requirement and our engineers will quote it.",
+    a: "Yes. Alongside home stabilizers and cells, we import three-phase industrial voltage stabilizers (100–500 kVA and up), made to your spec, and supply EVE cells, BMS, PCB relays and LED modules in bulk for installers, manufacturers and exporters. Send us your load list or requirement and our engineers will quote it.",
   },
 ];
 

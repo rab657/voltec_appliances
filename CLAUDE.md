@@ -49,6 +49,12 @@ pre-filled **WhatsApp** message. Audience is ESL / non-technical Pakistani buyer
 - **Voice:** simple, short, problem-first. English-led with Roman-Urdu support; ad copy may be
   fuller Roman-Urdu (the proven local voice). Position Voltec strongly ("trusted since 1995") —
   **no false superlatives**. Keep it readable for a non-technical reader.
+- **Origin claims (user, 2026-09-18 — "play the IMPORTED card"):** servo (SVC), inverter (IGBT),
+  SCR, the 3-phase SJW industrial systems and the EVE cells are **imported** — say so (top
+  banner `components/ImportedBanner.tsx`, ads, bios). Never "made in Lahore", "we build/make/
+  manufacture", "stabilizer maker" for those lines. Only the **AVR relay A-series is Voltec-made**
+  (`cfg.madepk` "Made in Pakistan" chip). Heritage stays ("Lahore · Since 1995", 1980s workshop,
+  "roots in Pakistan"). Canonical wording + allowed/forbidden table: `docs/messaging.md` §5.
 - **Secrets:** `.env.local` only (gitignored). **Never** commit tokens/keys or paste them in chat;
   this repo is **public**. Public IDs (GA, Pixel) are fine. Account/campaign IDs → `memory.md`.
 - **Account actions I can't do:** setting Vercel env, GA4/Meta dashboard config, flipping the Meta

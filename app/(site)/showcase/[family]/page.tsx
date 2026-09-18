@@ -92,7 +92,7 @@ export default async function ShowcasePage({
                         sku: p.id.toUpperCase(),
                         brand: { "@type": "Brand", name: SITE.shortName },
                         image: absUrl(`/${p.image}`),
-                        manufacturer: VOLTEC_ORG,
+                        ...(p.tech === "AVR" ? { manufacturer: VOLTEC_ORG } : {}),
                         url: absUrl(`/products/${p.id}`),
                         additionalProperty: p.specs.map(([k, v]) => ({
                           "@type": "PropertyValue",

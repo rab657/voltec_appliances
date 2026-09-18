@@ -174,7 +174,7 @@ export const SHOWCASE: Record<string, ShowcaseContent> = {
         { label: "Cost to buy", vals: ["Costs more up front — pays you back on the bill", "Mid-range", "Cheapest to buy"] },
         { label: "Best for", vals: ["Inverter ACs, electronics, the whole modern home", "Homes, shops and motor loads", "One appliance on a tight budget"] },
       ],
-      note: "“Local” stabilizers are almost always the relay type (AVR). We build those too — but the inverter (IGBT) is the one that costs the least to run.",
+      note: "“Local” stabilizers are almost always the relay type (AVR). We build those too — but the imported inverter (IGBT) is the one that costs the least to run.",
     },
     faqs: [
       { q: "Does an inverter stabilizer really lower my electricity bill?", a: "Yes, a little. An inverter (IGBT) stabilizer is over 96% efficient and has no servo motor running all the time, so it wastes less power than an old servo or relay stabilizer. It also holds a steady 220 V, so your AC and fridge run at their rated efficiency instead of drawing extra current on low voltage." },
@@ -652,7 +652,9 @@ export interface FamilyMeta {
   /** Optional positioning tag, e.g. "Latest generation". */
   tag?: string;
   /** Optional override for the origin chip's i18n key. Defaults to
-   *  "cfg.built" ("Built in Lahore"); imported lines use "cfg.imported". */
+   *  "cfg.imported" — servo (SVC), IGBT, SCR, 3-phase and the cells are all imported
+   *  (user, 2026-09-18). Only the AVR relay A-series is Voltec-made and carries
+   *  "cfg.madepk" ("Made in Pakistan"). Never a "Built in Lahore" chip on an imported line. */
   originTagKey?: string;
   /** Hide this whole line from the public site (range bands, catalog, nav,
    *  showcase route, sitemap). Members are kept in the data for easy re-enable
@@ -729,6 +731,7 @@ export const FAMILIES: FamilyMeta[] = [
     blurb: "Relay-type automatic stabilizers — the Voltec A-series for fridges, deep freezers and air-conditioners. Pure copper, and they work from very low voltage.",
     image: "assets/avr-a25.png",
     tag: "From 75V",
+    originTagKey: "cfg.madepk",
   },
   {
     slug: "relay",

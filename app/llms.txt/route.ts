@@ -27,6 +27,7 @@ export async function GET() {
     `- Product lines: ${CATEGORIES.filter((c) => c.id !== "all").map((c) => c.label).join(", ")}`,
   );
   lines.push(`- Technologies: IGBT inverter stabilizers, SVC servo stabilizers, AVR relay stabilizers, EVE LFP lithium cells, BMS, PCB relays`);
+  lines.push("- Sourcing: servo (SVC), inverter (IGBT) and SCR stabilizers, the three-phase SJW industrial systems and the EVE cells are imported — specced and quality-checked by Voltec, stocked in Lahore and backed by Voltec's own service team. The AVR relay stabilizers (the Voltec A-series) are made by Voltec in Pakistan.");
   lines.push("");
 
   // Decision guide — the direct "which one do I need?" answer for answer engines.

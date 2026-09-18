@@ -10,31 +10,31 @@ each found saying different things (and two of them carrying an unknown phone nu
 
 ## 1. One-liner (≤120 chars — search snippets, social bios)
 
-> Voltage stabilizers & genuine EVE lithium cells — made and supplied in Lahore since 1995.
+> Imported servo, IGBT & SCR stabilizers · genuine EVE cells · Pakistan-made AVR — Lahore, since 1995.
 
 ## 2. Short bio (~160–255 chars — FB `about`, IG bio, GBP headline)
 
-> Servo (SVC), relay (AVR) & inverter (IGBT) stabilizers — single unit to 3-phase
-> industrial — genuine EVE lithium cells, BMS & battery packs. Made in Lahore since 1995.
-> Homes, industry & battery pack assemblers.
+> Imported servo (SVC), inverter (IGBT) & SCR stabilizers — single unit to 3-phase
+> industrial — genuine EVE lithium cells, BMS & battery packs, plus Pakistan-made relay
+> (AVR) stabilizers. Lahore, since 1995. Homes, industry & battery pack assemblers.
 
 ## 3. Long description (FB `description`, GBP "from the business" ≤750 chars)
 
-> Voltec Appliances has built power-protection equipment in Lahore since 1995. We are
-> an authorised EVE distributor supplying genuine Grade-A EVE LF100LA LiFePO4 cells —
-> QR-traceable, with a test report on every batch — plus lithium battery packs and BMS
-> for solar and UPS storage. We make voltage stabilizers for every need: relay (AVR)
-> for a fridge or AC, servo (SVC) for the whole home, inverter (IGBT) for sensitive
-> equipment, and three-phase industrial systems built to order from 100 to 500 kVA and
-> beyond, plus PCB power relays. Every product is backed by our own service network.
-> Trusted by industry leaders including K&N's. WhatsApp us your load and we'll size
-> the right solution.
+> Voltec Appliances has supplied power-protection equipment from Lahore since 1995. We are
+> an authorised EVE distributor supplying genuine Grade-A EVE LF100LA cells — QR-
+> traceable, with a test report on every batch — plus lithium battery packs and BMS for
+> solar and UPS storage. Our servo (SVC) stabilizers for the whole home, inverter (IGBT)
+> stabilizers for sensitive equipment and three-phase industrial systems (100 to 500 kVA
+> and beyond, made to spec) are all imported and quality-checked by Voltec; our relay
+> (AVR) stabilizers for a fridge or AC are made in Pakistan. Plus PCB power relays. Every
+> product is backed by our own service network. Trusted by industry leaders including
+> K&N's. WhatsApp us your load and we'll size the right solution.
 
 ## 4. Product roster (canonical order — use everywhere, including cover art)
 
 1. **EVE LF100LA LiFePO4 cells** — Grade A, QR-traceable, test report per batch, carton of 8
 2. **Lithium battery packs & BMS** — solar and UPS storage
-3. **Voltage stabilizers** — servo (SVC) · relay (AVR) · inverter (IGBT)
+3. **Voltage stabilizers** — servo (SVC) · inverter (IGBT) · SCR — **imported** · relay (AVR) — **made in Pakistan**
 4. **Three-phase industrial systems** — 100–500 kVA+, built to order, tender documentation
 5. **PCB power relays & electronic components**
 
@@ -48,6 +48,8 @@ Compact form for art/footers: `Cells & packs · BMS · Servo / AVR / IGBT · 3-p
 | Prices | website stays **Rs 9,800/cell** — the public list price never moves with the deal rate | **any Meta ad creative** (standing rule 2026-07-27). ⚠️ **NEVER sweep the WhatsApp rate onto the site** (user, 2026-08-11: "don't sweep the rate anywhere. Keep Rs.9800 online — this is when they reach out to me and I'll give that on whatsapp"). The private negotiating ladder is not recorded in this repo (see gitignored memory.md). |
 | "Trusted by K&N's" etc. | everywhere (real clients) | — |
 | Superlatives ("best", "No.1") | — | everywhere (CLAUDE.md: no false superlatives) |
+| **Origin — "imported"** | servo (SVC), inverter (IGBT), SCR, 3-phase SJW industrial, EVE cells — say **imported** wherever the line is named (site banner, ads, bios) | never call these "made in Lahore/Pakistan", "Voltec-made", "we build/make/manufacture", "stabilizer maker" (user, 2026-09-18: "play the IMPORTED card") |
+| **Origin — "made in Pakistan"** | the AVR relay A-series only (`cfg.madepk` chip), plus company heritage ("roots in Pakistan", "Lahore, since 1995", the 1980s workshop story) | on any imported line above |
 | Audience naming in CELLS ad copy | **"Battery pack assemblers"** only (user, 2026-08-10) | ❌ "solar installers", ❌ "dealers/distributors/resellers" — cells ads target pack assemblers & factories exclusively; MOQ 1 carton (8 cells) must be stated |
 | Clever hooks / dramatic openers in ad copy | — | **anywhere** (user, 2026-08-05: "keep messaging simple — no such stupid titles… yeh extra fazool cheezain nahi likhin"). Ad copy = product name first, specs, carton rule, WhatsApp CTA. Nothing else. |
 
@@ -73,7 +75,7 @@ Compact form for art/footers: `Cells & packs · BMS · Servo / AVR / IGBT · 3-p
 | llms.txt | `app/llms.txt/route.ts` | edit + deploy |
 | Facebook `about` + `description` | Page 1879349048754625 | Graph API: page token from `/me/accounts`, `POST /{page}` |
 | Facebook cover | `creatives/posts/fb-cover.html` → `creatives/out/fb-cover.png` | render, then manual upload (token lacks `pages_manage_posts`) |
-| Google Business Profile | description, categories, hours | manual — google.com/business (no API access) |
+| Google Business Profile | description, categories, hours | manual — google.com/business (no API access). ⚠️ As of 2026-09-18 the live GBP still says "Made in Lahore since 1995" — paste §2/§3 above |
 | Meta ad copy | live creatives | `scripts/` tooling; NO prices |
-| Google ad copy | RSAs | `scripts/google-rsa-improve.py` (campaigns currently paused) |
+| Google ad copy | RSAs | `scripts/google-rsa-imported.py` (imported-positioning sweep, 2026-09-18; `google-rsa-improve.py` is superseded — do not re-run its `apply`) |
 | Directory listings | NAP + short bio | `docs/google-business-profile.md` §5 |

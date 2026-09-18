@@ -146,7 +146,8 @@ export default async function ProductDetailPage({
             sku: product.id.toUpperCase(),
             brand: { "@type": "Brand", name: SITE.shortName },
             image: absUrl(`/${product.image}`),
-            manufacturer: VOLTEC_ORG,
+            // Voltec makes the AVR A-series; the other lines are imported (brand stays Voltec).
+            ...(product.tech === "AVR" ? { manufacturer: VOLTEC_ORG } : {}),
             additionalProperty: product.specs.map(([k, v]) => ({
               "@type": "PropertyValue",
               name: k,

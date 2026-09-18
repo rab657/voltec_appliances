@@ -5,7 +5,7 @@ export const SITE = {
   shortName: "Voltec",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://voltecappliances.com",
   description:
-    "Authorised EVE distributor and direct importer of genuine EVE lithium batteries and LiFePO4 cells for solar energy storage, and manufacturer of voltage stabilizers (IGBT, SVC, AVR) and industrial systems. Established as Voltec in 1995, with roots in a 1980s Lahore workshop. Serving Pakistan, the UAE and China.",
+    "Authorised EVE distributor and direct importer of genuine EVE lithium batteries and LiFePO4 cells for solar energy storage; importer of servo (SVC), inverter (IGBT) and SCR voltage stabilizers and three-phase industrial systems; and maker of Pakistan-made AVR relay stabilizers. Established as Voltec in 1995, with roots in a 1980s Lahore workshop. Serving Pakistan, the UAE and China.",
   locale: "en-PK",
   // Primary line — Pakistan sales + WhatsApp. Every PK-facing CTA uses this.
   phone: "+92-321-1644447",

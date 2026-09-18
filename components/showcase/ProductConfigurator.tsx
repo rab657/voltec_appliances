@@ -80,7 +80,7 @@ export default function ProductConfigurator({
       model={model}
       badges={[
         ...(family.tag ? [family.tag] : []),
-        t(family.originTagKey || "cfg.built"),
+        t(family.originTagKey || "cfg.imported"),
         `${members.length} ${t("cfg.models")}`,
       ]}
       familySlug={family.slug}

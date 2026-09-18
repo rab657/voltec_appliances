@@ -5,7 +5,7 @@ import { getT } from "@/lib/i18n-server";
 export const metadata: Metadata = {
   title: "About — Four decades of steady power",
   description:
-    "From a one-room Lahore workshop in the 1980s to one of Pakistan's leading power-equipment manufacturers — voltage stabilizers (IGBT, SVC, AVR), three-phase industrial systems and genuine EVE lithium cells, serving Pakistan, the UAE and China.",
+    "From a one-room Lahore workshop in the 1980s to one of Pakistan's most trusted power-equipment names — imported servo (SVC), inverter (IGBT) and SCR stabilizers, genuine EVE lithium cells, three-phase industrial systems and Pakistan-made AVR relay stabilizers, serving Pakistan, the UAE and China.",
   alternates: { canonical: "/about" },
 };
 

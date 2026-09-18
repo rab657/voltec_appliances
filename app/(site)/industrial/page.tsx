@@ -18,8 +18,8 @@ const PILLARS: { id: string; title: string; body: string; points: string[] }[] =
   {
     id: "stabilizers",
     title: "Voltage stabilizers — every technology",
-    body: "We manufacture the full range in Lahore: servo (SVC) for whole buildings, IGBT/static for sensitive and precision loads, AVR relay for single machines, and heavy 3-phase for plants.",
-    points: ["Servo (SVC) — 10–500 kVA, built to order", "IGBT / static — precision & medical loads", "AVR relay — single appliances & machines", "100% pure copper, 1-year warranty"],
+    body: "Imported servo (SVC) for whole buildings, IGBT/static for sensitive and precision loads and heavy 3-phase for plants — plus our own Pakistan-made AVR relay stabilizers for single machines.",
+    points: ["Servo (SVC) — imported, 10–500 kVA, made to spec", "IGBT / static — precision & medical loads", "AVR relay — single appliances & machines", "100% pure copper, 1-year warranty"],
   },
   {
     id: "energy-storage",
@@ -55,7 +55,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What size three-phase stabilizer does my factory or project need?",
-    a: "Size it to your total connected load in kVA, with headroom for motor start-up. We build SJW-series three-phase stabilizers from 100 kVA and 200 kVA up to 500 kVA and beyond, made to order. Send us your load list or single-line diagram and our engineers will size and quote it.",
+    a: "Size it to your total connected load in kVA, with headroom for motor start-up. We supply imported SJW-series three-phase stabilizers from 100 kVA and 200 kVA up to 500 kVA and beyond, made to your spec. Send us your load list or single-line diagram and our engineers will size and quote it.",
   },
   {
     q: "Are your lithium cells genuine EVE, and can you supply in bulk?",
@@ -111,9 +111,9 @@ export default async function IndustrialPage() {
               <div className="med-eyebrow">For industry, corporates, dealers &amp; tenders</div>
               <h1>Stabilizers, lithium cells &amp; industrial power — at scale</h1>
               <p className="page-lede">
-                A Lahore <strong>importer &amp; manufacturer since 1995</strong>. We make voltage
-                stabilizers in every technology — servo, IGBT and heavy 3-phase to 500 kVA+ — and
-                directly import genuine <strong>Grade-A EVE lithium cells</strong> and energy-storage
+                A Lahore <strong>importer &amp; manufacturer since 1995</strong>. We import voltage
+                stabilizers in every technology — servo, IGBT and heavy 3-phase to 500 kVA+ — make our own
+                AVR relay stabilizers in Pakistan, and directly import genuine <strong>Grade-A EVE lithium cells</strong> and energy-storage
                 systems. We supply industry, corporates, dealers and government tenders nationwide,
                 with full documentation, installation and service.
               </p>
@@ -151,7 +151,7 @@ export default async function IndustrialPage() {
           <div className="med-narrow" style={{ marginBottom: 28 }}>
             <h2 className="med-h2">What we supply at scale</h2>
             <p className="med-body">
-              One partner for power quality and storage — manufactured and imported in Lahore,
+              One partner for power quality and storage — imported and made to spec, stocked and serviced from Lahore,
               quoted against your load, BOQ or tender.
             </p>
           </div>
@@ -206,7 +206,7 @@ export default async function IndustrialPage() {
             <h2 className="med-h2">Built for tenders &amp; procurement</h2>
             <p className="med-body">
               We work the way procurement teams need us to — certified paperwork, engineer-led
-              sizing, and a manufacturer that stands behind the supply.
+              sizing, and a supplier that stands behind every unit.
             </p>
           </div>
           <div className="med-grid">
