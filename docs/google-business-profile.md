@@ -37,10 +37,10 @@ UAE contact (for UAE listings only): +971 52 541 4894
 (Deliberately NO repair/appliance categories — we are importers & manufacturers, not a repair shop.)
 
 **Short description (for the listing headline / social bios — under 160 chars):**
-> Authorised EVE distributor & manufacturer of voltage stabilizers. Made in Lahore since 1995 — homes, solar & industry across Pakistan, UAE & China.
+> Authorised EVE distributor · imported servo, IGBT & SCR stabilizers · Pakistan-made AVR stabilizers. Lahore, since 1995 — homes, solar & industry across Pakistan, UAE & China.
 
 **Full description (GBP "from the business", ~700 chars):**
-> Voltec Appliances has built reliable power equipment in Lahore since 1995. We make and supply voltage stabilizers for every need — AVR relay stabilizers for a single fridge or AC, servo (SVC) stabilizers for the whole home, inverter (IGBT) stabilizers for sensitive and precision equipment, and three-phase industrial systems built to order from 100 kVA to 500 kVA and beyond. We also supply genuine EVE Grade-A LFP lithium cells for solar and UPS storage, plus BMS, PCB relays and LED modules. Every product is backed by our own service network — the strongest in the market. Trusted by industry leaders including K&N's. WhatsApp us your appliance list or load and we'll size the right solution. We ship Pakistan-wide and export to the UAE and the region.
+> Voltec Appliances has supplied reliable power equipment from Lahore since 1995. Our servo (SVC) stabilizers for the whole home, inverter (IGBT) stabilizers for sensitive and precision equipment and three-phase industrial systems (100 kVA to 500 kVA and beyond, made to spec) are all imported and quality-checked by Voltec; our AVR relay stabilizers for a single fridge or AC are made in Pakistan. We also supply genuine EVE Grade-A LFP lithium cells for solar and UPS storage, plus BMS, PCB relays and LED modules. Every product is backed by our own service network — the strongest in the market. Trusted by industry leaders including K&N's. WhatsApp us your appliance list or load and we'll size the right solution. We ship Pakistan-wide and export to the UAE and the region.
 
 **Services (add each as a GBP service item):**
 - AVR (relay) voltage stabilizers — single appliance / fridge / AC protection
@@ -78,7 +78,7 @@ UAE contact (for UAE listings only): +971 52 541 4894
    The Voltec A-120SP keeps your fridge and AC protected even where evening voltage collapses. 100% pure copper. Plug & play.
 
 4. **"Trusted by industry"**
-   We've solved voltage problems for plants like K&N's in Kasur — three-phase stabilizers built to order. Talk to our engineers.
+   We've solved voltage problems for plants like K&N's in Kasur — imported three-phase stabilizers, made to spec. Talk to our engineers.
 
 ---
 

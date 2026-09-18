@@ -1,3 +1,4 @@
+import ImportedBanner from "@/components/ImportedBanner";
 import UtilityStrip from "@/components/UtilityStrip";
 import TopBar from "@/components/TopBar";
 import SiteFooter from "@/components/SiteFooter";
@@ -8,6 +9,7 @@ import ContactRail from "@/components/ContactRail";
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
+      <ImportedBanner />
       <UtilityStrip />
       <TopBar />
       {children}

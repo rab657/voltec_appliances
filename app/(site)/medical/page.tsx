@@ -92,7 +92,7 @@ const FAQS: { q: string; a: string }[] = [
 export const metadata: Metadata = {
   title: "Power Protection for Medical & Aesthetic Clinics | Voltec Appliances",
   description:
-    "Stepless inverter (IGBT) power protection for clinic lasers, ultrasound and sensitive medical equipment in Pakistan. Protect an expensive machine from a single voltage event. Lahore-made, 40 years of power engineering.",
+    "Stepless inverter (IGBT) power protection for clinic lasers, ultrasound and sensitive medical equipment in Pakistan. Protect an expensive machine from a single voltage event. Imported IGBT technology, backed by 40 years of power engineering in Lahore.",
   alternates: { canonical: "/medical" },
   openGraph: {
     type: "website",

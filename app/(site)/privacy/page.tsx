@@ -35,7 +35,7 @@ export default async function PrivacyPage() {
         <div className="container med-narrow legal-body">
           <h2 className="med-h2">Who we are</h2>
           <p>
-            {SITE.name} (&ldquo;we&rdquo;, &ldquo;us&rdquo;) manufactures and supplies voltage stabilizers,
+            {SITE.name} (&ldquo;we&rdquo;, &ldquo;us&rdquo;) imports, manufactures and supplies voltage stabilizers,
             lithium cells, industrial power systems and electrical components, based in Lahore, Pakistan.
             You can reach us any time on WhatsApp, by phone at {SITE.phoneDisplay}, or by email at{" "}
             <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.

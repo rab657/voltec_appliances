@@ -51,7 +51,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "What size do I need for my inverter?",
-    a: "It depends on your inverter. A 6–8 kVA inverter needs a 10 kVA stabilizer, a 10 kVA inverter needs a 15 kVA, and a 15 kVA inverter needs a 20 kVA. We make both single-phase and 3-phase. Tell us your inverter size on WhatsApp and we'll confirm it — free.",
+    a: "It depends on your inverter. A 6–8 kVA inverter needs a 10 kVA stabilizer, a 10 kVA inverter needs a 15 kVA, and a 15 kVA inverter needs a 20 kVA. We stock both single-phase and 3-phase, all imported. Tell us your inverter size on WhatsApp and we'll confirm it — free.",
   },
   {
     q: "Is it pure copper?",
@@ -229,7 +229,7 @@ export default async function SolarPage() {
             ))}
           </div>
           <p className="med-scope">
-            Single-phase or 3-phase — we make both, and we&apos;ll match whatever your inverter is. Got a
+            Single-phase or 3-phase — we stock both, and we&apos;ll match whatever your inverter is. Got a
             different size? Just ask.
           </p>
         </div>

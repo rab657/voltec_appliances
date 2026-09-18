@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Improve the two EVE/lithium responsive search ads in the Industrial & Tenders campaign.
+"""⚠️ SUPERSEDED 2026-09-18 by google-rsa-imported.py (imported positioning). Do NOT run
+`apply` again — it would re-add headlines the later sweep already reconciled. Kept for
+the history below.
+
+Improve the two EVE/lithium responsive search ads in the Industrial & Tenders campaign.
 
 WHY (2026-07-31): Google reported Ad strength AVERAGE on all five ads in campaign
 24014479357's sibling 24014784850, and "Improve your responsive search ads (+3.4%)".

@@ -139,6 +139,54 @@ input, textarea, select { font: inherit; color: inherit; }
    On phones the middle column (showroom + hours) is hidden: the number and the
    trust line are what matter on a 375px screen, and the showroom address is
    already in the footer and on /contact. */
+/* Imported banner — the very top of every marketing page (user, 2026-09-18:
+   "play the IMPORTED card"). Servo / IGBT / SCR stabilizers and the EVE cells are
+   imported; the AVR A-series is made in Pakistan and the muted clause says so.
+   Accent ground so it reads as a statement, not as part of the utility strip. */
+.impbanner {
+  background: var(--accent);
+  color: var(--paper);
+  font-size: 13px;
+  line-height: 1.35;
+}
+.impbanner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  min-height: 36px;
+  padding-block: 7px;
+  text-align: center;
+}
+.impbanner-tag {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: var(--sun);
+  color: var(--ink);
+  padding: 3px 9px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.impbanner-text { font-weight: 500; }
+.impbanner-sub { color: color-mix(in oklab, var(--paper) 72%, transparent); font-weight: 400; }
+.impbanner-cta {
+  color: var(--paper);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.impbanner-cta:hover { color: var(--sun); }
+.impbanner-cta:focus-visible { outline: 2px solid var(--sun); outline-offset: 3px; }
+@media (max-width: 860px) {
+  .impbanner { font-size: 12px; }
+  .impbanner-sub, .impbanner-cta { display: none; }
+}
+
 .ustrip {
   background: var(--ink);
   color: color-mix(in oklab, var(--paper) 82%, transparent);
