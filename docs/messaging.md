@@ -10,31 +10,29 @@ each found saying different things (and two of them carrying an unknown phone nu
 
 ## 1. One-liner (≤120 chars — search snippets, social bios)
 
-> Imported servo, IGBT & SCR stabilizers · genuine EVE cells · Pakistan-made AVR — Lahore, since 1995.
+> Importers of servo (SVC) & IGBT voltage stabilizers and genuine EVE/Cornex lithium cells. Since 1995.
 
 ## 2. Short bio (~160–255 chars — FB `about`, IG bio, GBP headline)
 
-> Imported servo (SVC), inverter (IGBT) & SCR stabilizers — single unit to 3-phase
-> industrial — genuine EVE lithium cells, BMS & battery packs, plus Pakistan-made relay
-> (AVR) stabilizers. Lahore, since 1995. Homes, industry & battery pack assemblers.
+> Importers of Servo (SVC), IGBT stabilizers, genuine EVE/Cornex lithium cells.
 
 ## 3. Long description (FB `description`, GBP "from the business" ≤750 chars)
 
-> Voltec Appliances has supplied power-protection equipment from Lahore since 1995. We are
-> an authorised EVE distributor supplying genuine Grade-A EVE LF100LA cells — QR-
-> traceable, with a test report on every batch — plus lithium battery packs and BMS for
-> solar and UPS storage. Our servo (SVC) stabilizers for the whole home, inverter (IGBT)
-> stabilizers for sensitive equipment and three-phase industrial systems (100 to 500 kVA
-> and beyond, made to spec) are all imported and quality-checked by Voltec; our relay
-> (AVR) stabilizers for a fridge or AC are made in Pakistan. Plus PCB power relays. Every
-> product is backed by our own service network. Trusted by industry leaders including
-> K&N's. WhatsApp us your load and we'll size the right solution.
+> Voltec Appliances has supplied power-protection equipment since 1995. We import servo
+> (SVC), inverter (IGBT) and SCR voltage stabilizers, and supply genuine Grade-A EVE and
+> Cornex LiFePO4 cells — QR-traceable, with a test report on every batch — plus battery
+> packs and BMS for solar and UPS storage. We are an authorised EVE distributor. The range
+> covers every need: relay (AVR) for a fridge or AC, servo (SVC) for the whole home,
+> inverter (IGBT) for sensitive equipment, and three-phase industrial systems from 100 to
+> 500 kVA and beyond. Plus PCB power relays. Every product is quality-checked by Voltec
+> and backed by our own service network. Trusted by industry leaders including K&N's.
+> WhatsApp us your load and we'll size the right solution.
 
 ## 4. Product roster (canonical order — use everywhere, including cover art)
 
-1. **EVE LF100LA LiFePO4 cells** — Grade A, QR-traceable, test report per batch, carton of 8
+1. **EVE & Cornex LiFePO4 cells** — Grade A, QR-traceable, test report per batch, carton of 8
 2. **Lithium battery packs & BMS** — solar and UPS storage
-3. **Voltage stabilizers** — servo (SVC) · inverter (IGBT) · SCR — **imported** · relay (AVR) — **made in Pakistan**
+3. **Voltage stabilizers** — servo (SVC) · inverter (IGBT) · SCR · relay (AVR) — lead with **imported**; do not label the AVR line's origin in outward-facing copy
 4. **Three-phase industrial systems** — 100–500 kVA+, built to order, tender documentation
 5. **PCB power relays & electronic components**
 
@@ -49,9 +47,18 @@ Compact form for art/footers: `Cells & packs · BMS · Servo / AVR / IGBT · 3-p
 | "Trusted by K&N's" etc. | everywhere (real clients) | — |
 | Superlatives ("best", "No.1") | — | everywhere (CLAUDE.md: no false superlatives) |
 | **Origin — "imported"** | servo (SVC), inverter (IGBT), SCR, 3-phase SJW industrial, EVE cells — say **imported** wherever the line is named (site banner, ads, bios) | never call these "made in Lahore/Pakistan", "Voltec-made", "we build/make/manufacture", "stabilizer maker" (user, 2026-09-18: "play the IMPORTED card") |
-| **Origin — "made in Pakistan"** | the AVR relay A-series only (`cfg.madepk` chip), plus company heritage ("roots in Pakistan", "Lahore, since 1995", the 1980s workshop story) | on any imported line above |
+| **Origin — "made in Pakistan" / "made in Lahore"** | — | **anywhere in an outward-facing bio, description or ad** (user, 2026-09-19: "Made in lahore and shit - let's not use it"). Heritage is carried by **"Since 1995"** alone. The AVR `cfg.madepk` chip on the website is the one surviving exception and is under review — see the note below this table. |
 | Audience naming in CELLS ad copy | **"Battery pack assemblers"** only (user, 2026-08-10) | ❌ "solar installers", ❌ "dealers/distributors/resellers" — cells ads target pack assemblers & factories exclusively; MOQ 1 carton (8 cells) must be stated |
 | Clever hooks / dramatic openers in ad copy | — | **anywhere** (user, 2026-08-05: "keep messaging simple — no such stupid titles… yeh extra fazool cheezain nahi likhin"). Ad copy = product name first, specs, carton rule, WhatsApp CTA. Nothing else. |
+
+> **Note on the AVR line (2026-09-19).** Voltec really does make the AVR relay A-series in Pakistan,
+> and on 2026-09-18 the user asked for a "Made in Pakistan" chip on that range plus a second banner
+> clause naming it. On 2026-09-19 the user then cut all made-in wording from the Facebook bio and the
+> long description ("Made in lahore and shit - let's not use it"). Bios, descriptions and ad copy now
+> carry **no** made-in claim. The website still shows the `cfg.madepk` chip on the AVR family and the
+> banner's "AVR relay stabilizers: made in Pakistan." second clause — **left in place pending the
+> user's call**, because removing it reverses an explicit instruction from the day before. Ask before
+> sweeping it.
 
 ## 6. Contact & facts (must be byte-identical everywhere)
 
@@ -77,5 +84,6 @@ Compact form for art/footers: `Cells & packs · BMS · Servo / AVR / IGBT · 3-p
 | Facebook cover | `creatives/posts/fb-cover.html` → `creatives/out/fb-cover.png` | render, then manual upload (token lacks `pages_manage_posts`) |
 | Google Business Profile | description, categories, hours | manual — google.com/business (no API access). ⚠️ As of 2026-09-18 the live GBP still says "Made in Lahore since 1995" — paste §2/§3 above |
 | Meta ad copy | live creatives | `scripts/` tooling; NO prices |
+| Cell brands | **EVE and Cornex** (user, 2026-09-19 — Cornex is new; the website, product data and cell ads still say EVE only and need a sweep) | — |
 | Google ad copy | RSAs | `scripts/google-rsa-imported.py` (imported-positioning sweep, 2026-09-18; `google-rsa-improve.py` is superseded — do not re-run its `apply`) |
 | Directory listings | NAP + short bio | `docs/google-business-profile.md` §5 |
