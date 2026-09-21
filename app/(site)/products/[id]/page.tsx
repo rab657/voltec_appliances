@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { PRODUCTS, getProduct } from "@/lib/products";
 import { familySlugOf, familyBySlug, membersOf, isProductInHiddenFamily } from "@/lib/showcase-data";
 import { acModel } from "@/lib/ac-products";
@@ -13,7 +13,8 @@ import PdpDetails from "@/components/pdp/PdpDetails";
 import "@/styles/stabilizer.css";
 import "@/styles/pdp.css";
 import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
-import { productOffer } from "@/lib/product-offer";
+import { productOffer, productPrice } from "@/lib/product-offer";
+import { rescueProduct } from "@/lib/slug-rescue";
 import { getT, getContent } from "@/lib/i18n-server";
 import { getMediaMap, resolveProducts } from "@/lib/product-media";
 import { videoPoster, videoSource } from "@/lib/video";
@@ -50,7 +51,13 @@ export default async function ProductDetailPage({
   // Resolve includes admin-created variants (and applies name/media overrides).
   const resolved = resolveProducts(mediaMap);
   const merged = resolved.find((p) => p.id === id);
-  if (!merged || isProductInHiddenFamily(merged)) notFound();
+  if (!merged || isProductInHiddenFamily(merged)) {
+    // Dead URLs bleed search equity — try to recognise what the slug meant before
+    // giving up (see lib/slug-rescue.ts). Unconfident matches still 404.
+    const rescue = rescueProduct(id);
+    if (rescue) permanentRedirect(rescue);
+    notFound();
+  }
   // Every model gets its OWN page (user decision 2026-08-19) — no redirect to
   // the family showcase, no in-page model switching. Range navigation happens
   // via sibling link chips in the buy panel.
@@ -228,7 +235,11 @@ export default async function ProductDetailPage({
               badges={
                 product.status === "upcoming"
                   ? [t("pdp.preorderopen"), t("pp.since")]
-                  : [t("pp.since"), ...(product.badge ? [lc(product.badge)] : [])]
+                  : [
+                      ...(productPrice(product) ? [t("pp.ready")] : []),
+                      t("pp.since"),
+                      ...(product.badge ? [lc(product.badge)] : []),
+                    ]
               }
               datasheet={product.datasheet}
               trust={trust}

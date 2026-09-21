@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { rescueFamily } from "@/lib/slug-rescue";
 import "@/styles/stabilizer.css";
 import "@/styles/pdp.css";
 import {
@@ -47,7 +48,11 @@ export default async function ShowcasePage({
 }: PageProps<"/showcase/[family]">) {
   const { family: slug } = await params;
   const family = familyBySlug(slug);
-  if (!family || family.hidden) notFound();
+  if (!family || family.hidden) {
+    const rescue = rescueFamily(slug);
+    if (rescue && rescue !== `/showcase/${slug}`) permanentRedirect(rescue);
+    notFound();
+  }
 
   const mediaMap = await getMediaMap();
   // Resolve = code products (name/media applied) + admin-created variants.

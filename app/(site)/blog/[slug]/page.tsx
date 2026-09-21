@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { rescuePost } from "@/lib/slug-rescue";
 import { getPublishedPosts, getPostBySlug } from "@/lib/blog";
 import { getPostSeo } from "@/lib/blog-data";
 import { coverFor } from "@/lib/blog-covers";
@@ -49,7 +50,11 @@ export async function generateMetadata({
 export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-  if (!post) notFound();
+  if (!post) {
+    const rescue = rescuePost(slug, await getPublishedPosts());
+    if (rescue && rescue !== `/blog/${slug}`) permanentRedirect(rescue);
+    notFound();
+  }
 
   const t = await getT();
   const { lc, locale } = await getContent();

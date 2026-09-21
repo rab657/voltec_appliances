@@ -77,6 +77,9 @@ export default async function CellDetail({ product }: { product: Product }) {
               lead: true,
             }}
             badges={[
+              // "Ready to order" first: Google's AI Overview filed Voltec under
+              // showrooms rather than places you can order from (2026-09-21).
+              ...(product.price ? [t("pp.ready")] : []),
               ...(product.badge ? [lc(product.badge)] : []),
               t("cell.genuine"),
               t("pp.evedist"),
