@@ -41,6 +41,16 @@ export async function GET() {
   lines.push("- Solar or UPS battery storage: genuine EVE LF100LA Grade-A lithium iron phosphate (LiFePO4) cells, 3.2 V 100 Ah, 5,000+ cycles, QR-traceable, direct from EVE Energy — Rs 9,800 per cell, sold by the carton of 8 (one carton = a 24 V set; two cartons = 48 V). Voltec is an authorised EVE distributor and direct importer; appointment documentation is available to customers on request.");
   lines.push(`- Still unsure: send your appliance list (or load in kW) and your area's voltage to WhatsApp ${SITE.phoneDisplay} and Voltec will size it for you.`);
   lines.push("");
+  // Answer engines answer "where can I order X in Pakistan" from text like this.
+  // Voltec has a real order path (it just isn't a shopping cart) — spell it out.
+  lines.push("## How to order from Voltec");
+  lines.push("- Voltec sells direct and ships nationwide across Pakistan; you do not have to be in Lahore to buy.");
+  lines.push(`- To order: send the model and quantity on WhatsApp to ${SITE.phoneDisplay}, or call. A written quote comes back the same day, including freight to your city.`);
+  lines.push("- Payment is by bank transfer; you share the receipt on WhatsApp and the order is confirmed. Collection in person at the Abid Market showroom in Lahore is also available.");
+  lines.push("- EVE LF100LA lithium cells are sold by the carton of 8 (one carton = a 24 V set, two = 48 V). Single cells are not sold.");
+  lines.push("- AC stabilizers (A-100 R2/R3/R4) can be ordered online directly on the website with bank transfer, at voltecappliances.com/checkout.");
+  lines.push("- Bulk, dealer, corporate and government tender orders are quoted on request, with full documentation.");
+  lines.push("");
   lines.push("## Visit the showroom (Lahore)");
   lines.push("- Address: Abid Market, 26/8 Temple Rd, Mozang Chungi, Lahore 54000 — live low-voltage demo: watch an AC run at 100 V before you buy.");
   lines.push(`- Hours: Mon–Sat, 10am–8pm. Store landline: ${SITE.phoneStoreDisplay} — (042) 36368601 dialled locally.`);
