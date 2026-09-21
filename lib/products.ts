@@ -326,8 +326,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["1kVA", "single point"],
     description:
       "The smallest servo stabilizer — for one TV, a router and lights, or a single refrigerator. A real servo motor and autotransformer hold a steady 220V across a wide 150V–270V input, so your electronics ride out the sags and surges. Quiet, copper-wound, and backed by our own service team.",
-    image: "assets/svc/svc1-front.webp",
-    images: ["assets/svc/svc1-front.webp"],
+    image: "assets/svc-stabilizer.png",
     specs: [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "1kVA, single-phase"],
@@ -370,9 +369,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["140–260V", "input range"],
     description:
       "The right size for one inverter AC, a fridge, lights, and a TV. This servo motor stabilizer has a real autotransformer, a wide 150V–270V input range, and a powder-coated steel cabinet. The dual LED display shows live voltage and load. It is quiet enough for a bedroom utility cupboard, and it is backed by our own service team.",
-    image: "assets/svc/svc5-front.webp",
-    images: ["assets/svc/svc5-front.webp"],
-    videos: ["assets/svc/svc5-demo.mp4"],
+    image: "assets/svc-stabilizer.png",
     specs: [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "5kVA, single-phase"],
@@ -394,8 +391,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["7kVA", "1–2 ACs"],
     description:
       "A 7kVA servo stabilizer for one to two air-conditioners plus the fridge, fans and electronics. Smooth servo correction keeps a steady 220V even when evening voltage drops, across a wide 150V–270V input. Copper windings, large contacts, and an LCD that shows live voltage and load.",
-    image: "assets/svc/svc7-front.webp",
-    images: ["assets/svc/svc7-front.webp"],
+    image: "assets/svc-stabilizer.png",
     specs: [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "7kVA, single-phase"],
@@ -416,9 +412,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["±1%", "output accuracy"],
     description:
       "Step up to whole-home coverage. This 10kVA servo stabilizer moves a carbon-brush slider across a variable autotransformer for smooth correction, not the stepped jumps of cheap relay units. It handles two inverter ACs plus the fridge, fans, and electronics. It has copper windings, large contacts, and an LCD that shows live input, output, and load.",
-    image: "assets/svc/svc10-front.webp",
-    images: ["assets/svc/svc10-front.webp", "assets/svc/svc10-inside.webp"],
-    videos: ["assets/svc/svc10-demo.mp4"],
+    image: "assets/svc-stabilizer.png",
     specs: [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "10kVA, single-phase"],
@@ -440,9 +434,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["15kVA", "whole-home"],
     description:
       "Smooth, steady voltage the moment your mains acts up. This servo motor (SVC type) stabilizer moves a carbon-brush slider across an autotransformer, not a stepped relay. So your AC, motors, and electronics get steady 220V even when WAPDA gives you 150V or 270V. It has copper windings, large contacts, and a thermal-cutoff controller. This design has run in Pakistani homes and shops for over 15 years.",
-    image: "assets/svc/svc15-front.webp",
-    images: ["assets/svc/svc15-front.webp", "assets/svc/svc15-bench.webp", "assets/svc/svc15-shop.webp"],
-    videos: ["assets/svc/svc15-demo.mp4"],
+    image: "assets/svc-stabilizer.png",
     specs: [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "15kVA, single-phase"],
@@ -464,9 +456,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["20kVA", "home or shop"],
     description:
       "A 20kVA servo stabilizer for a large home, shop or light commercial load. Stepless servo correction holds a steady 220V across a wide 150V–270V input, with heavy copper windings and large contacts built for continuous load. Available single-phase or three-phase, made to your supply.",
-    image: "assets/svc/svc20-front.webp",
-    images: ["assets/svc/svc20-front.webp", "assets/svc/svc20-panel.webp", "assets/svc/svc20-inside.webp"],
-    videos: ["assets/svc/svc20-demo.mp4"],
+    image: "assets/svc-stabilizer.png",
     specs: [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "20kVA, single or 3-phase"],
@@ -487,9 +477,7 @@ export const PRODUCTS: Product[] = [
     highlight: ["30kVA", "commercial"],
     description:
       "The largest single-unit servo in the range — 30kVA for a large shop, small factory or commercial load. Smooth servo correction holds 220V across a wide 150V–270V input, with heavy-duty copper windings and contacts rated for continuous duty. Available single-phase or three-phase, built to order.",
-    image: "assets/svc/svc30-front.webp",
-    images: ["assets/svc/svc30-front.webp", "assets/svc/svc30-cabinet.webp"],
-    videos: ["assets/svc/svc30-demo.mp4"],
+    image: "assets/svc-stabilizer.png",
     specs: [
       ["Technology", "SVC — servo motor"],
       ["Capacity", "30kVA, single or 3-phase"],
