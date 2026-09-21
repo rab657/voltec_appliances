@@ -43,7 +43,7 @@ Compact form for art/footers: `Cells & packs · BMS · Servo / AVR / IGBT · 3-p
 | claim | allowed | not allowed |
 |---|---|---|
 | "Authorised EVE distributor" | homepage partner row, blog, llms.txt, GBP/FB long description, Google ad copy | the top utility strip (user: too loud, 2026-07-31) |
-| Prices | website stays **Rs 9,800/cell** — the public list price never moves with the deal rate | **any Meta ad creative** (standing rule 2026-07-27). ⚠️ **NEVER sweep the WhatsApp rate onto the site** (user, 2026-08-11: "don't sweep the rate anywhere. Keep Rs.9800 online — this is when they reach out to me and I'll give that on whatsapp"). The private negotiating ladder is not recorded in this repo (see gitignored memory.md). |
+| Prices | website stays **Rs 9,800/cell** — the public list price never moves with the deal rate | **any Meta ad creative** (standing rule 2026-07-27). ⚠️ **NEVER sweep the WhatsApp rate onto the site** (user, 2026-08-11: "don't sweep the rate anywhere. Keep Rs.9800 online — this is when they reach out to me and I'll give that on whatsapp"). The private negotiating ladder is **not recorded in this repo** — it lives in the gitignored `memory.md` (moved 2026-09-21: this file is committed to a PUBLIC GitHub repo that appears in search results). |
 | "Trusted by K&N's" etc. | everywhere (real clients) | — |
 | Superlatives ("best", "No.1") | — | everywhere (CLAUDE.md: no false superlatives) |
 | **Origin — "imported"** | servo (SVC), inverter (IGBT), SCR, 3-phase SJW industrial, EVE cells — say **imported** wherever the line is named (site banner, ads, bios) | never call these "made in Lahore/Pakistan", "Voltec-made", "we build/make/manufacture", "stabilizer maker" (user, 2026-09-18: "play the IMPORTED card") |

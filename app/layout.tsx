@@ -34,7 +34,9 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — Lithium Batteries, EVE Cells & Voltage Stabilizers in Pakistan`,
+    // Lead with the product terms people search, not the company name — the brand
+    // already wins its own query. GSC 2026-09-21: 788 impressions, 37 clicks.
+    default: `Voltage Stabilizers & EVE Lithium Cells in Pakistan — Importers Since 1995`,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,

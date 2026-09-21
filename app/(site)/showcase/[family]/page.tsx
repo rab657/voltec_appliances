@@ -29,13 +29,13 @@ export async function generateMetadata({
   if (!family || family.hidden) return { title: "Range not found" };
   const c = showcaseFor(leadOf(membersOf(family)));
   return {
-    title: `${family.name} — Showcase & all models`,
-    description: c.tagline || family.blurb,
+    title: family.seoTitle || `${family.name} — Showcase & all models`,
+    description: family.seoDescription || c.tagline || family.blurb,
     alternates: { canonical: `/showcase/${family.slug}` },
     openGraph: {
       type: "website",
-      title: `${family.name} | ${SITE.name}`,
-      description: c.tagline || family.blurb,
+      title: `${family.seoTitle || family.name} | ${SITE.name}`,
+      description: family.seoDescription || c.tagline || family.blurb,
       url: absUrl(`/showcase/${family.slug}`),
       images: [{ url: absUrl(`/${family.image}`) }],
     },

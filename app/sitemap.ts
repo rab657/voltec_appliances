@@ -11,6 +11,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: absUrl("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: absUrl("/products"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: absUrl("/ac"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    // ⚠️ /industrial was omitted here until 2026-09-21 and had 0 organic impressions in
+    // 28 days as a result — it is the bulk / tender / importer page and the destination
+    // of the live Google Search campaign. Never drop a real route from this list.
+    { url: absUrl("/industrial"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: absUrl("/solar"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: absUrl("/medical"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: absUrl("/blog"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },

@@ -656,6 +656,16 @@ export interface FamilyMeta {
    *  (user, 2026-09-18). Only the AVR relay A-series is Voltec-made and carries
    *  "cfg.madepk" ("Made in Pakistan"). Never a "Built in Lahore" chip on an imported line. */
   originTagKey?: string;
+  /** Search-result title for /showcase/<slug>, WITHOUT the brand suffix (the
+   *  layout template appends "| Voltec Appliances"). Set this per range: the old
+   *  generated title was "<name> — Showcase & all models", which spent the whole
+   *  snippet on the word "showcase" and earned 0 clicks from 435 impressions at
+   *  position 7.8 (GSC audit 2026-09-21). Lead with what people actually search:
+   *  the product term, the country, and the range. Keep it under ~60 characters. */
+  seoTitle?: string;
+  /** Meta description for the same page. One concrete sentence: what it is, the
+   *  range, and the reason to click. Keep it under ~155 characters. */
+  seoDescription?: string;
   /** Hide this whole line from the public site (range bands, catalog, nav,
    *  showcase route, sitemap). Members are kept in the data for easy re-enable
    *  once the line is ready to launch. */
@@ -682,6 +692,9 @@ export const FAMILIES: FamilyMeta[] = [
   {
     slug: "cells",
     key: "cells",
+    seoTitle: "EVE Lithium Cells Price in Pakistan — Grade A LiFePO4",
+    seoDescription:
+      "Genuine Grade-A EVE LiFePO4 cells, imported by Voltec. QR-traceable with a test report on every batch. Sold by the carton for 24V and 48V solar banks.",
     name: "EVE Lithium Cells",
     category: "Lithium Cells",
     categoryId: "cells",
@@ -691,6 +704,9 @@ export const FAMILIES: FamilyMeta[] = [
   {
     slug: "industrial",
     key: "industrial",
+    seoTitle: "3-Phase Industrial Voltage Stabilizers — 100 to 500 kVA",
+    seoDescription:
+      "Imported SJW-series three-phase stabilizers from 100 kVA to 500 kVA and beyond, made to your load. Tender documentation, engineer-led sizing, install and service.",
     name: "3-Phase Industrial Systems",
     category: "3-Phase Industrial",
     categoryId: "industrial",
@@ -701,6 +717,9 @@ export const FAMILIES: FamilyMeta[] = [
   {
     slug: "svc",
     key: "stab-svc",
+    seoTitle: "Servo Voltage Stabilizer Price in Pakistan — 1 to 30 kVA SVC",
+    seoDescription:
+      "Imported servo motor (SVC) stabilizers from 1 kVA to 30 kVA for homes, shops and solar inverters. Pure copper windings, wide input range, 1-year warranty.",
     name: "Servo Motor Stabilizers (SVC)",
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
@@ -725,6 +744,9 @@ export const FAMILIES: FamilyMeta[] = [
   {
     slug: "avr",
     key: "stab-avr",
+    seoTitle: "AVR Stabilizer for AC & Fridge — Works From 75V",
+    seoDescription:
+      "The Voltec A-series relay (AVR) stabilizers protect one air conditioner, fridge or deep freezer. 100% pure copper, works from as low as 75V, 1-year warranty.",
     name: "AVR Voltage Stabilizers",
     category: "Voltage Stabilizers",
     categoryId: "stabilizers",
@@ -736,6 +758,9 @@ export const FAMILIES: FamilyMeta[] = [
   {
     slug: "relay",
     key: "relay",
+    seoTitle: "PCB Power Relays in Pakistan — Wirell T73 & T90",
+    seoDescription:
+      "Wirell PCB-mount power relays, T73 up to 10A and T90 up to 40A, with silver-alloy contacts. Stocked by the thousand in Lahore for next-day dispatch nationwide.",
     name: "Wirell PCB Relays",
     category: "Electric Parts",
     categoryId: "parts",
@@ -745,6 +770,9 @@ export const FAMILIES: FamilyMeta[] = [
   {
     slug: "led",
     key: "led",
+    seoTitle: "7-Segment LED Display Modules — 5630 & 4630 Series",
+    seoDescription:
+      "Bright 7-segment LED display modules for stabilizer fronts, panel meters and instruments. 5630 and 4630 series, stocked in Lahore for next-day dispatch.",
     name: "7-Segment LED Displays",
     category: "Electric Parts",
     categoryId: "parts",
