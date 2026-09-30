@@ -412,10 +412,10 @@ export const PRODUCTS: Product[] = [
     highlight: ["±1%", "output accuracy"],
     description:
       "Step up to whole-home coverage. This 10kVA servo stabilizer moves a carbon-brush slider across a variable autotransformer for smooth correction, not the stepped jumps of cheap relay units. It handles two inverter ACs plus the fridge, fans, and electronics. It has copper windings, large contacts, and an LCD that shows live input, output, and load.",
-    image: "assets/svc/svc10-front.webp",
+    image: "assets/svc/svc10-feature.webp",
     images: [
-      "assets/svc/svc10-front.webp",
       "assets/svc/svc10-feature.webp",
+      "assets/svc/svc10-front.webp",
       "assets/svc/svc10-inside.webp",
     ],
     videos: ["assets/svc/svc10-demo.mp4"],
