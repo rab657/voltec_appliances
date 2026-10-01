@@ -53,7 +53,7 @@ const DICT: Record<LocaleCode, Dict> = {
     "cta.shop": "Shop products", "cta.allproducts": "All products", "cta.shopall": "Shop all", "cta.talksales": "Talk to sales", "cta.readall": "Read all",
     "home.eyebrow": "Lahore · Since 1995",
     "home.h1": "Manufacturer &amp; Importer of <em>Voltage Stabilizers</em> &amp; Lithium Cells.",
-    "home.sub": "Suppliers of premium voltage stabilizers (SVC, SCR, IGBT) and genuine Grade A EVE & Cornex lithium cells in Pakistan.",
+    "home.sub": "Suppliers of Premium Voltage Stabilizers (SVC, SCR, IGBT) and Genuine Grade A EVE & Cornex Lithium Cells in Pakistan.",
     "home.trustedby": "Trusted by industry leaders worldwide",
     "partner.eyebrow": "Official partner",
     "partner.title": "EVE Energy for lithium cells",
