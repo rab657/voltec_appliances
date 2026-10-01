@@ -4,11 +4,25 @@ import { getPublishedPosts } from "@/lib/blog";
 import { FAMILIES, membersOf, leadOf, isProductInHiddenFamily } from "@/lib/showcase-data";
 import EcomCard from "@/components/EcomCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import HeroSlider from "@/components/HeroSlider";
 import JsonLd from "@/components/JsonLd";
 import { getT, getContent } from "@/lib/i18n-server";
 import { getMediaMap, applyMedia, type MediaMap } from "@/lib/product-media";
 
 const FEATURED_IDS = ["vt-eve-lf100", "vt-ind-200k", "vt-svc-5k"];
+
+// Stabilizer slides that rotate after the EVE cells in the hero feature. Copy
+// lives in the i18n dictionary (home.slide.<key>.{badge,title,sub,link}).
+const HERO_STAB_SLIDES = [
+  { key: "svc", href: "/products/vt-svc-10k", img: "/assets/svc/svc10-front.webp", fit: "contain", tech: "SVC",
+    alt: "Voltec SVC-10KVA servo voltage stabilizer, front view" },
+  { key: "ulv", href: "/products/vt-svc-30k-60v", img: "/assets/svc-60v/svc60-cover.webp", fit: "cover", tech: "SVC",
+    alt: "30kVA ultra-low-voltage servo stabilizer display reading 64V in, 220V out" },
+  { key: "avr", href: "/products?range=avr", img: "/assets/r3_voltec.webp", fit: "cover", tech: "AVR",
+    alt: "Voltec A-100 Special 3-relay automatic voltage stabilizer" },
+  { key: "ind", href: "/products?range=industrial", img: "/assets/industrial-sjw.png", fit: "contain", tech: "SVC",
+    alt: "Three-phase SJW industrial servo voltage stabilizer cabinet" },
+] as const;
 
 // Each card's copy lives in the i18n dictionary (serve.<key>.{t,d,tag}).
 const SERVE_KEYS = ["med", "ind", "gov", "home"];
@@ -152,25 +166,30 @@ export default async function HomePage() {
               </div>
             </div>
           </div>
-          <div className="vhero-feature">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={heroImg}
-              alt="Genuine EVE LF100LA Grade-A LiFePO4 lithium cells, in stock at Voltec"
-              className="vhero-feature-img"
-            />
-            <div className="vhero-feature-overlay"></div>
-            <div className="vhero-feature-badge">
-              <span className="ec-tech" data-tech="cells">
-                {t("home.feat.badge")}
-              </span>
-              <div className="vhero-feature-title">{t("home.feat.title")}</div>
-              <div className="vhero-feature-sub">{t("home.feat.sub")}</div>
-              <Link href="/products/vt-eve-lf100" className="vhero-feature-link">
-                {t("home.feat.link")} →
-              </Link>
-            </div>
-          </div>
+          <HeroSlider
+            labels={{ prev: t("home.slide.prev"), next: t("home.slide.next"), go: t("home.slide.go") }}
+            slides={[
+              {
+                key: "eve",
+                href: "/products/vt-eve-lf100",
+                img: heroImg,
+                alt: "Genuine EVE LF100LA Grade-A LiFePO4 lithium cells, in stock at Voltec",
+                fit: "cover",
+                tech: "cells",
+                badge: t("home.feat.badge"),
+                title: t("home.feat.title"),
+                sub: t("home.feat.sub"),
+                link: t("home.feat.link"),
+              },
+              ...HERO_STAB_SLIDES.map((s) => ({
+                ...s,
+                badge: t(`home.slide.${s.key}.badge`),
+                title: t(`home.slide.${s.key}.title`),
+                sub: t(`home.slide.${s.key}.sub`),
+                link: t(`home.slide.${s.key}.link`),
+              })),
+            ]}
+          />
         </div>
       </section>
 
