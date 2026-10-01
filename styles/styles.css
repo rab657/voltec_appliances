@@ -421,6 +421,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .dealer-copy h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.05; letter-spacing: -0.02em; margin: 10px 0 14px; color: var(--ink); }
 .dealer-copy h2 em { font-style: italic; color: var(--accent); }
 .dealer-copy p { font-size: 16.5px; line-height: 1.55; color: var(--ink-2); margin: 0 0 24px; max-width: 46ch; }
+.dealer-range-link { margin-left: 18px; }
 .dealer-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .dealer-fact { background: var(--paper); border: 1px solid var(--rule); border-radius: 14px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 6px; }
 .dealer-fact strong { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1; letter-spacing: -0.02em; color: var(--accent); }

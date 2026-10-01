@@ -152,7 +152,7 @@ export default async function HomePage() {
               <WhatsAppButton>{t("cta.whatsapp")}</WhatsAppButton>
             </div>
             <a href="#dealers" className="vhero-dealer">
-              <span className="vhero-dealer-tag">{t("dealer.k")}</span>
+              <span className="vhero-dealer-tag">{t("home.dealer.tag")}</span>
               {t("home.dealer.hint")} <span className="arrow">→</span>
             </a>
             <div className="vtrust">
@@ -294,8 +294,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Dealers — MOQ 10 pcs on stabilizers, cells by the carton. Price is quoted
-          on WhatsApp, never printed (see docs/messaging.md). */}
+      {/* Dealers — stabilizers only, led by SVC (user, 2026-10-01: SVC is the core
+          focus). MOQ 10 pcs. Price is quoted on WhatsApp, never printed. */}
       <section className="dealer-band" id="dealers">
         <div className="container dealer-grid">
           <div className="dealer-copy">
@@ -305,14 +305,17 @@ export default async function HomePage() {
             <WhatsAppButton
               lead
               from="home-dealer"
-              productName="dealership"
-              message="Hi Voltec! I want to become a dealer. My city is "
+              productName="SVC dealership"
+              message="Hi Voltec! I want to become a dealer for SVC stabilizers. My city is "
             >
               {t("dealer.cta")}
             </WhatsAppButton>
+            <Link href="/products?range=svc" className="btn-link dealer-range-link">
+              {t("dealer.range")} <span className="arrow">→</span>
+            </Link>
           </div>
           <div className="dealer-facts">
-            {["moq", "cells", "ship", "price"].map((k) => (
+            {["moq", "range", "ship", "price"].map((k) => (
               <div key={k} className="dealer-fact">
                 <strong>{t(`dealer.${k}.n`)}</strong>
                 <span>{t(`dealer.${k}.l`)}</span>
