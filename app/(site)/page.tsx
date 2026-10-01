@@ -294,8 +294,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Dealers — stabilizers only, led by SVC (user, 2026-10-01: SVC is the core
-          focus). MOQ 10 pcs. Price is quoted on WhatsApp, never printed. */}
+      {/* Dealers — voltage stabilizers only (SVC now, SCR + IGBT coming; user,
+          2026-10-01), never cells. MOQ 10 pcs. Price is quoted on WhatsApp,
+          never printed. */}
       <section className="dealer-band" id="dealers">
         <div className="container dealer-grid">
           <div className="dealer-copy">
@@ -305,12 +306,12 @@ export default async function HomePage() {
             <WhatsAppButton
               lead
               from="home-dealer"
-              productName="SVC dealership"
-              message="Hi Voltec! I want to become a dealer for SVC stabilizers. My city is "
+              productName="stabilizer dealership"
+              message="Hi Voltec! I want to become a Voltec stabilizer dealer. My city is "
             >
               {t("dealer.cta")}
             </WhatsAppButton>
-            <Link href="/products?range=svc" className="btn-link dealer-range-link">
+            <Link href="/products?cat=stabilizers" className="btn-link dealer-range-link">
               {t("dealer.range")} <span className="arrow">→</span>
             </Link>
           </div>
