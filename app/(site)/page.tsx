@@ -18,8 +18,6 @@ const HERO_STAB_SLIDES = [
     alt: "Voltec SVC-10KVA servo voltage stabilizer, front view" },
   { key: "ulv", href: "/products/vt-svc-30k-60v", img: "/assets/svc-60v/svc60-slide.webp", fit: "cover", tech: "SVC",
     alt: "Voltec 30kVA ultra-low-voltage single-phase servo stabilizer cabinet" },
-  { key: "avr", href: "/products?range=avr", img: "/assets/r3_voltec.webp", fit: "cover", tech: "AVR",
-    alt: "Voltec A-100 Special 3-relay automatic voltage stabilizer" },
   { key: "ind", href: "/products?range=industrial", img: "/assets/industrial-sjw.png", fit: "contain", tech: "SVC",
     alt: "Three-phase SJW industrial servo voltage stabilizer cabinet" },
 ] as const;
