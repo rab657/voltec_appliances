@@ -31,11 +31,13 @@ interface Menu {
 }
 
 const HOME: NavItem = { href: "/", key: "home" };
+// Top-level "All products" (user, 2026-10-01) — the full catalog, one tap.
+const ALL: NavItem = { href: "/products", key: "cta.allproducts" };
 
 const MENUS: Menu[] = [
   {
     titleKey: "nav.lithium",
-    match: ["/showcase/cells", "/products"],
+    match: ["/showcase/cells"],
     // Labels must not repeat the menu title — "Lithium & Cells > Lithium & Cells"
     // reads as a duplicate. First item is always the full category listing.
     // "Genuine Cells" is deliberately absent here: it is promoted to a top-level
@@ -113,6 +115,12 @@ export default function TopBar() {
               className={`nav-link ${isActive(pathname, HOME.href) ? "active" : ""}`}
             >
               {label(HOME)}
+            </Link>
+            <Link
+              href={ALL.href}
+              className={`nav-link ${isActive(pathname, ALL.href) ? "active" : ""}`}
+            >
+              {label(ALL)}
             </Link>
             {MENUS.map((m) => {
               const active = m.match.some((p) => isActive(pathname, p));
@@ -199,6 +207,12 @@ export default function TopBar() {
               className={`nav-drawer-link ${isActive(pathname, HOME.href) ? "active" : ""}`}
             >
               {label(HOME)}
+            </Link>
+            <Link
+              href={ALL.href}
+              className={`nav-drawer-link ${isActive(pathname, ALL.href) ? "active" : ""}`}
+            >
+              {label(ALL)}
             </Link>
             {MENUS.map((m) => (
               <div key={m.titleKey}>

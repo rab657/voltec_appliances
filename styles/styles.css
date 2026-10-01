@@ -305,6 +305,7 @@ input, textarea, select { font: inherit; color: inherit; }
 .nav-link {
   font-size: 14px;
   color: var(--ink-2);
+  white-space: nowrap;
   position: relative;
   padding: 6px 0;
   transition: color 0.18s;
@@ -453,6 +454,8 @@ input, textarea, select { font: inherit; color: inherit; }
 .vhero-slider-arrow:hover { background: oklch(20% 0.05 28 / 0.6); border-color: #fff; }
 .vhero-slider-dot:focus-visible, .vhero-slider-arrow:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 [dir="rtl"] .vhero-slider-arrow { transform: scaleX(-1); }
+/* Stacked hero (≤1024px): keep the card photo-shaped so products aren't cut to a strip. */
+@media (max-width: 1024px) { .vhero-slider { aspect-ratio: 4 / 3; min-height: 360px; max-height: 600px; } }
 @media (prefers-reduced-motion: reduce) {
   .vhero-slide, .vhero-slide[data-active], .vhero-slide .vhero-feature-img { transition: none; transform: none; }
   .vhero-slider-dot[data-active] span { animation: none; background-size: 100% 100%; }
@@ -515,7 +518,7 @@ input, textarea, select { font: inherit; color: inherit; }
 
 /* Nav dropdown (Solutions) */
 .nav-dd { position: relative; display: inline-flex; }
-.nav-dd-trigger { background: none; border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font: inherit; }
+.nav-dd-trigger { background: none; border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; font: inherit; font-size: 14px; }
 .nav-dd-caret { font-size: 9px; transition: transform 0.18s ease; }
 .nav-dd:hover .nav-dd-caret, .nav-dd-trigger[aria-expanded="true"] .nav-dd-caret { transform: rotate(180deg); }
 /* Invisible hover bridge so moving the cursor from the trigger down to the menu
@@ -1445,7 +1448,8 @@ input, textarea, select { font: inherit; color: inherit; }
 .nav-drawer-link { font-family: var(--font-display); font-size: 30px; line-height: 1; letter-spacing: -0.01em; color: var(--ink); padding: 16px 0; border-bottom: 1px solid var(--rule); }
 .nav-drawer-link.active { color: var(--accent-deep); }
 .nav-drawer-foot { padding-top: 22px; }
-@media (max-width: 860px) {
+@media (max-width: 1240px) { .topbar-left, .topbar-right { gap: 16px; } }
+@media (max-width: 1080px) {
   .nav-toggle { display: flex; }
   .topbar-left, .topbar-right { display: none; }
   .topbar-inner { display: flex; align-items: center; justify-content: space-between; }
