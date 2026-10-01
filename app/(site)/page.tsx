@@ -151,6 +151,10 @@ export default async function HomePage() {
               </Link>
               <WhatsAppButton>{t("cta.whatsapp")}</WhatsAppButton>
             </div>
+            <a href="#dealers" className="vhero-dealer">
+              <span className="vhero-dealer-tag">{t("dealer.k")}</span>
+              {t("home.dealer.hint")} <span className="arrow">→</span>
+            </a>
             <div className="vtrust">
               <div className="vtrust-item">
                 <strong>40+</strong>
@@ -285,6 +289,34 @@ export default async function HomePage() {
           <div className="ec-grid">
             {featured.map((p) => (
               <EcomCard key={p.id} p={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Dealers — MOQ 10 pcs on stabilizers, cells by the carton. Price is quoted
+          on WhatsApp, never printed (see docs/messaging.md). */}
+      <section className="dealer-band" id="dealers">
+        <div className="container dealer-grid">
+          <div className="dealer-copy">
+            <div className="eyebrow">{t("dealer.k")}</div>
+            <h2 dangerouslySetInnerHTML={{ __html: t("dealer.t") }}></h2>
+            <p>{t("dealer.body")}</p>
+            <WhatsAppButton
+              lead
+              from="home-dealer"
+              productName="dealership"
+              message="Hi Voltec! I want to become a dealer. My city is "
+            >
+              {t("dealer.cta")}
+            </WhatsAppButton>
+          </div>
+          <div className="dealer-facts">
+            {["moq", "cells", "ship", "price"].map((k) => (
+              <div key={k} className="dealer-fact">
+                <strong>{t(`dealer.${k}.n`)}</strong>
+                <span>{t(`dealer.${k}.l`)}</span>
+              </div>
             ))}
           </div>
         </div>

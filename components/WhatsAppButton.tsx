@@ -9,6 +9,8 @@ export default function WhatsAppButton({
   children,
   className = "",
   lead = false,
+  message,
+  from,
 }: {
   productName?: string;
   variant?: "default" | "light";
@@ -18,12 +20,16 @@ export default function WhatsAppButton({
    *  (Pixel Lead) instead of `whatsapp_click` (Pixel Contact) so ad
    *  optimization + reporting see it as a conversion. */
   lead?: boolean;
+  /** Overrides the pre-filled WhatsApp text (e.g. the dealer inquiry). */
+  message?: string;
+  /** Where the tap came from, for funnel reporting. */
+  from?: string;
 }) {
   const cls = variant === "light" ? "btn-wa-light" : "btn-wa";
   const inner = children || (productName ? "WhatsApp to inquire" : "WhatsApp us");
   return (
     <a
-      href={whatsappLink(productName)}
+      href={whatsappLink(productName, message)}
       target="_blank"
       rel="noopener"
       className={`btn ${cls} ${className}`}
@@ -31,6 +37,7 @@ export default function WhatsAppButton({
         track(lead ? "lead" : "whatsapp_click", {
           product: productName || "general",
           channel: "whatsapp",
+          ...(from ? { from } : {}),
         })
       }
     >

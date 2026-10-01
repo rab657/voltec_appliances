@@ -8,8 +8,10 @@ export const VOLTEC_WHATSAPP = SITE.whatsapp;
 // actually type. Keep it to one natural line; just carry the product name so
 // the lead is self-identifying (never a bare "10kw stabilizer" — we sell SVC,
 // IGBT and SCR 10kVA plus a 10,000W AC unit, so the model name matters).
-export function whatsappLink(productName?: string): string {
-  const text = productName
+export function whatsappLink(productName?: string, message?: string): string {
+  const text = message
+    ? message
+    : productName
     ? `Hi Voltec! I want to inquire about ${productName}.`
     : "Hi Voltec! I want to inquire about your voltage stabilizers.";
   return `https://wa.me/${VOLTEC_WHATSAPP}?text=${encodeURIComponent(text)}`;

@@ -408,6 +408,26 @@ input, textarea, select { font: inherit; color: inherit; }
 .vhero-feature-link { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.04em; color: #fff; border-bottom: 1px solid oklch(100% 0 0 / 0.5); padding-bottom: 3px; transition: border-color 0.2s; }
 .vhero-feature-link:hover { border-color: #fff; }
 
+/* Hero → dealer section shortcut */
+.vhero-dealer { display: inline-flex; align-items: center; gap: 10px; margin: -18px 0 30px; font-size: 14px; color: var(--ink-2); border-bottom: 1px solid transparent; transition: color 0.2s; }
+.vhero-dealer:hover { color: var(--accent); }
+.vhero-dealer:hover .arrow { transform: translateX(3px); }
+.vhero-dealer .arrow { display: inline-block; transition: transform 0.25s ease; }
+.vhero-dealer-tag { font-family: var(--font-mono); font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 7px; border-radius: 5px; background: var(--accent); color: #fff; white-space: nowrap; flex-shrink: 0; }
+
+/* Dealer band (homepage #dealers) */
+.dealer-band { padding: 64px 0; margin-bottom: 72px; background: var(--accent-soft); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); scroll-margin-top: 90px; }
+.dealer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.dealer-copy h2 { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 3.6vw, 46px); line-height: 1.05; letter-spacing: -0.02em; margin: 10px 0 14px; color: var(--ink); }
+.dealer-copy h2 em { font-style: italic; color: var(--accent); }
+.dealer-copy p { font-size: 16.5px; line-height: 1.55; color: var(--ink-2); margin: 0 0 24px; max-width: 46ch; }
+.dealer-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.dealer-fact { background: var(--paper); border: 1px solid var(--rule); border-radius: 14px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 6px; }
+.dealer-fact strong { font-family: var(--font-display); font-weight: 400; font-size: 30px; line-height: 1; letter-spacing: -0.02em; color: var(--accent); }
+.dealer-fact span { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); }
+@media (max-width: 860px) { .dealer-grid { grid-template-columns: 1fr; gap: 28px; } .dealer-band { padding: 48px 0; margin-bottom: 48px; } }
+@media (max-width: 400px) { .dealer-fact { padding: 16px; } .dealer-fact strong { font-size: 24px; } }
+
 /* Hero slider — crossfading feature card (EVE cells + stabilizer lines) */
 .vhero-slider { background: oklch(96% 0.006 40); }
 .vhero-slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity 0.7s ease, visibility 0s linear 0.7s; }
