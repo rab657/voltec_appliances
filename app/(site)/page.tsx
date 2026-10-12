@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getImageProps } from "next/image";
 import { PRODUCTS } from "@/lib/products";
 import { getPublishedPosts } from "@/lib/blog";
 import { FAMILIES, membersOf, leadOf, isProductInHiddenFamily } from "@/lib/showcase-data";
@@ -61,6 +62,23 @@ const HOME_FAQS: { q: string; a: string }[] = [
 // range collection on /products.
 const norm = (s: string) =>
   s.startsWith("/") || s.startsWith("http") ? s : `/${s}`;
+
+// Range band art is often a full-size admin upload (the SVC and AVR covers were
+// 1.9 MB and 1.3 MB PNGs). Route it through the image optimiser for a sized WebP
+// srcset, but keep a plain <img> so the existing .range-band-media CSS still
+// controls fit. Hosts outside next.config's remotePatterns are passed through.
+const OPTIMISABLE = "https://wgkcchloqinvhfqmxrnh.supabase.co/storage/v1/object/public/product-images/";
+function bandImg(src: string, alt: string) {
+  if (!src.startsWith("/") && !src.startsWith(OPTIMISABLE)) return { src, alt };
+  const { props } = getImageProps({
+    src,
+    alt,
+    width: 1200,
+    height: 900,
+    sizes: "(max-width: 860px) 100vw, 50vw",
+  });
+  return props;
+}
 
 function buildRange(mediaMap: MediaMap) {
   const fam = (slug: string) => FAMILIES.find((f) => f.slug === slug)!;
@@ -255,7 +273,7 @@ export default async function HomePage() {
               >
                 <div className={`range-band-media ${r.art ? "" : "is-contain"}`}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={r.img} alt={r.name} />
+                  <img {...bandImg(r.img, r.name)} loading="lazy" decoding="async" />
                 </div>
                 <div className="range-band-body">
                   <div className="range-band-meta">

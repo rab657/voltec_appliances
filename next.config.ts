@@ -6,6 +6,19 @@ const APEX = "https://voltecappliances.com";
 
 // Redirects are evaluated IN ORDER — specific rules must come before the catch-alls.
 const nextConfig: NextConfig = {
+  // Admin-uploaded homepage covers live in Supabase Storage as full-size PNGs
+  // (1–2 MB each). Allowing that one bucket lets next/image serve them resized
+  // as WebP; any other remote host stays blocked.
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "wgkcchloqinvhfqmxrnh.supabase.co",
+        pathname: "/storage/v1/object/public/product-images/**",
+        search: "",
+      },
+    ],
+  },
   async redirects() {
     // ── shop.voltecappliances.com (Shopify store, disconnected 2026-08-10) ──────
     // Its DNS still points at Shopify (23.227.38.74) which answers 409, so stale

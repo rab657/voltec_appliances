@@ -33,6 +33,9 @@ export async function generateMetadata({
     title: `${product.name} — ${product.category}`,
     description: product.tagline + " " + product.description.slice(0, 120),
     alternates: { canonical: `/products/${product.id}` },
+    // Retired products (hidden in code, e.g. the DALY BMS) still resolve by URL
+    // but are linked from nowhere — keep them out of the index.
+    ...(product.hidden ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       type: "website",
       title: `${product.name} | ${SITE.name}`,
@@ -151,7 +154,9 @@ export default async function ProductDetailPage({
             description: product.description,
             category: product.category,
             sku: product.id.toUpperCase(),
-            brand: { "@type": "Brand", name: SITE.shortName },
+            // EVE cells carry the manufacturer's brand (Voltec is the seller, set
+            // on the Offer); every other line is sold under the Voltec name.
+            brand: { "@type": "Brand", name: /^EVE\b/.test(product.name) ? "EVE" : SITE.shortName },
             image: absUrl(`/${product.image}`),
             // Voltec makes the AVR A-series; the other lines are imported (brand stays Voltec).
             ...(product.tech === "AVR" ? { manufacturer: VOLTEC_ORG } : {}),

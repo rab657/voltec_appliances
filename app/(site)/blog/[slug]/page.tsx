@@ -9,10 +9,18 @@ import { renderBody } from "@/lib/blog-render";
 import { whatsappLink } from "@/lib/products";
 import Placeholder from "@/components/Placeholder";
 import ArticleAside from "@/components/ArticleAside";
+import ArticleLinkTracker from "@/components/ArticleLinkTracker";
 import JsonLd from "@/components/JsonLd";
 import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
 import { getT, getContent } from "@/lib/i18n-server";
 import { BLOG_BODY } from "@/lib/blog-i18n";
+
+// Post dates are stored as display text ("July 31, 2026"). Schema.org and OG
+// expect ISO 8601, so convert — and omit the field rather than emit garbage.
+function isoDate(d: string): string | undefined {
+  const t = new Date(d);
+  return Number.isNaN(t.getTime()) ? undefined : t.toISOString().slice(0, 10);
+}
 
 export async function generateStaticParams() {
   const posts = await getPublishedPosts();
@@ -34,12 +42,15 @@ export async function generateMetadata({
     keywords: seo.keywords,
     authors: [{ name: post.author }],
     alternates: { canonical: `/blog/${post.slug}` },
+    // Unpublished drafts still render by direct URL (for review) — keep them
+    // out of the index until they are published.
+    ...(post.published ? {} : { robots: { index: false, follow: false } }),
     openGraph: {
       type: "article",
       title: post.title,
       description: seo.metaDescription,
       url: absUrl(`/blog/${post.slug}`),
-      publishedTime: post.date,
+      publishedTime: isoDate(post.date),
       section: post.category,
       images: ogImages,
     },
@@ -76,8 +87,9 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
           description: seo.metaDescription,
           keywords: seo.keywords.join(", "),
           articleSection: post.category,
-          datePublished: post.date,
-          dateModified: post.date,
+          datePublished: isoDate(post.date),
+          dateModified: isoDate(post.date),
+          ...(coverFor(post.slug) ? { image: absUrl(`/${coverFor(post.slug)}`) } : {}),
           author: { "@type": "Organization", name: SITE.name },
           publisher: VOLTEC_ORG,
           inLanguage: SITE.locale,
@@ -112,6 +124,7 @@ export default async function PostPage({ params }: PageProps<"/blog/[slug]">) {
       )}
 
       <article>
+        <ArticleLinkTracker slug={post.slug} />
         <section className="article-hero">
           <div className="container">
             <div

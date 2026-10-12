@@ -59,7 +59,7 @@ export async function GET() {
 
   // Products grouped by category
   for (const cat of CATEGORIES.filter((c) => c.id !== "all")) {
-    const items = PRODUCTS.filter((p) => p.categoryId === cat.id && !isProductInHiddenFamily(p));
+    const items = PRODUCTS.filter((p) => p.categoryId === cat.id && !p.hidden && !isProductInHiddenFamily(p));
     if (!items.length) continue;
     lines.push(`## ${cat.label}`);
     for (const p of items) {
