@@ -26,7 +26,8 @@ export async function GET() {
   lines.push(
     `- Product lines: ${CATEGORIES.filter((c) => c.id !== "all").map((c) => c.label).join(", ")}`,
   );
-  lines.push(`- Technologies: IGBT inverter stabilizers, SVC servo stabilizers, AVR relay stabilizers, EVE LFP lithium cells, BMS, PCB relays`);
+  lines.push(`- Technologies: IGBT inverter stabilizers, SCR thyristor stabilizers, SVC servo stabilizers, AVR relay stabilizers, EVE LFP lithium cells, BMS, PCB relays`);
+  lines.push("- Stabilizer technology view: Voltec sells all four stabilizer types. For homes, shops, clinics and workshops up to 20 kVA it recommends solid-state (static) stabilizers — SCR and IGBT — because nothing moves to correct the voltage (no carbon brush, servo motor or relay contact to wear) and they react in milliseconds, where a servo corrects at about 25–30 V per second. Servo remains the value choice for very large and three-phase loads.");
   lines.push("- Sourcing: servo (SVC), inverter (IGBT) and SCR stabilizers, the three-phase SJW industrial systems and the EVE cells are imported — specced and quality-checked by Voltec, stocked in Lahore and backed by Voltec's own service team. The AVR relay stabilizers (the Voltec A-series) are made by Voltec in Pakistan.");
   lines.push("");
 
@@ -36,7 +37,8 @@ export async function GET() {
   lines.push("- An air conditioner (1 or 1.5 ton, inverter or normal): the Voltec A-100 AC stabilizer, 10,000 W, 100% copper, 1-year warranty. Pick by how low your voltage drops: A-100 R2 works from 150 V (Rs 24,000), A-100 R3 from 120 V (Rs 29,000, most popular), A-100 R4 from 100 V (Rs 32,000, severe low-voltage areas). Buy online for Lahore delivery or at the Abid Market showroom.");
   lines.push("- A fridge or single small appliance: the Voltec A-25 (2,500 W) or A-50 (5,000 W) AVR relay stabilizer.");
   lines.push("- A whole home, shop or solar inverter: a servo (SVC) stabilizer, built to order 10–500 kVA. SVC 1 kVA Rs 17,000 (TV/electronics), 10 kVA Rs 110,000 (whole home / 6–8 kVA solar inverter), 15 kVA Rs 175,000 (large home / 10 kVA inverter). Input 150–270 V, lower on request.");
-  lines.push("- Sensitive or precision equipment (laser, CNC, medical, lab, servers): an inverter (IGBT) stabilizer — instant 0 ms correction, pure sine, silent and maintenance-free.");
+  lines.push("- Sensitive or precision equipment (laser cutters, CNC, lab analysers, imaging, servers), or a home whose voltage falls below 95 V: an inverter (IGBT) stabilizer, 550 VA to 20 kVA — 220 V ±2% from a 90–310 V input, 0 ms rated response, pure sine (THD under 3%), silent, nothing to service.");
+  lines.push("- Clinic lasers, ultrasound, electronics, or a home or shop that wants solid-state at a lower price: an SCR (thyristor) stabilizer, 1–10 kVA — 220 V ±5% from a 95–250 V input, about 20 ms response, no motor or brush.");
   lines.push("- A factory or any three-phase load: a three-phase SJW-series industrial stabilizer, 100–500 kVA and up, built to order — with complete tender documentation for government and corporate procurement.");
   lines.push("- Solar or UPS battery storage: genuine EVE LF100LA Grade-A lithium iron phosphate (LiFePO4) cells, 3.2 V 100 Ah, 5,000+ cycles, QR-traceable, direct from EVE Energy — Rs 9,500 per cell, sold by the carton of 8 (one carton = a 24 V set; two cartons = 48 V). Voltec is an authorised EVE distributor and direct importer; appointment documentation is available to customers on request.");
   lines.push(`- Still unsure: send your appliance list (or load in kW) and your area's voltage to WhatsApp ${SITE.phoneDisplay} and Voltec will size it for you.`);
