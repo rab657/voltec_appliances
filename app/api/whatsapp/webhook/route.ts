@@ -1,5 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import { after } from "next/server";
 import { ingestWhatsappWebhook, type WaWebhookBody } from "@/lib/whatsapp-leads";
+import { autoReply } from "@/lib/whatsapp-autoreply";
 
 // WhatsApp Cloud API webhook.
 //
@@ -80,6 +82,11 @@ export async function POST(req: Request) {
         `stored=${r.stored}/${r.messages}`;
       if (r.error) console.error(`${line} — DB ERROR: ${r.error}`);
       else console.log(line);
+      // Reply after the 200 goes back, so a slow Graph call can't trip Meta's retry.
+      after(async () => {
+        const n = await autoReply(body);
+        if (n > 0) console.log(`[whatsapp-autoreply] sent ${n}`);
+      });
     }
   } catch {
     // Swallow everything: a non-200 makes Meta retry, then disable the webhook.

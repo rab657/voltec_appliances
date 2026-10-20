@@ -43,7 +43,7 @@ SB_KEY = CFG.get("SUPABASE_SERVICE_ROLE_KEY", "")
 # the pixel has no WhatsApp Business account associated (err 2804132). Created
 # via POST /{waba}/dataset on 2026-08-06.
 PIXEL = "1969968263652773"
-CAPI = CFG.get("META_ADS_TOKEN") or CFG.get("META_CAPI_TOKEN", "")
+CAPI = CFG.get("META_SYSTEM_TOKEN") or CFG.get("META_ADS_TOKEN") or CFG.get("META_CAPI_TOKEN", "")
 VER = CFG.get("META_GRAPH_VERSION", "v21.0")
 WABA = "1051206810604714"   # PK WhatsApp Business Account — required in business_messaging events (err 2804116)
 QUAL_CA = "120248872646540617"  # "Voltec — Qualified WhatsApp leads" — auto-grown on every qualify/bought
@@ -51,7 +51,7 @@ QUAL_CA = "120248872646540617"  # "Voltec — Qualified WhatsApp leads" — auto
 # people who will never buy a carton. User ruled out self-qualifying prompts (2026-08-10:
 # "doesn't work for Pakistani awaam"), so exclusion is the only pre-click filter that works.
 DIY_CA = "120248989052070617"
-ADS_TOKEN = CFG.get("META_ADS_TOKEN", "")
+ADS_TOKEN = CFG.get("META_SYSTEM_TOKEN") or CFG.get("META_ADS_TOKEN", "")
 
 
 def sb(method, path, body=None, **params):

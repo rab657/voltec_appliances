@@ -7,7 +7,7 @@ Usage:
   python3 scripts/ads-report.py yesterday
   python3 scripts/ads-report.py maximum     # lifetime
 
-Reads creds from web/.env.local (META_ADS_TOKEN, META_APP_SECRET,
+Reads creds from web/.env.local (META_SYSTEM_TOKEN, falling back to META_ADS_TOKEN, META_APP_SECRET,
 META_GRAPH_VERSION). Read-only — never changes the campaign.
 """
 import os, sys, json, subprocess, hmac, hashlib, pathlib
@@ -25,7 +25,7 @@ def load_env():
 
 def main():
     load_env()
-    T = os.environ["META_ADS_TOKEN"]
+    T = (os.environ.get("META_SYSTEM_TOKEN") or os.environ["META_ADS_TOKEN"])
     SEC = os.environ["META_APP_SECRET"]
     V = os.environ.get("META_GRAPH_VERSION", "v21.0")
     proof = hmac.new(SEC.encode(), T.encode(), hashlib.sha256).hexdigest()

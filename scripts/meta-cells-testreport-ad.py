@@ -50,7 +50,7 @@ for line in (ROOT / ".env.local").read_text().splitlines():
         ENV[k.strip()] = v.strip().strip('"')
 
 V = ENV.get("META_GRAPH_VERSION", "v21.0")
-T = ENV["META_ADS_TOKEN"]
+T = (ENV.get("META_SYSTEM_TOKEN") or ENV["META_ADS_TOKEN"])
 PROOF = hmac.new(ENV["META_APP_SECRET"].encode(), T.encode(), hashlib.sha256).hexdigest()
 ACT = "act_" + ENV["META_AD_ACCOUNT_ID"].replace("act_", "")
 PAGE = ENV["META_PAGE_ID"]

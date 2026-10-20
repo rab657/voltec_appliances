@@ -14,7 +14,7 @@ for line in pathlib.Path(__file__).resolve().parent.parent.joinpath(".env.local"
     line = line.strip()
     if line and "=" in line and not line.startswith("#"):
         k, v = line.split("=", 1); os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
-T = os.environ["META_ADS_TOKEN"]; SEC = os.environ["META_APP_SECRET"]; V = os.environ.get("META_GRAPH_VERSION", "v21.0")
+T = (os.environ.get("META_SYSTEM_TOKEN") or os.environ["META_ADS_TOKEN"]); SEC = os.environ["META_APP_SECRET"]; V = os.environ.get("META_GRAPH_VERSION", "v21.0")
 PROOF = hmac.new(SEC.encode(), T.encode(), hashlib.sha256).hexdigest()
 ACT = "act_643241794546739"; PAGE = "1879349048754625"
 AD_IMG = "/private/tmp/claude-501/-Users-raheelahmad-Downloads-voltec-appliances/c39f0a5c-9889-43e8-ad00-b32bfb18607c/scratchpad/eve-cell-ad.jpg"

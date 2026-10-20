@@ -27,7 +27,7 @@ for line in pathlib.Path(__file__).resolve().parent.parent.joinpath(".env.local"
     line = line.strip()
     if line and "=" in line and not line.startswith("#"):
         k, v = line.split("=", 1); os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
-T = os.environ["META_ADS_TOKEN"]; SEC = os.environ["META_APP_SECRET"]
+T = (os.environ.get("META_SYSTEM_TOKEN") or os.environ["META_ADS_TOKEN"]); SEC = os.environ["META_APP_SECRET"]
 V = os.environ.get("META_GRAPH_VERSION", "v21.0")
 PROOF = hmac.new(SEC.encode(), T.encode(), hashlib.sha256).hexdigest()
 
