@@ -663,9 +663,48 @@ export const PRODUCTS: Product[] = [
   },
 
   // ===== INDUSTRIAL STABILIZERS =====
+  // Specs are Raheel's own (FB post 2026-10-20). Note this unit's 3-phase output is
+  // 385V ±3% — the 100/200/500kVA entries below say 400V ±1%; unconfirmed which is right.
+  {
+    id: "vt-ind-50k",
+    name: "Voltec 3-Phase SJW Industrial Stabilizer — 50kVA",
+    category: "3-Phase Industrial Stabilizers",
+    categoryId: "industrial",
+    tech: "SVC",
+    badge: "3-Phase",
+    tagline: "Buck & boost 3-phase servo stabilizer for factories, cold storage and plazas.",
+    useFor: "A factory, workshop, cold store, clinic or plaza on a 3-phase line",
+    highlight: ["50kVA", "3-phase"],
+    price: 340000,
+    description:
+      "Voltage swings burn motors and stop machines, and the repair costs far more than protection. This imported SJW 50kVA three-phase servo stabilizer corrects each phase on its own, boosting low voltage and cutting high voltage, so your whole setup keeps running on stable power. It holds 220V per phase from 150V to 260V input, and cuts off on over- or under-voltage and on phase failure before damage reaches the load. Built for factories, workshops, cold storage, commercial buildings, clinics and plazas.",
+    image: "assets/industrial/sjw50k-1.webp",
+    images: ["assets/industrial/sjw50k-1.webp", "assets/industrial/sjw50k-2.webp"],
+    features: [
+      "Per phase: 150V – 260V input → 220V ±2.5% output",
+      "Three phase: 260V – 450V input → 385V ±3% output",
+      "Buck & boost — fixes both low and high voltage",
+      "Over / under-voltage and phase-failure protection",
+      "Delay time system before the load reconnects",
+      "Digital volt and amp meters, bypass function",
+      "1 year warranty on coils",
+    ],
+    specs: [
+      ["Technology", "SVC — 3-phase servo (SJW)"],
+      ["Capacity", "50kVA, 3-phase"],
+      ["Input (per phase)", "150V – 260V AC"],
+      ["Output (per phase)", "220V ±2.5%"],
+      ["Input (3-phase)", "260V – 450V AC"],
+      ["Output (3-phase)", "385V ±3%"],
+      ["Frequency", "50–60 Hz"],
+      ["Protection", "Over/under voltage, phase failure, delay time"],
+      ["Controls", "Digital volt & amp meter, bypass, reference voltage zero, on/off"],
+      ["Warranty", "1 year on coils"],
+    ],
+  },
   {
     id: "vt-ind-100k",
-    name: "3-Phase Industrial Stabilizer — 100kVA",
+    name: "Voltec 3-Phase SJW Industrial Stabilizer — 100kVA",
     category: "3-Phase Industrial Stabilizers",
     categoryId: "industrial",
     tech: "SVC",
@@ -688,7 +727,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "vt-ind-200k",
-    name: "3-Phase Industrial Stabilizer — 200kVA",
+    name: "Voltec 3-Phase SJW Industrial Stabilizer — 200kVA",
     category: "3-Phase Industrial Stabilizers",
     categoryId: "industrial",
     tech: "SVC",
@@ -711,7 +750,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: "vt-ind-500k",
-    name: "3-Phase Industrial Stabilizer — 500kVA",
+    name: "Voltec 3-Phase SJW Industrial Stabilizer — 500kVA",
     category: "3-Phase Industrial Stabilizers",
     categoryId: "industrial",
     tech: "SVC",
@@ -899,10 +938,10 @@ export const PRODUCTS: Product[] = [
 ];
 
 export const CATEGORIES: Category[] = [
-  { id: "all", label: "All products", count: 27 },
+  { id: "all", label: "All products", count: 28 },
   { id: "stabilizers", label: "Stabilizers", count: 14 },
   { id: "cells", label: "Lithium Cells", count: 1 },
-  { id: "industrial", label: "3-Phase Industrial", count: 4 },
+  { id: "industrial", label: "3-Phase Industrial", count: 5 },
   { id: "parts", label: "Electric Parts", count: 4 },
 ];
 
