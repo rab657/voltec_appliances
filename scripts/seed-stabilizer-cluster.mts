@@ -76,7 +76,7 @@ const price = {
 <li><strong>For a home or solar inverter:</strong> send your inverter size or a photo of your meter/load — an engineer sizes it and quotes.</li>
 <li><strong>For a factory or tender:</strong> send the load sheet or BOQ — written quote with specifications, same day.</li>
 </ul>
-<p>WhatsApp <a href="https://wa.me/923211644447?text=Stabilizer%20quote%3A%20">+92 321 1644447</a> — or see the units running live low-voltage demos at the showroom: 8/26 Shadab Colony, Abid Market, Lahore, Mon–Sat 10am–8pm. Guides: <a href="/blog/what-size-stabilizer-pakistan-home">home sizing</a> · <a href="/blog/servo-voltage-stabilizer-pakistan">the full SVC guide</a>.</p>`,
+<p>WhatsApp <a href="https://wa.me/923211644447?text=Stabilizer%20quote%3A%20">+92 321 1644447</a> — or see the units running live low-voltage demos at the showroom: 8/26 Shadab Colony, Abid Market, Lahore, Mon–Sat 10am–8:30pm. Guides: <a href="/blog/what-size-stabilizer-pakistan-home">home sizing</a> · <a href="/blog/servo-voltage-stabilizer-pakistan">the full SVC guide</a>.</p>`,
   faqs: [
     { q: "What is the price of a voltage stabilizer in Pakistan?",
       a: "It depends on the type, the real kVA, the winding metal and the input range — which is why the same printed size can differ 2x between brands. WhatsApp Voltec your appliance or load (+92 321 1644447) and you get the exact written price the same day, and that number holds." },

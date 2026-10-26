@@ -26,15 +26,31 @@ export const SITE = {
   md: "Raheel Ahmad",
   markets: ["Pakistan", "UAE", "China"],
   cities: ["Lahore", "Dubai", "Shenzhen"],
-  mapsQuery: "Voltec Appliances Lahore",
-  // Showroom trading hours, confirmed by the user 2026-07-31: Mon–Sat, Sunday closed.
+  // Showroom trading hours: Mon–Sat, Sunday closed (2026-07-31). Closing moved to 8:30pm on
+  // 2026-10-26 to match the Google Business Profile (user).
   // ⚠️ Must stay identical to the Google Business Profile and the Facebook Page —
   // mismatched hours undermine the local pack the same way a mismatched phone does.
-  hours: { opens: "10:00", closes: "20:00", days: ["Mo", "Tu", "We", "Th", "Fr", "Sa"] },
-  hoursDisplay: "Mon–Sat · 10am–8pm PKT",
+  hours: { opens: "10:00", closes: "20:30", days: ["Mo", "Tu", "We", "Th", "Fr", "Sa"] },
+  hoursDisplay: "Mon–Sat · 10am–8:30pm PKT",
+  // Human-readable showroom address — byte-identical to the Google Business Profile.
+  addressDisplay: "Abid Market, 26/8 Temple Rd, Mozang Chungi, Lahore 54000",
   // Showroom coordinates — same point the Lahore Showroom Google campaign uses
   // for its 15km proximity radius.
   geo: { lat: 31.550733, lng: 74.316244 },
+  // The showroom's Google Business Profile listing, looked up 2026-10-26. The
+  // place ID pins every "Directions" tap and the embedded map to the verified
+  // listing itself (reviews, photos, hours) instead of a text search — which is
+  // also what Google's "Add directions / Add a map to your website" checks look for.
+  placeId: "ChIJkdOJ3agEGTkR2hZTa1NT6LU",
+  // Opens turn-by-turn directions from the visitor's location (the Maps app on phones).
+  directionsUrl:
+    "https://www.google.com/maps/dir/?api=1&destination=Voltec%20Appliances%2C%20Abid%20Market%2C%20Lahore&destination_place_id=ChIJkdOJ3agEGTkR2hZTa1NT6LU",
+  // The listing page itself — reviews, photos, hours.
+  mapsPlaceUrl:
+    "https://www.google.com/maps/search/?api=1&query=Voltec%20Appliances%20Lahore&query_place_id=ChIJkdOJ3agEGTkR2hZTa1NT6LU",
+  // Google Maps "Share → Embed a map" iframe for the listing (no API key needed).
+  mapEmbedUrl:
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3400.0312492098033!2d74.316267!3d31.550757!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391904a8dd89d391%3A0xb5e853536b5316da!2sVoltec%20Appliances!5e0!3m2!1sen!2spk!4v1793002892309!5m2!1sen!2spk",
   // Bank-transfer checkout details — shown publicly on the order confirmation page.
   bank: {
     bankName: "United Bank Limited (UBL)",
@@ -137,6 +153,7 @@ export const VOLTEC_STORE = {
     latitude: SITE.geo.lat,
     longitude: SITE.geo.lng,
   },
+  hasMap: SITE.mapsPlaceUrl,
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",

@@ -82,12 +82,12 @@ export default async function OrderPage({ params }: { params: Promise<{ ref: str
         <div>
           <div style={{ fontWeight: 800 }}>Prefer to pick it up?</div>
           <p style={{ fontSize: 14, color: "var(--ink-2)", margin: "4px 0 0" }}>
-            Visit our showroom — 8-C Abid Market, Temple Road, Lahore · Mon–Sat 10am–8pm.
+            Visit our showroom — 8-C Abid Market, Temple Road, Lahore · Mon–Sat 10am–8:30pm.
             See it working before you take it home. Call the shop on {SITE.phoneStoreDisplay}.
           </p>
         </div>
         <a
-          href="https://maps.google.com/?q=Voltec%20Appliances%20Lahore"
+          href={SITE.directionsUrl}
           target="_blank"
           rel="noopener"
           className="btn btn-ghost"

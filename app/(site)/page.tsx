@@ -7,6 +7,7 @@ import EcomCard from "@/components/EcomCard";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import HeroSlider from "@/components/HeroSlider";
 import JsonLd from "@/components/JsonLd";
+import ShowroomMap from "@/components/ShowroomMap";
 import { getT, getContent } from "@/lib/i18n-server";
 import { getMediaMap, applyMedia, type MediaMap } from "@/lib/product-media";
 
@@ -473,6 +474,10 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* Showroom map + directions — Google Business Profile's "add directions /
+          add a map to your website" ask, on the URL the profile links to. */}
+      <ShowroomMap from="home" />
 
       <JsonLd
         id="ld-home-faq"

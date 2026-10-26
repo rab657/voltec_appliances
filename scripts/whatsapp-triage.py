@@ -61,7 +61,7 @@ Rate carton par depend karta hai — quantity batayein to exact rate bhej deta h
 Pack kis liye hai (12V / 24V / 48V)?
 
 Voltec Appliances, Lahore (1995 se) — showroom: 8/26 Shadab Colony, Abid Market.
-Mon-Sat 10am-8pm."""
+Mon-Sat 10am-8:30pm."""
 
 MOQ_ONLY = ("Bhai minimum 1 carton = 8 cells hai, single ya 4 cells available nahi. "
             "Agar 8 ya us se zyada chahiye to rate bhej deta hoon.")

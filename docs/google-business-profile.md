@@ -55,7 +55,7 @@ UAE contact (for UAE listings only): +971 52 541 4894
 
 **Attributes to enable:** Online appointments / quotes · Onsite services · LGBTQ-friendly (optional) · Identifies as… (optional) · Wheelchair accessible (if true) · Free Wi-Fi (if true).
 
-**Hours:** Mon–Sat 10:00–20:00, Sun closed (confirmed 2026-07-31 — matches the FB Page and SITE.hours)
+**Hours:** Mon–Sat 10:00–20:30, Sun closed (closing moved to 20:30 on 2026-10-26 to match GBP; keep FB Page + SITE.hours in sync)
 
 **Service areas:** Lahore, Punjab, and Pakistan-wide; export: UAE, China.
 

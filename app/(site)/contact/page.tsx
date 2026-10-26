@@ -4,6 +4,7 @@ import { SITE } from "@/lib/site";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { WhatsAppIcon } from "@/components/icons";
 import JsonLd from "@/components/JsonLd";
+import ShowroomMap from "@/components/ShowroomMap";
 import { VOLTEC_ORG } from "@/lib/site";
 import { getT } from "@/lib/i18n-server";
 
@@ -25,7 +26,7 @@ export default async function ContactPage() {
     { icon: "wa", label: t("ct.wa.l"), value: SITE.phoneDisplay, note: t("ct.wa.n"), href: whatsappLink("a question"), primary: true },
     { icon: "call", label: t("ct.call.l"), value: SITE.phoneStoreDisplay, note: t("ct.call.n"), href: telStore },
     { icon: "mail", label: t("ct.mail.l"), value: SITE.email, note: t("ct.mail.n"), href: `mailto:${SITE.email}` },
-    { icon: "pin", label: t("ct.pin.l"), value: t("ct.pin.v"), note: t("ct.pin.n"), href: `https://maps.google.com/?q=${encodeURIComponent(SITE.mapsQuery)}` },
+    { icon: "pin", label: t("ct.pin.l"), value: t("ct.pin.v"), note: t("ct.pin.n"), href: SITE.directionsUrl },
   ];
   return (
     <main>
@@ -140,31 +141,8 @@ export default async function ContactPage() {
         </div>
       </section>
 
-      {/* Embedded map — the walk-in funnel ends here: see the shop, tap directions. */}
-      <section className="section" style={{ paddingTop: 0 }}>
-        <div className="container">
-          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", flexWrap: "wrap", gap: 10, marginBottom: 14 }}>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: "clamp(24px,3vw,34px)", margin: 0 }}>
-              {t("ct.pin.l")}
-            </h2>
-            <a
-              href={`https://maps.google.com/?q=${encodeURIComponent(SITE.mapsQuery)}`}
-              target="_blank"
-              rel="noopener"
-              className="btn btn-ghost"
-            >
-              {t("ct.pin.n")} →
-            </a>
-          </div>
-          <iframe
-            title="Voltec Appliances — Abid Market, Temple Road, Lahore"
-            src={`https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1s${encodeURIComponent(SITE.mapsQuery)}!6i15`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            style={{ width: "100%", height: 380, border: 0, borderRadius: 16, display: "block" }}
-          />
-        </div>
-      </section>
+      {/* Showroom map + directions — the walk-in funnel ends here: see the shop, tap directions. */}
+      <ShowroomMap from="contact" />
     </main>
   );
 }

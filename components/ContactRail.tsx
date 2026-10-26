@@ -26,7 +26,7 @@ export default function ContactRail() {
 
   const tel = `tel:${SITE.phone.replace(/[^+\d]/g, "")}`;
   const wa = whatsappLink();
-  const maps = `https://maps.google.com/?q=${encodeURIComponent(SITE.mapsQuery)}`;
+  const maps = SITE.directionsUrl;
   const mail = `mailto:${SITE.email}`;
 
   const items = [

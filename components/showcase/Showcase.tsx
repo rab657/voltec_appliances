@@ -458,7 +458,7 @@ export default async function Showcase({
               <div className="sb-buy-step">02</div>
               <h4>{t("sh.buy2.t")}</h4>
               <p>{t("sh.buy2.d")}</p>
-              <a href={`https://maps.google.com/?q=${encodeURIComponent(SITE.mapsQuery)}`} target="_blank" rel="noopener" className="btn btn-ghost">
+              <a href={SITE.directionsUrl} target="_blank" rel="noopener" className="btn btn-ghost">
                 {t("sh.getdir")} →
               </a>
             </div>

@@ -24,6 +24,7 @@ const FB_STANDARD: Record<string, string> = {
   view_item: "ViewContent",
   whatsapp_click: "Contact",
   phone_click: "Contact",
+  directions_click: "FindLocation",
   lead: "Lead",
   begin_checkout: "InitiateCheckout",
   purchase: "Purchase",

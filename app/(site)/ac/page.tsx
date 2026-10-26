@@ -48,7 +48,7 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Where can I buy? Do you deliver?",
-    a: "Right now we serve Lahore — visit our showroom on Abid Market (10am–8pm) to see the stabilizers working, or order online for delivery within Lahore. Message us on WhatsApp and we'll help you pick the right model before you come.",
+    a: "Right now we serve Lahore — visit our showroom on Abid Market (10am–8:30pm) to see the stabilizers working, or order online for delivery within Lahore. Message us on WhatsApp and we'll help you pick the right model before you come.",
   },
 ];
 
@@ -226,7 +226,7 @@ export default async function AcPage() {
                 See it working at our Abid Market showroom
               </h2>
               <p style={{ margin: 0, fontSize: 15.5, lineHeight: 1.6, color: "oklch(90% 0.02 250 / 0.85)" }}>
-                Open 10am–8pm. Watch the stabilizer hold 220V on a live low-voltage demo, get free
+                Open 10am–8:30pm. Watch the stabilizer hold 220V on a live low-voltage demo, get free
                 advice on the right model for your AC, and take yours home the same day.
               </p>
               <p style={{ margin: "10px 0 0", fontSize: 15.5, lineHeight: 1.6, color: "oklch(90% 0.02 250 / 0.85)" }}>
@@ -235,7 +235,7 @@ export default async function AcPage() {
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, alignItems: "flex-start" }}>
               <a
-                href={`https://maps.google.com/?q=${encodeURIComponent(SITE.mapsQuery)}`}
+                href={SITE.directionsUrl}
                 target="_blank"
                 rel="noopener"
                 className="btn btn-ghost-light"
