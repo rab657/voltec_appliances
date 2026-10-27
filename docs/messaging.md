@@ -70,7 +70,7 @@ Compact form for art/footers: `Cells & packs · BMS · Servo / AVR / IGBT · 3-p
   **sales CTA everywhere stays +92 321 1644447** — that's the line wired to lead capture.
   Artwork carrying 0324 is not wrong, just not the tracked funnel.
 - **Address:** 8/26 Shadab Colony, Abid Market, Temple Road, Lahore 54000
-- **Hours:** Mon–Sat 10:00–20:30, Sunday closed (closing moved to 20:30 on 2026-10-26 to match GBP)
+- **Hours:** Mon–Sat 10:30–20:30, Sunday closed (matched to GBP 2026-10-27; was 10:00–20:00)
 - **Founded:** 1995 · geo 31.550733, 74.316244
 
 ## 7. Surface map — where the text lives and how to update it

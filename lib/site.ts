@@ -26,12 +26,12 @@ export const SITE = {
   md: "Raheel Ahmad",
   markets: ["Pakistan", "UAE", "China"],
   cities: ["Lahore", "Dubai", "Shenzhen"],
-  // Showroom trading hours: Mon–Sat, Sunday closed (2026-07-31). Closing moved to 8:30pm on
-  // 2026-10-26 to match the Google Business Profile (user).
+  // Showroom trading hours: Mon–Sat 10:30am–8:30pm, Sunday closed — matched to the Google
+  // Business Profile on 2026-10-26/27 (user). Was 10am–8pm.
   // ⚠️ Must stay identical to the Google Business Profile and the Facebook Page —
   // mismatched hours undermine the local pack the same way a mismatched phone does.
-  hours: { opens: "10:00", closes: "20:30", days: ["Mo", "Tu", "We", "Th", "Fr", "Sa"] },
-  hoursDisplay: "Mon–Sat · 10am–8:30pm PKT",
+  hours: { opens: "10:30", closes: "20:30", days: ["Mo", "Tu", "We", "Th", "Fr", "Sa"] },
+  hoursDisplay: "Mon–Sat · 10:30am–8:30pm PKT",
   // Human-readable showroom address — byte-identical to the Google Business Profile.
   addressDisplay: "Abid Market, 26/8 Temple Rd, Mozang Chungi, Lahore 54000",
   // Showroom coordinates — same point the Lahore Showroom Google campaign uses

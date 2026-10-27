@@ -320,7 +320,7 @@ ${RANGE_CALLOUT}
 
 <p>Voltec imports servo stabilizers from 1 to 30 kVA and SCR stabilizers from 1 to 10 kVA. We have no reason to push one over the other — we would rather you buy the right one once. Send us your load and we will quote both side by side. Read the full background in our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
 
-<div class="callout"><div class="c-label">Get both quotes</div><div>WhatsApp <a href="${WA_COMPARE}">+92 321 1644447</a> with your appliance list or machine nameplate. We reply with servo and SCR options, side by side, in writing. Or see them at our Abid Market showroom in Lahore, Mon–Sat 10am–8:30pm.</div></div>
+<div class="callout"><div class="c-label">Get both quotes</div><div>WhatsApp <a href="${WA_COMPARE}">+92 321 1644447</a> with your appliance list or machine nameplate. We reply with servo and SCR options, side by side, in writing. Or see them at our Abid Market showroom in Lahore, Mon–Sat 10:30am–8:30pm.</div></div>
 `,
     faqs: [
       {
@@ -728,7 +728,7 @@ ${RANGE_CALLOUT}
 
 <p>The Voltec SCR range is imported, checked and stocked in Lahore, and backed by our own service team. For the bigger picture, read our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
 
-<div class="callout"><div class="c-label">Ask about SCR</div><div>WhatsApp <a href="${WA_SCR}">+92 321 1644447</a> with your machine nameplate or appliance list. We will size it and quote in writing. Or come and see one at our Abid Market showroom in Lahore, Mon–Sat 10am–8:30pm.</div></div>
+<div class="callout"><div class="c-label">Ask about SCR</div><div>WhatsApp <a href="${WA_SCR}">+92 321 1644447</a> with your machine nameplate or appliance list. We will size it and quote in writing. Or come and see one at our Abid Market showroom in Lahore, Mon–Sat 10:30am–8:30pm.</div></div>
 `,
     faqs: [
       {

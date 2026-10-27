@@ -95,7 +95,7 @@ function CheckoutInner() {
               <span style={label}>City</span>
               <input style={{ ...input, background: "var(--paper-2)", color: "var(--ink-2)" }} value="Lahore" readOnly aria-readonly="true" />
               <p style={{ fontSize: 12.5, color: "var(--ink-3)", margin: "6px 0 0" }}>
-                We currently deliver within Lahore only — or pick up at our Abid Market showroom (10am–8:30pm).
+                We currently deliver within Lahore only — or pick up at our Abid Market showroom (10:30am–8:30pm).
               </p>
             </div>
             <div>
