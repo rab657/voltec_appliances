@@ -65,7 +65,7 @@ export async function GET() {
   lines.push("- Bulk, dealer, corporate and government tender orders are quoted on request, with full documentation.");
   lines.push("");
   lines.push("## Visit the showroom (Lahore)");
-  lines.push("- Address: Abid Market, 26/8 Temple Rd, Mozang Chungi, Lahore 54000 — live low-voltage demo: watch an AC run at 100 V before you buy.");
+  lines.push(`- Address: ${SITE.addressDisplay} — live low-voltage demo: watch an AC run at 100 V before you buy.`);
   lines.push(`- Hours: Mon–Sat, 10:30am–8:30pm. Store landline: ${SITE.phoneStoreDisplay} — (042) 36368601 dialled locally.`);
   lines.push(`- Business & tenders (nationwide supply): ${absUrl("/industrial")}`);
   lines.push("");

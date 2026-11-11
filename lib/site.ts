@@ -32,8 +32,9 @@ export const SITE = {
   // mismatched hours undermine the local pack the same way a mismatched phone does.
   hours: { opens: "10:30", closes: "20:30", days: ["Mo", "Tu", "We", "Th", "Fr", "Sa"] },
   hoursDisplay: "Mon–Sat · 10:30am–8:30pm PKT",
-  // Human-readable showroom address — byte-identical to the Google Business Profile.
-  addressDisplay: "Abid Market, 26/8 Temple Rd, Mozang Chungi, Lahore 54000",
+  // Human-readable showroom address — matches the Google Business Profile, which the
+  // user corrected on 2026-11-11 (was "26/8 Temple Rd, Mozang Chungi").
+  addressDisplay: "Abid Market, 8/26 Temple Rd, Shadab Colony, Lahore 54000",
   // Showroom coordinates — same point the Lahore Showroom Google campaign uses
   // for its 15km proximity radius.
   geo: { lat: 31.550733, lng: 74.316244 },
@@ -74,9 +75,10 @@ export const VOLTEC_ORG = {
   slogan: "Power you can rely on. Power that never quits.",
   address: {
     "@type": "PostalAddress",
-    streetAddress: "Abid Market, 26/8 Temple Rd, Mozang Chungi",
+    streetAddress: "Abid Market, 8/26 Temple Rd, Shadab Colony",
     addressLocality: "Lahore",
     addressRegion: "Punjab",
+    postalCode: "54000",
     addressCountry: "PK",
   },
   telephone: SITE.phone,

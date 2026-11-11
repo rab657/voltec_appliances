@@ -18,7 +18,7 @@ in Google, Maps and AI answer engines** — the on-site SEO/AEO is already done.
 
 ```
 Voltec Appliances
-Abid Market, 26/8 Temple Rd, Mozang Chungi, Lahore, Punjab 54000, Pakistan
+Abid Market, 8/26 Temple Rd, Shadab Colony, Lahore, Punjab 54000, Pakistan
 Phone: +92 42 3636 8601   (store landline — dialled locally as (042) 36368601)
 Email: voltecappliances@hotmail.com
 Web: https://voltecappliances.com
