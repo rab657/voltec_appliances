@@ -27,7 +27,7 @@ export async function generateMetadata({
   return {
     title: "Shop Products — Voltage Stabilizers, Lithium Cells & Industrial",
     description:
-      "Voltage stabilizers (IGBT, SVC, AVR), genuine EVE lithium cells, and industrial systems to 500kVA — in stock and ready to ship from our China and Pakistan hubs.",
+      "Servo (SVC) and AVR relay voltage stabilizers, genuine EVE lithium cells, and three-phase industrial systems to 500 kVA — from our Lahore showroom, delivered across Pakistan.",
     alternates: { canonical: "/products" },
   };
 }

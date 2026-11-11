@@ -32,7 +32,7 @@ const SERVE_KEYS = ["med", "ind", "gov", "home"];
 const HOME_FAQS: { q: string; a: string }[] = [
   {
     q: "Which Voltec voltage stabilizer should I buy?",
-    a: "It depends on what you're protecting. For one appliance — a fridge, deep freezer or a single AC — choose an AVR relay stabilizer (the Voltec A-series). For a whole home or shop with one to three ACs, choose a servo (SVC) stabilizer: about 5 kVA for one AC, 10 kVA for two, 15 kVA for a full home. For sensitive or precision equipment like laser, CNC, medical or lab machines, choose the inverter (IGBT) stabilizer. For a factory or three-phase load, choose a three-phase SJW-series system, built to order.",
+    a: "It depends on what you're protecting. For one appliance — a fridge, deep freezer or a single AC — choose an AVR relay stabilizer (the Voltec A-series). For a whole home or shop with one to three ACs, choose a servo (SVC) stabilizer: about 5 kVA for one AC, 10 kVA for two, 15 kVA for a full home. For sensitive or precision equipment like laser, CNC, medical or lab machines, the right type is a solid-state (SCR or IGBT) stabilizer — our solid-state range is launching soon and is not available to order yet, so message us first. For a factory or three-phase load, choose a three-phase SJW-series system, built to order.",
   },
   {
     q: "What lithium cells do I need for my solar system?",
@@ -44,11 +44,11 @@ const HOME_FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Inverter, SCR, servo or relay stabilizer — what's the difference?",
-    a: "A relay (AVR) stabilizer is the cheapest and fixes voltage in steps — best for one appliance. A servo (SVC) stabilizer uses a motor to correct voltage smoothly to ±1% — best for a whole home or shop. An SCR (thyristor) stabilizer is solid-state with no moving parts and switches faster than a servo, correcting in steps to ±5% — the cost-effective way to protect tier-1 sensitive equipment like laser machines. An inverter (IGBT) stabilizer is fully electronic and corrects steplessly with a clean pure-sine output — best for your most sensitive, highest-precision equipment.",
+    a: "A relay (AVR) stabilizer is the cheapest and fixes voltage in steps — best for one appliance. A servo (SVC) stabilizer uses a motor to correct voltage smoothly to ±1% — best for a whole home or shop. An SCR (thyristor) stabilizer is solid-state with no moving parts and switches faster than a servo, correcting in steps to ±5% — the cost-effective way to protect tier-1 sensitive equipment like laser machines. An inverter (IGBT) stabilizer is fully electronic and corrects steplessly with a clean pure-sine output — best for your most sensitive, highest-precision equipment. Voltec supplies relay and servo stabilizers today; our SCR and IGBT range is launching soon.",
   },
   {
     q: "Where is Voltec based, and do you deliver?",
-    a: "Voltec Appliances is based in Lahore, Pakistan, with four decades in power equipment. Our servo (SVC), inverter (IGBT) and SCR stabilizers and EVE cells are imported; our AVR relay stabilizers are made in Pakistan. We ship Pakistan-wide and supply bulk and export orders to the UAE and China. Message us on WhatsApp at +92 321 1644447 for stock, pricing and freight.",
+    a: "Voltec Appliances is based in Lahore, Pakistan, with four decades in power equipment. Our servo (SVC) stabilizers, three-phase systems and EVE cells are imported; our AVR relay stabilizers are made in Pakistan. We ship Pakistan-wide and supply bulk and export orders to the UAE and China. Message us on WhatsApp at +92 321 1644447 for stock, pricing and freight.",
   },
   {
     q: "Do you supply businesses, factories and bulk orders?",

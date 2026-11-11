@@ -18,8 +18,8 @@ const PILLARS: { id: string; title: string; body: string; points: string[] }[] =
   {
     id: "stabilizers",
     title: "Voltage stabilizers — every technology",
-    body: "Imported servo (SVC) for whole buildings, IGBT/static for sensitive and precision loads and heavy 3-phase for plants — plus our own Pakistan-made AVR relay stabilizers for single machines.",
-    points: ["Servo (SVC) — imported, 10–500 kVA, made to spec", "IGBT / static — precision & medical loads", "AVR relay — single appliances & machines", "100% pure copper, 1-year warranty"],
+    body: "Imported servo (SVC) for whole buildings and heavy 3-phase for plants — plus our own Pakistan-made AVR relay stabilizers for single machines. Solid-state IGBT and SCR units are launching soon.",
+    points: ["Servo (SVC) — imported, 10–500 kVA, made to spec", "IGBT / SCR solid-state — launching soon", "AVR relay — single appliances & machines", "100% pure copper, 1-year warranty"],
   },
   {
     id: "energy-storage",
@@ -70,13 +70,13 @@ const FAQS: { q: string; a: string }[] = [
 export const metadata: Metadata = {
   title: "Voltage Stabilizers, Lithium Cells & Industrial Power — Bulk & Tenders | Voltec",
   description:
-    "Importer & manufacturer since 1995 — voltage stabilizers (servo, IGBT, 3-phase 100–500 kVA+), genuine EVE Grade-A LiFePO4 lithium batteries and cells for solar energy storage. Bulk, dealer, corporate & government tender supply across Pakistan. Full documentation, install & service.",
+    "Importer & manufacturer since 1995 — voltage stabilizers (servo, 3-phase 50–500 kVA+), genuine EVE Grade-A LiFePO4 lithium batteries and cells for solar energy storage. Bulk, dealer, corporate & government tender supply across Pakistan. Full documentation, install & service.",
   alternates: { canonical: "/industrial" },
   openGraph: {
     type: "website",
     title: "Voltage Stabilizers, Lithium Cells & Industrial Power — Bulk & Tenders | Voltec",
     description:
-      "Servo, IGBT & 3-phase stabilizers plus EVE Grade-A lithium batteries, cells & energy storage. Corporate, dealer & government tender supply nationwide. Since 1995.",
+      "Servo & 3-phase stabilizers plus EVE Grade-A lithium batteries, cells & energy storage. Corporate, dealer & government tender supply nationwide. Since 1995.",
     url: absUrl("/industrial"),
   },
 };
@@ -112,7 +112,7 @@ export default async function IndustrialPage() {
               <h1>Stabilizers, lithium cells &amp; industrial power — at scale</h1>
               <p className="page-lede">
                 A Lahore <strong>importer &amp; manufacturer since 1995</strong>. We import voltage
-                stabilizers in every technology — servo, IGBT and heavy 3-phase to 500 kVA+ — make our own
+                stabilizers — servo and heavy 3-phase to 500 kVA+ — make our own
                 AVR relay stabilizers in Pakistan, and directly import genuine <strong>Grade-A EVE lithium cells</strong> and energy-storage
                 systems. We supply industry, corporates, dealers and government tenders nationwide,
                 with full documentation, installation and service.
