@@ -35,7 +35,7 @@ const PROTECTIONS = ["over-current", "over-volt", "under-volt", "over-temp", "sh
 const WHY: string[] = [
   "100% pure copper inside — lasts much longer",
   "Works on very high voltage (up to 300V)",
-  "6-month warranty",
+  "1-year warranty",
   "Delivery in Lahore, or pickup",
   "Free advice — we help you choose the right size",
 ];
@@ -59,14 +59,14 @@ const FAQS: { q: string; a: string }[] = [
   },
   {
     q: "Do you deliver? What about warranty?",
-    a: "We deliver in Lahore, or you can pick up. Every stabilizer comes with a 6-month warranty. Message us and we'll arrange it.",
+    a: "We deliver in Lahore, or you can pick up. Every stabilizer comes with a 1-year warranty. Message us and we'll arrange it.",
   },
 ];
 
 export const metadata: Metadata = {
   title: "Solar Inverter Keeps Shutting Down? The Easy Fix | Voltec",
   description:
-    "Is your solar inverter switching off when the voltage goes high? A Voltec stabilizer keeps the voltage steady so your inverter stays on. Pure copper, 6-month warranty, delivery in Lahore. Message us on WhatsApp.",
+    "Is your solar inverter switching off when the voltage goes high? A Voltec stabilizer keeps the voltage steady so your inverter stays on. Pure copper, 1-year warranty, delivery in Lahore. Message us on WhatsApp.",
   alternates: { canonical: "/solar" },
   openGraph: {
     type: "website",
