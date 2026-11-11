@@ -18,8 +18,8 @@ const PILLARS: { id: string; title: string; body: string; points: string[] }[] =
   {
     id: "stabilizers",
     title: "Voltage stabilizers — every technology",
-    body: "Imported servo (SVC) for whole buildings and heavy 3-phase for plants — plus our own Pakistan-made AVR relay stabilizers for single machines. Solid-state IGBT and SCR units are launching soon.",
-    points: ["Servo (SVC) — imported, 10–500 kVA, made to spec", "IGBT / SCR solid-state — launching soon", "AVR relay — single appliances & machines", "100% pure copper, 1-year warranty"],
+    body: "Imported servo (SVC) for whole buildings and heavy 3-phase for plants — plus our own Pakistan-made AVR relay stabilizers for single machines. Solid-state SCR and IGBT units are coming soon — pre-orders are open.",
+    points: ["Servo (SVC) — imported, 10–500 kVA, made to spec", "SCR / IGBT solid-state — coming soon, pre-order open", "AVR relay — single appliances & machines", "100% pure copper, 1-year warranty"],
   },
   {
     id: "energy-storage",

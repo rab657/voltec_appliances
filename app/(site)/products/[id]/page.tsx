@@ -29,9 +29,14 @@ export async function generateMetadata({
   const { id } = await params;
   const product = getProduct(id);
   if (!product || isProductInHiddenFamily(product)) return { title: "Product not found" };
+  // People search "<model> price in pakistan" (GSC: servo 10 kVA price ranks 6–14, EVE
+  // cell price ranks 3–9 with 0 clicks) — say it in the title, and lead the
+  // description with the price when the product has a public one.
+  const priced = ["stabilizers", "industrial", "cells"].includes(product.categoryId);
+  const pricePrefix = product.price ? `Rs ${product.price.toLocaleString("en-PK")}. ` : "";
   return {
-    title: `${product.name} — ${product.category}`,
-    description: product.tagline + " " + product.description.slice(0, 120),
+    title: priced ? `${product.name} — Price in Pakistan` : `${product.name} — ${product.category}`,
+    description: pricePrefix + product.tagline + " " + product.description.slice(0, 120),
     alternates: { canonical: `/products/${product.id}` },
     // Retired products (hidden in code, e.g. the DALY BMS) still resolve by URL
     // but are linked from nowhere — keep them out of the index.

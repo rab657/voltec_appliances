@@ -31,6 +31,10 @@
 //  - Honest about servo: Voltec sells servo too, and it still wins on very large
 //    and three-phase loads. That honesty is what makes the solid-state case
 //    credible, and it keeps the live SVC funnel intact.
+//  - COMING SOON (Raheel, 2026-11-11): neither solid-state line is sold yet. The SCR
+//    range is on its way (arrives first); IGBT follows. Every post must say "coming
+//    soon" and must NEVER say stocked / in stock / "we sell both" / "quote both".
+//    Awareness content only — no ad spend points at these lines for now.
 //  - The SCR and IGBT showcases (/showcase/scr, /showcase/smart-inverter-voltage-
 //    stabilizer) are HIDDEN pre-launch and 404. Link only to live pages. When
 //    those lines launch, add product links here and re-run.
@@ -50,9 +54,9 @@ const env = Object.fromEntries(
 // Canonical PK sales line (SITE.whatsapp). Each link pre-fills a message that
 // names the topic, so the lead identifies itself in the inbox.
 const wa = (text: string) => `https://wa.me/923211644447?text=${encodeURIComponent(text)}`;
-const WA_SCR = wa("Hi Voltec! I want to ask about SCR stabilizers. My load is: ");
-const WA_IGBT = wa("Hi Voltec! I want to ask about IGBT inverter stabilizers. My load is: ");
-const WA_COMPARE = wa("Hi Voltec! Please quote servo, SCR and IGBT side by side. My load is: ");
+const WA_SCR = wa("Hi Voltec! Tell me when your SCR stabilizers arrive. My load is: ");
+const WA_IGBT = wa("Hi Voltec! Tell me when your IGBT inverter stabilizers arrive. My load is: ");
+const WA_COMPARE = wa("Hi Voltec! Tell me when your SCR and IGBT stabilizers arrive, and quote a servo for now. My load is: ");
 const WA_MACHINE = wa("Hi Voltec! I need a stabilizer for my machine. Nameplate photo attached: ");
 const WA_SERVO_FIX = wa("Hi Voltec! My servo stabilizer has a problem. Photo attached: ");
 
@@ -61,7 +65,7 @@ const AUTHOR = { author: "Voltec Team", authorRole: "Lahore Office" };
 
 // The two Voltec solid-state ranges, as a reusable closing block.
 const RANGE_CALLOUT = `
-<div class="callout"><div class="c-label">The Voltec solid-state range</div><div><strong>SCR (thyristor):</strong> 1, 2, 3, 5 and 10 kVA — 220V ±5% from a 95–250V input, about 20 ms response. <strong>IGBT (inverter):</strong> 550VA, 2, 5, 10, 15 and 20 kVA — 220V ±2% from a 90–310V input, 0 ms rated response, pure sine. Both imported, checked and stocked by Voltec in Lahore. <a href="${WA_COMPARE}">WhatsApp your appliance list</a> and we will quote the right one in writing.</div></div>`;
+<div class="callout"><div class="c-label">Coming soon: the Voltec solid-state range</div><div><strong>SCR (thyristor):</strong> 1, 2, 3, 5 and 10 kVA — 220V ±5% from a 95–250V input, about 20 ms response. <strong>IGBT (inverter):</strong> 550VA, 2, 5, 10, 15 and 20 kVA — 220V ±2% from a 90–310V input, 0 ms rated response, pure sine. Both are imported. <strong>Coming soon:</strong> the SCR range is on its way to Lahore and the IGBT range follows — neither is in stock yet. Reserve yours on the <a href="/pre-order">pre-order form</a> (no payment), or <a href="${WA_COMPARE}">WhatsApp your appliance list</a> and we will tell you the day stock lands, and quote a servo in writing if you cannot wait.</div></div>`;
 
 const posts = [
   // ───────────────────────────────────────────────────────────── 1. PILLAR
@@ -132,13 +136,13 @@ const posts = [
 
 <p>An SCR stabilizer has a transformer with several taps, like a relay stabilizer. The difference is the switch. Instead of a metal relay that snaps open and shut, it uses <strong>thyristors</strong> — silicon switches with no contacts. They switch at the moment the AC wave crosses zero, so there is no spark, no click and nothing to burn.</p>
 
-<p>The Voltec SCR range holds <strong>220V ±5%</strong> across a <strong>95–250V</strong> input (it keeps working from 85V to 268V), corrects in <strong>about 20 ms</strong>, is <strong>≥95% efficient</strong>, and has six layers of protection. It suits laser machines, clinic devices, ultrasound, electronics, and homes and shops where speed and long life matter and ±5% is enough. More: <a href="/blog/what-is-scr-thyristor-stabilizer">what an SCR stabilizer is</a> and <a href="/blog/scr-vs-servo-stabilizer">SCR vs servo, side by side</a>.</p>
+<p>The Voltec SCR range (coming soon) holds <strong>220V ±5%</strong> across a <strong>95–250V</strong> input (it keeps working from 85V to 268V), corrects in <strong>about 20 ms</strong>, is <strong>≥95% efficient</strong>, and has six layers of protection. It suits laser machines, clinic devices, ultrasound, electronics, and homes and shops where speed and long life matter and ±5% is enough. More: <a href="/blog/what-is-scr-thyristor-stabilizer">what an SCR stabilizer is</a> and <a href="/blog/scr-vs-servo-stabilizer">SCR vs servo, side by side</a>.</p>
 
 <h2>IGBT: the top of the range</h2>
 
 <p>An IGBT stabilizer does not pick a tap. It measures the incoming wave and switches IGBT chips tens of thousands of times a second to build exactly the voltage you need. Filters smooth that into a clean sine wave.</p>
 
-<p>The Voltec IGBT range holds <strong>220V ±2%</strong> across a <strong>90–310V</strong> input, has a <strong>0 ms</strong> rated response, gives a <strong>pure sine</strong> output (distortion under 3%) and is <strong>≥96% efficient</strong>. Because it switches at high frequency, it needs much less iron: the 10 kVA model weighs 12.7 kg and hangs on a wall. It suits the most sensitive machines, inverter ACs, whole homes in very-low-voltage areas, and anyone who wants the cleanest power. More: <a href="/blog/what-is-igbt-inverter-stabilizer">what an IGBT stabilizer is</a> and <a href="/blog/igbt-vs-servo-stabilizer">IGBT vs servo, side by side</a>.</p>
+<p>The Voltec IGBT range (coming soon) holds <strong>220V ±2%</strong> across a <strong>90–310V</strong> input, has a <strong>0 ms</strong> rated response, gives a <strong>pure sine</strong> output (distortion under 3%) and is <strong>≥96% efficient</strong>. Because it switches at high frequency, it needs much less iron: the 10 kVA model weighs 12.7 kg and hangs on a wall. It suits the most sensitive machines, inverter ACs, whole homes in very-low-voltage areas, and anyone who wants the cleanest power. More: <a href="/blog/what-is-igbt-inverter-stabilizer">what an IGBT stabilizer is</a> and <a href="/blog/igbt-vs-servo-stabilizer">IGBT vs servo, side by side</a>.</p>
 
 <h2>Where servo and relay still make sense</h2>
 
@@ -176,7 +180,7 @@ const posts = [
 
 <h2>Voltec's solid-state range</h2>
 
-<p>Voltec has been in the stabilizer trade since 1995 and sells all four types — relay, servo, SCR and IGBT. That means we have no reason to push one. Our SCR and IGBT ranges are imported, checked and stocked in Lahore, and backed by our own service team.</p>
+<p>Voltec has been in the stabilizer trade since 1995. We sell relay and servo stabilizers today, and our SCR and IGBT ranges are coming soon — so we have no reason to push one type. The SCR range is on its way to Lahore and the IGBT range follows; both are imported and will be backed by our own service team.</p>
 ${RANGE_CALLOUT}
 `,
     faqs: [
@@ -251,7 +255,7 @@ ${RANGE_CALLOUT}
 
 <p>An SCR stabilizer has a transformer with several taps — fixed points that give a little more or a little less voltage. A control board reads your incoming voltage every cycle and decides which tap brings the output closest to 220V. Then it switches to that tap with a pair of <strong>thyristors</strong> (SCRs).</p>
 
-<p>A thyristor is a silicon switch. It has no metal contact, so nothing sparks and nothing burns. It switches at the moment the AC wave crosses zero, so the change is clean. The whole job takes <strong>about 20 ms</strong> — one cycle of the mains. The Voltec SCR range holds <strong>220V ±5%</strong> from a <strong>95–250V</strong> input.</p>
+<p>A thyristor is a silicon switch. It has no metal contact, so nothing sparks and nothing burns. It switches at the moment the AC wave crosses zero, so the change is clean. The whole job takes <strong>about 20 ms</strong> — one cycle of the mains. The Voltec SCR range (coming soon) holds <strong>220V ±5%</strong> from a <strong>95–250V</strong> input.</p>
 
 <h2>Side by side</h2>
 
@@ -316,11 +320,11 @@ ${RANGE_CALLOUT}
 <li><strong>Your servo works fine and runs ordinary appliances?</strong> Keep it. See <a href="/blog/servo-stabilizer-problems">the signs it is time to replace it</a>.</li>
 </ol>
 
-<h2>We sell both</h2>
+<h2>Servo today, SCR coming soon</h2>
 
-<p>Voltec imports servo stabilizers from 1 to 30 kVA and SCR stabilizers from 1 to 10 kVA. We have no reason to push one over the other — we would rather you buy the right one once. Send us your load and we will quote both side by side. Read the full background in our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
+<p>Voltec imports servo stabilizers from 1 to 30 kVA, in stock now. Our SCR range, 1 to 10 kVA, is coming soon — the first shipment is on its way. We have no reason to push one over the other — we would rather you buy the right one once. Send us your load: we will quote a servo today and tell you when the SCR range lands. Or reserve one now on the <a href="/pre-order">pre-order form</a>. Read the full background in our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
 
-<div class="callout"><div class="c-label">Get both quotes</div><div>WhatsApp <a href="${WA_COMPARE}">+92 321 1644447</a> with your appliance list or machine nameplate. We reply with servo and SCR options, side by side, in writing. Or see them at our Abid Market showroom in Lahore, Mon–Sat 10:30am–8:30pm.</div></div>
+<div class="callout"><div class="c-label">Servo now, SCR soon</div><div>WhatsApp <a href="${WA_COMPARE}">+92 321 1644447</a> with your appliance list or machine nameplate. We reply with a servo quote in writing and tell you when the SCR range arrives. Servo units are on show at our Abid Market showroom in Lahore, Mon–Sat 10:30am–8:30pm.</div></div>
 `,
     faqs: [
       {
@@ -426,7 +430,7 @@ ${RANGE_CALLOUT}
 
 <p>In many parts of Pakistan — the end of long feeders in South Punjab, interior Sindh and the villages of KP — evening voltage falls to 100–150V, and sometimes lower. Late at night, when the load drops, it can jump above 260V.</p>
 
-<p>The Voltec IGBT range holds 220V from <strong>90V up to 310V</strong> on every model, with no special order. A servo can be built for low voltage too, but you have to choose that range when you order. If you are not sure how low your voltage goes, the IGBT is the safer pick.</p>
+<p>The Voltec IGBT range (coming soon) holds 220V from <strong>90V up to 310V</strong> on every model, with no special order. A servo can be built for low voltage too, but you have to choose that range when you order. If you are not sure how low your voltage goes, the IGBT is the safer pick.</p>
 
 <h2>Is the bill lower?</h2>
 
@@ -460,9 +464,9 @@ ${RANGE_CALLOUT}
 
 <h2>Our honest view</h2>
 
-<p>We sell both. For a home with inverter ACs, a clinic, or a workshop with sensitive machines, the IGBT is where the market is going — the same way the inverter AC took over from the fixed-speed one. For large and three-phase loads, servo still earns its place. Read the full picture in our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
+<p>We sell servo today, and our IGBT range is coming soon. For a home with inverter ACs, a clinic, or a workshop with sensitive machines, the IGBT is where the market is going — the same way the inverter AC took over from the fixed-speed one. For large and three-phase loads, servo still earns its place. Read the full picture in our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
 
-<div class="callout"><div class="c-label">IGBT or servo — get both quotes</div><div>WhatsApp <a href="${WA_COMPARE}">+92 321 1644447</a> with your appliance list and your lowest evening voltage. We reply with IGBT and servo options, side by side, in writing.</div></div>
+<div class="callout"><div class="c-label">IGBT is coming soon</div><div>WhatsApp <a href="${WA_COMPARE}">+92 321 1644447</a> with your appliance list and your lowest evening voltage. We reply with a servo quote now and tell you when the IGBT range arrives. Or reserve one on the <a href="/pre-order">pre-order form</a>.</div></div>
 `,
     faqs: [
       {
@@ -612,7 +616,7 @@ ${RANGE_CALLOUT}
       },
       {
         q: "Which is cheaper, SCR or IGBT?",
-        a: "SCR costs less than IGBT for the same kVA. It gives you solid-state speed and long life at a lower price, with stepped ±5% output instead of the IGBT's ±2% pure sine. Send us your load and we will quote both.",
+        a: "SCR costs less than IGBT for the same kVA. It gives you solid-state speed and long life at a lower price, with stepped ±5% output instead of the IGBT's ±2% pure sine. Both Voltec ranges are coming soon; send us your load and we will tell you when they arrive.",
       },
       {
         q: "What does pure sine mean, and do I need it?",
@@ -714,7 +718,7 @@ ${RANGE_CALLOUT}
 
 <p>An SCR stabilizer corrects in steps. It does not build a new wave, so it does not clean up distortion on the mains, and it holds ±5% rather than ±1–2%. If your equipment asks for a tighter tolerance or a clean sine wave, or your voltage falls below 95V, choose an <a href="/blog/what-is-igbt-inverter-stabilizer">IGBT stabilizer</a> instead. Not sure? Read <a href="/blog/scr-vs-igbt-stabilizer">SCR vs IGBT</a>.</p>
 
-<h2>Sizes in the Voltec SCR range</h2>
+<h2>Sizes in the Voltec SCR range (coming soon)</h2>
 
 <div class="table-scroll"><table>
 <thead><tr><th>Model</th><th>Typical use</th><th>Net weight</th></tr></thead>
@@ -726,9 +730,9 @@ ${RANGE_CALLOUT}
 <tr><td>10 kVA</td><td>Larger lasers and clinic equipment; a bigger home or shop</td><td>25.3 kg</td></tr>
 </tbody></table></div>
 
-<p>The Voltec SCR range is imported, checked and stocked in Lahore, and backed by our own service team. For the bigger picture, read our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
+<p>The Voltec SCR range is imported and coming soon — the first shipment is on its way to Lahore. It is not in stock yet, but you can reserve one on the <a href="/pre-order">pre-order form</a>. It will be backed by our own service team. For the bigger picture, read our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
 
-<div class="callout"><div class="c-label">Ask about SCR</div><div>WhatsApp <a href="${WA_SCR}">+92 321 1644447</a> with your machine nameplate or appliance list. We will size it and quote in writing. Or come and see one at our Abid Market showroom in Lahore, Mon–Sat 10:30am–8:30pm.</div></div>
+<div class="callout"><div class="c-label">Ask about SCR</div><div>WhatsApp <a href="${WA_SCR}">+92 321 1644447</a> with your machine nameplate or appliance list. We will size it now and tell you when the SCR range arrives.</div></div>
 `,
     faqs: [
       {
@@ -850,7 +854,7 @@ ${RANGE_CALLOUT}
 <li><strong>Add a UPS if needed.</strong> For a machine that must not lose power mid-job, put a UPS after the stabilizer.</li>
 </ul>
 
-<h2>The Voltec IGBT range</h2>
+<h2>The Voltec IGBT range (coming soon)</h2>
 
 <div class="table-scroll"><table>
 <thead><tr><th>Model</th><th>Rated current</th><th>Typical use</th><th>Net weight</th></tr></thead>
@@ -863,9 +867,9 @@ ${RANGE_CALLOUT}
 <tr><td>20 kVA</td><td>100A</td><td>Large home or shop; heavier machinery</td><td>22 kg</td></tr>
 </tbody></table></div>
 
-<p>The Voltec IGBT range is imported, checked and stocked in Lahore, and backed by our own service team. For the bigger picture, read our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>, or see how it compares with a servo in <a href="/blog/igbt-vs-servo-stabilizer">IGBT vs servo</a>.</p>
+<p>The Voltec IGBT range is imported and coming soon. It is not in stock yet, but you can reserve one on the <a href="/pre-order">pre-order form</a>. It will be backed by our own service team. For the bigger picture, read our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>, or see how it compares with a servo in <a href="/blog/igbt-vs-servo-stabilizer">IGBT vs servo</a>.</p>
 
-<div class="callout"><div class="c-label">Ask about IGBT</div><div>WhatsApp <a href="${WA_IGBT}">+92 321 1644447</a> with your appliance list or machine nameplate, and your lowest evening voltage. We will size it and quote in writing.</div></div>
+<div class="callout"><div class="c-label">Ask about IGBT</div><div>WhatsApp <a href="${WA_IGBT}">+92 321 1644447</a> with your appliance list or machine nameplate, and your lowest evening voltage. We will size it now and tell you when the IGBT range arrives.</div></div>
 `,
     faqs: [
       {
@@ -1003,7 +1007,7 @@ ${RANGE_CALLOUT}
 
 <p>A solid-state stabilizer has no brush, no motor and no gears — nothing that wears each time it corrects. An <a href="/blog/what-is-scr-thyristor-stabilizer">SCR stabilizer</a> is the cost-effective step up; an <a href="/blog/what-is-igbt-inverter-stabilizer">IGBT stabilizer</a> is the top of the range. Our <a href="/blog/solid-state-voltage-stabilizer">solid-state guide</a> explains both.</p>
 
-<div class="callout"><div class="c-label">Repair or replace?</div><div>WhatsApp <a href="${WA_SERVO_FIX}">+92 321 1644447</a> a photo of your servo stabilizer, its nameplate and the problem. We will tell you honestly if it is worth fixing — and if not, quote a solid-state replacement in writing.</div></div>
+<div class="callout"><div class="c-label">Repair or replace?</div><div>WhatsApp <a href="${WA_SERVO_FIX}">+92 321 1644447</a> a photo of your servo stabilizer, its nameplate and the problem. We will tell you honestly if it is worth fixing. Our solid-state SCR and IGBT ranges are coming soon; if a replacement makes more sense, we will tell you when they arrive and what a new servo costs today.</div></div>
 `,
     faqs: [
       {
@@ -1097,7 +1101,7 @@ ${RANGE_CALLOUT}
 <tr><td>Fibre laser cutters, large CNC, X-ray, CT, MRI</td><td>Talk to us</td><td>Often three-phase with high start-up current; sized to the maker's power spec</td></tr>
 </tbody></table></div>
 
-<p>For three-phase machines, see our <a href="/industrial">industrial systems</a> — available in static IGBT or servo, made to your load.</p>
+<p>For three-phase machines, see our <a href="/industrial">industrial systems</a> — three-phase servo, made to your load.</p>
 
 <h2>Read your machine's manual first</h2>
 
@@ -1136,9 +1140,9 @@ ${RANGE_CALLOUT}
 
 <h2>What Voltec offers clinics and workshops</h2>
 
-<p>Voltec imports both solid-state types: the <strong>SCR range</strong> from 1 to 10 kVA and the <strong>IGBT range</strong> from 550VA to 20 kVA, plus three-phase systems for larger machines. We size from your nameplates, quote in writing, and back what we sell with our own service team. Clinic owners can also see our <a href="/medical">medical power protection page</a>. For background, read <a href="/blog/scr-vs-igbt-stabilizer">SCR vs IGBT</a> and our <a href="/blog/solid-state-voltage-stabilizer">solid-state guide</a>.</p>
+<p>Both Voltec solid-state ranges are coming soon: the <strong>SCR range</strong> from 1 to 10 kVA (first shipment on its way) and the <strong>IGBT range</strong> from 550VA to 20 kVA. Neither is in stock yet — reserve yours on the <a href="/pre-order">pre-order form</a>. Three-phase servo systems for larger machines are available now. We size from your nameplates, quote in writing, and back what we sell with our own service team. Clinic owners can also see our <a href="/medical">medical power protection page</a>. For background, read <a href="/blog/scr-vs-igbt-stabilizer">SCR vs IGBT</a> and our <a href="/blog/solid-state-voltage-stabilizer">solid-state guide</a>.</p>
 
-<div class="callout"><div class="c-label">Send your nameplate</div><div>WhatsApp <a href="${WA_MACHINE}">+92 321 1644447</a> a photo of your machine's nameplate (and the chiller or pump that runs with it), plus your lowest evening voltage. We reply with the right type and size, quoted in writing.</div></div>
+<div class="callout"><div class="c-label">Send your nameplate</div><div>WhatsApp <a href="${WA_MACHINE}">+92 321 1644447</a> a photo of your machine's nameplate (and the chiller or pump that runs with it), plus your lowest evening voltage. We reply with the right type and size, and what we can supply today.</div></div>
 `,
     faqs: [
       {
@@ -1304,7 +1308,7 @@ ${RANGE_CALLOUT}
 
 <p>An <a href="/blog/what-is-scr-thyristor-stabilizer">SCR stabilizer</a> is the cost-effective step up. An <a href="/blog/what-is-igbt-inverter-stabilizer">IGBT stabilizer</a> is the top of the range. If your servo is already showing faults, see <a href="/blog/servo-stabilizer-problems">common servo problems and fixes</a>, and for the full comparison read <a href="/blog/scr-vs-servo-stabilizer">SCR vs servo</a> and our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
 
-<div class="callout"><div class="c-label">Service or switch?</div><div>We service the servo stabilizers we sell. Thinking of moving to solid-state? WhatsApp <a href="${WA_SERVO_FIX}">+92 321 1644447</a> a photo of your servo's nameplate, your load, and where it sits — home, shop or workshop. We will quote an SCR or IGBT replacement side by side, in writing.</div></div>
+<div class="callout"><div class="c-label">Service or switch?</div><div>We service the servo stabilizers we sell. Thinking of moving to solid-state? WhatsApp <a href="${WA_SERVO_FIX}">+92 321 1644447</a> a photo of your servo's nameplate, your load, and where it sits — home, shop or workshop. Our SCR and IGBT ranges are coming soon — we will tell you when they arrive, and what a servo service or replacement costs now.</div></div>
 `,
     faqs: [
       {
@@ -1376,6 +1380,8 @@ const P007_UPDATE = {
 <p>This works like an inverter AC. It builds the correct voltage electronically with no moving parts, rated 0 ms. It holds 220V ±2% from a 90–310V input, gives a clean pure sine output and runs silent. It costs more up front, and it is the best fit for inverter ACs, sensitive machines and very-low-voltage areas. <a href="/blog/what-is-igbt-inverter-stabilizer">How an IGBT stabilizer works</a>.</p>
 
 <blockquote>Relay and servo fix voltage by moving something. SCR and IGBT do it with silicon. That is why we think solid-state is the future.</blockquote>
+
+<p><strong>Coming soon at Voltec:</strong> our SCR range is on its way to Lahore and the IGBT range follows — reserve yours on the <a href="/pre-order">pre-order form</a>. Relay and servo stabilizers are available now.</p>
 
 <p>Compare them head to head: <a href="/blog/scr-vs-servo-stabilizer">SCR vs servo</a> · <a href="/blog/igbt-vs-servo-stabilizer">IGBT vs servo</a> · <a href="/blog/scr-vs-igbt-stabilizer">SCR vs IGBT</a>. Or read the full <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
 

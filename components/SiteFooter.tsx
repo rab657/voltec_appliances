@@ -47,6 +47,9 @@ export default async function SiteFooter() {
                 <Link href="/blog">{t("foot.blog")}</Link>
               </li>
               <li>
+                <Link href="/pre-order">{t("foot.preorder")}</Link>
+              </li>
+              <li>
                 <Link href="/admin">{t("foot.editor")}</Link>
               </li>
               <li>

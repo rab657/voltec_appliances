@@ -70,7 +70,7 @@ const FAQS: { q: string; a: string }[] = [
   {
     // Owner, 2026-11-11: the IGBT and SCR lines are not offered yet.
     q: "Can I order a Voltec IGBT or SCR stabilizer today?",
-    a: "Not yet. Our solid-state (IGBT and SCR) range is launching soon and is not available to order today. Message us on WhatsApp with your equipment and we will tell you when stock arrives, and what we can supply for your clinic now.",
+    a: "Not from stock yet. Our solid-state range is coming soon — SCR first, then IGBT — and you can pre-order now at voltecappliances.com/pre-order, with no payment. Or message us on WhatsApp with your equipment and we will tell you what we can supply for your clinic today.",
   },
   {
     q: "How much does protection cost compared to my machine?",
@@ -97,13 +97,13 @@ const FAQS: { q: string; a: string }[] = [
 export const metadata: Metadata = {
   title: "Power Protection for Medical & Aesthetic Clinics | Voltec Appliances",
   description:
-    "Solid-state (IGBT and SCR) power protection for clinic lasers, ultrasound and sensitive medical equipment in Pakistan — launching soon from Voltec. Register your interest on WhatsApp and we will tell you when stock arrives.",
+    "Solid-state (IGBT and SCR) power protection for clinic lasers, ultrasound and sensitive medical equipment in Pakistan — coming soon from Voltec. Pre-order now, no payment, and hear first when stock lands.",
   alternates: { canonical: "/medical" },
   openGraph: {
     type: "website",
     title: "Power Protection for Medical & Aesthetic Clinics | Voltec",
     description:
-      "Solid-state (IGBT and SCR) power protection for clinic lasers, ultrasound and sensitive equipment — launching soon. Register your interest on WhatsApp.",
+      "Solid-state (IGBT and SCR) power protection for clinic lasers, ultrasound and sensitive equipment — coming soon. Pre-order now, no payment.",
     url: absUrl("/medical"),
     // OWNER: add medical OG image when available — falls back to the site default card.
   },
@@ -153,8 +153,9 @@ export default async function MedicalPage() {
             </a>
           </div>
           <p style={{ marginTop: 18, maxWidth: "60ch", fontSize: 14, color: "var(--ink-2)" }}>
-            <strong>Launching soon.</strong> Our IGBT and SCR range is not available to order yet. Message us
-            and we will tell you when stock arrives, and what we can supply for your clinic today.
+            <strong>Coming soon.</strong> Our SCR range arrives first and the IGBT range follows.{" "}
+            <Link href="/pre-order">Pre-order now</Link> — no payment — or message us and we will tell you
+            what we can supply for your clinic today.
           </p>
         </div>
       </section>

@@ -18,6 +18,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     { url: absUrl("/"), lastModified: now, changeFrequency: "weekly", priority: 1 },
     { url: absUrl("/products"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    // The dated price list — owns "voltage stabilizer price in pakistan".
+    { url: absUrl("/voltage-stabilizer-price-in-pakistan"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: absUrl("/ac"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     // ⚠️ /industrial was omitted here until 2026-09-21 and had 0 organic impressions in
     // 28 days as a result — it is the bulk / tender / importer page and the destination
@@ -25,6 +27,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: absUrl("/industrial"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: absUrl("/solar"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: absUrl("/medical"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    // Pre-order page for the coming-soon solid-state (SCR + IGBT) range.
+    { url: absUrl("/pre-order"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: absUrl("/blog"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },
     { url: absUrl("/about"), lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: absUrl("/contact"), lastModified: now, changeFrequency: "monthly", priority: 0.6 },
