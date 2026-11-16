@@ -11,8 +11,8 @@
 //   SCR  (custom order): 220V ±5% from 95–250V, ~20 ms.
 // Do NOT claim "medical-grade", IEC 60601 or isolation-transformer compliance —
 // Voltec holds no such certificate.
-// Origin (Raheel, 2026-11-16): VOLTEC-brand servo stabilizers are ASSEMBLED in Lahore from parts imported
-// from China. Say "assembled in Lahore" — not "manufactured from scratch". Customers he named: Chughtai Labs +
+// Origin (Raheel, 2026-11-16, final): VOLTEC = "manufacturer and importer". That's the only origin line.
+// Never "assembled in Lahore" / "imported parts". Customers he named: Chughtai Labs +
 // medical equipment importers (unnamed).
 
 export type MedFaq = { q: string; a: string };
@@ -58,8 +58,8 @@ export const SERVO_STRENGTHS: { t: string; d: string }[] = [
     d: "High- and low-voltage cutoff, overload protection and a time-delay restart, so a surge when the grid comes back never reaches the machine.",
   },
   {
-    t: "VOLTEC — assembled in Lahore",
-    d: "VOLTEC servo stabilizers are assembled by our own team in Lahore from imported components, tested before dispatch, and serviced by the same people. 1-year warranty. Since 1995.",
+    t: "VOLTEC — manufacturer and importer",
+    d: "VOLTEC is a manufacturer and importer of voltage stabilizers. Every unit is tested before dispatch and serviced by our own team. 1-year warranty. Since 1995.",
   },
   {
     t: "Trusted by labs and equipment importers",

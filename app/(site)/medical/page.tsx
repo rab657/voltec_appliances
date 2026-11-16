@@ -54,7 +54,7 @@ const FAQS: { q: string; a: string }[] = [
 export const metadata: Metadata = {
   title: "Voltage Stabilizers for Medical & Laser Equipment in Pakistan — Servo Specialists",
   description:
-    "Servo motor stabilizers for laser, ultrasound, X-ray, dental and lab equipment. Steady 220V ±1%, cuts high voltage up to 280V, pure copper windings, 1-year warranty. IGBT & SCR on custom order. VOLTEC — assembled in Lahore since 1995. Supplied to Chughtai Labs.",
+    "Servo motor stabilizers for laser, ultrasound, X-ray, dental and lab equipment. Steady 220V ±1%, cuts high voltage up to 280V, pure copper windings, 1-year warranty. IGBT & SCR on custom order. VOLTEC — manufacturer and importer since 1995. Supplied to Chughtai Labs.",
   alternates: { canonical: "/medical" },
   openGraph: {
     type: "website",
@@ -94,7 +94,7 @@ export default async function MedicalPage() {
           <h1>Voltage stabilizers for medical and laser equipment</h1>
           <p className="page-lede" style={{ maxWidth: "62ch" }}>
             Your laser, ultrasound or dental unit cost lakhs. Pakistan&apos;s supply swings from a low evening
-            sag to a high-voltage spike when power returns. A VOLTEC servo motor stabilizer — assembled in Lahore — holds it at a
+            sag to a high-voltage spike when power returns. A VOLTEC servo motor stabilizer holds it at a
             steady 220V ±1%, boosting low voltage and cutting high voltage, on pure copper windings. Chughtai Labs and
             medical equipment importers already run on VOLTEC.
           </p>
