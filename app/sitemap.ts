@@ -10,8 +10,11 @@ import { absUrl } from "@/lib/site";
 // without a deploy, so a build-time sitemap silently omits every post published
 // since the last deploy — /blog/eve-cells-original-test-report was live and
 // missing from the sitemap on 2026-09-21 for exactly this reason. Revalidating
-// hourly keeps the sitemap honest without querying Supabase on every crawl.
-export const revalidate = 3600;
+// hourly was meant to keep it honest, but on Vercel the ISR copy never regenerated:
+// on 2026-11-16 the sitemap was still the 16:38 build 4+ hours later and missed the
+// newly published comparison post. Render per request (like llms.txt): one cheap
+// Supabase read per crawl is fine.
+export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
