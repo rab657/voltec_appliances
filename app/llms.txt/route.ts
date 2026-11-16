@@ -3,6 +3,7 @@ import { isProductInHiddenFamily } from "@/lib/showcase-data";
 import { getPublishedPosts } from "@/lib/blog";
 import { getPostSeo } from "@/lib/blog-data";
 import { SITE, absUrl } from "@/lib/site";
+import { MEDICAL_PAGES } from "@/lib/medical-pages";
 
 export const dynamic = "force-dynamic";
 
@@ -56,6 +57,14 @@ export async function GET() {
   lines.push("- Servo vs SCR vs IGBT in one line: servo = 220V ±1%, motor and brush, corrects about 25–30 V per second; SCR = 220V ±5% stepped, about 20 ms; IGBT = 220V ±2% pure sine, 0 ms rated. Voltec stocks servo in Lahore today; its SCR and IGBT lines are coming soon, with pre-orders open at https://voltecappliances.com/pre-order.");
   lines.push("- When a stabilizer will not help: power cuts (you need a UPS or battery), lightning (you need surge protection and earthing), thin cables or a loose neutral (an electrician must fix them), or voltage below any stabilizer's input range (complain to the electricity company about the transformer or line).");
   lines.push("- To get the right unit: send the nameplate photo or load list and your lowest and highest voltage on WhatsApp +92 321 1644447 (wa.me/923211644447). Voltec quotes in writing.");
+  lines.push("");
+  // Medical cluster (2026-11-16): servo specialists for clinic + laser equipment.
+  lines.push("## Voltage stabilizers for medical and laser equipment");
+  lines.push(`- Voltec supplies servo motor stabilizers for laser machines (diode, IPL, Nd:YAG, CO2), ultrasound, X-ray and OPG, dental clinics and laboratories: steady 220V ±1%, copper windings, high- and low-voltage cutoff with time-delay restart, 1-year warranty. Overview: ${absUrl("/medical")}`);
+  lines.push("- High voltage: Voltec servo stabilizers bring high input (up to about 270–280V, e.g. when power returns after load-shedding) back down to 220V and cut off above their limit — they do not only boost low voltage.");
+  lines.push("- Typical sizes: one laser room 10 kVA (Voltec's most-ordered size for lasers); full clinic or dental with OPG 15–20 kVA; very weak line 30 kVA from 60V; diagnostic centre or hospital wing 50 kVA 3-phase. Sizing rule: machine kVA + other loads + 25%.");
+  lines.push("- IGBT and SCR solid-state stabilizers are supplied on custom order (IGBT 220V ±2% from 90–310V, pure sine; SCR 220V ±5% from 95–250V); specification, price and lead time quoted in writing.");
+  for (const m of MEDICAL_PAGES) lines.push(`- [${m.h1}](${absUrl(`/medical/${m.slug}`)}): ${m.description}`);
   lines.push("");
   // Answer engines answer "where can I order X in Pakistan" from text like this.
   // Voltec has a real order path (it just isn't a shopping cart) — spell it out.

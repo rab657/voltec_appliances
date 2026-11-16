@@ -1,111 +1,67 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { VOLTEC_WHATSAPP } from "@/lib/products";
-import { WhatsAppIcon } from "@/components/icons";
 import JsonLd from "@/components/JsonLd";
+import WhatsAppButton from "@/components/WhatsAppButton";
+import { MEDICAL_PAGES, SERVO_STRENGTHS, SOLID_STATE } from "@/lib/medical-pages";
 import { SITE, absUrl, VOLTEC_ORG } from "@/lib/site";
 import { getT } from "@/lib/i18n-server";
 
-// Industries → Medical. A non-technical, insurance-framed landing page that
-// sells the existing inverter (IGBT) stabilizer to clinic owners/doctors —
-// distinct from the spec-led IGBT showcase that targets the engineer.
+// Industries → Medical hub (rewritten 2026-11-16). Servo motor stabilizers lead —
+// Voltec as servo specialists (pure copper, cuts HIGH voltage too); IGBT/SCR are
+// a custom-order option. Sub-pages per equipment type: /medical/[slug], data in
+// lib/medical-pages.ts. No "medical-grade"/IEC claims (no certificate).
 // Content is English (matches the site's content layer); chrome stays localized.
 // NOTE: UR/AR translation of this page's body copy is a follow-up (TODO_UR / TODO_AR).
 
-const wa = (text: string) =>
-  `https://wa.me/${VOLTEC_WHATSAPP}?text=${encodeURIComponent(text)}`;
-const WA_ASSESS = wa(
-  "Hi Voltec! I run a clinic and want to protect my equipment. Can you assess what I need?",
-);
-
-const PROTECTS: string[] = [
-  "Aesthetic & dermatology lasers (IPL, Nd:YAG, diode, CO₂, Q-switched / picosecond)",
-  "Hair- and tattoo-removal laser platforms",
-  "RF and HIFU aesthetic devices",
-  "Cryolipolysis / body-contouring systems",
-  "Dental units, dental lasers and dental imaging",
-  "Ultrasound machines",
-  "Lab analysers, centrifuges, incubators",
-  "Autoclaves and sterilizers with electronic controls",
-];
-
-const SERVO_POINTS = [
-  "Motor-driven correction",
-  "Reacts in a fraction of a second — too slow for a laser",
-  "Has a motor and carbon brush that wear out",
-  "Built for appliances, not clinical equipment",
-];
-// Both Voltec options are solid-state and beat a servo on the points that matter.
-const SOLID_POINTS = [
-  "Fully electronic, solid-state correction",
-  "Faster than a servo — no motor to physically move",
-  "No moving parts — nothing to wear out",
-  "Built for clinical and precision equipment",
-];
-// Two solid-state ways to protect — both better than a servo for a clinic.
-const SOLUTIONS: { name: string; tag: string; slug: string; points: string[] }[] = [
-  {
-    name: "Voltec Inverter (IGBT)",
-    tag: "Most sensitive",
-    slug: "smart-inverter-voltage-stabilizer",
-    points: [
-      "Stepless, pure-sine output held to ±1%",
-      "Instant, sub-cycle correction",
-      "For your most sensitive, highest-value machines — diagnostics, imaging electronics, lab analysers",
-    ],
-  },
-  {
-    name: "Voltec SCR — Thyristor",
-    tag: "Tier-1 sensitive",
-    slug: "scr",
-    points: [
-      "Solid-state thyristor switching, fast (~20 ms)",
-      "No motor or brush to wear out — far longer life than a servo",
-      "For tier-1 sensitive equipment — aesthetic, dental & surgical laser machines, ultrasound",
-    ],
-  },
+const WA_ASSESS_TEXT =
+  "Hi Voltec! Mujhe clinic / medical equipment ke liye stabilizer chahiye. Machine: ___ Sheher: ___";
+const SIZES = [
+  { kva: "1–5 kVA", use: "One analyser, ultrasound room or bench" },
+  { kva: "10 kVA", use: "One laser room — our most-ordered size for lasers" },
+  { kva: "15–20 kVA", use: "A full clinic, two machines or dental with OPG" },
+  { kva: "30 kVA", use: "Very weak line — works from 60V (single-phase)" },
+  { kva: "50 kVA 3-phase", use: "Diagnostic centre or hospital wing" },
+  { kva: "Custom", use: "IGBT / SCR solid-state on order" },
 ];
 
 const FAQS: { q: string; a: string }[] = [
   {
-    // Owner, 2026-11-11: the IGBT and SCR lines are not offered yet.
-    q: "Can I order a Voltec IGBT or SCR stabilizer today?",
-    a: "Not from stock yet. Our solid-state range is coming soon — SCR first, then IGBT — and you can pre-order now at voltecappliances.com/pre-order, with no payment. Or message us on WhatsApp with your equipment and we will tell you what we can supply for your clinic today.",
+    q: "Which stabilizer is best for medical equipment in Pakistan?",
+    a: "For most clinics — laser, ultrasound, dental, lab — a servo motor stabilizer is the proven choice: it holds 220V ±1%, brings high voltage back down as well as boosting low voltage, and is easy to service. Voltec servo stabilizers use copper windings and carry a 1-year warranty. For the most sensitive electronics we also supply IGBT and SCR solid-state stabilizers on custom order.",
   },
   {
-    q: "How much does protection cost compared to my machine?",
-    a: "A small fraction of the machine's value. Send us your equipment and load on WhatsApp and we'll size it and quote you.",
+    q: "Does a Voltec stabilizer protect against high voltage?",
+    a: "Yes. When power returns after load-shedding the line can jump to 260–280V. Voltec servo stabilizers bring high input back down to 220V and cut off above their limit — they do not only boost low voltage.",
   },
   {
-    q: "Isn't my existing servo stabilizer enough?",
-    a: "For appliances, yes. For a laser or sensitive diagnostic machine, a servo reacts too slowly and its motor and brush wear out over time. Voltec's solid-state units — the inverter (IGBT) and the SCR thyristor — react faster and have no moving parts to wear out. The IGBT is the choice for the most sensitive equipment; the SCR is the cost-effective option for tier-1 sensitive machines like lasers.",
+    q: "What size stabilizer does my clinic need?",
+    a: "Take the machine's rating in kVA (watts ÷ 0.8), add everything else on the same supply and add 25%. A single laser room usually needs a 10 kVA servo; a whole clinic 15–20 kVA; a hospital wing a 3-phase unit. Send us the machine model and we size it for you.",
   },
   {
-    q: "What size do I need?",
-    a: "Most clinic machines fall in the 3–15 kVA single-phase range. Tell us the equipment and we'll size it exactly — there's no single right answer for every clinic.",
+    q: "Can I order an IGBT or SCR stabilizer?",
+    a: "Yes, on custom order. Tell us the machine and supply on WhatsApp or through the custom order form, and we quote the specification, price and lead time in writing.",
   },
   {
     q: "Do you cover MRI or CT?",
-    a: "No — and we'll be straight with you about it. Large three-phase imaging systems are power-conditioned to the scanner maker's own specification. We protect the single-phase clinical and aesthetic equipment that usually has no proper protection at all.",
+    a: "No. Large CT and MRI systems use power conditioning specified by the scanner maker. We protect the laser, ultrasound, X-ray, dental and lab equipment that usually has no proper protection at all.",
   },
   {
-    q: "What if the stabilizer itself fails?",
-    a: "It safely bypasses to mains so your equipment is never left without power, and with no moving parts there's far less to go wrong than a motor-driven servo.",
+    q: "Do you deliver outside Lahore?",
+    a: "Yes, nationwide. Our showroom is in Abid Market, Lahore, and our own team handles warranty service.",
   },
 ];
 
 export const metadata: Metadata = {
-  title: "Power Protection for Medical & Aesthetic Clinics | Voltec Appliances",
+  title: "Voltage Stabilizers for Medical & Laser Equipment in Pakistan — Servo Specialists",
   description:
-    "Solid-state (IGBT and SCR) power protection for clinic lasers, ultrasound and sensitive medical equipment in Pakistan — coming soon from Voltec. Pre-order now, no payment, and hear first when stock lands.",
+    "Servo motor stabilizers for laser, ultrasound, X-ray, dental and lab equipment. Steady 220V ±1%, cuts high voltage up to 280V, pure copper windings, 1-year warranty. IGBT & SCR on custom order. VOLTEC — assembled in Lahore since 1995. Supplied to Chughtai Labs.",
   alternates: { canonical: "/medical" },
   openGraph: {
     type: "website",
-    title: "Power Protection for Medical & Aesthetic Clinics | Voltec",
+    title: "Voltage Stabilizers for Medical & Laser Equipment | Voltec",
     description:
-      "Solid-state (IGBT and SCR) power protection for clinic lasers, ultrasound and sensitive equipment — coming soon. Pre-order now, no payment.",
+      "Servo motor stabilizer specialists: steady 220V ±1%, high-voltage protection, pure copper. IGBT & SCR on custom order.",
     url: absUrl("/medical"),
-    // OWNER: add medical OG image when available — falls back to the site default card.
   },
 };
 
@@ -134,158 +90,118 @@ export default async function MedicalPage() {
             <Link href="/">{t("nav.home")}</Link> <span>/</span> <span>Solutions</span> <span>/</span>{" "}
             <span>Medical</span>
           </div>
-          <div className="med-eyebrow">For medical &amp; aesthetic clinics</div>
-          <h1>You spent millions on the machine. Protect it for a fraction of that.</h1>
-          <p className="page-lede" style={{ maxWidth: "60ch" }}>
-            One voltage spike or sag can damage a laser, ultrasound or diagnostic system you can&apos;t
-            easily replace. Voltec&apos;s solid-state protection — inverter (IGBT) and SCR thyristor —
-            stands between your equipment and the grid, correcting voltage faster than any motor-driven
-            servo.
+          <div className="med-eyebrow">Medical &amp; laser equipment · servo specialists</div>
+          <h1>Voltage stabilizers for medical and laser equipment</h1>
+          <p className="page-lede" style={{ maxWidth: "62ch" }}>
+            Your laser, ultrasound or dental unit cost lakhs. Pakistan&apos;s supply swings from a low evening
+            sag to a high-voltage spike when power returns. A VOLTEC servo motor stabilizer — assembled in Lahore — holds it at a
+            steady 220V ±1%, boosting low voltage and cutting high voltage, on pure copper windings. Chughtai Labs and
+            medical equipment importers already run on VOLTEC.
           </p>
           <div className="med-cta">
-            {/* OWNER: IGBT/SCR lines are hidden pre-launch — both CTAs route to us.
-                Restore the "/showcase/smart-inverter-voltage-stabilizer" spec link once live. */}
-            <a href={WA_ASSESS} target="_blank" rel="noopener" className="btn btn-wa">
-              <WhatsAppIcon /> <span>Book a clinic assessment</span>
-            </a>
-            <a href={WA_ASSESS} target="_blank" rel="noopener" className="btn btn-ghost">
-              Talk to our team →
-            </a>
+            <WhatsAppButton lead from="medical-hub" message={WA_ASSESS_TEXT}>
+              Send your machine model on WhatsApp
+            </WhatsAppButton>
+            <Link href="/medical/laser-machines" className="btn btn-ghost">
+              Laser machines →
+            </Link>
           </div>
-          <p style={{ marginTop: 18, maxWidth: "60ch", fontSize: 14, color: "var(--ink-2)" }}>
-            <strong>Coming soon.</strong> Our SCR range arrives first and the IGBT range follows.{" "}
-            <Link href="/pre-order">Pre-order now</Link> — no payment — or message us and we will tell you
-            what we can supply for your clinic today.
-          </p>
         </div>
       </section>
 
-      {/* ===== The risk ===== */}
+      {/* ===== By equipment ===== */}
       <section className="section hairline-top">
-        <div className="container med-narrow">
-          <h2 className="med-h2">The risk isn&apos;t frequent. It&apos;s expensive.</h2>
-          <p className="med-body">
-            Most days your power is fine. But it only takes one event — a spike when the grid switches
-            back after load-shedding, a deep sag when a heavy load kicks in next door — to damage the
-            power supply of an expensive machine. Repairs mean weeks of downtime and lost bookings.
-            Replacement can cost as much as the machine did. Protection costs a small fraction of either.
-          </p>
+        <div className="container">
+          <div className="med-narrow" style={{ marginBottom: 28 }}>
+            <h2 className="med-h2">Choose your equipment</h2>
+            <p className="med-body">Each page shows what to protect, the right size and the questions clinics ask us.</p>
+          </div>
+          <div className="med-sizes">
+            {MEDICAL_PAGES.map((p) => (
+              <Link key={p.slug} href={`/medical/${p.slug}`} className="med-vs-card is-win" style={{ textDecoration: "none", color: "inherit" }}>
+                <div className="med-vs-tag">{p.eyebrow}</div>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: 24, margin: "0 0 10px" }}>{p.nav}</h3>
+                <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.55, color: "var(--ink-2)" }}>{p.equipment.slice(0, 3).join(" · ")}</p>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* ===== Why a servo isn't enough ===== */}
+      {/* ===== High voltage ===== */}
       <section className="section" style={{ background: "var(--paper-2)" }}>
-        <div className="container">
-          <div className="med-narrow" style={{ marginBottom: 36 }}>
-            <h2 className="med-h2">Why the usual stabilizer can&apos;t protect a laser</h2>
-            <p className="med-body">
-              Most clinics rely on a servo (motor-driven) stabilizer. It works by physically turning a
-              motor to adjust voltage — which takes a fraction of a second. That&apos;s fine for an air
-              conditioner. But a laser fires in milliseconds. By the time the servo motor has moved, the
-              voltage event has already reached your machine. And the servo&apos;s motor and carbon brush
-              wear out over time — so the thing protecting your equipment can itself fail.
-            </p>
-          </div>
-          <div className="med-vs">
-            <div className="med-vs-card">
-              <div className="med-vs-tag is-muted">Servo (SVC) stabilizer</div>
-              <ul>
-                {SERVO_POINTS.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="med-vs-card is-win">
-              <div className="med-vs-tag">Voltec solid-state (IGBT &amp; SCR)</div>
-              <ul>
-                {SOLID_POINTS.map((p) => (
-                  <li key={p}>{p}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <p className="med-note">
-            No motor. No brushes. Nothing to wear out — so the protection itself doesn&apos;t fail when
-            you need it most.
+        <div className="container med-narrow">
+          <h2 className="med-h2">The danger most stabilizers miss: high voltage</h2>
+          <p className="med-body">
+            Everyone plans for low voltage. But when the grid comes back after load-shedding, or the load
+            on your transformer drops late at night, the line can jump to 260–280V — and that is what burns
+            power boards. Some stabilizers only boost low voltage. Every Voltec servo stabilizer also brings
+            high voltage back down to 220V, and its cutoff and time-delay restart keep the surge from ever
+            reaching your machine. Ask any seller one question: <em>what does it do at 270V?</em>
           </p>
         </div>
       </section>
 
-      {/* ===== Two ways to protect (IGBT & SCR) ===== */}
+      {/* ===== Why Voltec servo ===== */}
       <section className="section hairline-top">
         <div className="container">
-          <div className="med-narrow" style={{ marginBottom: 32 }}>
-            <h2 className="med-h2">Two ways to protect — both better than a servo</h2>
-            <p className="med-body">
-              Voltec offers two solid-state stabilizers, neither with a motor or brush to wear out. Both
-              protect sensitive equipment far better than a servo — we match the tier to your machine:
-              the inverter (IGBT) for the most sensitive, highest-precision equipment, and the SCR
-              thyristor for tier-1 sensitive machines like lasers.
-            </p>
+          <div className="med-narrow" style={{ marginBottom: 28 }}>
+            <h2 className="med-h2">Why clinics choose a Voltec servo motor stabilizer</h2>
           </div>
-          <div className="med-vs">
-            {SOLUTIONS.map((s) => (
-              <div className="med-vs-card is-win" key={s.slug}>
-                <div className="med-vs-tag">{s.tag}</div>
-                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: 24, margin: "0 0 14px", letterSpacing: "-0.01em" }}>
-                  {s.name}
-                </h3>
-                <ul>
-                  {s.points.map((p) => (
-                    <li key={p}>{p}</li>
-                  ))}
-                </ul>
-                {/* OWNER: link back to `/showcase/${s.slug}` once this line launches. */}
-                <a href={WA_ASSESS} target="_blank" rel="noopener" className="serve-cta" style={{ marginTop: 18 }}>
-                  Talk to us about the {s.name} <span className="arrow">→</span>
-                </a>
+          <div className="med-grid">
+            {SERVO_STRENGTHS.map((s) => (
+              <div className="med-grid-item" key={s.t} style={{ flexDirection: "column", gap: 6 }}>
+                <strong>{s.t}</strong>
+                <span style={{ color: "var(--ink-2)" }}>{s.d}</span>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ===== What it protects ===== */}
-      <section className="section">
+      {/* ===== Sizing ===== */}
+      <section className="section" style={{ background: "var(--paper-2)" }}>
         <div className="container">
           <div className="med-narrow" style={{ marginBottom: 28 }}>
-            <h2 className="med-h2">Built for the equipment a clinic actually runs</h2>
+            <h2 className="med-h2">What size do you need?</h2>
             <p className="med-body">
-              Voltec&apos;s solid-state protection — inverter (IGBT) and SCR thyristor — is sized for
-              single-phase clinical and aesthetic equipment, typically 1–15 kVA.
+              Machine rating in kVA (watts ÷ 0.8) + everything else on the same supply + 25%. Typical setups:
             </p>
           </div>
-          {/* OWNER: confirm this equipment list; do NOT add MRI/CT here. */}
-          <div className="med-grid">
-            {PROTECTS.map((item) => (
-              <div className="med-grid-item" key={item}>
-                <span className="med-check" aria-hidden="true">
-                  ✓
-                </span>
-                <span>{item}</span>
+          <div className="med-sizes">
+            {SIZES.map((s) => (
+              <div className="med-vs-card" key={s.use}>
+                <div className="med-size-kva">{s.kva}</div>
+                <p style={{ margin: 0, fontSize: 15, lineHeight: 1.5 }}>{s.use}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Solid-state custom order ===== */}
+      <section className="section hairline-top">
+        <div className="container">
+          <div className="med-narrow" style={{ marginBottom: 28 }}>
+            <h2 className="med-h2">{SOLID_STATE.title}</h2>
+            <p className="med-body">{SOLID_STATE.body}</p>
+          </div>
+          <div className="med-vs">
+            {SOLID_STATE.options.map((o) => (
+              <div className="med-vs-card" key={o.name}>
+                <div className="med-vs-tag is-muted">Custom order</div>
+                <h3 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: 24, margin: "0 0 14px" }}>{o.name}</h3>
+                <ul>
+                  {o.points.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>
           <p className="med-scope">
-            For large three-phase imaging systems like MRI and CT, power conditioning is specified by the
-            scanner manufacturer — that&apos;s a different class of system, and we&apos;ll tell you so
-            honestly rather than sell you the wrong thing.
-          </p>
-        </div>
-      </section>
-
-      {/* ===== How it works ===== */}
-      <section className="section" style={{ background: "var(--paper-2)" }}>
-        <div className="container med-narrow">
-          <h2 className="med-h2">How the protection works</h2>
-          <p className="med-body">
-            Voltec&apos;s inverter (IGBT) stabilizer continuously reads the incoming voltage and
-            electronically rebuilds a clean, steady output — stepless, with a pure sine-wave that
-            sensitive electronics expect. If anything inside ever faults, it safely bypasses so your
-            equipment is never left without power. It&apos;s the same technology principle as an inverter
-            air conditioner: smooth, electronic, efficient. The SCR thyristor option protects the same
-            solid-state way — correcting in fast steps, a lower-cost choice for tier-1 sensitive
-            equipment like laser machines.
+            Not sure which you need? We&apos;ll tell you honestly — most clinic equipment runs best on a servo.{" "}
+            <Link href="/medical/igbt-scr-custom-order">IGBT &amp; SCR custom order →</Link>
           </p>
         </div>
       </section>
@@ -350,7 +266,7 @@ export default async function MedicalPage() {
                   margin: 0,
                 }}
               >
-                Clinic owners <em>ask us</em>.
+                Clinics <em>ask us</em>.
               </h2>
             </div>
             <div className="faq-list">
@@ -372,15 +288,15 @@ export default async function MedicalPage() {
       <section className="why-band">
         <div className="container" style={{ textAlign: "center" }}>
           <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 400, fontSize: "clamp(30px,4vw,52px)", lineHeight: 1.05, margin: "0 0 14px" }}>
-            Protect the machine you can&apos;t afford to lose.
+            Tell us the machine. We&apos;ll size the protection.
           </h2>
           <p style={{ maxWidth: "52ch", margin: "0 auto 26px", fontSize: 16, lineHeight: 1.6, color: "oklch(85% 0.02 250 / 0.9)" }}>
-            Tell us what equipment you run. We&apos;ll assess it and recommend exactly what you need — no
-            overselling.
+            Send the machine model and your city on WhatsApp. Written recommendation and quote, 1-year
+            warranty, nationwide delivery.
           </p>
-          <a href={WA_ASSESS} target="_blank" rel="noopener" className="btn btn-wa" style={{ display: "inline-flex" }}>
-            <WhatsAppIcon /> <span>Book a clinic assessment</span>
-          </a>
+          <WhatsAppButton lead from="medical-hub-footer" message={WA_ASSESS_TEXT}>
+            WhatsApp Voltec
+          </WhatsAppButton>
         </div>
       </section>
     </main>

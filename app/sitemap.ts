@@ -1,3 +1,4 @@
+import { MEDICAL_PAGES } from "@/lib/medical-pages";
 import type { MetadataRoute } from "next";
 import { PRODUCTS } from "@/lib/products";
 import { FAMILIES, isProductInHiddenFamily } from "@/lib/showcase-data";
@@ -26,7 +27,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // of the live Google Search campaign. Never drop a real route from this list.
     { url: absUrl("/industrial"), lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: absUrl("/solar"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
-    { url: absUrl("/medical"), lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: absUrl("/medical"), lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    ...MEDICAL_PAGES.map((m) => ({ url: absUrl(`/medical/${m.slug}`), lastModified: now, changeFrequency: "monthly" as const, priority: 0.8 })),
     // Pre-order page for the coming-soon solid-state (SCR + IGBT) range.
     { url: absUrl("/pre-order"), lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: absUrl("/blog"), lastModified: now, changeFrequency: "weekly", priority: 0.7 },
