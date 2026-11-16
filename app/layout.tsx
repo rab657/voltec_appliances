@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter_Tight, JetBrains_Mono } from "next/font/google";
+// Fonts are self-hosted (app/fonts/, latin subset from Google Fonts) so the build never
+// downloads from Google — Vercel builds failed twice on 2026-11-16 when that fetch failed.
+import localFont from "next/font/local";
 import "../styles/styles.css";
 import "./globals.css";
 import { cookies } from "next/headers";
@@ -9,24 +11,28 @@ import { I18nProvider } from "@/components/I18nProvider";
 import Analytics from "@/components/Analytics";
 import JsonLd from "@/components/JsonLd";
 
-const display = Instrument_Serif({
-  weight: "400",
-  style: ["normal", "italic"],
-  subsets: ["latin"],
+const display = localFont({
+  src: [
+    { path: "./fonts/InstrumentSerif-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/InstrumentSerif-Italic.woff2", weight: "400", style: "italic" },
+  ],
   variable: "--f-display",
   display: "swap",
+  adjustFontFallback: "Times New Roman",
 });
 
-const ui = Inter_Tight({
-  weight: ["400", "500", "600"],
-  subsets: ["latin"],
+const ui = localFont({
+  src: "./fonts/InterTight-Variable.woff2",
+  weight: "100 900",
+  style: "normal",
   variable: "--f-ui",
   display: "swap",
 });
 
-const mono = JetBrains_Mono({
-  weight: ["400", "500"],
-  subsets: ["latin"],
+const mono = localFont({
+  src: "./fonts/JetBrainsMono-Variable.woff2",
+  weight: "100 800",
+  style: "normal",
   variable: "--f-mono",
   display: "swap",
 });
