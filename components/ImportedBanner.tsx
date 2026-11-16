@@ -2,10 +2,8 @@
 import Link from "next/link";
 import { useI18n } from "./I18nProvider";
 
-// Top-of-page announcement (user, 2026-09-18: "play the IMPORTED card"). The servo
-// (SVC), inverter (IGBT) and SCR stabilizers and the EVE cells are imported; the AVR
-// relay A-series is Voltec's own, made in Pakistan — the muted second clause says so.
-// Roots stay in Lahore (the utility strip below keeps "Lahore · Since 1995").
+// Top-of-page positioning line (Raheel, 2026-11-16): "Manufacturer & importer of voltage
+// stabilizers and lithium cells." Supersedes the 2026-09-18 "IMPORTED" banner.
 export default function ImportedBanner() {
   const { t } = useI18n();
   return (
