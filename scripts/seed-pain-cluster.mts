@@ -66,9 +66,8 @@ const posts = [
     readTime: 6,
     excerpt:
       "\"AC input voltage out of range\" means the grid voltage left the window your hybrid inverter accepts. Here is why it happens, when a stabilizer fixes it, and when it does not.",
-    metaTitle: "Inverter Tripping on Low/High Voltage: Causes & Fix",
-    metaDescription:
-      "Why hybrid solar inverters show \"AC input voltage out of range\" and drop the grid — the settings to check, when a stabilizer fixes it, and when it won't.",
+    metaTitle: "Inverter Tripping on Low or High Voltage? Causes & How to Fix It",
+    metaDescription: "Inverter keeps tripping on low or high voltage? The settings to check first, a quick fix to try today, and when a stabilizer stops it for good.",
     keywords: [
       "inverter tripping low voltage",
       "ac input voltage out of range",
@@ -89,7 +88,8 @@ const posts = [
       "A stabilizer will not fix trips caused by overload, battery faults, frequency problems or a loose connection.",
       "Size the stabilizer above the inverter's AC input load. As a guide, Voltec pairs a 10 kVA servo with a 6–8 kVA inverter and 15 kVA with a 10 kVA inverter.",
     ],
-    body: `
+    body: `<div class="callout"><div class="c-label">Quick fix</div><div>1. Set the inverter to its widest AC input range (on many hybrid inverters this is the &ldquo;APL&rdquo; / appliance input mode, not &ldquo;UPS&rdquo;). 2. Check the voltage at the inverter input in the evening. 3. If it still goes below or above the inverter&apos;s range, put a servo stabilizer on the inverter&apos;s AC input &mdash; see the <a href="/voltage-stabilizer-price-in-pakistan">servo stabilizer price in Pakistan</a>.</div></div>
+
 <p><strong>Your hybrid solar inverter trips because the grid voltage has gone outside the range it is set to accept, so it disconnects from WAPDA to protect itself and your load.</strong> The fix is to first widen the inverter's input-range setting, and if the grid still goes too low or too high, put a voltage stabilizer on the inverter's AC input so it always sees a steady 220V. A stabilizer will not help if the trip is caused by overload, the battery or a wiring fault.</p>
 
 <h2>What does "AC input voltage out of range" mean?</h2>
@@ -108,6 +108,8 @@ const posts = [
 
 <h2>When does a stabilizer fix inverter tripping?</h2>
 <p>When the grid voltage itself goes outside the inverter's window and the setting is already as wide as your load allows. The stabilizer sits between the grid and the inverter's AC input. It takes the swinging grid voltage and gives the inverter a steady 220V, so the inverter stays on grid, keeps charging and stops clicking over.</p>
+
+<div class="callout"><div class="c-label">Stop the tripping for good</div><div>See sizes for home and solar inverters on the <a href="/voltage-stabilizer-price-in-pakistan">voltage stabilizer price list</a>, then send your inverter model on WhatsApp for today&apos;s price.</div></div>
 
 <h2>Which type of stabilizer is right for a solar inverter?</h2>
 <div class="table-scroll"><table>
@@ -164,7 +166,7 @@ ${CTA(WA_INVERTER, "Tell us your inverter model and size, and send a photo of th
     readTime: 6,
     excerpt:
       "A burnt motor or control board after a voltage spike is painful. Here is what to do in the first hour, how to find the real cause, and what protection stops it next time.",
-    metaTitle: "Machine Burnt Due to High Voltage: What to Do Next",
+    metaTitle: "Machine Burnt by High Voltage? What to Do & How to Prevent It",
     metaDescription:
       "Motor or machine burnt from high voltage? Steps to take now, how to find the real cause (high volts, low volts, phase failure, neutral), and how to prevent it.",
     keywords: [

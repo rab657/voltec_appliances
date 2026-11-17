@@ -506,7 +506,7 @@ ${RANGE_CALLOUT}
     readTime: 6,
     excerpt:
       "You have decided to skip the motor. Good. Now the real choice: SCR or IGBT. Both are solid-state, but they work differently, cost differently and suit different machines.",
-    metaTitle: "SCR vs IGBT Stabilizer: Which Solid-State Type? (2026)",
+    metaTitle: "SCR vs IGBT Stabilizer: Which Is Better? (Simple Comparison)",
     metaDescription:
       "Both have no moving parts. SCR switches taps in about 20 ms and holds ±5%; IGBT builds a pure sine at ±2% from 90V. How to pick between them.",
     keywords: [
@@ -604,6 +604,8 @@ ${RANGE_CALLOUT}
 
 <p>Send us two things on WhatsApp: a photo of your machine's nameplate (or your appliance list), and your lowest evening voltage. We will tell you which one you need — and if the SCR is enough, we will say so.</p>
 ${RANGE_CALLOUT}
+
+<p>Need an SCR or IGBT stabilizer for a medical or laser machine? See our <a href="/medical/igbt-scr-custom-order">IGBT &amp; SCR custom order for medical equipment</a>.</p>
 `,
     faqs: [
       {
@@ -733,6 +735,8 @@ ${RANGE_CALLOUT}
 <p>The Voltec SCR range is imported and coming soon — the first shipment is on its way to Lahore. It is not in stock yet, but you can reserve one on the <a href="/pre-order">pre-order form</a>. It will be backed by our own service team. For the bigger picture, read our <a href="/blog/solid-state-voltage-stabilizer">guide to solid-state stabilizers</a>.</p>
 
 <div class="callout"><div class="c-label">Ask about SCR</div><div>WhatsApp <a href="${WA_SCR}">+92 321 1644447</a> with your machine nameplate or appliance list. We will size it now and tell you when the SCR range arrives.</div></div>
+
+<p>Need an SCR or IGBT stabilizer for a medical or laser machine? See our <a href="/medical/igbt-scr-custom-order">IGBT &amp; SCR custom order for medical equipment</a>.</p>
 `,
     faqs: [
       {
@@ -1143,6 +1147,8 @@ ${RANGE_CALLOUT}
 <p>Both Voltec solid-state ranges are coming soon: the <strong>SCR range</strong> from 1 to 10 kVA (first shipment on its way) and the <strong>IGBT range</strong> from 550VA to 20 kVA. Neither is in stock yet — reserve yours on the <a href="/pre-order">pre-order form</a>. Three-phase servo systems for larger machines are available now. We size from your nameplates, quote in writing, and back what we sell with our own service team. Clinic owners can also see our <a href="/medical">medical power protection page</a>. For background, read <a href="/blog/scr-vs-igbt-stabilizer">SCR vs IGBT</a> and our <a href="/blog/solid-state-voltage-stabilizer">solid-state guide</a>.</p>
 
 <div class="callout"><div class="c-label">Send your nameplate</div><div>WhatsApp <a href="${WA_MACHINE}">+92 321 1644447</a> a photo of your machine's nameplate (and the chiller or pump that runs with it), plus your lowest evening voltage. We reply with the right type and size, and what we can supply today.</div></div>
+
+<p>Sizing for a specific machine: see <a href="/medical/laser-machines">stabilizers for laser machines</a> and <a href="/medical/laboratory-hospital">stabilizers for labs and hospitals</a>.</p>
 `,
     faqs: [
       {
