@@ -717,7 +717,7 @@ export const FAMILIES: FamilyMeta[] = [
   {
     slug: "svc",
     key: "stab-svc",
-    seoTitle: "Servo Voltage Stabilizer Price in Pakistan — 1 to 30 kVA SVC",
+    seoTitle: "Servo Stabilizer SVC Series: Specs, Models & Features (1–30 kVA)",
     seoDescription:
       "Imported servo motor (SVC) stabilizers from 1 kVA to 30 kVA for homes, shops and solar inverters. Pure copper windings, wide input range, 1-year warranty.",
     name: "Servo Motor Stabilizers (SVC)",

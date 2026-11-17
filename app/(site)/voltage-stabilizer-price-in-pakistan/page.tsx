@@ -66,6 +66,18 @@ const FAQS: { q: string; a: string }[] = [
     q: "Which size stabilizer do I need?",
     a: "For one AC, use the A-100. For a home with one inverter AC, a fridge and lights, about 5 kVA. For two ACs and the rest of the house, 10 kVA. For a full home with a geyser, motors and two or three ACs, 15 kVA. For a solar inverter: 10 kVA for a 6–8 kVA inverter, 15 kVA for a 10 kVA inverter. If you are not sure, send your appliance list on WhatsApp and we will size it.",
   },
+  {
+    q: "What is a servo stabilizer, and is it better than a relay stabilizer?",
+    a: "A servo (SVC) stabilizer uses a small motor to move a carbon brush over a copper winding, so it corrects voltage smoothly and holds 220V within about ±1%. A relay stabilizer corrects in steps. For a whole home, a solar inverter, clinic machines or a CNC, choose servo; for one AC, the A-100 relay stabilizer is enough.",
+  },
+  {
+    q: "What is the servo motor stabilizer price in Pakistan?",
+    a: "It depends on the size (1 to 30 kVA single-phase, 20 kVA and up three-phase) and on how low your voltage drops. Send your load or machine model and your lowest voltage on WhatsApp +92 321 1644447 and we send today's price in writing. Every Voltec servo stabilizer has a 1-year warranty.",
+  },
+  {
+    q: "Does a servo stabilizer protect from high voltage too?",
+    a: "Yes. A Voltec servo stabilizer brings high voltage back down to 220V as well as boosting low voltage, and cuts off above its limit to protect your machines.",
+  },
 ];
 
 const TITLE = "Voltage Stabilizer Price in Pakistan (2026) — AC, Servo & 3-Phase";

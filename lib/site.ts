@@ -126,7 +126,9 @@ export const VOLTEC_ORG = {
     "PCB power relays",
     "Voltage fluctuation and load-shedding in Pakistan",
   ],
-  sameAs: [] as string[],
+  // Official profiles — tells Google these accounts are the same business (brand query "voltec").
+  // Add Instagram / LinkedIn / YouTube here once their URLs are confirmed.
+  sameAs: ["https://www.facebook.com/voltecpakistan"] as string[],
 };
 
 // The physical Abid Market showroom, as a LocalBusiness node.

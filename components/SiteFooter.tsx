@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { SITE } from "@/lib/site";
+import { MEDICAL_PAGES } from "@/lib/medical-pages";
 import { getT } from "@/lib/i18n-server";
 
 export default async function SiteFooter() {
@@ -32,6 +33,21 @@ export default async function SiteFooter() {
               <li>
                 <Link href="/products?cat=parts">{t("foot.parts")}</Link>
               </li>
+              <li>
+                <Link href="/voltage-stabilizer-price-in-pakistan">Stabilizer price list</Link>
+              </li>
+            </ul>
+          </div>
+          {/* Site-wide internal links to the medical cluster (2026-11-18): Google had not
+              found the /medical/[slug] pages because nothing linked to them. */}
+          <div>
+            <h4>Medical equipment</h4>
+            <ul>
+              {MEDICAL_PAGES.map((p) => (
+                <li key={p.slug}>
+                  <Link href={`/medical/${p.slug}`}>{p.nav}</Link>
+                </li>
+              ))}
             </ul>
           </div>
           <div>
